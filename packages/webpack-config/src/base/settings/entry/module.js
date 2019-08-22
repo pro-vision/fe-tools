@@ -1,9 +1,10 @@
 import { resolve } from 'path';
+import { appPath } from '../../../helper/paths';
 
 export const moduleEntrySettings = {
   entry: {
     "app": [
-      resolve("src/js/index.ts")
+      resolve(appPath, "src/js/index.ts")
     ],
   }
 };

@@ -1,9 +1,10 @@
 import { resolve } from 'path';
+import { appPath } from '../../../helper/paths';
 
 export const legacyEntrySettings = {
   entry: {
     "app": [
-      resolve("src/js/legacyIndex.ts")
+      resolve(appPath, "src/js/legacyIndex.ts")
     ],
   }
 };

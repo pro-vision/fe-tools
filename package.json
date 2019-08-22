@@ -7,7 +7,7 @@
     "build": "lerna run build",
     "test": "lerna run test",
     "bootstrap": "lerna bootstrap",
-    "add": "lerna add @pro-vision/webpack-config --scope=@pro-vision/cli"
+    "add": "lerna add @pro-vision/pv-scripts --scope=test-pack"
   },
   "devDependencies": {
     "lerna": "^3.16.4",

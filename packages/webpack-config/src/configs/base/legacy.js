@@ -14,7 +14,7 @@ import { loadSVGs } from './tasks/loadSVGs';
 import { compileShadowCSS } from './tasks/compileShadowCSS';
 import { loadHandlebars } from './tasks/loadHandlebars';
 
-export const baseConfigLegacy = merge(
+export const defaultConfigLegacy = merge(
   legacyEntrySettings,
   legacyOutputSettings,
   contextSettings,

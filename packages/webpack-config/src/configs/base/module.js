@@ -13,7 +13,7 @@ import { loadSVGs } from './tasks/loadSVGs';
 import { compileShadowCSS } from './tasks/compileShadowCSS';
 import { loadHandlebars } from './tasks/loadHandlebars';
 
-export const baseConfigModule = merge(
+export const defaultConfigModule = merge(
   moduleEntrySettings,
   moduleOutputSettings,
   contextSettings,

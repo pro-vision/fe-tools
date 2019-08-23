@@ -1,7 +1,7 @@
 import merge from 'webpack-merge';
 
 // Base Config
-import { baseConfigModule } from '../base/module';
+import { defaultConfigModule } from '../base/module';
 
 // Settings
 import { basicSettings } from './settings/basicSettings';
@@ -12,7 +12,7 @@ import { devServerSettings } from './settings/devServerSettings';
 import { moduleCompileCSS } from './tasks/compileCSS/module'
 
 export const devConfigModule = merge(
-  baseConfigModule,
+  defaultConfigModule,
   basicSettings,
   outputSettings,
   devServerSettings,

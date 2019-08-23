@@ -1,13 +1,13 @@
-import { baseConfig } from '../../base.config';
+import { defaultConfig } from '../../default.configs';
 
 export const devServerSettings = {
   devServer: {
     host: "0.0.0.0",
-    contentBase: baseConfig.paths.target,
+    contentBase: defaultConfig.paths.target,
     publicPath: "/",
     open: false,
     hot: true,
-    port: baseConfig.feServerPort,
+    port: defaultConfig.devServerPort,
     watchContentBase: true
   }
 };

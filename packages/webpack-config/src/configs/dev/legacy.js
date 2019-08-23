@@ -1,7 +1,7 @@
 import merge from 'webpack-merge';
 
 // Base Config
-import { baseConfigLegacy } from '../base/legacy';
+import { defaultConfigLegacy } from '../base/legacy';
 
 // Settings
 import { basicSettings } from './settings/basicSettings';
@@ -12,7 +12,7 @@ import { devServerSettings } from './settings/devServerSettings';
 import { legacyCompileCSS } from './tasks/compileCSS/legacy';
 
 export const devConfigLegacy = merge(
-  baseConfigLegacy,
+  defaultConfigLegacy,
   basicSettings,
   outputSettings,
   devServerSettings,

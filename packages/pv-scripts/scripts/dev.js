@@ -35,12 +35,14 @@ const compiler = getCompiler({
   webpack,
 });
 
-const devServer = new WebpackDevServer(compiler, webpackConfig[0].devServer);
+const devServerConfig = webpackConfig[0].devServer;
+
+const devServer = new WebpackDevServer(compiler, devServerConfig);
 
 // console.log('dss', webpackConfig[0].devServer);
 
 // Launch WebpackDevServer.
-devServer.listen(8616, 'localhost', err => {
+devServer.listen(devServerConfig.port, 'localhost', err => {
   if (err) {
     return console.log(err);
   }

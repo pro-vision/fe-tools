@@ -1,15 +1,16 @@
-import { defaultConfig } from '../../default.configs';
+
+import { getAppConfig } from '../../../helpers/paths';
 
 export const devServerSettings = {
   devServer: {
     host: "0.0.0.0",
-    contentBase: defaultConfig.paths.target,
+    contentBase: getAppConfig().destPath,
     publicPath: "/",
     open: false,
     hot: true,
     quiet: true,
     clientLogLevel: 'none',
-    port: defaultConfig.devServerPort,
+    port: getAppConfig().devServerPort,
     watchContentBase: true
   }
 };

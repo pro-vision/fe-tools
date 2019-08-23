@@ -1,4 +1,4 @@
-import { resolve } from 'path';
+
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 export const compileCSS = {

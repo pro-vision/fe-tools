@@ -7,6 +7,8 @@ export const devServerSettings = {
     publicPath: "/",
     open: false,
     hot: true,
+    quiet: true,
+    clientLogLevel: 'none',
     port: defaultConfig.devServerPort,
     watchContentBase: true
   }

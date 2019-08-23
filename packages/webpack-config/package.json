@@ -19,7 +19,7 @@
   },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
-    "build": "rollup src/webpack.config.js --file lib/webpack-config.js --format cjs"
+    "build": "rollup src/configs/webpack.config.js --file lib/webpack-config.js --format cjs"
   },
   "devDependencies": {
     "extract-css-chunks-webpack-plugin": "^4.6.0",

@@ -1,5 +1,5 @@
 import { resolve } from 'path';
-import { appPath } from '../../../helper/paths';
+import { appPath } from '../../../../helpers/paths';
 
 export const legacyEntrySettings = {
   entry: {

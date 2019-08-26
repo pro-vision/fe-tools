@@ -1,9 +1,9 @@
 import { join } from 'path';
-import { appSrc } from '../../../../helpers/paths';
+import { appSrc, appName } from '../../../../helpers/paths';
 
 export const legacyEntrySettings = {
   entry: {
-    'app': [
+    [appName]: [
       join(appSrc, 'js/legacyIndex.ts')
     ],
   }

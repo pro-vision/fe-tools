@@ -28,8 +28,17 @@ export const getAppConfig = () => {
   return config;
 };
 
-export const publicPath = process.env.PUBLIC_PATH || '';
+export const publicPath = process.env.PUBLIC_PATH || '/';
 
 export const appPath = resolveApp('.');
 export const appSrc = resolveApp(config.srcPath);
 export const appTarget = resolveApp(config.destPath);
+
+const getAppName = () => {
+  const { namespace } = getAppConfig();
+  if (namespace ==='') return 'app';
+  
+  return `${namespace}.app`;
+}
+
+export const appName = getAppName();

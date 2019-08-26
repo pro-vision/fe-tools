@@ -1,6 +1,8 @@
+import { publicPath } from '../../../helpers/paths';
+
 export const outputSettings = {
   output: {
-    publicPath: '/etc/clientlibs/project/fe.app/',
+    publicPath: publicPath,
     chunkFilename: 'chunks/[name].[hash].js',
   }
 };

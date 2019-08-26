@@ -1,3 +1,5 @@
+const path = require('path');
+
 export const compileLitHTML = {
   module: {
     rules: [
@@ -16,7 +18,24 @@ export const compileLitHTML = {
                 },
               ],
             ],
-            plugins: [[require.resolve('@babel/plugin-transform-runtime')]],
+            plugins: [
+              [
+                require.resolve('@babel/plugin-proposal-decorators'), 
+                {
+                  legacy: true 
+                }
+              ],
+              [
+                require.resolve('@babel/plugin-transform-runtime'),
+                {
+                  corejs: false,
+                  regenerator: true,
+                  useESModules: false,
+                  helpers: false,
+                  absoluteRuntime: path.dirname(require.resolve('@babel/runtime/package.json')),
+                },
+              ],
+            ],
           },
         },
       },

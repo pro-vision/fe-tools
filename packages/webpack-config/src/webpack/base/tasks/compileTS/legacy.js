@@ -1,3 +1,5 @@
+const path = require('path');
+
 export const legacyCompileTS = {
   module: {
     rules: [
@@ -17,10 +19,20 @@ export const legacyCompileTS = {
                 require.resolve('@babel/preset-typescript')
               ],
               plugins: [
-                [require.resolve('@babel/plugin-proposal-decorators'), {
+                [
+                  require.resolve('@babel/plugin-proposal-decorators'), {
                   legacy: true 
                 }],
-                require.resolve('@babel/plugin-transform-runtime'),
+                [
+                  require.resolve('@babel/plugin-transform-runtime'),
+                  {
+                    corejs: false,
+                    regenerator: true,
+                    useESModules: false,
+                    helpers: false,
+                    absoluteRuntime: path.dirname(require.resolve('@babel/runtime/package.json')),
+                  },
+                ],
                 require.resolve('@babel/plugin-transform-async-to-generator'),
                 require.resolve('@babel/plugin-syntax-dynamic-import'),
                 require.resolve('@babel/plugin-proposal-class-properties'),

@@ -21,13 +21,14 @@ const WebpackDevServer = require('webpack-dev-server');
 const webpackMerge = require('webpack-merge');
 const clearConsole = require('react-dev-utils/clearConsole');
 
-const { getConfig, getCustomWebpackConfig } = require('@pro-vision/webpack-config');
+const { getConfig, getCustomWebpackConfig, getCustomWebpackDevConfig } = require('@pro-vision/webpack-config');
 
 const { getCompiler } = require('../helpers/devServerHelpers');
 
 const customWebpackConfig = getCustomWebpackConfig();
+const customWebpackDevConfig = getCustomWebpackDevConfig();
 
-const webpackConfig = getConfig('development').map(defaultConfig => webpackMerge(defaultConfig, customWebpackConfig));
+const webpackConfig = getConfig('development').map(defaultConfig => webpackMerge(defaultConfig, customWebpackConfig, customWebpackDevConfig));
 
 const isInteractive = process.stdout.isTTY;
 

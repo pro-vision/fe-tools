@@ -46,6 +46,44 @@ export const getCustomWebpackConfig= () => {
   return customWebpackConfig;
 };
 
+// try to load webpack.config.dev.js
+let customWebpackDevConfig;
+const customWebpackDevConfigPath = resolveApp('webpack.config.dev.js');
+const customWebpackDevConfigExists = existsSync(customWebpackDevConfigPath);
+
+if (customWebpackDevConfigExists) {
+  try {
+    console.log("Custom Webpack Dev Config detected.")
+    customWebpackDevConfig = require(customWebpackDevConfigPath);
+  }
+  catch {
+    customWebpackDevConfig = {};
+  }
+}
+
+export const getCustomWebpackDevConfig= () => {
+  return customWebpackDevConfig;
+};
+
+// try to load webpack.config.prod.js
+let customWebpackProdConfig;
+const customWebpackProdConfigPath = resolveApp('webpack.config.prod.js');
+const customWebpackProdConfigExists = existsSync(customWebpackProdConfigPath);
+
+if (customWebpackProdConfigExists) {
+  try {
+    console.log("Custom Webpack Prod Config detected.")
+    customWebpackProdConfig = require(customWebpackProdConfigPath);
+  }
+  catch {
+    customWebpackProdConfig = {};
+  }
+}
+
+export const getCustomWebpackProdConfig= () => {
+  return customWebpackProdConfig;
+};
+
 export const publicPath = process.env.PUBLIC_PATH || '/';
 
 export const appPath = resolveApp('.');

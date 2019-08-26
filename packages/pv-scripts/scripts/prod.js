@@ -16,11 +16,12 @@ const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 const printBuildError = require('react-dev-utils/printBuildError');
-const { getConfig, getCustomWebpackConfig } = require('@pro-vision/webpack-config');
+const { getConfig, getCustomWebpackConfig, getCustomWebpackProdConfig } = require('@pro-vision/webpack-config');
 
 const customWebpackConfig = getCustomWebpackConfig();
+const customWebpackProdConfig = getCustomWebpackProdConfig();
 
-const webpackConfig = getConfig('production').map(defaultConfig => webpackMerge(defaultConfig, customWebpackConfig));
+const webpackConfig = getConfig('production').map(defaultConfig => webpackMerge(defaultConfig, customWebpackConfig, customWebpackProdConfig));
 
 webpackBuild()
   .then(

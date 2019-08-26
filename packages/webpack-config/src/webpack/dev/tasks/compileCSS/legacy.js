@@ -10,9 +10,6 @@ export const legacyCompileCSS = {
         use: [
           {
             loader: require.resolve('style-loader'),
-            options: {
-              singleton: true, // Necessary for Galen
-            }
           },
           {
             loader: require.resolve('css-loader'),

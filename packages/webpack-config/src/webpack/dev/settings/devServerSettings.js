@@ -3,9 +3,9 @@ import { getAppConfig } from '../../../helpers/paths';
 
 export const devServerSettings = {
   devServer: {
-    host: "0.0.0.0",
+    host: '0.0.0.0',
     contentBase: getAppConfig().destPath,
-    publicPath: "/",
+    publicPath: '/',
     open: false,
     hot: true,
     quiet: true,

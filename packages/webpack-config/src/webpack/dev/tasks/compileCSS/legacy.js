@@ -9,13 +9,13 @@ export const legacyCompileCSS = {
         exclude: /\.shadow\.scss$/, // exclude shadow css, for them to be included raw
         use: [
           {
-            loader: require.resolve("style-loader"),
+            loader: require.resolve('style-loader'),
             options: {
               singleton: true, // Necessary for Galen
             }
           },
           {
-            loader: require.resolve("css-loader"),
+            loader: require.resolve('css-loader'),
           },
           {
             loader: require.resolve('postcss-loader'),
@@ -28,7 +28,7 @@ export const legacyCompileCSS = {
             }
           },
           {
-            loader: require.resolve("sass-loader"),
+            loader: require.resolve('sass-loader'),
             options: {
               sourceMap: true
             }

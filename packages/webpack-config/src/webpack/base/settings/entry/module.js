@@ -3,7 +3,7 @@ import { appSrc } from '../../../../helpers/paths';
 
 export const moduleEntrySettings = {
   entry: {
-    "app": [
+    'app': [
       join(appSrc, 'js/index.ts'),
       join(appSrc, 'styles/main.scss'),
     ],

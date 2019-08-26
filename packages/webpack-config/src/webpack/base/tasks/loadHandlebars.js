@@ -4,7 +4,7 @@ export const loadHandlebars = {
       {
         test: /\.hbs/,
         use: [{
-          loader: require.resolve("handlebars-loader"),
+          loader: require.resolve('handlebars-loader'),
         }]
       }
     ],

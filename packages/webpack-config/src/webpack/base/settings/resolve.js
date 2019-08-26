@@ -4,7 +4,7 @@ import { appPath } from '../../../helpers/paths';
 export const resolveSettings = {
   resolve : {
     // Add `.ts` as a resolvable extension.
-    extensions: [".ts", ".js"],
+    extensions: ['.ts', '.js'],
     alias: {
       SRC: resolve(appPath, 'src/'),
       JS: resolve(appPath, 'src/js/'),

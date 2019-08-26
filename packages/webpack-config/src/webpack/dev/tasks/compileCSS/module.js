@@ -13,7 +13,7 @@ export const moduleCompileCSS = {
             loader: ExtractCssChunks.loader
           },
           {
-            loader: require.resolve("css-loader"),
+            loader: require.resolve('css-loader'),
           },
           {
             loader: require.resolve('postcss-loader'),
@@ -26,7 +26,7 @@ export const moduleCompileCSS = {
             }
           },
           {
-            loader: require.resolve("sass-loader"),
+            loader: require.resolve('sass-loader'),
             options: {
               sourceMap: true
             }
@@ -39,8 +39,8 @@ export const moduleCompileCSS = {
   plugins: [
     new ExtractCssChunks(
       {
-        filename: "css/[name].css",
-        chunkFilename: "css/[id].css"
+        filename: 'css/[name].css',
+        chunkFilename: 'css/[id].css'
       }
     ),
     new HotModuleReplacementPlugin(),

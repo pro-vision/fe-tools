@@ -3,8 +3,8 @@ import { appSrc } from '../../../../helpers/paths';
 
 export const legacyEntrySettings = {
   entry: {
-    "app": [
-      join(appSrc, "js/legacyIndex.ts")
+    'app': [
+      join(appSrc, 'js/legacyIndex.ts')
     ],
   }
 };

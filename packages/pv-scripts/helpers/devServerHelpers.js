@@ -8,7 +8,7 @@ function getCompiler({
   webpackConfig,
   webpack,
 }) {
-  // "Compiler" is a low-level interface to Webpack.
+  // 'Compiler' is a low-level interface to Webpack.
   // It lets us listen to some events and provide our own custom messages.
   
   let compiler;
@@ -23,10 +23,10 @@ function getCompiler({
     process.exit(1);
   }
 
-  // "invalid" event fires when you have changed a file, and Webpack is
+  // 'invalid' event fires when you have changed a file, and Webpack is
   // recompiling a bundle. WebpackDevServer takes care to pause serving the
   // bundle, so if you refresh, it'll wait instead of serving the old one.
-  // "invalid" is short for "bundle invalidated", it doesn't imply any errors.
+  // 'invalid' is short for 'bundle invalidated', it doesn't imply any errors.
   compiler.hooks.invalid.tap('invalid', () => {
     if (isInteractive) {
       clearConsole();
@@ -35,7 +35,7 @@ function getCompiler({
   });
 
 
-  // "done" event fires when Webpack has finished recompiling the bundle.
+  // 'done' event fires when Webpack has finished recompiling the bundle.
   // Whether or not you have warnings or errors, you will get this event.
   compiler.hooks.done.tap('done', async stats => {
     if (isInteractive) {

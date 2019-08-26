@@ -3,9 +3,9 @@
 import { resolve } from 'path';
 import { realpathSync, existsSync } from 'fs';
 
-import { defaultConfig } from '../webpack/default.configs';
+import { defaultConfig } from '../config/default.config';
 
-let config = defaultConfig;
+let config;
 
 const appDirectory = realpathSync(process.cwd());
 
@@ -17,10 +17,10 @@ const customConfigExists = existsSync(customConfigPath);
 if (customConfigExists) {
   try {
     const pvConfig = require(customConfigPath);
-    config = {...config, ...pvConfig};
+    config = {...defaultConfig, ...pvConfig};
   }
   catch {
-    console.log('test');
+    config = defaultConfig;
   }
 }
 

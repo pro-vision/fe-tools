@@ -13,11 +13,14 @@ process.on('unhandledRejection', err => {
 
 const chalk = require('chalk');
 const webpack = require('webpack');
+const webpackMerge = require('webpack-merge');
 const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 const printBuildError = require('react-dev-utils/printBuildError');
-const getConfig = require('@pro-vision/webpack-config');
+const { getConfig, getCustomWebpackConfig } = require('@pro-vision/webpack-config');
 
-const webpackConfig = getConfig('production');
+const customWebpackConfig = getCustomWebpackConfig();
+
+const webpackConfig = getConfig('production').map(defaultConfig => webpackMerge(defaultConfig, customWebpackConfig));
 
 webpackBuild()
   .then(

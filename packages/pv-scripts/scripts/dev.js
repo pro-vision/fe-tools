@@ -18,13 +18,16 @@ process.on('unhandledRejection', err => {
 const chalk = require('chalk');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
+const webpackMerge = require('webpack-merge');
 const clearConsole = require('react-dev-utils/clearConsole');
 
-const getConfig = require('@pro-vision/webpack-config');
+const { getConfig, getCustomWebpackConfig } = require('@pro-vision/webpack-config');
 
 const { getCompiler } = require('../helpers/devServerHelpers');
 
-const webpackConfig = getConfig('development');
+const customWebpackConfig = getCustomWebpackConfig();
+
+const webpackConfig = getConfig('development').map(defaultConfig => webpackMerge(defaultConfig, customWebpackConfig));
 
 const isInteractive = process.stdout.isTTY;
 

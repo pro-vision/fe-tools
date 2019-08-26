@@ -32,6 +32,7 @@
     "cross-spawn": "^6.0.5",
     "react-dev-utils": "^9.0.3",
     "webpack": "^4.39.2",
-    "webpack-dev-server": "^3.8.0"
+    "webpack-dev-server": "^3.8.0",
+    "webpack-merge": "^4.2.1"
   }
 }

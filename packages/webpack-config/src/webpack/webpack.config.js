@@ -19,4 +19,4 @@ export const getConfig = (runMode) => {
   ];
 };
 
-export { getCustomWebpackConfig, getCustomWebpackDevConfig, getCustomWebpackProdConfig } from '../helpers/paths';
+export { getCustomWebpackConfig } from '../helpers/paths';

@@ -21,45 +21,49 @@ const WebpackDevServer = require('webpack-dev-server');
 const webpackMerge = require('webpack-merge');
 const clearConsole = require('react-dev-utils/clearConsole');
 
-const { getConfig, getCustomWebpackConfig, getCustomWebpackDevConfig } = require('@pro-vision/webpack-config');
+const { getConfig, getCustomWebpackConfig } = require('@pro-vision/webpack-config');
 
 const { getCompiler } = require('../helpers/devServerHelpers');
-
-const customWebpackConfig = getCustomWebpackConfig();
-const customWebpackDevConfig = getCustomWebpackDevConfig();
-
-const webpackConfig = getConfig('development').map(defaultConfig => webpackMerge(defaultConfig, customWebpackConfig, customWebpackDevConfig));
-
 const isInteractive = process.stdout.isTTY;
 
+prepareWebpackConfig()
+  .then(webpackConfig => {    
+    // Create a webpack compiler that is configured with custom messages.
+    const compiler = getCompiler({
+      webpackConfig,
+      webpack,
+    });
+    
 
-// Create a webpack compiler that is configured with custom messages.
-const compiler = getCompiler({
-  webpackConfig,
-  webpack,
-});
+    const devServerConfig = webpackConfig[0].devServer;
 
-const devServerConfig = webpackConfig[0].devServer;
+    const devServer = new WebpackDevServer(compiler, devServerConfig);
 
-const devServer = new WebpackDevServer(compiler, devServerConfig);
+    console.log('dss', webpackConfig[0].devServer);
+    // Launch WebpackDevServer.
+    devServer.listen(devServerConfig.port, 'localhost', err => {
+      if (err) {
+        return console.log(err);
+      }
+      if (isInteractive) {
+        clearConsole();
+      }
 
-// console.log('dss', webpackConfig[0].devServer);
+      console.log(chalk.cyan('Starting the development server...\n'));
+    });
 
-// Launch WebpackDevServer.
-devServer.listen(devServerConfig.port, 'localhost', err => {
-  if (err) {
-    return console.log(err);
-  }
-  if (isInteractive) {
-    clearConsole();
-  }
-
-  console.log(chalk.cyan('Starting the development server...\n'));
-});
-
-['SIGINT', 'SIGTERM'].forEach(function(sig) {
-  process.on(sig, function() {
-    devServer.close();
-    process.exit();
+    ['SIGINT', 'SIGTERM'].forEach(function(sig) {
+      process.on(sig, function() {
+        devServer.close();
+        process.exit();
+      });
+    });
   });
-});
+
+
+async function prepareWebpackConfig() {
+  const customWebpackConfig = await getCustomWebpackConfig('webpack.config.js');  
+  const customWebpackDevConfig = await getCustomWebpackConfig('webpack.config.dev.js');
+
+  return getConfig('development').map(defaultConfig => webpackMerge(defaultConfig, customWebpackConfig, customWebpackDevConfig));
+}

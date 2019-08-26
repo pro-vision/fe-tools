@@ -9,7 +9,7 @@ const appDirectory = realpathSync(process.cwd());
 export const resolveApp = relativePath => resolve(appDirectory, relativePath);
 
 // try to load pv.config.js
-let config;
+let config = defaultConfig;
 const customConfigPath = resolveApp('pv.config.js');
 const customConfigExists = existsSync(customConfigPath);
 
@@ -27,61 +27,29 @@ export const getAppConfig = () => {
   return config;
 };
 
-// try to load webpack.config.js
-let customWebpackConfig;
-const customWebpackConfigPath = resolveApp('webpack.config.js');
-const customWebpackConfigExists = existsSync(customWebpackConfigPath);
+export const getCustomWebpackConfig = (configName) => {
+  return new Promise(resolve => {
+    let customWebpackConfig;
+    const customWebpackConfigPath = resolveApp(configName);
+    console.log('pa', customWebpackConfigPath);
+    
+    const customWebpackConfigExists = existsSync(customWebpackConfigPath);
 
-if (customWebpackConfigExists) {
-  try {
-    console.log("Custom Webpack Config detected.")
-    customWebpackConfig = require(customWebpackConfigPath);
-  }
-  catch {
-    customWebpackConfig = {};
-  }
-}
-
-export const getCustomWebpackConfig= () => {
-  return customWebpackConfig;
-};
-
-// try to load webpack.config.dev.js
-let customWebpackDevConfig;
-const customWebpackDevConfigPath = resolveApp('webpack.config.dev.js');
-const customWebpackDevConfigExists = existsSync(customWebpackDevConfigPath);
-
-if (customWebpackDevConfigExists) {
-  try {
-    console.log("Custom Webpack Dev Config detected.")
-    customWebpackDevConfig = require(customWebpackDevConfigPath);
-  }
-  catch {
-    customWebpackDevConfig = {};
-  }
-}
-
-export const getCustomWebpackDevConfig= () => {
-  return customWebpackDevConfig;
-};
-
-// try to load webpack.config.prod.js
-let customWebpackProdConfig;
-const customWebpackProdConfigPath = resolveApp('webpack.config.prod.js');
-const customWebpackProdConfigExists = existsSync(customWebpackProdConfigPath);
-
-if (customWebpackProdConfigExists) {
-  try {
-    console.log("Custom Webpack Prod Config detected.")
-    customWebpackProdConfig = require(customWebpackProdConfigPath);
-  }
-  catch {
-    customWebpackProdConfig = {};
-  }
-}
-
-export const getCustomWebpackProdConfig= () => {
-  return customWebpackProdConfig;
+    if (!customWebpackConfigExists) {      
+      resolve({});
+    }
+    else {
+      try {
+        customWebpackConfig = require(customWebpackConfigPath);
+      }
+      catch {     
+        customWebpackConfig = {};
+      }
+      finally {
+        resolve(customWebpackConfig);
+      }
+    }
+  });
 };
 
 export const publicPath = process.env.PUBLIC_PATH || '/';

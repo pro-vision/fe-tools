@@ -9,7 +9,6 @@ import { resolveSettings } from './settings/resolve';
 // Tasks
 import { moduleCompileTS } from './tasks/compileTS/module'
 import { loadFonts } from './tasks/loadFonts'
-import { loadSVGs } from './tasks/loadSVGs';
 import { compileShadowCSS } from './tasks/compileShadowCSS';
 import { loadHandlebars } from './tasks/loadHandlebars';
 
@@ -21,6 +20,5 @@ export const defaultConfigModule = merge(
   moduleCompileTS,
   compileShadowCSS,
   loadFonts,
-  loadSVGs,
   loadHandlebars,
 );

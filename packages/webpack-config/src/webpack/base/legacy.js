@@ -10,7 +10,6 @@ import { resolveSettings } from './settings/resolve';
 import { legacyCompileTS } from './tasks/compileTS/legacy'
 import { compileLitHTML } from './tasks/compileLitHTML'
 import { loadFonts } from './tasks/loadFonts'
-import { loadSVGs } from './tasks/loadSVGs';
 import { compileShadowCSS } from './tasks/compileShadowCSS';
 import { loadHandlebars } from './tasks/loadHandlebars';
 
@@ -23,6 +22,5 @@ export const defaultConfigLegacy = merge(
   compileLitHTML,
   compileShadowCSS,
   loadFonts,
-  loadSVGs,
   loadHandlebars,
 );

@@ -5,5 +5,6 @@ export const defaultConfig = {
   namespace: '',
   jsEntry: 'src/js/index.ts',
   jsLegacyEntry: 'src/js/legacyIndex.ts',
-  cssEntry: 'src/styles/main.scss'
+  cssEntry: 'src/styles/main.scss',
+  useTS: true,
 };

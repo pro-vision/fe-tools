@@ -7,7 +7,7 @@ import { contextSettings } from './settings/context';
 import { resolveSettings } from './settings/resolve';
 
 // Tasks
-import { legacyCompileTS } from './tasks/compileTS/legacy'
+import { getJSLoader } from './tasks/jsLoading/getJSLoader';
 import { compileLitHTML } from './tasks/compileLitHTML'
 import { loadFonts } from './tasks/loadFonts'
 import { compileShadowCSS } from './tasks/compileShadowCSS';
@@ -18,7 +18,7 @@ export const defaultConfigLegacy = merge(
   legacyOutputSettings,
   contextSettings,
   resolveSettings,
-  legacyCompileTS,
+  getJSLoader('legacy'),
   compileLitHTML,
   compileShadowCSS,
   loadFonts,

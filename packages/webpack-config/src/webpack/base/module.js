@@ -7,7 +7,7 @@ import { contextSettings } from './settings/context';
 import { resolveSettings } from './settings/resolve';
 
 // Tasks
-import { moduleCompileTS } from './tasks/compileTS/module'
+import { getJSLoader } from './tasks/jsLoading/getJSLoader';
 import { loadFonts } from './tasks/loadFonts'
 import { compileShadowCSS } from './tasks/compileShadowCSS';
 import { loadHandlebars } from './tasks/loadHandlebars';
@@ -17,7 +17,7 @@ export const defaultConfigModule = merge(
   moduleOutputSettings,
   contextSettings,
   resolveSettings,
-  moduleCompileTS,
+  getJSLoader('module'),
   compileShadowCSS,
   loadFonts,
   loadHandlebars,

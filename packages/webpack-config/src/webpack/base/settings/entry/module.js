@@ -1,11 +1,11 @@
-import { join } from 'path';
-import { appSrc, appName } from '../../../../helpers/paths';
+
+import { appName, jsEntry, cssEntry } from '../../../../helpers/paths';
 
 export const moduleEntrySettings = {
   entry: {
     [appName]: [
-      join(appSrc, 'js/index.ts'),
-      join(appSrc, 'styles/main.scss'),
+      jsEntry,
+      cssEntry,
     ],
   }
 };

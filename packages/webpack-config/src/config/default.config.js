@@ -3,4 +3,7 @@ export const defaultConfig = {
   srcPath: 'src',
   destPath: 'target',
   namespace: '',
+  jsEntry: 'src/js/index.ts',
+  jsLegacyEntry: 'src/js/legacyIndex.ts',
+  cssEntry: 'src/styles/main.scss'
 };

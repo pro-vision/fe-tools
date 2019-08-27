@@ -55,6 +55,9 @@ export const publicPath = process.env.PUBLIC_PATH || '/';
 
 export const appPath = resolveApp('.');
 export const appSrc = resolveApp(config.srcPath);
+export const jsEntry = resolveApp(config.jsEntry);
+export const jsLegacyEntry = resolveApp(config.jsLegacyEntry);
+export const cssEntry = resolveApp(config.cssEntry);
 export const appTarget = resolveApp(config.destPath);
 
 const getAppName = () => {

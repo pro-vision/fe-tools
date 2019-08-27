@@ -7,7 +7,7 @@
     "build": "lerna run build",
     "test": "lerna run test",
     "bootstrap": "lerna bootstrap",
-    "add": "lerna add @pro-vision/pv-scripts --scope=dvag"
+    "add": "lerna add @pro-vision/pv-stylemark --scope=dvag"
   },
   "devDependencies": {
     "lerna": "^3.16.4",

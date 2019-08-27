@@ -31,7 +31,6 @@ export const getCustomWebpackConfig = (configName) => {
   return new Promise(resolve => {
     let customWebpackConfig;
     const customWebpackConfigPath = resolveApp(configName);
-    console.log('pa', customWebpackConfigPath);
     
     const customWebpackConfigExists = existsSync(customWebpackConfigPath);
 

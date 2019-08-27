@@ -1,1 +1,0 @@
-module.exports["dva-concat"] = (...args) => args.slice(0, -1).join("");

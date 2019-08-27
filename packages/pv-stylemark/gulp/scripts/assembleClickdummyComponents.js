@@ -1,6 +1,6 @@
 const handlebarsHelpers = require('handlebars-helpers');
 
-const { resolveApp } = require('../../helper/paths');
+const { resolveApp, getAppConfig } = require('../../helper/paths');
 const { assembleFiles } = require('./assembleFiles');
 
 assembleFiles({
@@ -8,7 +8,7 @@ assembleFiles({
   partials: resolveApp("src/components/**/*.hbs"),
   pages: resolveApp("src/components/**/*.hbs"),
   data: [ resolveApp("src/components/**/*.json"), resolveApp("src/templates/*.json")],
-  dest: resolveApp("target/components"),
+  dest: resolveApp(`${getAppConfig().destPath}/components`),
   helpers: [
     handlebarsHelpers(),
     resolveApp('helpers/handlebarsHelper/*.js')

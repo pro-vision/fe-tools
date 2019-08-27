@@ -1,11 +1,11 @@
 const stylemark = require('stylemark');
 
-const { resolveApp } = require('../../../helper/paths');
+const { resolveApp, getAppConfig } = require('../../../helper/paths');
 
 const buildStylemark = (done) => {
   stylemark({
-    input: resolveApp('target/lsg_components'),
-    output: resolveApp('target/styleguide'),
+    input: resolveApp(`${getAppConfig().destPath}/lsg_components`),
+    output: resolveApp(`${getAppConfig().destPath}/styleguide`),
     configPath: resolveApp('config/config.stylemark.yaml')
   });
   done();

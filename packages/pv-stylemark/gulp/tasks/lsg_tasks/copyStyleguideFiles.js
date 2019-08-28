@@ -2,13 +2,15 @@ const { src, dest, parallel} = require('gulp');
 
 const { getAppConfig } = require('../../../helper/paths');
 
+const {destPath, lsgAssetsHome, componentsHome} = getAppConfig();
+
 const copyMdFiles = () => 
-  src('./src/components/**/*.md')
-    .pipe(dest(`${getAppConfig().destPath}/lsg_components`));
+  src(`${componentsHome}**/*.md`)
+    .pipe(dest(`${destPath}/lsg_components`));
 
 const copyAssets = () =>
-  src('./src/assets/**')
-    .pipe(dest(`${getAppConfig().destPath}/assets`));
+  src(`${lsgAssetsHome}**`)
+    .pipe(dest(`${destPath}/assets`));
 
 const copyStyleguideFiles = (done) => parallel(copyMdFiles, copyAssets)(done);
 

@@ -2,9 +2,11 @@ const { src, dest, parallel} = require('gulp');
 
 const { getAppConfig } = require('../../../helper/paths');
 
+const {destPath, lsgIndex} = getAppConfig();
+
 const copyRoot = () => 
-  src('src/styleguide/index.html')
-    .pipe(dest(getAppConfig().destPath));
+  src(lsgIndex)
+    .pipe(dest(destPath));
 
 
 const copyClickdummyFiles = (done) => parallel(copyRoot)(done);

@@ -26,13 +26,17 @@ const buildClickdummy = (done) => gulp.series(assembleClickdummyComponents, asse
 
 const buildLSG = (done) => gulp.series(assembleLSGComponents, copyStyleguideFiles, buildStylemark)(done);
 
+
+const { getAppConfig } = require('../helper/paths');
+const { componentsHome, cdPagesHome, lsgAssetsHome, lsgIndex } = getAppConfig();
+
 const watchFiles = () => {
-  gulp.watch('./src/components/**/*.md', gulp.series(recompileMessage, copyStyleguideFiles, buildStylemark, recompiledMessage));
-  gulp.watch('./src/pages/**/*.hbs', gulp.series(recompileMessage, assembleClickdummyPages, recompiledMessage));
-  gulp.watch('./src/assets/**/*.*', gulp.series(recompileMessage, copyStyleguideFiles, recompiledMessage));
-  gulp.watch('./src/styleguide/index.html', gulp.series(recompileMessage, copyClickdummyFiles, recompiledMessage));
+  gulp.watch(`${componentsHome}**/*.md`, gulp.series(recompileMessage, copyStyleguideFiles, buildStylemark, recompiledMessage));
+  gulp.watch(`${cdPagesHome}**/*.hbs`, gulp.series(recompileMessage, assembleClickdummyPages, recompiledMessage));
+  gulp.watch(`${lsgAssetsHome}**/*.*`, gulp.series(recompileMessage, copyStyleguideFiles, recompiledMessage));
+  gulp.watch(lsgIndex, gulp.series(recompileMessage, copyClickdummyFiles, recompiledMessage));
   gulp.watch(
-    './src/components/**/*.hbs',
+    `${componentsHome}**/*.hbs`,
     gulp.series(
       recompileMessage,
       assembleClickdummyComponents,
@@ -42,7 +46,7 @@ const watchFiles = () => {
       recompiledMessage
     )
   );
-  gulp.watch('./src/components/**/*.json', gulp.series(recompileMessage, assembleClickdummyComponents, assembleClickdummyPages, assembleLSGComponents, buildStylemark, recompiledMessage));  
+  gulp.watch(`${componentsHome}**/*.json`, gulp.series(recompileMessage, assembleClickdummyComponents, assembleClickdummyPages, assembleLSGComponents, buildStylemark, recompiledMessage));  
 };
 
 const build = (done) => gulp.series(buildClickdummy, buildLSG)(done);

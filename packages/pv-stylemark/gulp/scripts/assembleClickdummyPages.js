@@ -3,14 +3,16 @@ const handlebarsHelpers = require('handlebars-helpers');
 const { resolveApp, getAppConfig } = require('../../helper/paths');
 const { assembleFiles } = require('./assembleFiles');
 
+const {destPath, cdTemplatesHome, componentsHome, cdPagesHome, hbsHelperHome} = getAppConfig();
+
 assembleFiles({
-  layouts: resolveApp("src/templates/**/*.hbs"),
-  partials: resolveApp("src/components/**/*.hbs"),
-  pages: resolveApp("src/pages/**/*.hbs"),
-  data: resolveApp("src/components/**/*.json"),
-  dest: resolveApp(`${getAppConfig().destPath}/pages`),
+  layouts: resolveApp(`${cdTemplatesHome}**/*.hbs`),
+  partials: resolveApp(`${componentsHome}**/*.hbs`),
+  pages: resolveApp(`${cdPagesHome}**/*.hbs`),
+  data: resolveApp(`${componentsHome}**/*.json`),
+  dest: resolveApp(`${destPath}/pages`),
   helpers: [
     handlebarsHelpers(),
-    resolveApp('helpers/handlebarsHelper/*.js')
+    resolveApp(`${hbsHelperHome}*.js`),
   ]
 });

@@ -1,6 +1,6 @@
 {
   "name": "@pro-vision/webpack-config",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Default WebpackConfig - Generator for development and prod config. Includes all loaders for SCSS, JS, TS, JSX, TSX bundling and transpiling.",
   "author": "Frederik Riewerts <friewerts@pro-vision.de>",
   "license": "ISC",

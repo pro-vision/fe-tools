@@ -1,7 +1,7 @@
 {
   "name": "@pro-vision/pv-stylemark",
   "version": "1.0.0",
-  "description": "> TODO: description",
+  "description": "CLI for zero configuration stylemark-lsg-toolchain setup",
   "author": "Frederik Riewerts <friewerts@pro-vision.de>",
   "license": "ISC",
   "directories": {
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@git-intern.pro-vision.de:fe5/fe.git"
+    "url": "https://github.com/pro-vision/fe-tools"
   },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"

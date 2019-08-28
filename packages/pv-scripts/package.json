@@ -3,11 +3,9 @@
   "version": "0.0.1",
   "description": "> TODO: description",
   "author": "Frederik Riewerts <friewerts@pro-vision.de>",
-  "homepage": "",
   "license": "ISC",
   "directories": {
-    "lib": "lib",
-    "test": "__tests__"
+    "lib": "lib"
   },
   "files": [
     "bin",
@@ -28,12 +26,12 @@
     "pv-scripts": "./bin/pv-scripts.js"
   },
   "dependencies": {
-    "@pro-vision/webpack-config": "^0.0.1",
-    "chalk": "^2.4.2",
-    "cross-spawn": "^6.0.5",
-    "react-dev-utils": "^9.0.3",
-    "webpack": "^4.39.2",
-    "webpack-dev-server": "^3.8.0",
-    "webpack-merge": "^4.2.1"
+    "@pro-vision/webpack-config": "0.0.1",
+    "chalk": "2.4.2",
+    "cross-spawn": "6.0.5",
+    "react-dev-utils": "9.0.3",
+    "webpack": "4.39.2",
+    "webpack-dev-server": "3.8.0",
+    "webpack-merge": "4.2.1"
   }
 }

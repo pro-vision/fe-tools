@@ -3,11 +3,9 @@
   "version": "0.0.1",
   "description": "> TODO: description",
   "author": "Frederik Riewerts <friewerts@pro-vision.de>",
-  "homepage": "",
   "license": "ISC",
   "directories": {
-    "lib": "lib",
-    "test": "__tests__"
+    "lib": "lib"
   },
   "files": [
     "bin",
@@ -30,12 +28,12 @@
     "pv-stylemark": "./bin/pv-stylemark.js"
   },
   "dependencies": {
-    "assemble": "^0.24.3",
-    "cross-spawn": "^6.0.5",
-    "gulp": "^4.0.2",
-    "gulp-extname": "^0.2.2",
-    "gulp-plumber": "^1.2.1",
-    "handlebars-helpers": "^0.10.0",
-    "stylemark": "^3.1.3"
+    "assemble": "0.24.3",
+    "cross-spawn": "6.0.5",
+    "gulp": "4.0.2",
+    "gulp-extname": "0.2.2",
+    "gulp-plumber": "1.2.1",
+    "handlebars-helpers": "0.10.0",
+    "stylemark": "3.1.3"
   }
 }

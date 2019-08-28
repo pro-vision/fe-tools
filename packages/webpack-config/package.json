@@ -7,11 +7,10 @@
   "license": "ISC",
   "main": "lib/webpack-config.js",
   "directories": {
-    "lib": "lib",
-    "test": "__tests__"
+    "lib": "lib"
   },
   "files": [
-    "lib"
+    "lib/webpack-config.js"
   ],
   "repository": {
     "type": "git",

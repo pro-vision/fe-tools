@@ -39,7 +39,6 @@ prepareWebpackConfig()
 
     const devServer = new WebpackDevServer(compiler, devServerConfig);
 
-    console.log('dss', webpackConfig[0].devServer);
     // Launch WebpackDevServer.
     devServer.listen(devServerConfig.port, '0.0.0.0', err => {
       if (err) {

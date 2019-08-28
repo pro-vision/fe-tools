@@ -1,6 +1,6 @@
 {
   "name": "@pro-vision/webpack-config",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Default WebpackConfig - Generator for development and prod config. Includes all loaders for SCSS, JS, TS, JSX, TSX bundling and transpiling.",
   "author": "Frederik Riewerts <friewerts@pro-vision.de>",
   "license": "ISC",
@@ -21,7 +21,6 @@
   "scripts": {
     "build": "rollup src/webpack/webpack.config.js --file lib/webpack-config.js --format cjs"
   },
-  "devDependencies": {},
   "dependencies": {
     "@babel/core": "7.5.5",
     "@babel/plugin-proposal-class-properties": "7.5.5",

@@ -25,9 +25,17 @@ Assembles all found hbs files and generates clickdummy (components/pages) and St
 #### Basic Configuration
 Basic Configuration can be done in a `pv.config.js` file in the npm project root-folder. Possible configuration values are:
 
-| key           | type    | default  |          usage                |
-| ------------- | ------  | -------- | ----------------------------- |
-| destPath      | string  | 'target' | defines where to put bundled files |
+| key               | type    | default                         |          usage                |
+| -------------     | ------  | --------                        | ----------------------------- |
+| destPath          | string  | 'target'                        | defines where to put bundled files |
+| cdTemplatesHome   | string  | 'src/templates/'                | defines homefolder of clickdummy-templates (glob: `[cdTemplatesHome]**/*.hbs`) |
+| lsgTemplatesHome  | string  | 'src/styleguide/templates/'     | defines homefolder of lsg-templates (glob: `[lsgTemplatesHome]**/*.hbs`) |
+| componentsHome    | string  | 'src/components/'               | defines homefolder of components (glob: `[componentsHome]**/*.hbs`) |
+| cdPagesHome       | string  | 'src/pages/'                    | defines homefolder of clickdummy-pages (glob: `[cdPagesHome]**/*.hbs`) |
+| hbsHelperHome     | string  | 'helpers/handlebarsHelper/'     | defines homefolder of additional handlebars-helpers (glob: `[hbsHelperHome]*.js`) |
+| lsgAssetsHome     | string  | 'src/assets/'                   | defines homefolder of dummy assets used in lsg an clickdummy (glob: `[lsgAssetsHome]**/*.js`) |
+| lsgIndex          | string  | 'src/styleguide/index.html'     | defines path to styleguide landing page html file |
+| lsgConfigPath     | string  | 'config/config.stylemark.yaml'  | defines path to lsg config file (which is required) |
 
 ##### Example:
 
@@ -35,5 +43,11 @@ Basic Configuration can be done in a `pv.config.js` file in the npm project root
 // pv.config.js
 module.exports = {
   destPath: 'dist',
+  cdTemplatesHome: 'src/clickdummy/templates/',
+  lsgTemplatesHome: 'src/lsg/templates/',
+  cdPagesHome: 'src/clickdummy/pages/',
+  hbsHelperHome: 'helper/handlebarsHelper/',
+  lsgAssetsHome: 'src/lsg/assets/',
+  lsgConfigPath: 'config.stylemark.yaml',
 };
 ```

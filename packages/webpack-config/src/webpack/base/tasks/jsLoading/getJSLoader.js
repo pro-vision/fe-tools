@@ -9,6 +9,9 @@ import { legacyCompileES } from "./compileES/legacy";
 import { moduleCompileJSX } from "./compileJSX/module";
 import { legacyCompileJSX } from "./compileJSX/legacy";
 
+import { moduleCompileTSX } from "./compileTSX/module";
+import { legacyCompileTSX } from "./compileTSX/legacy";
+
 export const getJSLoader = type => {
   const { useTS, useReact } = getAppConfig();
   let loaders = [moduleCompileTS, legacyCompileTS];
@@ -16,7 +19,7 @@ export const getJSLoader = type => {
   if (!useTS) {
     loaders = [moduleCompileES, legacyCompileES];
   } else if (useReact) {
-    // return TSX.Loader here
+    loaders = [moduleCompileTSX, legacyCompileTSX];
   }
 
   if (useReact && !useTS) {

@@ -18,15 +18,14 @@ process.on('unhandledRejection', err => {
 const chalk = require('chalk');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
-const webpackMerge = require('webpack-merge');
 const clearConsole = require('react-dev-utils/clearConsole');
 
-const { getConfig, getCustomWebpackConfig } = require('@pro-vision/webpack-config');
+const { prepareWebpackConfig } = require('../helpers/prepareWebpackConfig');
 
 const { getCompiler } = require('../helpers/devServerHelpers');
 const isInteractive = process.stdout.isTTY;
 
-prepareWebpackConfig()
+prepareWebpackConfig('development')
   .then(webpackConfig => {    
     // Create a webpack compiler that is configured with custom messages.
     const compiler = getCompiler({
@@ -58,11 +57,3 @@ prepareWebpackConfig()
       });
     });
   });
-
-
-async function prepareWebpackConfig() {
-  const customWebpackConfig = await getCustomWebpackConfig('webpack.config.js');  
-  const customWebpackDevConfig = await getCustomWebpackConfig('webpack.config.dev.js');
-
-  return getConfig('development').map(defaultConfig => webpackMerge(defaultConfig, customWebpackConfig, customWebpackDevConfig));
-}

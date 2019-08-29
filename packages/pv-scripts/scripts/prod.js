@@ -13,13 +13,13 @@ process.on('unhandledRejection', err => {
 
 const chalk = require('chalk');
 const webpack = require('webpack');
-const webpackMerge = require('webpack-merge');
+// const webpackMerge = require('webpack-merge');
 const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 const printBuildError = require('react-dev-utils/printBuildError');
-const { getConfig, getCustomWebpackConfig } = require('@pro-vision/webpack-config');
+const { prepareWebpackConfig } = require('../helpers/prepareWebpackConfig');
 
 
-prepareWebpackConfig()
+prepareWebpackConfig('production')
   .then(webpackConfig => {    
     return webpackBuild(webpackConfig)
   })
@@ -53,12 +53,12 @@ prepareWebpackConfig()
     process.exit(1);
   });
 
-async function prepareWebpackConfig() {
-  const customWebpackConfig = await getCustomWebpackConfig('webpack.config.js');
-  const customWebpackProdConfig = await getCustomWebpackConfig('webpack.config.prod.js');
+// async function prepareWebpackConfig() {
+//   const customWebpackConfig = await getCustomWebpackConfig('webpack.config.js');
+//   const customWebpackProdConfig = await getCustomWebpackConfig('webpack.config.prod.js');
 
-  return getConfig('production').map(defaultConfig => webpackMerge(defaultConfig, customWebpackConfig, customWebpackProdConfig));
-}
+//   return getConfig('production').map(defaultConfig => webpackMerge(defaultConfig, customWebpackConfig, customWebpackProdConfig));
+// }
 
 // Create the production build
 function webpackBuild(webpackConfig) {

@@ -7,12 +7,10 @@ import { defaultConfigModule } from '../base/module';
 import { basicSettings } from './settings/basicSettings';
 
 // Tasks
-import { compileCSS } from './tasks/compileCSS'
-import { outputSettings } from './settings/outputSettings';
+import { compileCSS } from './tasks/compileCSS';
 
 export const prodConfigModule = merge(
   defaultConfigModule,
   basicSettings,
-  outputSettings,
   compileCSS,
 );

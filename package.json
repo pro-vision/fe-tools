@@ -6,7 +6,7 @@
     "publish": "lerna run build && lerna publish",
     "build": "lerna run build",
     "test": "lerna run test",
-    "bootstrap": "lerna bootstrap",
+    "bootstrap": "lerna run build && lerna bootstrap",
     "add": "lerna add @pro-vision/pv-scripts --scope="
   },
   "devDependencies": {

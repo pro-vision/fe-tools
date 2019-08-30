@@ -1,5 +1,5 @@
 module.exports = {
-  "namespace": "pv-scripts-sample",
+  "namespace": "react-tsx-sample",
   "jsEntry": "src/js/index.tsx",
   "jsLegacyEntry": "src/js/legacyIndex.tsx",
   "useReact": true

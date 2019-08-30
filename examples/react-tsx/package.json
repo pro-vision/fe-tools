@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Example how to use pv-scripts with a React / Typescript application",
   "scripts": {
-    "dev": "./node_modules/.bin/pv-scripts dev",
-    "prod": "./node_modules/.bin/pv-scripts prod"
+    "dev": "pv-scripts dev",
+    "prod": "pv-scripts prod"
   },
   "author": "Alexander Muthmann <amuthmann@pro-vision.de>",
   "license": "ISC",

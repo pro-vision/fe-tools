@@ -10,11 +10,20 @@ npm i @pro-vision/pv-scripts
 
 ## Usage
 
+### Requirements
+To use the CLI, you need to create at least the three entry-files (`jsEntry`, `jsLegacyEntry`, `cssEntry`, see [Basic Configuration](#Basic Configuration)).
+
 ### Command Line Interface
 Installing this package gives you the CLI `pv-scripts`. It can be used with the parameters `dev` and `prod`. 
 
+To run a locally installed version of the `pv-scripts`, you can either call the `pv-scripts` command directly from your local `node_modules/.bin` folder or by using npx.
+
+```sh
+npx pv-scripts dev
+``` 
+
 **dev:**
-Transpiles and bundles your code (JS/TS/JSX/TSX/SCSS) via `webpack` (+ all needed loaders) and opens a `webpack-dev-server`.
+Transpiles and bundles your code (JS/TS/JSX/TSX/SCSS) via `webpack` (+ all needed loaders) and opens a `webpack-dev-server` on the configured port (default: 8616).
 
 **prod:**
 Transpiles and bundles your code (JS/TS/JSX/TSX/SCSS) via `webpack` (+ all needed loaders) and writes them to your target folder.
@@ -60,3 +69,9 @@ Valid webpack.config files which will be merged with the dev default config.
 
 **webpack.config.prod.js:**
 Valid webpack.config files which will be merged with the prod default config.
+
+## Examples
+
+You can find example projects in the `examples` folder:
+
+* React with TypeScript: [react-tsx](https://github.com/pro-vision/fe-tools/tree/master/examples/react-tsx)

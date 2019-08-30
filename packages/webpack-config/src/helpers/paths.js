@@ -32,13 +32,15 @@ export const getCustomWebpackConfig = configName =>
 
     if (!customWebpackConfigExists) {
       resolve({});
-    } else {
+    }
+    else {
       try {
         customWebpackConfig = require(customWebpackConfigPath);
       }
       catch {
         customWebpackConfig = {};
-      } finally {
+      }
+      finally {
         resolve(customWebpackConfig);
       }
     }
@@ -62,18 +64,19 @@ const getAppName = () => {
 
 export const appName = getAppName();
 
-// check if a hbs partial dir is provided
 
 /******************************************************************************
  ** CompileHTML helper
  ******************************************************************************/
+
+// check if a hbs partial dir is provided
 export const hbsPartialDir = {
   partialDirs: config.hbsPartialDir ? [resolveApp(config.hbsPartialDir)] : []
 };
 
-const getRequiredHtmlCompilerConfig = () => {
-  return Boolean(config.hbsEntry && config.hbsTarget);
-};
+const getRequiredHtmlCompilerConfig = () =>
+  Boolean(config.hbsEntry && config.hbsTarget);
+
 export const useHtmlCompiler = getRequiredHtmlCompilerConfig();
 export const hbsEntry = useHtmlCompiler ? resolveApp(config.hbsEntry) : "/";
 export const hbsTarget = resolveApp(config.hbsTarget);

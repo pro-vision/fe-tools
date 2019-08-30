@@ -8,11 +8,11 @@ const assembleClickdummyComponents = done => {
 
   assemble({
     baseDir: resolveApp(componentsHome),
-    partialsGlob: resolveApp(`${componentsHome}**/*.hbs`),
-    pagesGlob: resolveApp(`${componentsHome}**/*.hbs`),
-    templatesGlob: resolveApp(`${cdTemplatesHome}**/*.hbs`),
-    dataGlob: [resolveApp(`${componentsHome}**/*.json`), resolveApp(`${cdTemplatesHome}*.json`)],
-    helpersGlob: resolveApp(`${hbsHelperHome}*.js`),
+    partials: resolveApp(`${componentsHome}**/*.hbs`),
+    pages: resolveApp(`${componentsHome}**/*.hbs`),
+    templates: resolveApp(`${cdTemplatesHome}**/*.hbs`),
+    data: [resolveApp(`${componentsHome}**/*.json`), resolveApp(`${cdTemplatesHome}*.json`)],
+    helpers: resolveApp(`${hbsHelperHome}*.js`),
     target: resolveApp(`${destPath}/components`)
   }).then(() => {
     done();

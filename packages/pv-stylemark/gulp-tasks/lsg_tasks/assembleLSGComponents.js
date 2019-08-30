@@ -7,11 +7,11 @@ const {destPath, lsgTemplatesHome, componentsHome, hbsHelperHome} = getAppConfig
 const assembleLSGComponents = done => {
   assemble({
     baseDir: resolveApp(componentsHome),
-    partialsGlob: resolveApp(`${componentsHome}**/*.hbs`),
-    pagesGlob: resolveApp(`${componentsHome}**/*.hbs`),
-    templatesGlob: resolveApp(`${lsgTemplatesHome}**/*.hbs`),
-    dataGlob: resolveApp(`${componentsHome}**/*.json`),
-    helpersGlob: resolveApp(`${hbsHelperHome}*.js`),
+    partials: resolveApp(`${componentsHome}**/*.hbs`),
+    pages: resolveApp(`${componentsHome}**/*.hbs`),
+    templates: resolveApp(`${lsgTemplatesHome}**/*.hbs`),
+    data: resolveApp(`${componentsHome}**/*.json`),
+    helpers: resolveApp(`${hbsHelperHome}*.js`),
     target: resolveApp(`${destPath}/lsg_components`)
   }).then(() => {
     done();

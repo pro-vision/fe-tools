@@ -5,15 +5,15 @@ const { readJson } = require("fs-extra");
 
 const { getPaths } = require("./io-helper");
 
-const loadData = async dataGlob => {
-  const data = {};
-  const dataPaths = await getPaths(dataGlob);
+const loadData = async data => {
+  const dataPool = {};
+  const dataPaths = await getPaths(data);
   await Promise.all(dataPaths.map(async path => {
     const filename = basename(path, ".json");
     const curData = await readJson(path);
-    data[filename] = curData;
+    dataPool[filename] = curData;
   }));
-  return data;
+  return dataPool;
 };
 
 module.exports = {

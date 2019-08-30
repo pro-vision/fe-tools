@@ -13,9 +13,9 @@ const assembleHbs = (markup, data, hbsInstance) => {
 
 const assemblePages = async (options, hbsInstance) => {
 
-  const { baseDir, pagesGlob, templMap, target, data } = options;
+  const { baseDir, pages, templMap, target, data } = options;
 
-  const pagesPaths = await getPaths(pagesGlob);
+  const pagesPaths = await getPaths(pages);
 
 
   return await Promise.all(pagesPaths.map(async path => {

@@ -3,8 +3,8 @@ const { basename } = require("path");
 
 const { getPaths, asyncReadFile } = require("./io-helper");
 
-const loadTemplates = async templatesGlob => {
-  const templatePaths = await getPaths(templatesGlob);
+const loadTemplates = async templates => {
+  const templatePaths = await getPaths(templates);
   const templMap = new Map();
   await Promise.all(templatePaths.map(async path => {
     const filename = basename(path, ".hbs");

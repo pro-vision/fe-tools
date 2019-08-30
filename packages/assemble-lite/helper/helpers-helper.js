@@ -6,11 +6,11 @@ const handlebarsHelpers = require("handlebars-helpers");
 const { getPaths } = require("./io-helper");
 
 
-const loadHelpers = async (helpersGlob, hbsInstance) => {
+const loadHelpers = async (helpers, hbsInstance) => {
 
   hbsInstance.registerHelper(handlebarsHelpers());
 
-  const helperPaths = await getPaths(helpersGlob);
+  const helperPaths = await getPaths(helpers);
   helperPaths.forEach(path => {
     try {
       const helperFkt = require(resolve(path));

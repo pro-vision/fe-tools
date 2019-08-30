@@ -1,4 +1,4 @@
-import { appSrc } from '../../../helpers/paths';
+import { appSrc } from "../../../helpers/paths";
 
 export const contextSettings = {
   context: appSrc,

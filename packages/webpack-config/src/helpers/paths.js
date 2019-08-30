@@ -1,12 +1,10 @@
-"use strict";
-
-import { resolve } from "path";
+import path from "path";
 import { realpathSync, existsSync } from "fs";
 
 import { defaultConfig } from "../config/default.config";
 
 const appDirectory = realpathSync(process.cwd());
-export const resolveApp = relativePath => resolve(appDirectory, relativePath);
+export const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
 
 // try to load pv.config.js
 let config = defaultConfig;
@@ -17,17 +15,16 @@ if (customConfigExists) {
   try {
     const pvConfig = require(customConfigPath);
     config = { ...defaultConfig, ...pvConfig };
-  } catch {
+  }
+  catch {
     config = defaultConfig;
   }
 }
 
-export const getAppConfig = () => {
-  return config;
-};
+export const getAppConfig = () => config;
 
-export const getCustomWebpackConfig = configName => {
-  return new Promise(resolve => {
+export const getCustomWebpackConfig = configName =>
+  new Promise(resolve => {
     let customWebpackConfig;
     const customWebpackConfigPath = resolveApp(configName);
 
@@ -38,14 +35,14 @@ export const getCustomWebpackConfig = configName => {
     } else {
       try {
         customWebpackConfig = require(customWebpackConfigPath);
-      } catch {
+      }
+      catch {
         customWebpackConfig = {};
       } finally {
         resolve(customWebpackConfig);
       }
     }
   });
-};
 
 export const publicPath = process.env.PUBLIC_PATH || "/";
 

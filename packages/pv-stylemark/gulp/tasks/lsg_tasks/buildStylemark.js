@@ -1,10 +1,10 @@
-const stylemark = require('stylemark');
+const stylemark = require("stylemark");
 
-const { resolveApp, getAppConfig } = require('../../../helper/paths');
+const { resolveApp, getAppConfig } = require("../../../helper/paths");
 
 const {destPath, lsgConfigPath} = getAppConfig();
 
-const buildStylemark = (done) => {
+const buildStylemark = done => {
   stylemark({
     input: resolveApp(`${destPath}/lsg_components`),
     output: resolveApp(`${destPath}/styleguide`),
@@ -15,4 +15,4 @@ const buildStylemark = (done) => {
 
 module.exports = {
   buildStylemark
-}
+};

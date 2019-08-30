@@ -1,4 +1,5 @@
 import { resolve } from "path";
+
 import { appPath } from "../../../helpers/paths";
 
 export const resolveSettings = {

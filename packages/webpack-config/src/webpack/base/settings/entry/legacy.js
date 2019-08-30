@@ -1,5 +1,5 @@
 
-import { appName, jsLegacyEntry } from '../../../../helpers/paths';
+import { appName, jsLegacyEntry } from "../../../../helpers/paths";
 
 export const legacyEntrySettings = {
   entry: {

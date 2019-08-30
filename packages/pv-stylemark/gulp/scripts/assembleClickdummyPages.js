@@ -1,7 +1,7 @@
-const handlebarsHelpers = require('handlebars-helpers');
+const handlebarsHelpers = require("handlebars-helpers");
 
-const { resolveApp, getAppConfig } = require('../../helper/paths');
-const { assembleFiles } = require('./assembleFiles');
+const { resolveApp, getAppConfig } = require("../../helper/paths");
+const { assembleFiles } = require("./assembleFiles");
 
 const {destPath, cdTemplatesHome, componentsHome, cdPagesHome, hbsHelperHome} = getAppConfig();
 

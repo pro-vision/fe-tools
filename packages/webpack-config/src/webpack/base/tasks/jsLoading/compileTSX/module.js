@@ -1,5 +1,3 @@
-const path = require("path");
-
 export const moduleCompileTSX = {
   module: {
     rules: [

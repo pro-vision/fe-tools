@@ -1,11 +1,11 @@
-const { spawn } = require('cross-spawn');
+const { spawn } = require("cross-spawn");
 
-const assembleClickdummyPages = (done) => {
+const assembleClickdummyPages = done => {
 
   const result = spawn.sync(
-    'node',
-    [require.resolve('../../scripts/assembleClickdummyPages.js')],
-    { stdio: 'inherit' }
+    "node",
+    [require.resolve("../../scripts/assembleClickdummyPages.js")],
+    { stdio: "inherit" }
   );
 
   if (result.signal) {
@@ -13,7 +13,7 @@ const assembleClickdummyPages = (done) => {
     process.exit(1);
   }
 
-  done();  
+  done();
 };
 
 module.exports = {

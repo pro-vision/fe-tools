@@ -1,21 +1,25 @@
-'use strict';
 
-const { basename, relative, dirname } = require('path');
-const { loadFront } = require('yaml-front-matter');
 
-const { getPaths, asyncReadFile, asyncWriteFile } = require('./io-helper');
-const { applyTemplate } = require('./template-helper');
+const { basename, relative, dirname } = require("path");
+const { loadFront } = require("yaml-front-matter");
 
+const { getPaths, asyncReadFile, asyncWriteFile } = require("./io-helper");
+const { applyTemplate } = require("./template-helper");
+
+const assembleHbs = (markup, data, hbsInstance) => {
+  const hbs = hbsInstance.compile(markup);
+  return hbs(data);
+};
 
 const assemblePages = async (options, hbsInstance) => {
 
   const { baseDir, pagesGlob, templMap, target, data } = options;
-  
+
   const pagesPaths = await getPaths(pagesGlob);
-  
-  
-  return await Promise.all(pagesPaths.map(async (path) => {
-    const filename = basename(path, '.hbs');
+
+
+  return await Promise.all(pagesPaths.map(async path => {
+    const filename = basename(path, ".hbs");
     const relpath = relative(baseDir, path);
     const reldir = dirname(relpath);
 
@@ -31,11 +35,6 @@ const assemblePages = async (options, hbsInstance) => {
   }));
 };
 
-const assembleHbs = (markup, data, hbsInstance) => {
-  const hbs = hbsInstance.compile(markup);
-  return hbs(data);
-};
-
 module.exports = {
   assemblePages,
-}
+};

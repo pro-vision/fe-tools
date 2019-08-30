@@ -1,9 +1,9 @@
-'use strict';
 
-var glob = require('glob');
-var fs = require('fs-extra');
 
-const asyncGlob = (globPattern) => {
+const glob = require("glob");
+const fs = require("fs-extra");
+
+const asyncGlob = globPattern => {
   if (typeof globPattern !== "string") {
     return [];
   }
@@ -17,9 +17,9 @@ const asyncGlob = (globPattern) => {
       resolve(files);
     });
   });
-}
+};
 
-const getPaths = async (globPattern) => {
+const getPaths = async globPattern => {
   let curPatterns = globPattern;
 
   if (typeof curPatterns === "string") {
@@ -28,7 +28,7 @@ const getPaths = async (globPattern) => {
 
   let paths = [];
 
-  await Promise.all(curPatterns.map(async (pattern) => {
+  await Promise.all(curPatterns.map(async pattern => {
     const curPaths = await asyncGlob(pattern);
     paths = paths.concat(curPaths);
     return curPaths;
@@ -37,17 +37,14 @@ const getPaths = async (globPattern) => {
   return paths;
 };
 
-const asyncReadFile = (filePath) => {
-  return fs.readFile(filePath, 'utf8');
-};
+const asyncReadFile = filePath => fs.readFile(filePath, "utf8");
 
 const asyncWriteFile = async (target, reldir, filename, markup) => {
   await fs.ensureDir(`${target}/${reldir}`);
-  return fs.writeFile(`${target}/${reldir}/${filename}.html`, markup, 'utf8');
-}
+  return fs.writeFile(`${target}/${reldir}/${filename}.html`, markup, "utf8");
+};
 
 module.exports = {
-  getPaths,
   getPaths,
   asyncReadFile,
   asyncWriteFile

@@ -1,23 +1,23 @@
-'use strict';
 
-const { resolve } = require('path');
 
-const { getPaths, asyncReadFile } = require('./io-helper');
+const { resolve } = require("path");
+const handlebarsHelpers = require("handlebars-helpers");
 
-const handlebarsHelpers = require('handlebars-helpers');
+const { getPaths } = require("./io-helper");
+
 
 const loadHelpers = async (helpersGlob, hbsInstance) => {
-  
+
   hbsInstance.registerHelper(handlebarsHelpers());
-  
+
   const helperPaths = await getPaths(helpersGlob);
-  helperPaths.forEach(async (path) => {
+  helperPaths.forEach(path => {
     try {
       const helperFkt = require(resolve(path));
       hbsInstance.registerHelper(helperFkt);
     }
     catch(err) {
-      console.log('err', err);
+      console.log("err", err);
     }
   });
   return;

@@ -1,19 +1,22 @@
-const { spawn } = require('cross-spawn');
+const assemble = require('@pro-vision/assemble-lite');
+
+const { resolveApp, getAppConfig } = require('../../../helper/paths');
+
+const {destPath, cdTemplatesHome, componentsHome, hbsHelperHome} = getAppConfig();
 
 const assembleClickdummyComponents = (done) => {
-  
-  const result = spawn.sync(
-    'node',
-    [require.resolve('../../scripts/assembleClickdummyComponents.js')],
-    { stdio: 'inherit' }
-  );
 
-  if (result.signal) {
-    done();
-    process.exit(1);
-  }
-
-  done();  
+  assemble({
+    baseDir: resolveApp(componentsHome),
+    partialsGlob: resolveApp(`${componentsHome}**/*.hbs`),
+    pagesGlob: resolveApp(`${componentsHome}**/*.hbs`),
+    templatesGlob: resolveApp(`${cdTemplatesHome}**/*.hbs`),
+    dataGlob: [resolveApp(`${componentsHome}**/*.json`), resolveApp(`${cdTemplatesHome}*.json`)],
+    helpersGlob: resolveApp(`${hbsHelperHome}*.js`),
+    target: resolveApp(`${destPath}/components`)
+  }).then(() => {
+    done();  
+  });
 };
 
 module.exports = {

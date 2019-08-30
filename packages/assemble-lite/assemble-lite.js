@@ -31,14 +31,4 @@ const assemble = async (options) => {
   return;
 };
 
-
-const baseDir = 'src';
-const partialsGlob = 'src/components/**/*.hbs';
-const pagesGlob = ['src/components/**/*.hbs', 'src/pages/**/*.hbs'];
-const templatesGlob = 'src/templates/**/*.hbs';
-const dataGlob = 'src/components/**/*.json';
-const helpersGlob = 'src/handlebarsHelper/*.js';
-const target = 'target';
-
-assemble({ baseDir, partialsGlob, pagesGlob, templatesGlob, dataGlob, helpersGlob, target })
-  .catch(err => console.error('err', err));
+module.exports = assemble;

@@ -3,7 +3,8 @@ const Handlebars = require('handlebars');
 const { loadTemplates } = require('./helper/template-helper');
 const { loadData } = require('./helper/data-helper');
 const { loadPartials } = require('./helper/partials-helper');
-const { assemblePages } = require('./helper/pages-helpers');
+const { assemblePages } = require('./helper/pages-helper');
+const { loadHelpers } = require('./helper/helpers-helper');
 
 const defaultOptions = {
   baseDir: "./",
@@ -16,12 +17,13 @@ const defaultOptions = {
 
 const assemble = async (options) => {
 
-  const { baseDir, partialsGlob, pagesGlob, templatesGlob, target, dataGlob } = { ...defaultOptions, ...options};
+  const { baseDir, partialsGlob, pagesGlob, templatesGlob, dataGlob, helpersGlob, target,  } = { ...defaultOptions, ...options};
 
   const [templMap, data] = await Promise.all([
     loadTemplates(templatesGlob),
     loadData(dataGlob),
-    loadPartials(partialsGlob, Handlebars)
+    loadPartials(partialsGlob, Handlebars),
+    loadHelpers(helpersGlob, Handlebars),
   ]);
   
   await assemblePages({ baseDir ,pagesGlob, templMap, target, data}, Handlebars);
@@ -35,7 +37,8 @@ const partialsGlob = 'src/components/**/*.hbs';
 const pagesGlob = ['src/components/**/*.hbs', 'src/pages/**/*.hbs'];
 const templatesGlob = 'src/templates/**/*.hbs';
 const dataGlob = 'src/components/**/*.json';
+const helpersGlob = 'src/handlebarsHelper/*.js';
 const target = 'target';
 
-assemble({ baseDir, partialsGlob, pagesGlob, templatesGlob, dataGlob, target })
+assemble({ baseDir, partialsGlob, pagesGlob, templatesGlob, dataGlob, helpersGlob, target })
   .catch(err => console.error('err', err));

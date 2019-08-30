@@ -3,10 +3,10 @@
 const { basename } = require('path');
 const { loadFront } = require('yaml-front-matter');
 
-const { asyncGlob, asyncReadFile } = require('./io-helper');
+const { getPaths, asyncReadFile } = require('./io-helper');
 
 const loadPartials = async (partialsGlob, hbsInstance) => {
-  const partialPaths = await asyncGlob(partialsGlob);
+  const partialPaths = await getPaths(partialsGlob);
 
   return await Promise.all(partialPaths.map(async (path) => {
     const filename = basename(path, '.hbs');

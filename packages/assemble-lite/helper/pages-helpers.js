@@ -3,7 +3,7 @@
 const { basename, relative, dirname } = require('path');
 const { loadFront } = require('yaml-front-matter');
 
-const { asyncGlob, asyncReadFile, asyncWriteFile } = require('./io-helper');
+const { getPaths, asyncReadFile, asyncWriteFile } = require('./io-helper');
 const { applyTemplate } = require('./template-helper');
 
 
@@ -11,7 +11,8 @@ const assemblePages = async (options, hbsInstance) => {
 
   const {pagesGlob, templMap, target, data} = options;
 
-  const pagesPaths = await asyncGlob(pagesGlob);
+  const pagesPaths = await getPaths(pagesGlob);
+  
   
   return await Promise.all(pagesPaths.map(async (path) => {
     const filename = basename(path, '.hbs');

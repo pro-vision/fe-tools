@@ -1,10 +1,10 @@
 'use strict';
 const { basename } = require('path');
 
-const { asyncGlob, asyncReadFile } = require('./io-helper');
+const { getPaths, asyncReadFile } = require('./io-helper');
 
 const loadTemplates = async (templatesGlob) => {
-  const templatePaths = await asyncGlob(templatesGlob);
+  const templatePaths = await getPaths(templatesGlob);
   const templMap = new Map();
   await Promise.all(templatePaths.map(async (path) => {
     const filename = basename(path, '.hbs');

@@ -2,12 +2,12 @@
 
 const { basename } = require('path');
 
-const { asyncGlob } = require('./io-helper');
+const { getPaths } = require('./io-helper');
 var { readJson } = require('fs-extra');
 
 const loadData = async (dataGlob) => {
   const data = {};
-  const dataPaths = await asyncGlob(dataGlob);
+  const dataPaths = await getPaths(dataGlob);
   await Promise.all(dataPaths.map(async (path) => {
       const filename = basename(path, '.json'); 
       const curData = await readJson(path);

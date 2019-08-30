@@ -1,47 +1,43 @@
-'use strict';
+import path from "path";
+import { realpathSync, existsSync } from "fs";
 
-import { resolve } from 'path';
-import { realpathSync, existsSync } from 'fs';
-
-import { defaultConfig } from '../config/default.config';
+import { defaultConfig } from "../config/default.config";
 
 const appDirectory = realpathSync(process.cwd());
-export const resolveApp = relativePath => resolve(appDirectory, relativePath);
+export const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
 
 // try to load pv.config.js
 let config = defaultConfig;
-const customConfigPath = resolveApp('pv.config.js');
+const customConfigPath = resolveApp("pv.config.js");
 const customConfigExists = existsSync(customConfigPath);
 
 if (customConfigExists) {
   try {
     const pvConfig = require(customConfigPath);
-    config = {...defaultConfig, ...pvConfig};
+    config = { ...defaultConfig, ...pvConfig };
   }
   catch {
     config = defaultConfig;
   }
 }
 
-export const getAppConfig = () => {
-  return config;
-};
+export const getAppConfig = () => config;
 
-export const getCustomWebpackConfig = (configName) => {
-  return new Promise(resolve => {
+export const getCustomWebpackConfig = configName =>
+  new Promise(resolve => {
     let customWebpackConfig;
     const customWebpackConfigPath = resolveApp(configName);
-    
+
     const customWebpackConfigExists = existsSync(customWebpackConfigPath);
 
-    if (!customWebpackConfigExists) {      
+    if (!customWebpackConfigExists) {
       resolve({});
     }
     else {
       try {
         customWebpackConfig = require(customWebpackConfigPath);
       }
-      catch {     
+      catch {
         customWebpackConfig = {};
       }
       finally {
@@ -49,11 +45,10 @@ export const getCustomWebpackConfig = (configName) => {
       }
     }
   });
-};
 
-export const publicPath = process.env.PUBLIC_PATH || '/';
+export const publicPath = process.env.PUBLIC_PATH || "/";
 
-export const appPath = resolveApp('.');
+export const appPath = resolveApp(".");
 export const appSrc = resolveApp(config.srcPath);
 export const jsEntry = resolveApp(config.jsEntry);
 export const jsLegacyEntry = resolveApp(config.jsLegacyEntry);
@@ -62,9 +57,9 @@ export const appTarget = resolveApp(config.destPath);
 
 const getAppName = () => {
   const { namespace } = getAppConfig();
-  if (namespace ==='') return 'app';
-  
+  if (namespace === "") return "app";
+
   return `${namespace}.app`;
-}
+};
 
 export const appName = getAppName();

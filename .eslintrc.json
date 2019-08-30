@@ -1,0 +1,12 @@
+{
+  "extends": ["pv"],
+  "parser": "babel-eslint",
+  "env": {
+    "node": true,
+    "browser": true
+  },
+  "rules": {
+    "global-require": 0,
+    "no-console": "off"
+  }
+}

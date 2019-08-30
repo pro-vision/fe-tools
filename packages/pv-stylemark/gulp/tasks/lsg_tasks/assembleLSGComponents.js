@@ -1,11 +1,11 @@
-const { spawn } = require('cross-spawn');
+const { spawn } = require("cross-spawn");
 
-const assembleLSGComponents = (done) => {
+const assembleLSGComponents = done => {
 
   const result = spawn.sync(
-    'node',
-    [require.resolve('../../scripts/assembleLSGComponents.js')],
-    { stdio: 'inherit' }
+    "node",
+    [require.resolve("../../scripts/assembleLSGComponents.js")],
+    { stdio: "inherit" }
   );
 
   if (result.signal) {
@@ -13,7 +13,7 @@ const assembleLSGComponents = (done) => {
     process.exit(1);
   }
 
-  done();  
+  done();
 };
 
 module.exports = {

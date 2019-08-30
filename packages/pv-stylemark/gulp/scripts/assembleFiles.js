@@ -1,8 +1,8 @@
-const assemble = require('assemble');
-const extname = require('gulp-extname');
-const plumber = require('gulp-plumber');
+const assemble = require("assemble");
+const extname = require("gulp-extname");
+const plumber = require("gulp-plumber");
 
-const assembleFiles = (config) => {
+const assembleFiles = config => {
   const app = assemble();
 
   app.layouts(config.layouts);
@@ -12,7 +12,7 @@ const assembleFiles = (config) => {
   app.helpers(config.helpers);
 
   app
-    .toStream('pages')
+    .toStream("pages")
     .pipe(plumber())
     .pipe(extname())
     .pipe(app.renderFile())
@@ -21,4 +21,4 @@ const assembleFiles = (config) => {
 
 module.exports = {
   assembleFiles
-}
+};

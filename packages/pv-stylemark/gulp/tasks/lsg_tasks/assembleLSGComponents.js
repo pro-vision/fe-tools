@@ -1,11 +1,10 @@
-const assemble = require('@pro-vision/assemble-lite');
+const assemble = require("@pro-vision/assemble-lite");
 
-const { resolveApp, getAppConfig } = require('../../../helper/paths');
+const { resolveApp, getAppConfig } = require("../../../helper/paths");
 
 const {destPath, lsgTemplatesHome, componentsHome, hbsHelperHome} = getAppConfig();
 
-const assembleLSGComponents = (done) => {
-
+const assembleLSGComponents = done => {
   assemble({
     baseDir: resolveApp(componentsHome),
     partialsGlob: resolveApp(`${componentsHome}**/*.hbs`),
@@ -15,8 +14,8 @@ const assembleLSGComponents = (done) => {
     helpersGlob: resolveApp(`${hbsHelperHome}*.js`),
     target: resolveApp(`${destPath}/lsg_components`)
   }).then(() => {
-    done();  
-  }); 
+    done();
+  });
 };
 
 module.exports = {

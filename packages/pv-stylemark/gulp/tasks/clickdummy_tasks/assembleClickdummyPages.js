@@ -1,10 +1,10 @@
-const assemble = require('@pro-vision/assemble-lite');
+const assemble = require("@pro-vision/assemble-lite");
 
-const { resolveApp, getAppConfig } = require('../../../helper/paths');
+const { resolveApp, getAppConfig } = require("../../../helper/paths");
 
 const {destPath, cdTemplatesHome, componentsHome, cdPagesHome, hbsHelperHome} = getAppConfig();
 
-const assembleClickdummyPages = (done) => {
+const assembleClickdummyPages = done => {
 
   assemble({
     baseDir: resolveApp(cdPagesHome),
@@ -15,8 +15,8 @@ const assembleClickdummyPages = (done) => {
     helpersGlob: resolveApp(`${hbsHelperHome}*.js`),
     target: resolveApp(`${destPath}/pages`)
   }).then(() => {
-    done();  
-  }); 
+    done();
+  });
 };
 
 module.exports = {

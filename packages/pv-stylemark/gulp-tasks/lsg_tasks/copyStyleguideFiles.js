@@ -1,6 +1,6 @@
 const { src, dest, parallel} = require("gulp");
 
-const { getAppConfig } = require("../../../helper/paths");
+const { getAppConfig } = require("../../helper/paths");
 
 const {destPath, lsgAssetsHome, componentsHome} = getAppConfig();
 

@@ -1,6 +1,6 @@
 const stylemark = require("stylemark");
 
-const { resolveApp, getAppConfig } = require("../../../helper/paths");
+const { resolveApp, getAppConfig } = require("../../helper/paths");
 
 const {destPath, lsgConfigPath} = getAppConfig();
 

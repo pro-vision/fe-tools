@@ -9,14 +9,14 @@ const { applyTemplate } = require('./template-helper');
 
 const assemblePages = async (options, hbsInstance) => {
 
-  const {pagesGlob, templMap, target, data} = options;
-
+  const { baseDir, pagesGlob, templMap, target, data } = options;
+  
   const pagesPaths = await getPaths(pagesGlob);
   
   
   return await Promise.all(pagesPaths.map(async (path) => {
     const filename = basename(path, '.hbs');
-    const relpath = relative('src/components', path);
+    const relpath = relative(baseDir, path);
     const reldir = dirname(relpath);
 
     const markup = await asyncReadFile(path);

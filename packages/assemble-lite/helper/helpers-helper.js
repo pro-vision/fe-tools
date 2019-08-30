@@ -17,7 +17,7 @@ const loadHelpers = async (helpersGlob, hbsInstance) => {
       hbsInstance.registerHelper(helperFkt);
     }
     catch(err) {
-      console.log("err", err);
+      throw new Error("Error:", err);
     }
   });
   return;

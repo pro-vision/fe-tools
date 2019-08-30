@@ -1,6 +1,6 @@
 "use strict";
 
-import path, { resolve } from "path";
+import { resolve } from "path";
 import { realpathSync, existsSync } from "fs";
 
 import { defaultConfig } from "../config/default.config";
@@ -66,20 +66,20 @@ const getAppName = () => {
 export const appName = getAppName();
 
 // check if a hbs partial dir is provided
-export const hbsPartialDir = {
-  partialDirs: config.hbsPartialDir ? [path.resolve(config.hbsPartialDir)] : []
-};
 
 /******************************************************************************
  ** CompileHTML helper
  ******************************************************************************/
+export const hbsPartialDir = {
+  partialDirs: config.hbsPartialDir ? [resolveApp(config.hbsPartialDir)] : []
+};
 
 const getRequiredHtmlCompilerConfig = () => {
   return Boolean(config.hbsEntry && config.hbsTarget);
 };
 export const useHtmlCompiler = getRequiredHtmlCompilerConfig();
-export const hbsEntry = useHtmlCompiler ? path.resolve(config.hbsEntry) : "/";
-export const hbsTarget = path.resolve(`${appTarget}/${config.hbsTarget}`);
+export const hbsEntry = useHtmlCompiler ? resolveApp(config.hbsEntry) : "/";
+export const hbsTarget = resolveApp(config.hbsTarget);
 
 /******************************************************************************
  ** EOD CompileHTML helper

@@ -1,9 +1,9 @@
-import HtmlWEbpackPlugin from "html-webpack-plugin";
+import HtmlWebpackPlugin from "html-webpack-plugin";
 import { hbsEntry, hbsTarget } from "../../../helpers/paths";
 
 export const compileHTML = {
   plugins: [
-    new HtmlWEbpackPlugin({
+    new HtmlWebpackPlugin({
       template: hbsEntry,
       filename: hbsTarget
     })

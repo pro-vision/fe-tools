@@ -7,5 +7,6 @@ export const defaultConfig = {
   jsLegacyEntry: "src/js/legacyIndex.ts",
   cssEntry: "src/styles/main.scss",
   useTS: true,
-  useReact: false
+  useReact: false,
+  copyStaticFiles: true
 };

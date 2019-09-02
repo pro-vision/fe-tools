@@ -11,6 +11,9 @@ import { compileLitHTML } from "./tasks/compileLitHTML";
 import { loadFonts } from "./tasks/loadFonts";
 import { compileShadowCSS } from "./tasks/compileShadowCSS";
 import { loadHandlebars } from "./tasks/loadHandlebars";
+import { copyStatic } from "./tasks/copyStatic";
+// Helper
+import { getAppConfig } from "../../helpers/paths";
 
 export const defaultConfigLegacy = merge(
   legacyEntrySettings,
@@ -21,5 +24,6 @@ export const defaultConfigLegacy = merge(
   compileLitHTML,
   compileShadowCSS,
   loadFonts,
-  loadHandlebars
+  loadHandlebars,
+  getAppConfig().copyStaticFiles ? copyStatic : {}
 );

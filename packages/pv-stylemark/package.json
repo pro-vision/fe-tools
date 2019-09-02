@@ -1,6 +1,6 @@
 {
   "name": "@pro-vision/pv-stylemark",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "CLI for zero configuration stylemark-lsg-toolchain setup",
   "author": "Frederik Riewerts <friewerts@pro-vision.de>",
   "license": "ISC",

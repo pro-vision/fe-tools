@@ -61,7 +61,7 @@ export const appPath = resolveApp(".");
 export const appSrc = resolveApp(config.srcPath);
 
 export const jsEntry = () => {
-  if (config.jsEntry !== defaultConfig.jsEntry) return config.jsEntry;
+  if (config.jsEntry !== defaultConfig.jsEntry) return resolveApp(config.jsEntry);
 
   const extname = path.extname(config.jsEntry);
 
@@ -69,7 +69,7 @@ export const jsEntry = () => {
 };
 
 export const jsLegacyEntry = () => {
-  if (config.jsLegacyEntry !== defaultConfig.jsLegacyEntry) return config.jsLegacyEntry;
+  if (config.jsLegacyEntry !== defaultConfig.jsLegacyEntry) return resolveApp(config.jsLegacyEntry);
 
   const extname = path.extname(config.jsLegacyEntry);
 

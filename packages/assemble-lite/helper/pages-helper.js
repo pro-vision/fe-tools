@@ -11,7 +11,7 @@ const assembleHbs = (markup, data, hbsInstance) => {
 
 const assemblePages = async (options, hbsInstance) => {
 
-  const { baseDir, pages, templMap, target, data } = options;
+  const { baseDir, pages, templMap, target, dataPool } = options;
 
   const pagesPaths = await getPaths(pages);
 
@@ -25,7 +25,7 @@ const assemblePages = async (options, hbsInstance) => {
 
     const frontmatter = loadFront(markup);
 
-    const curData = {...data, ...frontmatter};
+    const curData = {...dataPool, ...frontmatter};
     const pageMarkup = applyTemplate(templMap, curData.layout, frontmatter.__content);
 
     const result = assembleHbs(pageMarkup, curData, hbsInstance);

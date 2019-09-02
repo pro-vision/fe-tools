@@ -1,11 +1,11 @@
 const gulp = require("gulp");
 
 // Assemble Clickdummy
-const { assembleClickdummyComponents } = require("../gulp-tasks/clickdummy_tasks/assembleClickdummyComponents");
-const { assembleClickdummyPages } = require("../gulp-tasks/clickdummy_tasks/assembleClickdummyPages");
+const { assembleClickdummyComponents } = require("../gulp-tasks/assembleWrapper/assembleClickdummyComponents");
+const { assembleClickdummyPages } = require("../gulp-tasks/assembleWrapper/assembleClickdummyPages");
 const { copyClickdummyFiles } = require("../gulp-tasks/clickdummy_tasks/copyClickdummyFiles");
 // Assemble Stylemark
-const { assembleLSGComponents } = require("../gulp-tasks/lsg_tasks/assembleLSGComponents");
+const { assembleLSGComponents } = require("../gulp-tasks/assembleWrapper/assembleLSGComponents");
 const { copyStyleguideFiles } = require("../gulp-tasks/lsg_tasks/copyStyleguideFiles");
 const { buildStylemark } = require("../gulp-tasks/lsg_tasks/buildStylemark");
 const { getAppConfig } = require("../helper/paths");

@@ -46,12 +46,42 @@ export const getCustomWebpackConfig = configName =>
     }
   });
 
+const getJSExtName = options => {
+  if (options.useReact) {
+    return options.useTS ? ".tsx" : ".jsx";
+  }
+
+  return options.useTS ? ".ts" : ".js";
+
+};
+
 export const publicPath = process.env.PUBLIC_PATH || "/";
 
 export const appPath = resolveApp(".");
 export const appSrc = resolveApp(config.srcPath);
-export const jsEntry = resolveApp(config.jsEntry);
-export const jsLegacyEntry = resolveApp(config.jsLegacyEntry);
+
+export const jsEntry = () => {
+  if (config.jsEntry !== defaultConfig.jsEntry) return config.jsEntry;
+
+  const extname = path.extname(config.jsEntry);
+
+  return resolveApp(config.jsEntry.replace(extname, getJSExtName(config)));
+};
+
+export const jsLegacyEntry = () => {
+  if (config.jsLegacyEntry !== defaultConfig.jsLegacyEntry) return config.jsLegacyEntry;
+
+  const extname = path.extname(config.jsLegacyEntry);
+
+  return resolveApp(
+    config.jsLegacyEntry.replace(extname, getJSExtName(config)));
+};
+
+export const addCssEntry = () => {
+  if (config.cssEntry !== defaultConfig.cssEntry) return true;
+  return existsSync(resolveApp(config.cssEntry));
+};
+
 export const cssEntry = resolveApp(config.cssEntry);
 export const appTarget = resolveApp(config.destPath);
 

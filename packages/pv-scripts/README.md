@@ -31,9 +31,9 @@ Basic Configuration can be done in a `pv.config.js` file in the npm project root
 | devServerPort   | number  | 8616     | set `webpack-dev-server` port |
 | destPath        | string  | 'target' | defines where to put bundled files |
 | namespace       | string  | ''       | this controlls the name-prexix on your bundled files follwing this pattern `[namespace].app.[?legacy].(js|css)` |
-| jsEntry         | string  | 'src/js/index.ts' | defines path of your (JS\|TS\|JSX\|TSX) entry file |
-| jsLegacyEntry   | string  | 'src/js/legacyIndex.ts' | defines path of your (JS\|TS\|JSX\|TSX) legacy entry file |
-| cssEntry        | string  | 'src/styles/main.scss' | defines path of your SCSS entry file |
+| jsEntry         | string  | 'src/index.ts' | defines path of your (JS\|TS\|JSX\|TSX) entry file |
+| jsLegacyEntry   | string  | 'src/legacyIndex.ts' | defines path of your (JS\|TS\|JSX\|TSX) legacy entry file |
+| cssEntry        | string  | 'src/index.scss' | defines path of your SCSS entry file |
 | useTS           | boolean | true | defines whether you want to use Typescript |
 | useReact        | boolean | false | defines whether you want to use React |
 | hbsEntry      | string  |                         | define a handlebars entry filepath                                                                          |

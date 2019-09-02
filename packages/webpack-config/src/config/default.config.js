@@ -3,9 +3,9 @@ export const defaultConfig = {
   srcPath: "src",
   destPath: "target",
   namespace: "",
-  jsEntry: "src/js/index.ts",
-  jsLegacyEntry: "src/js/legacyIndex.ts",
-  cssEntry: "src/styles/main.scss",
+  jsEntry: "src/index.ts",
+  jsLegacyEntry: "src/legacyIndex.ts",
+  cssEntry: "src/index.scss",
   useTS: true,
   useReact: false,
   copyStaticFiles: true

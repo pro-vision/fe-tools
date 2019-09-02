@@ -29,7 +29,6 @@
   },
   "dependencies": {
     "@pro-vision/assemble-lite": "^0.0.1",
-    "assemble": "0.24.3",
     "cross-spawn": "6.0.5",
     "gulp": "4.0.2",
     "stylemark": "3.1.3"

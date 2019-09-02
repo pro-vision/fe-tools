@@ -28,10 +28,10 @@
     "url": "https://github.com/pro-vision/fe-tools/issues"
   },
   "dependencies": {
-    "fs-extra": "^8.1.0",
-    "glob": "^7.1.4",
-    "handlebars": "^4.1.2",
-    "handlebars-helpers": "^0.10.0",
-    "yaml-front-matter": "^4.0.0"
+    "fs-extra": "8.1.0",
+    "glob": "7.1.4",
+    "handlebars": "4.1.2",
+    "handlebars-helpers": "0.10.0",
+    "yaml-front-matter": "4.0.0"
   }
 }

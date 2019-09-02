@@ -1,5 +1,3 @@
-
-
 const { basename } = require("path");
 const { readJson } = require("fs-extra");
 

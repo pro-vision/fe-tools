@@ -1,5 +1,3 @@
-
-
 const { basename } = require("path");
 const { loadFront } = require("yaml-front-matter");
 

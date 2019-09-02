@@ -1,4 +1,3 @@
-
 const { basename } = require("path");
 
 const { getPaths, asyncReadFile } = require("./io-helper");

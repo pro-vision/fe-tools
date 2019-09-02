@@ -1,5 +1,3 @@
-
-
 const { resolve } = require("path");
 const handlebarsHelpers = require("handlebars-helpers");
 
@@ -13,8 +11,8 @@ const loadHelpers = async (helpers, hbsInstance) => {
   const helperPaths = await getPaths(helpers);
   helperPaths.forEach(path => {
     try {
-      const helperFkt = require(resolve(path));
-      hbsInstance.registerHelper(helperFkt);
+      const helperFn = require(resolve(path));
+      hbsInstance.registerHelper(helperFn);
     }
     catch(err) {
       throw new Error("Error:", err);

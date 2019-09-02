@@ -10,7 +10,7 @@
   "files": [
     "bin",
     "config",
-    "gulp",
+    "gulp-tasks",
     "helper",
     "scripts"
   ],

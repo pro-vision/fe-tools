@@ -52,6 +52,10 @@ export const appPath = resolveApp(".");
 export const appSrc = resolveApp(config.srcPath);
 export const jsEntry = resolveApp(config.jsEntry);
 export const jsLegacyEntry = resolveApp(config.jsLegacyEntry);
+export const addCssEntry = () => {
+  if (config.cssEntry !== defaultConfig.cssEntry) return true;
+  return existsSync(resolveApp(config.cssEntry));
+};
 export const cssEntry = resolveApp(config.cssEntry);
 export const appTarget = resolveApp(config.destPath);
 

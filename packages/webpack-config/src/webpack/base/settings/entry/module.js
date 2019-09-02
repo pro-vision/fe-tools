@@ -3,7 +3,7 @@ import { appName, jsEntry, cssEntry, addCssEntry } from "../../../../helpers/pat
 
 const getEntries = () => {
   const entries = [
-    jsEntry
+    jsEntry()
   ];
 
   if (addCssEntry()) entries.push(cssEntry);

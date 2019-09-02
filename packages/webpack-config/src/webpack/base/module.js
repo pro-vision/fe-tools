@@ -10,9 +10,11 @@ import { getJSLoader } from "./tasks/jsLoading/getJSLoader";
 import { loadFonts } from "./tasks/loadFonts";
 import { compileShadowCSS } from "./tasks/compileShadowCSS";
 import { loadHandlebars } from "./tasks/loadHandlebars";
+// CompileHTML
+import { compileHTML } from "./tasks/compileHTML";
 import { copyStatic } from "./tasks/copyStatic";
 // Helper
-import { getAppConfig } from "../../helpers/paths";
+import { useHtmlCompiler, getAppConfig } from "../../helpers/paths";
 
 export const defaultConfigModule = merge(
   moduleEntrySettings,
@@ -21,6 +23,7 @@ export const defaultConfigModule = merge(
   resolveSettings,
   getJSLoader("module"),
   compileShadowCSS,
+  useHtmlCompiler ? compileHTML : {},
   loadFonts,
   loadHandlebars,
   getAppConfig().copyStaticFiles ? copyStatic : {}

@@ -12,10 +12,9 @@ import { compileShadowCSS } from "./tasks/compileShadowCSS";
 import { loadHandlebars } from "./tasks/loadHandlebars";
 // CompileHTML
 import { compileHTML } from "./tasks/compileHTML";
-import { useHtmlCompiler } from "../../helpers/paths";
 import { copyStatic } from "./tasks/copyStatic";
 // Helper
-import { getAppConfig } from "../../helpers/paths";
+import { useHtmlCompiler, getAppConfig } from "../../helpers/paths";
 
 export const defaultConfigModule = merge(
   moduleEntrySettings,

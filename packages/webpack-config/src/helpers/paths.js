@@ -68,18 +68,13 @@ export const appName = getAppName();
 /******************************************************************************
  ** CompileHTML helper
  ******************************************************************************/
-
+export const useHtmlCompiler = Boolean(config.hbsEntry && config.hbsTarget);
+export const hbsEntry = useHtmlCompiler ? resolveApp(config.hbsEntry) : "/";
+export const hbsTarget = useHtmlCompiler ? resolveApp(config.hbsTarget) : "/";
 // check if a hbs partial dir is provided
 export const hbsPartialDir = {
   partialDirs: config.hbsPartialDir ? [resolveApp(config.hbsPartialDir)] : []
 };
-
-const getRequiredHtmlCompilerConfig = () =>
-  Boolean(config.hbsEntry && config.hbsTarget);
-
-export const useHtmlCompiler = getRequiredHtmlCompilerConfig();
-export const hbsEntry = useHtmlCompiler ? resolveApp(config.hbsEntry) : "/";
-export const hbsTarget = resolveApp(config.hbsTarget);
 
 /******************************************************************************
  ** EOD CompileHTML helper

@@ -26,33 +26,34 @@ Transpiles and bundles your code (JS/TS/JSX/TSX/SCSS) via `webpack` (+ all neede
 
 Basic Configuration can be done in a `pv.config.js` file in the npm project root-folder. Possible configuration values are:
 
-| key             | type    | default  |          usage                |
-| -------------   | ------  | -------- | ----------------------------- |
-| devServerPort   | number  | 8616     | set `webpack-dev-server` port |
-| destPath        | string  | 'target' | defines where to put bundled files |
-| namespace       | string  | ''       | this controlls the name-prexix on your bundled files follwing this pattern `[namespace].app.[?legacy].(js|css)` |
-| jsEntry         | string  | 'src/index.ts' | defines path of your (JS\|TS\|JSX\|TSX) entry file |
-| jsLegacyEntry   | string  | 'src/legacyIndex.ts' | defines path of your (JS\|TS\|JSX\|TSX) legacy entry file |
-| cssEntry        | string  | 'src/index.scss' | defines path of your SCSS entry file |
-| useTS           | boolean | true | defines whether you want to use Typescript |
-| useReact        | boolean | false | defines whether you want to use React |
-| hbsEntry      | string  |                         | define a handlebars entry filepath                                                                          |
-| hbsTarget     | string  |                         | define a handlebars target filepath                                                                         |
-| hbsPartialDir | string  |                         | define a handlebars partial directory path                                                                      |
-| copyStaticFiles | boolean | true | defines whether static folder-content should be copied to target |
-
+| key             | type    | default              | usage                                                                                                           |
+| --------------- | ------- | -------------------- | --------------------------------------------------------------------------------------------------------------- |
+| devServerPort   | number  | 8616                 | set `webpack-dev-server` port                                                                                   |
+| destPath        | string  | 'target'             | defines where to put bundled files                                                                              |
+| namespace       | string  |                      | this controlls the name-prexix on your bundled files follwing this pattern `[namespace].app.[?legacy].(js|css)` |
+| jsEntry         | string  | 'src/index.ts'       | defines path of your (JS\|TS\|JSX\|TSX) entry file                                                              |
+| jsLegacyEntry   | string  | 'src/legacyIndex.ts' | defines path of your (JS\|TS\|JSX\|TSX) legacy entry file                                                       |
+| cssEntry        | string  | 'src/index.scss'     | defines path of your SCSS entry file                                                                            |
+| useTS           | boolean | true                 | defines whether you want to use Typescript                                                                      |
+| useReact        | boolean | false                | defines whether you want to use React                                                                           |
+| hbsEntry        | string  |                      | defines path of your handlebars entry file                                                                      |
+| hbsTarget       | string  |                      | defines path to your handlebars target file                                                                     |
+| hbsPartialDir   | string  |                      | defines path to your a handlebars partials directory                                                            |
+| copyStaticFiles | boolean | false                | defines whether static folder-content should be copied to target                                                |
 
 ##### Example:
 
 ```js
 // pv.config.js
 module.exports = {
-  devServerPort: "8080",
-  namespace: "my-app",
-  useReact: true,
+  devServerPort: 8616,
+  destPath: "target",
+  jsEntry: "src/index.js",
+  jsLegacyEntry: "src/index.js",
+  cssEntry: "src/index.scss",
   useTS: false,
-  jsEntry: "src/index.jsx",
-  jsLegacyEntry: "src/indexLegacy.jsx"
+  useReact: false,
+  copyStaticFiles: false
 };
 ```
 

@@ -5,6 +5,7 @@ import { moduleEntrySettings } from "./settings/entry/module";
 import { moduleOutputSettings } from "./settings/output/module";
 import { contextSettings } from "./settings/context";
 import { resolveSettings } from "./settings/resolve";
+import { performanceSettings } from "./settings/performance";
 // Tasks
 import { getJSLoader } from "./tasks/jsLoading/getJSLoader";
 import { loadFonts } from "./tasks/loadFonts";
@@ -21,6 +22,7 @@ export const defaultConfigModule = merge(
   moduleOutputSettings,
   contextSettings,
   resolveSettings,
+  performanceSettings,
   getJSLoader("module"),
   compileShadowCSS,
   useHtmlCompiler ? compileHTML : {},

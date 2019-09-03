@@ -5,6 +5,7 @@ import { legacyEntrySettings } from "./settings/entry/legacy";
 import { legacyOutputSettings } from "./settings/output/legacy";
 import { contextSettings } from "./settings/context";
 import { resolveSettings } from "./settings/resolve";
+import { performanceSettings } from "./settings/performance";
 // Tasks
 import { getJSLoader } from "./tasks/jsLoading/getJSLoader";
 import { compileLitHTML } from "./tasks/compileLitHTML";
@@ -17,6 +18,7 @@ export const defaultConfigLegacy = merge(
   legacyOutputSettings,
   contextSettings,
   resolveSettings,
+  performanceSettings,
   getJSLoader("legacy"),
   compileLitHTML,
   compileShadowCSS,

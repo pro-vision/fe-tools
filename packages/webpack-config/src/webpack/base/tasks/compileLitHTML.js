@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require("path");
 
 export const compileLitHTML = {
   module: {
@@ -6,11 +6,11 @@ export const compileLitHTML = {
       {
         test: /lit-html/,
         use: {
-          loader: require.resolve('babel-loader'),
+          loader: require.resolve("babel-loader"),
           options: {
             presets: [
               [
-                require.resolve('@babel/preset-env'),
+                require.resolve("@babel/preset-env"),
                 {
                   targets: {
                     ie: 11,
@@ -20,19 +20,19 @@ export const compileLitHTML = {
             ],
             plugins: [
               [
-                require.resolve('@babel/plugin-proposal-decorators'), 
+                require.resolve("@babel/plugin-proposal-decorators"),
                 {
-                  legacy: true 
+                  legacy: true
                 }
               ],
               [
-                require.resolve('@babel/plugin-transform-runtime'),
+                require.resolve("@babel/plugin-transform-runtime"),
                 {
                   corejs: false,
                   regenerator: true,
                   useESModules: false,
                   helpers: false,
-                  absoluteRuntime: path.dirname(require.resolve('@babel/runtime/package.json')),
+                  absoluteRuntime: path.dirname(require.resolve("@babel/runtime/package.json")),
                 },
               ],
             ],

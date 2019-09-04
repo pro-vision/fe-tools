@@ -1,4 +1,4 @@
 export const basicSettings = {
-  mode: 'development',
-  devtool: 'source-map',
+  mode: "development",
+  devtool: "source-map",
 };

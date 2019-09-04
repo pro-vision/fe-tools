@@ -1,9 +1,9 @@
-'use strict';
 
-const { resolve } =  require('path');
-const { realpathSync, existsSync } = require('fs');
 
-const { defaultConfig } = require('../config/default.config');
+const { resolve } = require("path");
+const { realpathSync, existsSync } = require("fs");
+
+const { defaultConfig } = require("../config/default.config");
 
 const appDirectory = realpathSync(process.cwd());
 const resolveApp = relativePath => resolve(appDirectory, relativePath);
@@ -11,7 +11,7 @@ const resolveApp = relativePath => resolve(appDirectory, relativePath);
 
 // try to load pv.config.js
 let config = defaultConfig;
-const customConfigPath = resolveApp('pv.config.js');
+const customConfigPath = resolveApp("pv.config.js");
 const customConfigExists = existsSync(customConfigPath);
 
 if (customConfigExists) {
@@ -24,9 +24,7 @@ if (customConfigExists) {
   }
 }
 
-const getAppConfig = () => {
-  return config;
-};
+const getAppConfig = () => config;
 
 module.exports = {
   resolveApp,

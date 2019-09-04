@@ -1,5 +1,4 @@
-import { resolve } from 'path';
-import { HotModuleReplacementPlugin } from 'webpack';
+import { HotModuleReplacementPlugin } from "webpack";
 
 export const legacyCompileCSS = {
   module: {
@@ -9,33 +8,28 @@ export const legacyCompileCSS = {
         exclude: /\.shadow\.scss$/, // exclude shadow css, for them to be included raw
         use: [
           {
-            loader: require.resolve('style-loader'),
+            loader: require.resolve("style-loader")
           },
           {
-            loader: require.resolve('css-loader'),
+            loader: require.resolve("css-loader")
           },
           {
-            loader: require.resolve('postcss-loader'),
+            loader: require.resolve("postcss-loader"),
             options: {
-              ident: 'postcss',
-              plugins: () => [
-                require('postcss-preset-env'),
-                require('cssnano'),
-              ],
+              ident: "postcss",
+              plugins: () => [require("postcss-preset-env"), require("cssnano")]
             }
           },
           {
-            loader: require.resolve('sass-loader'),
+            loader: require.resolve("sass-loader"),
             options: {
               sourceMap: true
             }
-          },
+          }
         ]
       }
     ]
   },
 
-  plugins: [
-    new HotModuleReplacementPlugin(),
-  ]
+  plugins: [new HotModuleReplacementPlugin()]
 };

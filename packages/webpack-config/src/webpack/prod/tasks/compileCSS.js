@@ -1,5 +1,5 @@
 
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
 
 export const compileCSS = {
   module: {
@@ -7,29 +7,29 @@ export const compileCSS = {
       {
         test: /\.scss$/,
         exclude: /\.shadow\.scss$/,
-        use : [
+        use: [
           MiniCssExtractPlugin.loader,
           {
-            loader: require.resolve('css-loader'),
+            loader: require.resolve("css-loader"),
           },
           {
-            loader: require.resolve('postcss-loader'),
+            loader: require.resolve("postcss-loader"),
             options: {
-              ident: 'postcss',
+              ident: "postcss",
               plugins: () => [
-                require('postcss-preset-env'),
-                require('cssnano'),
+                require("postcss-preset-env"),
+                require("cssnano"),
               ],
             }
           },
-          require.resolve('sass-loader')
+          require.resolve("sass-loader")
         ]
       }
     ]
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'css/[name].css'
+      filename: "css/[name].css"
     })
   ],
 };

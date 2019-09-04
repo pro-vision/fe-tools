@@ -1,0 +1,37 @@
+{
+  "name": "@pro-vision/assemble-lite",
+  "version": "1.0.2",
+  "description": "> TODO: description",
+  "author": "Frederik Riewerts <frederik.riewerts@gmail.com>",
+  "homepage": "https://github.com/pro-vision/fe-tools#readme",
+  "license": "ISC",
+  "main": "assemble-lite.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "helper",
+    "assemble-lite.js"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pro-vision/fe-tools.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/pro-vision/fe-tools/issues"
+  },
+  "dependencies": {
+    "fs-extra": "8.1.0",
+    "glob": "7.1.4",
+    "handlebars": "4.1.2",
+    "handlebars-helpers": "0.10.0",
+    "yaml-front-matter": "4.0.0"
+  }
+}

@@ -1,18 +1,11 @@
-import merge from 'webpack-merge';
+import merge from "webpack-merge";
 
 // Base Config
-import { defaultConfigModule } from '../base/module';
-
+import { defaultConfigModule } from "../base/module";
 // Settings
-import { basicSettings } from './settings/basicSettings';
-import { devServerSettings } from './settings/devServerSettings';
-
+import { basicSettings } from "./settings/basicSettings";
+import { devServerSettings } from "./settings/devServerSettings";
 // Tasks
-import { moduleCompileCSS } from './tasks/compileCSS/module'
+import { moduleCompileCSS } from "./tasks/compileCSS/module";
 
-export const devConfigModule = merge(
-  defaultConfigModule,
-  basicSettings,
-  devServerSettings,
-  moduleCompileCSS,
-);
+export const devConfigModule = merge(defaultConfigModule, basicSettings, devServerSettings, moduleCompileCSS);

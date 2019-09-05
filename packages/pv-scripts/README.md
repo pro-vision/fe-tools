@@ -10,12 +10,21 @@ npm i @pro-vision/pv-scripts -D
 
 ## Usage
 
+### Requirements
+To use the CLI, you need to create at least the three entry-files (`jsEntry`, `jsLegacyEntry`, `cssEntry`, see [Basic Configuration](#Basic Configuration)).
+
 ### Command Line Interface
 
 Installing this package gives you the CLI `pv-scripts`. It can be used with the parameters `dev` and `prod`.
 
+To run a locally installed version of the `pv-scripts`, you can either call the `pv-scripts` command directly from your local `node_modules/.bin` folder or by using npx.
+
+```sh
+npx pv-scripts dev
+``` 
+
 **dev:**
-Transpiles and bundles your code (JS/TS/JSX/TSX/SCSS) via `webpack` (+ all needed loaders) and opens a `webpack-dev-server`.
+Transpiles and bundles your code (JS/TS/JSX/TSX/SCSS) via `webpack` (+ all needed loaders) and opens a `webpack-dev-server` on the configured port (default: 8616).
 
 **prod:**
 Transpiles and bundles your code (JS/TS/JSX/TSX/SCSS) via `webpack` (+ all needed loaders) and writes them to your target folder.
@@ -39,7 +48,7 @@ Basic Configuration can be done in a `pv.config.js` file in the npm project root
 | hbsEntry        | string  |                      | defines path of your handlebars entry file                                                                      |
 | hbsTarget       | string  |                      | defines path to your handlebars target file                                                                     |
 | hbsPartialDir   | string  |                      | defines path to your a handlebars partials directory                                                            |
-| copyStaticFiles | boolean | false                | defines whether static folder-content should be copied to target                                                |
+| copyStaticFiles | boolean | false                | defines wheather content of `/static` should be copied to target                                                |
 
 ##### Example:
 
@@ -69,3 +78,10 @@ Valid webpack.config files which will be merged with the dev default config.
 
 **webpack.config.prod.js:**
 Valid webpack.config files which will be merged with the prod default config.
+
+## Examples
+
+You can find example projects in the `examples` folder:
+
+* React with TypeScript: [react-tsx](https://github.com/pro-vision/fe-tools/tree/master/examples/react-tsx)
+

@@ -5,7 +5,7 @@ Default WebpackConfig - Generator for development and prod config. Includes all 
 ## Installation
 
 ```sh
-npm i @pro-vision/webpack-config
+npm i @pro-vision/webpack-config -D
 ```
 
 

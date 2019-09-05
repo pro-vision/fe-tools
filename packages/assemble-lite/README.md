@@ -5,7 +5,7 @@ Minimal Tool to render Handlebars-Files via Node
 ## Installation
 
 ```sh
-npm i @pro-vision/assemble-lite
+npm i @pro-vision/assemble-lite -D
 ```
 
 ## Usage

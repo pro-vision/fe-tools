@@ -5,7 +5,7 @@ CLI for zero configuration frontend-toolchain setup.
 ## Installation
 
 ```sh
-npm i @pro-vision/pv-scripts
+npm i @pro-vision/pv-scripts -D
 ```
 
 ## Usage

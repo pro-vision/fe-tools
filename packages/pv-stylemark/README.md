@@ -5,7 +5,7 @@ CLI for zero configuration stylemark-lsg-toolchain setup.
 ## Installation
 
 ```sh
-npm i @pro-vision/pv-stylemark
+npm i @pro-vision/pv-stylemark -D
 ```
 
 ## Usage

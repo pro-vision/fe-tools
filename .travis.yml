@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - "10.16.0"
+install:
+  - npm i
+stages:
+  - lint
+jobs:
+  include:
+    - stage: lint
+      script:
+        # Lint all
+        - npm run lint

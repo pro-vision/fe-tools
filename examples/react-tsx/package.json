@@ -9,7 +9,7 @@
   "author": "Alexander Muthmann <amuthmann@pro-vision.de>",
   "license": "ISC",
   "devDependencies": {
-    "@pro-vision/pv-scripts": "^1.1.2",
+    "@pro-vision/pv-scripts": "^1.2.2",
     "@types/react": "^16.9.2",
     "@types/react-dom": "^16.9.0",
     "copy-webpack-plugin": "^5.0.4",

@@ -1,0 +1,16 @@
+{
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "pv"
+  ],
+  "parser":  "@typescript-eslint/parser",
+  "env": {
+    "node": true,
+    "browser": true
+  },
+  "rules": {
+    "global-require": 0,
+    "no-console": "off"
+  }
+}

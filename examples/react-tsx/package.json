@@ -26,6 +26,7 @@
     "typescript": "^3.6.2"
   },
   "dependencies": {
+    "eslint-plugin-react": "^7.14.3",
     "whatwg-fetch": "^3.0.0"
   }
 }

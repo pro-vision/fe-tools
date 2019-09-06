@@ -29,7 +29,7 @@ npm run prod
 This project also contains a `eslint` configuration you can use. To manually run `eslint` on a file, use the following command:
 
 ```sh
-/node_modules/.bin/eslint --no-eslintrc  -c .eslintrc.json src/js/app.tsx
+/node_modules/.bin/eslint src/js/app.tsx
 ```
 
 By default `eslint` does not support TypeScript, therefor we utilize `@typescript-eslint/eslint-plugin` and `@typescript-eslint/parser`.

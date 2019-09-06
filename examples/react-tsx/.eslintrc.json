@@ -9,8 +9,14 @@
     "node": true,
     "browser": true
   },
+  "root": true,
   "rules": {
     "global-require": 0,
     "no-console": "off"
+  },
+  "settings":  {
+    "react":  {
+      "version":  "detect"
+    }
   }
 }

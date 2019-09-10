@@ -6,22 +6,22 @@ async function prepareWebpackConfig(mode) {
   const customWebpackConfig = await getCustomWebpackConfig("webpack.config.js");
   const customWebpackModuleConfig = await getCustomWebpackConfig("webpack.config.module.js");
   const customWebpackLegacyConfig = await getCustomWebpackConfig("webpack.config.legacy.js");
-  const customWebpackStageConfig = await getCustomWebpackConfig(`${customModeConfigName}.js`);
-  const customWebpackStageModuleConfig = await getCustomWebpackConfig(`${customModeConfigName}.module.js`);
-  const customWebpackStageLegacyConfig = await getCustomWebpackConfig(`${customModeConfigName}.legacy.js`);
+  const customWebpackModeConfig = await getCustomWebpackConfig(`${customModeConfigName}.js`);
+  const customWebpackModeModuleConfig = await getCustomWebpackConfig(`${customModeConfigName}.module.js`);
+  const customWebpackModeLegacyConfig = await getCustomWebpackConfig(`${customModeConfigName}.legacy.js`);
 
   const customModuleConfig = webpackMerge(
     customWebpackConfig,
     customWebpackModuleConfig,
-    customWebpackStageConfig,
-    customWebpackStageModuleConfig
+    customWebpackModeConfig,
+    customWebpackModeModuleConfig
   );
 
   const customLegacyConfig = webpackMerge(
     customWebpackConfig,
     customWebpackLegacyConfig,
-    customWebpackStageConfig,
-    customWebpackStageLegacyConfig
+    customWebpackModeConfig,
+    customWebpackModeLegacyConfig
   );
 
   const [defaultModuleConfig, defaultLegacyConfig] = getConfig(mode);

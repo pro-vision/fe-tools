@@ -4,7 +4,7 @@ const { resolveApp, getAppConfig } = require("../../helper/paths");
 
 const {destPath, lsgTemplatesHome, componentsHome, hbsHelperHome} = getAppConfig();
 
-assemble({
+const assembleLSGComponents = () => assemble({
   baseDir: resolveApp(componentsHome),
   partials: resolveApp(`${componentsHome}**/*.hbs`),
   pages: resolveApp(`${componentsHome}**/*.hbs`),
@@ -13,3 +13,9 @@ assemble({
   helpers: resolveApp(`${hbsHelperHome}*.js`),
   target: resolveApp(`${destPath}/lsg_components`)
 });
+
+assembleLSGComponents();
+
+module.exports = {
+  assembleLSGComponents
+};

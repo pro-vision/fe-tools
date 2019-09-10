@@ -12,7 +12,8 @@
     "config",
     "gulp-tasks",
     "helper",
-    "scripts"
+    "scripts",
+    "webpack-plugin"
   ],
   "publishConfig": {
     "access": "public"
@@ -27,6 +28,7 @@
   "bin": {
     "pv-stylemark": "./bin/pv-stylemark.js"
   },
+  "main": "webpack-plugin/index.js",
   "dependencies": {
     "@pro-vision/assemble-lite": "^1.0.2",
     "cross-spawn": "6.0.5",

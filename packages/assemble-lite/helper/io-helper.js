@@ -45,5 +45,6 @@ const asyncWriteFile = async (target, reldir, filename, markup) => {
 module.exports = {
   getPaths,
   asyncReadFile,
-  asyncWriteFile
+  asyncWriteFile,
+  asyncGlob
 };

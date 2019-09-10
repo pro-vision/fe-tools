@@ -5,7 +5,7 @@ const { resolveApp, getAppConfig } = require("../../helper/paths");
 const {destPath, cdTemplatesHome, componentsHome, hbsHelperHome} = getAppConfig();
 
 
-assemble({
+const assembleClickdummyComponents = () => assemble({
   baseDir: resolveApp(componentsHome),
   partials: resolveApp(`${componentsHome}**/*.hbs`),
   pages: resolveApp(`${componentsHome}**/*.hbs`),
@@ -15,3 +15,8 @@ assemble({
   target: resolveApp(`${destPath}/components`)
 });
 
+assembleClickdummyComponents();
+
+module.exports = {
+  assembleClickdummyComponents
+};

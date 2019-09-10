@@ -72,13 +72,31 @@ module.exports = {
 For further customization of the webpack-config, specific config-files can be added to the npm project root-folder.
 
 **webpack.config.js:**
-Valid webpack.config files which will be merged with both (dev/prod) default configs.
+Valid webpack.config file which will be merged with both (dev/prod) default configs.
+
+**webpack.config.module.js:**
+Valid webpack.config file which will be merged with the module build of both (dev/prod) default configs.
+
+**webpack.config.legacy.js:**
+Valid webpack.config file which will be merged with the legacy build of both (dev/prod) default configs.
 
 **webpack.config.dev.js:**
-Valid webpack.config files which will be merged with the dev default config.
+Valid webpack.config file which will be merged with the dev default config.
+
+**webpack.config.dev.module.js:**
+Valid webpack.config file which will be merged with the module build of the dev default config.
+
+**webpack.config.dev.legacy.js:**
+Valid webpack.config file which will be merged with the legacy build of the dev default config.
 
 **webpack.config.prod.js:**
-Valid webpack.config files which will be merged with the prod default config.
+Valid webpack.config file which will be merged with the prod default config.
+
+**webpack.config.prod.module.js:**
+Valid webpack.config file which will be merged with the module build of the prod default config.
+
+**webpack.config.prod.legacy.js:**
+Valid webpack.config file which will be merged with the legacy build of the prod default config.
 
 ## Examples
 

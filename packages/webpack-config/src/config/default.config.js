@@ -8,5 +8,6 @@ export const defaultConfig = {
   cssEntry: "src/index.scss",
   useTS: true,
   useReact: false,
-  copyStaticFiles: false
+  copyStaticFiles: false,
+  cleanDest: false,
 };

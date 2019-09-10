@@ -11,6 +11,7 @@ import { getJSLoader } from "./tasks/jsLoading/getJSLoader";
 import { loadFonts } from "./tasks/loadFonts";
 import { compileShadowCSS } from "./tasks/compileShadowCSS";
 import { loadHandlebars } from "./tasks/loadHandlebars";
+import { cleanDest } from "./tasks/cleanDest";
 // CompileHTML
 import { compileHTML } from "./tasks/compileHTML";
 import { copyStatic } from "./tasks/copyStatic";
@@ -23,6 +24,7 @@ export const defaultConfigModule = merge(
   contextSettings,
   resolveSettings,
   performanceSettings,
+  getAppConfig().cleanDest ? cleanDest : {},
   getJSLoader("module"),
   compileShadowCSS,
   useHtmlCompiler ? compileHTML : {},

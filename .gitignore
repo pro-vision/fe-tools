@@ -2,3 +2,7 @@ node_modules
 lib
 test-pack
 target
+
+# Ignore IntelliJ files
+.idea
+*.iml

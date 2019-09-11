@@ -19,11 +19,29 @@ Assembles all found hbs files and generates clickdummy (components/pages) and St
 **prod:**
 Assembles all found hbs files and generates clickdummy (components/pages) and Stylemark - `Living Styleguide` and writes all to your target folder.
 
+### Webpack Plugin
+pv-stylemark also provides a Webpack-Plugin, which can also be used to render the LSG. 
+
+#### Example:
+```js
+// webpack.config.module.js
+const { PvStylemarkPlugin } = require("@pro-vision/pv-stylemark");
+
+
+module.exports = {
+  //...
+  plugins: [
+    new PvStylemarkPlugin()
+  ]
+  //...
+};
+```
+
 
 ### Configuration
 
 #### Basic Configuration
-Basic Configuration can be done in a `pv.config.js` file in the npm project root-folder. Possible configuration values are:
+Basic Configuration for both, cli and webpack-plugin, can be done in a `pv.config.js` file in the npm project root-folder. Possible configuration values are:
 
 | key               | type    | default                         |          usage                |
 | -------------     | ------  | --------                        | ----------------------------- |

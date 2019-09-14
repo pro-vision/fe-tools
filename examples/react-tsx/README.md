@@ -24,3 +24,12 @@ To create a production bundle, the `prod` task is used. It will transpile and ou
 npm run prod
 ```
 
+## ESLint 
+
+This project also contains a `eslint` configuration you can use. To manually run `eslint` on a file, use the following command:
+
+```sh
+/node_modules/.bin/eslint src/js/app.tsx
+```
+
+By default `eslint` does not support TypeScript, therefor we utilize `@typescript-eslint/eslint-plugin` and `@typescript-eslint/parser`.

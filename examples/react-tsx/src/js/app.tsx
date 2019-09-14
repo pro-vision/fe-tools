@@ -4,6 +4,6 @@ import { render } from "react-dom";
 import { Hello } from "../components/Hello";
 
 render(
-    <Hello compiler="TypeScript" framework="React" />,
-    document.getElementById("main")
+  <Hello compiler="TypeScript" framework="React" />,
+  document.getElementById("main") as HTMLElement
 );

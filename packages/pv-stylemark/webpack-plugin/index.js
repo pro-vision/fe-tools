@@ -1,3 +1,5 @@
+const path = require("path");
+
 const buildStylemark = require("../scripts/buildStylemarkLsg");
 const { getFilesToWatch } = require("./getFilesToWatch");
 
@@ -14,6 +16,8 @@ class PvStylemarkPlugin {
       (compilation, callback) => {
         getFilesToWatch()
           .then(files => {
+            // make sure platform separator is used
+            files = files.map(path.normalize);
 
             if (Array.isArray(compilation.fileDependencies)) {
               compilation.fileDependencies.push(...files);

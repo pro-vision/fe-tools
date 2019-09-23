@@ -48,8 +48,9 @@ Basic Configuration can be done in a `pv.config.js` file in the npm project root
 | hbsEntry        | string  |                      | defines path of your handlebars entry file                                                                      |
 | hbsTarget       | string  |                      | defines path to your handlebars target file                                                                     |
 | hbsPartialDir   | string  |                      | defines path to your a handlebars partials directory                                                            |
-| copyStaticFiles | boolean | false                | defines whether content of `/static` should be copied to target                                                |
-| cleanDest       | boolean | false                | defines whether the destination folder should be cleaned before every pv-scripts run                           |
+| copyStaticFiles | boolean | false                | defines whether content of `/static` should be copied to target                                                 |
+| cleanDest       | boolean | false                | defines whether the destination folder should be cleaned before every pv-scripts run                            |
+| enableTypeCheck | boolean | true                 | defines whether a type check should be executed in TS-Projets                                                   |
 
 ##### Example:
 

@@ -10,4 +10,5 @@ export const defaultConfig = {
   useReact: false,
   copyStaticFiles: false,
   cleanDest: false,
+  enableTypeCheck: true,
 };

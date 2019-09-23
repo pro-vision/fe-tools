@@ -35,7 +35,9 @@ export const moduleCompileTS = {
                     regenerator: true,
                     useESModules: true,
                     helpers: false,
-                    absoluteRuntime: path.dirname(require.resolve("@babel/runtime/package.json"))
+                    absoluteRuntime: path.dirname(
+                      require.resolve("@babel/runtime/package.json")
+                    )
                   }
                 ],
                 require.resolve("@babel/plugin-syntax-dynamic-import"),

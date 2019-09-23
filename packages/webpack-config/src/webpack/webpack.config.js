@@ -4,18 +4,11 @@ import { prodConfigModule } from "./prod/module";
 import { prodConfigLegacy } from "./prod/legacy";
 
 export const getConfig = runMode => {
-
-  if(runMode === "development") {
-    return [
-      devConfigModule,
-      devConfigLegacy
-    ];
+  if (runMode === "development") {
+    return [devConfigModule, devConfigLegacy];
   }
 
-  return [
-    prodConfigModule,
-    prodConfigLegacy
-  ];
+  return [prodConfigModule, prodConfigLegacy];
 };
 
 export { getCustomWebpackConfig } from "../helpers/paths";

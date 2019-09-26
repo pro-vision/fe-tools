@@ -11,7 +11,7 @@ npm i @pro-vision/pv-scripts -D
 ## Usage
 
 ### Requirements
-To use the CLI, you need to create at least the three entry-files (`jsEntry`, `jsLegacyEntry`, `cssEntry`, see [Basic Configuration](#Basic Configuration)).
+To use the CLI, you need to create at least the two entry-files (`jsEntry`, `jsLegacyEntry`), see [Basic Configuration](#Basic Configuration)).
 
 ### Command Line Interface
 
@@ -42,7 +42,7 @@ Basic Configuration can be done in a `pv.config.js` file in the npm project root
 | namespace       | string  |                      | this controlls the name-prexix on your bundled files follwing this pattern `[namespace].app.[?legacy].(js|css)` |
 | jsEntry         | string  | 'src/index.ts'       | defines path of your (JS\|TS\|JSX\|TSX) entry file                                                              |
 | jsLegacyEntry   | string  | 'src/legacyIndex.ts' | defines path of your (JS\|TS\|JSX\|TSX) legacy entry file                                                       |
-| cssEntry        | string  | 'src/index.scss'     | defines path of your SCSS entry file                                                                            |
+| cssEntry        | string  | 'src/index.scss'     | defines path of your SCSS entry file. If `src/index.scss` does not exist, no error is thrown but the css generation is simply skipped                                                                           |
 | useTS           | boolean | true                 | defines whether you want to use Typescript                                                                      |
 | useReact        | boolean | false                | defines whether you want to use React                                                                           |
 | hbsEntry        | string  |                      | defines path of your handlebars entry file                                                                      |

@@ -1,3 +1,4 @@
-require("whatwg-fetch")
+import "./app";
 
-import "./app"
+require("whatwg-fetch");
+

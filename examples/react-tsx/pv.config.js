@@ -3,5 +3,6 @@ module.exports = {
   "jsEntry": "src/js/index.tsx",
   "jsLegacyEntry": "src/js/legacyIndex.tsx",
   "useReact": true,
-  "copyStaticFiles": true
+  "copyStaticFiles": true,
+  "cleanDest": true
 };

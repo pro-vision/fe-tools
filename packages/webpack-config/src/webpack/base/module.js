@@ -35,5 +35,5 @@ export const defaultConfigModule = merge(
   loadFonts,
   loadHandlebars,
   copyStaticFiles ? copyStatic : {},
-  shouldCopyResources ? copyResourcesTask : {}
+  shouldCopyResources() ? copyResourcesTask : {}
 );

@@ -1,7 +1,5 @@
 import { publicPath, getAppConfig } from "../../../helpers/paths";
 
-const { join } = require("path");
-
 const { fontsSrc } = getAppConfig();
 
 export const loadFonts = {

@@ -1,4 +1,5 @@
 const gulp = require("gulp");
+const { join } = require("path");
 
 // Assemble Clickdummy
 const { assembleClickdummyComponents } = require("../gulp-tasks/assembleWrapper/assembleClickdummyComponents");
@@ -24,19 +25,19 @@ const buildClickdummy = done => gulp.series(assembleClickdummyComponents, assemb
 
 const buildLSG = done => gulp.series(assembleLSGComponents, copyStyleguideFiles, buildStylemark)(done);
 
-const { componentsHome, cdPagesHome, lsgAssetsHome, lsgIndex } = getAppConfig();
+const { componentsSrc, cdPagesSrc, lsgAssetsSrc, lsgIndex } = getAppConfig();
 
 const watchFiles = () => {
-  gulp.watch(`${componentsHome}**/*.md`, gulp.series(recompileMessage, copyStyleguideFiles, buildStylemark, recompiledMessage));
-  gulp.watch(`${cdPagesHome}**/*.hbs`, gulp.series(recompileMessage, assembleClickdummyPages, recompiledMessage));
-  gulp.watch(`${lsgAssetsHome}**/*.*`, gulp.series(recompileMessage, copyStyleguideFiles, recompiledMessage));
+  gulp.watch(join(componentsSrc, "**/*.md"), gulp.series(recompileMessage, copyStyleguideFiles, buildStylemark, recompiledMessage));
+  gulp.watch(join(cdPagesSrc, "**/*.hbs"), gulp.series(recompileMessage, assembleClickdummyPages, recompiledMessage));
+  gulp.watch(join(lsgAssetsSrc, "**/*.*"), gulp.series(recompileMessage, copyStyleguideFiles, recompiledMessage));
   gulp.watch(lsgIndex, gulp.series(recompileMessage, copyClickdummyFiles, recompiledMessage));
   gulp.watch(
-    `${componentsHome}**/*.hbs`,
+    join(componentsSrc, "**/*.hbs"),
     gulp.series(recompileMessage, assembleClickdummyComponents, assembleClickdummyPages, assembleLSGComponents, buildStylemark, recompiledMessage)
   );
   gulp.watch(
-    `${componentsHome}**/*.json`,
+    join(componentsSrc, "**/*.json"),
     gulp.series(recompileMessage, assembleClickdummyComponents, assembleClickdummyPages, assembleLSGComponents, buildStylemark, recompiledMessage)
   );
 };

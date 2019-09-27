@@ -11,4 +11,6 @@ export const defaultConfig = {
   copyStaticFiles: false,
   cleanDest: false,
   enableTypeCheck: true,
+  fontsSrc: "resources/fonts/",
+  resourcesSrc: "resources"
 };

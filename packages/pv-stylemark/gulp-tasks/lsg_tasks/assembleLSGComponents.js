@@ -1,17 +1,18 @@
 const assemble = require("@pro-vision/assemble-lite");
+const { join } = require("path");
 
 const { resolveApp, getAppConfig } = require("../../helper/paths");
 
-const {destPath, lsgTemplatesHome, componentsHome, hbsHelperHome} = getAppConfig();
+const {destPath, lsgTemplatesSrc, componentsSrc, hbsHelperSrc} = getAppConfig();
 
 const assembleLSGComponents = () => assemble({
-  baseDir: resolveApp(componentsHome),
-  partials: resolveApp(`${componentsHome}**/*.hbs`),
-  pages: resolveApp(`${componentsHome}**/*.hbs`),
-  templates: resolveApp(`${lsgTemplatesHome}**/*.hbs`),
-  data: resolveApp(`${componentsHome}**/*.json`),
-  helpers: resolveApp(`${hbsHelperHome}*.js`),
-  target: resolveApp(`${destPath}/lsg_components`)
+  baseDir: resolveApp(componentsSrc),
+  partials: resolveApp(join(componentsSrc, "**/*.hbs")),
+  pages: resolveApp(join(componentsSrc, "**/*.hbs")),
+  templates: resolveApp(join(lsgTemplatesSrc, "**/*.hbs")),
+  data: resolveApp(join(componentsSrc, "**/*.json")),
+  helpers: resolveApp(join(hbsHelperSrc, "*.js")),
+  target: resolveApp(join(destPath, "/lsg_components"))
 });
 
 assembleLSGComponents();

@@ -9,6 +9,9 @@ export const defaultConfig = {
   useTS: true,
   useReact: false,
   copyStaticFiles: false,
+  copyResources: false,
   cleanDest: false,
   enableTypeCheck: true,
+  fontRoot: "resources/fonts/",
+  resourcesHome: "resources"
 };

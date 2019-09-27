@@ -7,7 +7,8 @@ const defaultConfig = {
   hbsHelperHome: "helpers/handlebarsHelper/",
   lsgAssetsHome: "src/assets/",
   lsgIndex: "src/styleguide/index.html",
-  lsgConfigPath: "config/config.stylemark.yaml"
+  lsgConfigPath: "config/config.stylemark.yaml",
+  resourcesHome: "resources"
 };
 
 module.exports = {

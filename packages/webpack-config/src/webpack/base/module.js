@@ -13,13 +13,13 @@ import { compileShadowCSS } from "./tasks/compileShadowCSS";
 import { loadHandlebars } from "./tasks/loadHandlebars";
 import { cleanDest } from "./tasks/cleanDest";
 import { tsTypeChecking } from "./tasks/tsTypeChecking";
-// CompileHTML
+import { copyResources as copyResourcesTask } from "./tasks/copyResources";
 import { compileHTML } from "./tasks/compileHTML";
 import { copyStatic } from "./tasks/copyStatic";
 // Helper
 import { useHtmlCompiler, getAppConfig } from "../../helpers/paths";
 
-const { useTS, copyStaticFiles, enableTypeCheck} = getAppConfig();
+const { useTS, copyStaticFiles, copyResources, enableTypeCheck} = getAppConfig();
 
 export const defaultConfigModule = merge(
   moduleEntrySettings,
@@ -34,5 +34,6 @@ export const defaultConfigModule = merge(
   useHtmlCompiler ? compileHTML : {},
   loadFonts,
   loadHandlebars,
-  copyStaticFiles ? copyStatic : {}
+  copyStaticFiles ? copyStatic : {},
+  copyResources ? copyResourcesTask : {}
 );

@@ -1,3 +1,7 @@
+import { publicPath, getAppConfig } from "../../../helpers/paths";
+
+const { fontRoot } = getAppConfig();
+
 export const loadFonts = {
   module: {
     rules: [
@@ -7,9 +11,9 @@ export const loadFonts = {
           {
             loader: require.resolve("file-loader"),
             options: {
-              publicPath: "../assets/fonts/",
+              publicPath: `${publicPath}${fontRoot}`,
               name: "[name].[ext]",
-              outputPath: "assets/fonts/"
+              outputPath: fontRoot
             }
           }
         ]

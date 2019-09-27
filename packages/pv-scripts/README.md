@@ -38,19 +38,21 @@ Basic Configuration can be done in a `pv.config.js` file in the npm project root
 | key             | type    | default              | usage                                                                                                           |
 | --------------- | ------- | -------------------- | --------------------------------------------------------------------------------------------------------------- |
 | devServerPort   | number  | 8616                 | set `webpack-dev-server` port                                                                                   |
-| destPath        | string  | 'target'             | defines where to put bundled files                                                                              |
+| destPath        | string  | "target"             | defines where to put bundled files                                                                              |
 | namespace       | string  |                      | this controlls the name-prexix on your bundled files follwing this pattern `[namespace].app.[?legacy].(js|css)` |
-| jsEntry         | string  | 'src/index.ts'       | defines path of your (JS\|TS\|JSX\|TSX) entry file                                                              |
-| jsLegacyEntry   | string  | 'src/legacyIndex.ts' | defines path of your (JS\|TS\|JSX\|TSX) legacy entry file                                                       |
-| cssEntry        | string  | 'src/index.scss'     | defines path of your SCSS entry file. If `src/index.scss` does not exist, no error is thrown but the css generation is simply skipped                                                                           |
+| jsEntry         | string  | "src/index.ts"       | defines path of your (JS\|TS\|JSX\|TSX) entry file                                                              |
+| jsLegacyEntry   | string  | "src/legacyIndex.ts" | defines path of your (JS\|TS\|JSX\|TSX) legacy entry file                                                       |
+| cssEntry        | string  | "src/index.scss"     | defines path of your SCSS entry file. If `src/index.scss` does not exist, no error is thrown but the css generation is simply skipped                                                                           |
 | useTS           | boolean | true                 | defines whether you want to use Typescript                                                                      |
 | useReact        | boolean | false                | defines whether you want to use React                                                                           |
 | hbsEntry        | string  |                      | defines path of your handlebars entry file                                                                      |
 | hbsTarget       | string  |                      | defines path to your handlebars target file                                                                     |
 | hbsPartialDir   | string  |                      | defines path to your a handlebars partials directory                                                            |
 | copyStaticFiles | boolean | false                | defines whether content of `/static` should be copied to target                                                 |
+| copyResources   | boolean | false                | defines whether resources folder should be copied to target/resources                                           |
 | cleanDest       | boolean | false                | defines whether the destination folder should be cleaned before every pv-scripts run                            |
-| enableTypeCheck | boolean | true                 | defines whether a type check should be executed in TS-Projets                                                   |
+| fontRoot        | string  | "resources/fonts/"   | defines folder in which the fonts are located                                                                   |
+| resourcesHome   | string  | "resources"          | defines resources folder to copy to target/resources                                                            |
 
 ##### Example:
 

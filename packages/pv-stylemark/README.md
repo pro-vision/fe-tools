@@ -51,7 +51,7 @@ Basic Configuration for both, cli and webpack-plugin, can be done in a `pv.confi
 | componentsHome    | string  | 'src/components/'               | defines homefolder of components (glob: `[componentsHome]**/*.hbs`) |
 | cdPagesHome       | string  | 'src/pages/'                    | defines homefolder of clickdummy-pages (glob: `[cdPagesHome]**/*.hbs`) |
 | hbsHelperHome     | string  | 'helpers/handlebarsHelper/'     | defines homefolder of additional handlebars-helpers (glob: `[hbsHelperHome]*.js`) |
-| lsgAssetsHome     | string  | 'src/assets/'                   | defines homefolder of dummy assets used in lsg an clickdummy (glob: `[lsgAssetsHome]**/*.js`) |
+| lsgAssetsHome     | string  | 'src/assets/'                   | defines homefolder of dummy assets used in lsg and clickdummy (glob: `[lsgAssetsHome]**/*.js`) |
 | lsgIndex          | string  | 'src/styleguide/index.html'     | defines path to styleguide landing page html file |
 | lsgConfigPath     | string  | 'config/config.stylemark.yaml'  | defines path to lsg config file (which is required) |
 

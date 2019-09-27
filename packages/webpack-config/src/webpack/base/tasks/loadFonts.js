@@ -1,6 +1,8 @@
 import { publicPath, getAppConfig } from "../../../helpers/paths";
 
-const { fontRoot } = getAppConfig();
+const { join } = require("path");
+
+const { fontsSrc } = getAppConfig();
 
 export const loadFonts = {
   module: {
@@ -11,9 +13,9 @@ export const loadFonts = {
           {
             loader: require.resolve("file-loader"),
             options: {
-              publicPath: `${publicPath}${fontRoot}`,
+              publicPath: join(publicPath, fontsSrc),
               name: "[name].[ext]",
-              outputPath: fontRoot
+              outputPath: fontsSrc
             }
           }
         ]

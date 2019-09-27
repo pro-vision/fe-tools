@@ -94,6 +94,8 @@ const getAppName = () => {
 
 export const appName = getAppName();
 
+export const shouldCopyResources = () => existsSync(resolveApp(getAppConfig().resourcesSrc));
+
 
 /******************************************************************************
  ** CompileHTML helper

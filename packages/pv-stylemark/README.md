@@ -46,12 +46,12 @@ Basic Configuration for both, cli and webpack-plugin, can be done in a `pv.confi
 | key               | type    | default                         |          usage                |
 | -------------     | ------  | --------                        | ----------------------------- |
 | destPath          | string  | 'target'                        | defines where to put bundled files |
-| cdTemplatesHome   | string  | 'src/templates/'                | defines homefolder of clickdummy-templates (glob: `[cdTemplatesHome]**/*.hbs`) |
-| lsgTemplatesHome  | string  | 'src/styleguide/templates/'     | defines homefolder of lsg-templates (glob: `[lsgTemplatesHome]**/*.hbs`) |
-| componentsHome    | string  | 'src/components/'               | defines homefolder of components (glob: `[componentsHome]**/*.hbs`) |
-| cdPagesHome       | string  | 'src/pages/'                    | defines homefolder of clickdummy-pages (glob: `[cdPagesHome]**/*.hbs`) |
-| hbsHelperHome     | string  | 'helpers/handlebarsHelper/'     | defines homefolder of additional handlebars-helpers (glob: `[hbsHelperHome]*.js`) |
-| lsgAssetsHome     | string  | 'src/assets/'                   | defines homefolder of dummy assets used in lsg and clickdummy (glob: `[lsgAssetsHome]**/*.js`) |
+| cdTemplatesSrc   | string  | 'src/templates/'                | defines homefolder of clickdummy-templates (glob: `[cdTemplatesSrc]**/*.hbs`) |
+| lsgTemplatesSrc  | string  | 'src/styleguide/templates/'     | defines homefolder of lsg-templates (glob: `[lsgTemplatesSrc]**/*.hbs`) |
+| componentsSrc    | string  | 'src/components/'               | defines homefolder of components (glob: `[componentsSrc]**/*.hbs`) |
+| cdPagesSrc       | string  | 'src/pages/'                    | defines homefolder of clickdummy-pages (glob: `[cdPagesSrc]**/*.hbs`) |
+| hbsHelperSrc     | string  | 'helpers/handlebarsHelper/'     | defines homefolder of additional handlebars-helpers (glob: `[hbsHelperSrc]*.js`) |
+| lsgAssetsSrc     | string  | 'src/assets/'                   | defines homefolder of dummy assets used in lsg and clickdummy (glob: `[lsgAssetsSrc]**/*.js`) |
 | lsgIndex          | string  | 'src/styleguide/index.html'     | defines path to styleguide landing page html file |
 | lsgConfigPath     | string  | 'config/config.stylemark.yaml'  | defines path to lsg config file (which is required) |
 
@@ -61,11 +61,11 @@ Basic Configuration for both, cli and webpack-plugin, can be done in a `pv.confi
 // pv.config.js
 module.exports = {
   destPath: 'dist',
-  cdTemplatesHome: 'src/clickdummy/templates/',
-  lsgTemplatesHome: 'src/lsg/templates/',
-  cdPagesHome: 'src/clickdummy/pages/',
-  hbsHelperHome: 'helper/handlebarsHelper/',
-  lsgAssetsHome: 'src/lsg/assets/',
+  cdTemplatesSrc: 'src/clickdummy/templates/',
+  lsgTemplatesSrc: 'src/lsg/templates/',
+  cdPagesSrc: 'src/clickdummy/pages/',
+  hbsHelperSrc: 'helper/handlebarsHelper/',
+  lsgAssetsSrc: 'src/lsg/assets/',
   lsgConfigPath: 'config.stylemark.yaml',
 };
 ```

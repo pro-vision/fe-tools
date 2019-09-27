@@ -1,14 +1,14 @@
 const defaultConfig = {
   destPath: "target",
-  cdTemplatesHome: "src/templates/",
-  lsgTemplatesHome: "src/styleguide/templates/",
-  componentsHome: "src/components/",
-  cdPagesHome: "src/pages/",
-  hbsHelperHome: "helpers/handlebarsHelper/",
-  lsgAssetsHome: "src/assets/",
+  cdTemplatesSrc: "src/templates/",
+  lsgTemplatesSrc: "src/styleguide/templates/",
+  componentsSrc: "src/components/",
+  cdPagesSrc: "src/pages/",
+  hbsHelperSrc: "helpers/handlebarsHelper/",
+  lsgAssetsSrc: "src/assets/",
   lsgIndex: "src/styleguide/index.html",
   lsgConfigPath: "config/config.stylemark.yaml",
-  resourcesHome: "resources"
+  resourcesSrc: "resources"
 };
 
 module.exports = {

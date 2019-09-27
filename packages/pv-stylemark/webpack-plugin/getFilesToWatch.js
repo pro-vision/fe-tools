@@ -1,26 +1,27 @@
 const { asyncGlob } = require("@pro-vision/assemble-lite/helper/io-helper");
+const { join } = require("path");
 
 const { getAppConfig } = require("../helper/paths");
 
-const {componentsHome, cdPagesHome, cdTemplatesHome, lsgIndex} = getAppConfig();
+const {componentsSrc, cdPagesSrc, cdTemplatesSrc, lsgIndex} = getAppConfig();
 
 const getFilesToWatch = async () => {
   const files = [lsgIndex];
 
   // add .md files
-  files.push(...await asyncGlob(`${componentsHome}**/*.md`));
+  files.push(...await asyncGlob(join(componentsSrc, "**/*.md")));
 
   // add .json Components files
-  files.push(...await asyncGlob(`${componentsHome}**/*.json`));
+  files.push(...await asyncGlob(join(componentsSrc, "**/*.json")));
 
   // add .hbs Components files
-  files.push(...await asyncGlob(`${componentsHome}**/*.hbs`));
+  files.push(...await asyncGlob(join(componentsSrc, "**/*.hbs")));
 
   // add .hbs Pages files
-  files.push(...await asyncGlob(`${cdPagesHome}**/*.hbs`));
+  files.push(...await asyncGlob(join(cdPagesSrc, "**/*.hbs")));
 
   // add .hbs Template files
-  files.push(...await asyncGlob(`${cdTemplatesHome}**/*.hbs`));
+  files.push(...await asyncGlob(join(cdTemplatesSrc, "**/*.hbs")));
 
   return files;
 

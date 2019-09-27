@@ -1,18 +1,19 @@
 const assemble = require("@pro-vision/assemble-lite");
+const { join } = require("path");
 
 const { resolveApp, getAppConfig } = require("../../helper/paths");
 
-const {destPath, cdTemplatesHome, componentsHome, cdPagesHome, hbsHelperHome} = getAppConfig();
+const {destPath, cdTemplatesSrc, componentsSrc, cdPagesSrc, hbsHelperSrc} = getAppConfig();
 
 
 const assembleClickdummyPages = () => assemble({
-  baseDir: resolveApp(cdPagesHome),
-  partials: resolveApp(`${componentsHome}**/*.hbs`),
-  pages: resolveApp(`${cdPagesHome}**/*.hbs`),
-  templates: resolveApp(`${cdTemplatesHome}**/*.hbs`),
-  data: resolveApp(`${componentsHome}**/*.json`),
-  helpers: resolveApp(`${hbsHelperHome}*.js`),
-  target: resolveApp(`${destPath}/pages`)
+  baseDir: resolveApp(cdPagesSrc),
+  partials: resolveApp(join(componentsSrc, "**/*.hbs")),
+  pages: resolveApp(join(cdPagesSrc, "**/*.hbs")),
+  templates: resolveApp(join(cdTemplatesSrc, "**/*.hbs")),
+  data: resolveApp(join(componentsSrc, "**/*.json")),
+  helpers: resolveApp(join(hbsHelperSrc, "*.js")),
+  target: resolveApp(join(destPath, "pages"))
 });
 
 assembleClickdummyPages();

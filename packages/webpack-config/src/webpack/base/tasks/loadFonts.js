@@ -13,7 +13,7 @@ export const loadFonts = {
           {
             loader: require.resolve("file-loader"),
             options: {
-              publicPath: join(publicPath, fontsSrc),
+              publicPath: `${publicPath.replace(/\/$/, "")}/${fontsSrc}`,
               name: "[name].[ext]",
               outputPath: fontsSrc
             }

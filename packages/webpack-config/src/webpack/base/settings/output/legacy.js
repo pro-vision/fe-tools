@@ -5,6 +5,6 @@ export const legacyOutputSettings = {
     path: appTarget,
     publicPath,
     filename: "js/[name].legacy.js",
-    chunkFilename: "js/chunks/[name].legacy.[hash].js",
+    chunkFilename: "resources/chunks/[name].legacy.[hash].js",
   }
 };

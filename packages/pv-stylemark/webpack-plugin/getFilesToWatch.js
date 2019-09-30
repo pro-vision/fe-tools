@@ -1,7 +1,6 @@
 const { asyncGlob } = require("@pro-vision/assemble-lite/helper/io-helper");
-const { join } = require("path");
 
-const { getAppConfig } = require("../helper/paths");
+const { getAppConfig, join } = require("../helper/paths");
 
 const {componentsSrc, cdPagesSrc, cdTemplatesSrc, lsgIndex} = getAppConfig();
 

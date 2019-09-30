@@ -96,6 +96,7 @@ const getAppName = () => {
 export const appName = getAppName();
 
 export const shouldCopyResources = () => existsSync(resolveApp(getAppConfig().resourcesSrc));
+export const autoConsoleClear = () => getAppConfig().autoConsoleClear;
 
 /**
  * node's `path.join`, but with forward slashes independent of the platform

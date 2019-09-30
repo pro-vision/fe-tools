@@ -1,8 +1,9 @@
 const chalk = require("chalk");
 const clearConsole = require("react-dev-utils/clearConsole");
 const formatWebpackMessages = require("react-dev-utils/formatWebpackMessages");
+const { autoConsoleClear } = require("@pro-vision/webpack-config");
 
-const isInteractive = process.stdout.isTTY;
+const isInteractive = process.stdout.isTTY && autoConsoleClear();
 
 function getCompiler({ webpackConfig, webpack }) {
   // 'Compiler' is a low-level interface to Webpack.

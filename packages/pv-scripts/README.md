@@ -51,7 +51,8 @@ Basic Configuration can be done in a `pv.config.js` file in the npm project root
 | copyStaticFiles | boolean | false                | defines whether content of `/static` should be copied to target                                                 |
 | cleanDest       | boolean | false                | defines whether the destination folder should be cleaned before every pv-scripts run                            |
 | fontsSrc        | string  | "resources/fonts/"   | defines folder in which the fonts are located                                                                   |
-| resourcesSrc   | string  | "resources"           | defines resources folder which is copied to target/resources                                                    |
+| resourcesSrc    | string  | "resources"           | defines resources folder which is copied to target/resources                                                    |
+| autoConsoleClear | boolean  | false"              | defines whether the console should be cleared automatically in dev-mode                                                |
 
 ##### Example:
 

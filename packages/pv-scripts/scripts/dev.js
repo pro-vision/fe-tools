@@ -18,10 +18,11 @@ const chalk = require("chalk");
 const webpack = require("webpack");
 const WebpackDevServer = require("webpack-dev-server");
 const clearConsole = require("react-dev-utils/clearConsole");
+const { autoConsoleClear } = require("@pro-vision/webpack-config");
 
 const { prepareWebpackConfig } = require("../helpers/prepareWebpackConfig");
 const { getCompiler } = require("../helpers/devServerHelpers");
-const isInteractive = process.stdout.isTTY;
+const isInteractive = process.stdout.isTTY && autoConsoleClear();
 
 prepareWebpackConfig("development")
   .then(webpackConfig => {

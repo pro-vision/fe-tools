@@ -12,5 +12,6 @@ export const defaultConfig = {
   cleanDest: false,
   enableTypeCheck: true,
   fontsSrc: "resources/fonts/",
-  resourcesSrc: "resources"
+  resourcesSrc: "resources",
+  autoConsoleClear: false
 };

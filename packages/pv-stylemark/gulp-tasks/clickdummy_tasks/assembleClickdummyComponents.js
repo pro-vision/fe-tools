@@ -1,7 +1,6 @@
 const assemble = require("@pro-vision/assemble-lite");
-const { join } = require("path");
 
-const { resolveApp, getAppConfig } = require("../../helper/paths");
+const { resolveApp, getAppConfig, join } = require("../../helper/paths");
 
 const {destPath, cdTemplatesSrc, componentsSrc, hbsHelperSrc} = getAppConfig();
 

@@ -1,5 +1,6 @@
 import path from "path";
 import { realpathSync, existsSync } from "fs";
+import slash from "slash";
 
 import { defaultConfig } from "../config/default.config";
 
@@ -95,6 +96,16 @@ const getAppName = () => {
 export const appName = getAppName();
 
 export const shouldCopyResources = () => existsSync(resolveApp(getAppConfig().resourcesSrc));
+
+/**
+ * node's `path.join`, but with forward slashes independent of the platform
+ *
+ * @param {...string} paths - path segments to be joined
+ * @returns {string}
+ */
+export function join(...paths) {
+  return slash(path.join(...paths));
+}
 
 
 /******************************************************************************

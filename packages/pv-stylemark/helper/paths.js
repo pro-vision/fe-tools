@@ -1,7 +1,8 @@
 
 
-const { resolve } = require("path");
+const { resolve, join } = require("path");
 const { realpathSync, existsSync } = require("fs");
+const slash = require("slash");
 
 const { defaultConfig } = require("../config/default.config");
 
@@ -26,7 +27,18 @@ if (customConfigExists) {
 
 const getAppConfig = () => config;
 
+/**
+ * node's `path.join`, but with forward slashes independent of the platform
+ *
+ * @param {...string} paths - path segments to be joined
+ * @returns {string}
+ */
+function slashJoin(...paths) {
+  return slash(join(...paths));
+}
+
 module.exports = {
   resolveApp,
-  getAppConfig
+  getAppConfig,
+  join: slashJoin
 };

@@ -1,4 +1,4 @@
-import { publicPath, getAppConfig } from "../../../helpers/paths";
+import { publicPath, getAppConfig, join } from "../../../helpers/paths";
 
 const { fontsSrc } = getAppConfig();
 
@@ -11,7 +11,7 @@ export const loadFonts = {
           {
             loader: require.resolve("file-loader"),
             options: {
-              publicPath: `${publicPath.replace(/\/$/, "")}/${fontsSrc}`,
+              publicPath: join(publicPath, fontsSrc),
               name: "[name].[ext]",
               outputPath: fontsSrc
             }

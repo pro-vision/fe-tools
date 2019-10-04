@@ -21,7 +21,7 @@ To run a locally installed version of the `pv-scripts`, you can either call the 
 
 ```sh
 npx pv-scripts dev
-``` 
+```
 
 **dev:**
 Transpiles and bundles your code (JS/TS/JSX/TSX/SCSS) via `webpack` (+ all needed loaders) and opens a `webpack-dev-server` on the configured port (default: 8616).
@@ -39,7 +39,7 @@ Basic Configuration can be done in a `pv.config.js` file in the npm project root
 | --------------- | ------- | -------------------- | --------------------------------------------------------------------------------------------------------------- |
 | devServerPort   | number  | 8616                 | set `webpack-dev-server` port                                                                                   |
 | destPath        | string  | "target"             | defines where to put bundled files                                                                              |
-| namespace       | string  |                      | this controlls the name-prexix on your bundled files follwing this pattern `[namespace].app.[?legacy].(js|css)` |
+| namespace       | string  |                      | this controls the name-prefix on your bundled files following this pattern `[namespace].app.[?legacy].(js|css)` |
 | jsEntry         | string  | "src/index.ts"       | defines path of your (JS\|TS\|JSX\|TSX) entry file                                                              |
 | jsLegacyEntry   | string  | "src/legacyIndex.ts" | defines path of your (JS\|TS\|JSX\|TSX) legacy entry file                                                       |
 | cssEntry        | string  | "src/index.scss"     | defines path of your SCSS entry file. If `src/index.scss` does not exist, no error is thrown but the css generation is simply skipped                                                                           |

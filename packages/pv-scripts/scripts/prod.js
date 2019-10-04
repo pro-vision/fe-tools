@@ -19,7 +19,7 @@ const { prepareWebpackConfig } = require("../helpers/prepareWebpackConfig");
 
 // Create the production build
 function webpackBuild(webpackConfig) {
-  console.log("Creating an production build...");
+  console.log("Creating a production build...");
 
   const compiler = webpack(webpackConfig);
   return new Promise((resolve, reject) => {

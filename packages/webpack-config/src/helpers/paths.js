@@ -38,7 +38,9 @@ export const getCustomWebpackConfig = configName =>
       try {
         customWebpackConfig = require(customWebpackConfigPath);
       }
-      catch {
+      catch (err) {
+        console.log("Failed to load config file:");
+        console.error(err);
         customWebpackConfig = {};
       }
       finally {

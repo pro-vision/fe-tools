@@ -1,0 +1,42 @@
+{
+  "name": "pv-create-component",
+  "version": "0.1.0",
+  "description": "interactive CLI tool to generate boilerplate code for a new component.",
+  "license": "Apache-2.0",
+  "repository": "https://github.com/pro-vision/fe-tools",
+  "author": {
+    "name": "mbehzad",
+    "email": "mbehzad@pro-vision.de"
+  },
+  "bin": {
+    "pv-create-component": "./bin/pv-create-component.js"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "scripts": {
+    "test": "echo \"no test specified\" && exit 0"
+  },
+  "files": [
+    "bin/pv-create-component.js"
+  ],
+  "directories": {
+    "lib": "lib",
+    "bin": "bin"
+  },
+  "keywords": [
+    "cli",
+    "cli-app",
+    "code-boilerplate-generator"
+  ],
+  "dependencies": {
+    "chalk": "2.4.2",
+    "clear": "0.1.0",
+    "commander": "3.0.2",
+    "figlet": "1.2.4",
+    "inquirer": "7.0.0",
+    "mkdirp": "0.5.1",
+    "simple-git": "1.126.0"
+  },
+  "devDependencies": {}
+}

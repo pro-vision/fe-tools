@@ -46,7 +46,7 @@ prepareWebpackConfig("development")
         clearConsole();
       }
 
-      console.log(chalk.cyan("Starting the development server...\n"));
+      console.log(chalk.cyan(`Starting the development server on port ${devServerConfig.port}...\n`));
     });
 
     ["SIGINT", "SIGTERM"].forEach(sig => {

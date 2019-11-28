@@ -27,11 +27,11 @@
   },
   "dependencies": {
     "@pro-vision/webpack-config": "^2.0.3",
-    "chalk": "2.4.2",
-    "cross-spawn": "6.0.5",
-    "react-dev-utils": "9.0.3",
-    "webpack": "4.39.2",
-    "webpack-dev-server": "3.8.0",
-    "webpack-merge": "4.2.1"
+    "chalk": "3.0.0",
+    "cross-spawn": "7.0.1",
+    "react-dev-utils": "9.1.0",
+    "webpack": "4.41.2",
+    "webpack-dev-server": "3.9.0",
+    "webpack-merge": "4.2.2"
   }
 }

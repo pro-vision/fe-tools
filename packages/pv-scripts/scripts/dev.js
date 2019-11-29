@@ -37,8 +37,11 @@ prepareWebpackConfig("development")
 
     const devServer = new WebpackDevServer(compiler, devServerConfig);
 
+    const devServerUrl = `http${devServerConfig.https ? "s" : ""}://${devServerConfig.host}:${devServerConfig.port}`;
+
+
     // Launch WebpackDevServer.
-    devServer.listen(devServerConfig.port, "0.0.0.0", err => {
+    devServer.listen(devServerConfig.port, devServerConfig.host, err => {
       if (err) {
         return console.log(err);
       }
@@ -46,7 +49,7 @@ prepareWebpackConfig("development")
         clearConsole();
       }
 
-      console.log(chalk.cyan(`Starting the development server on port ${devServerConfig.port}...\n`));
+      console.log(chalk.cyan(`Starting the development server: ${devServerUrl}\n`));
     });
 
     ["SIGINT", "SIGTERM"].forEach(sig => {

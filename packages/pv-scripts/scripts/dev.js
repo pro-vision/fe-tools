@@ -37,7 +37,7 @@ prepareWebpackConfig("development")
 
     const devServer = new WebpackDevServer(compiler, devServerConfig);
 
-    const devServerUrl = `${devServerConfig.https ? 'https' : 'http'}://${devServerConfig.host}:${devServerConfig.port}`;
+    const devServerUrl = `http${devServerConfig.https ? "s" : ""}://${devServerConfig.host}:${devServerConfig.port}`;
 
 
     // Launch WebpackDevServer.

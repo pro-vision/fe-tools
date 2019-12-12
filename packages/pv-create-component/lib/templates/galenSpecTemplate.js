@@ -10,6 +10,5 @@ module.exports = function({ componentName }) {
   @on initial
     module:
       visible
-      css color is \${fraColorBlue600A}
 `);
 };

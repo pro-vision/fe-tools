@@ -1,5 +1,5 @@
 {
-  "name": "pv-create-component",
+  "name": "@pro-vision/pv-create-component",
   "version": "0.1.0",
   "description": "interactive CLI tool to generate boilerplate code for a new component.",
   "license": "Apache-2.0",

@@ -39,8 +39,7 @@ class ${constructorName} extends Component {
   /**
    * @override
    */
-  connectedCallback() {
-    super.connectedCallback();
+  afterComponentRender() {
     // @TODO: add necessary logic to bootstrap the custom element
   }
 

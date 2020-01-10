@@ -3,7 +3,7 @@ import { realpathSync, existsSync } from "fs";
 import slash from "slash";
 
 import { defaultConfig } from "../config/default.config";
-import inferLoaderFromFileType from "./inferLoaderFromFileType";
+import inferLoaderFromFiletype from "./inferLoaderFromFiletype/inferLoaderFromFileType";
 
 const appDirectory = realpathSync(process.cwd());
 export const resolveApp = relativePath =>
@@ -23,7 +23,7 @@ if (customConfigExists) {
   }
 }
 
-config = inferLoaderFromFileType(config);
+config = inferLoaderFromFiletype(config);
 
 export const getAppConfig = () => config;
 

@@ -1,4 +1,4 @@
-import getFileExtension from "./getFileExtension";
+import getFileExtension from "../getFileExtension/getFileExtension";
 
 /**
  * Will change some default configuration by inferring filetypes.
@@ -23,7 +23,7 @@ import getFileExtension from "./getFileExtension";
  }
 ```
  */
-function inferLoaderFromFileType(config) {
+function inferLoaderFromFiletype(config) {
   let newConfigEntries = {};
 
   const fileTypeMapping = {
@@ -52,4 +52,4 @@ function inferLoaderFromFileType(config) {
   return { ...config, ...newConfigEntries };
 }
 
-export default inferLoaderFromFileType;
+export default inferLoaderFromFiletype;

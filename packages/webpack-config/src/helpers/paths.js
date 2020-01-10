@@ -3,9 +3,11 @@ import { realpathSync, existsSync } from "fs";
 import slash from "slash";
 
 import { defaultConfig } from "../config/default.config";
+import inferLoaderFromFiletype from "./inferLoaderFromFiletype/inferLoaderFromFiletype";
 
 const appDirectory = realpathSync(process.cwd());
-export const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
+export const resolveApp = relativePath =>
+  path.resolve(appDirectory, relativePath);
 
 // try to load pv.config.js
 let config = defaultConfig;
@@ -21,6 +23,8 @@ if (customConfigExists) {
     config = defaultConfig;
   }
 }
+
+config = inferLoaderFromFiletype(config);
 
 export const getAppConfig = () => config;
 
@@ -55,7 +59,6 @@ const getJSExtName = options => {
   }
 
   return options.useTS ? ".ts" : ".js";
-
 };
 
 export const publicPath = process.env.PUBLIC_PATH || "/";
@@ -64,7 +67,9 @@ export const appPath = resolveApp(".");
 export const appSrc = resolveApp(config.srcPath);
 
 export const jsEntry = () => {
-  if (config.jsEntry !== defaultConfig.jsEntry) return resolveApp(config.jsEntry);
+  if (config.jsEntry !== defaultConfig.jsEntry) {
+    return resolveApp(config.jsEntry);
+  }
 
   const extname = path.extname(config.jsEntry);
 
@@ -72,12 +77,15 @@ export const jsEntry = () => {
 };
 
 export const jsLegacyEntry = () => {
-  if (config.jsLegacyEntry !== defaultConfig.jsLegacyEntry) return resolveApp(config.jsLegacyEntry);
+  if (config.jsLegacyEntry !== defaultConfig.jsLegacyEntry) {
+    return resolveApp(config.jsLegacyEntry);
+  }
 
   const extname = path.extname(config.jsLegacyEntry);
 
   return resolveApp(
-    config.jsLegacyEntry.replace(extname, getJSExtName(config)));
+    config.jsLegacyEntry.replace(extname, getJSExtName(config))
+  );
 };
 
 export const addCssEntry = () => {
@@ -97,7 +105,8 @@ const getAppName = () => {
 
 export const appName = getAppName();
 
-export const shouldCopyResources = () => existsSync(resolveApp(getAppConfig().resourcesSrc));
+export const shouldCopyResources = () =>
+  existsSync(resolveApp(getAppConfig().resourcesSrc));
 export const autoConsoleClear = () => getAppConfig().autoConsoleClear;
 
 /**
@@ -109,7 +118,6 @@ export const autoConsoleClear = () => getAppConfig().autoConsoleClear;
 export function join(...paths) {
   return slash(path.join(...paths));
 }
-
 
 /******************************************************************************
  ** CompileHTML helper

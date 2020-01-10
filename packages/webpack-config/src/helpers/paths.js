@@ -18,7 +18,8 @@ if (customConfigExists) {
   try {
     const pvConfig = require(customConfigPath);
     config = { ...defaultConfig, ...pvConfig };
-  } catch {
+  }
+  catch {
     config = defaultConfig;
   }
 }
@@ -36,14 +37,17 @@ export const getCustomWebpackConfig = configName =>
 
     if (!customWebpackConfigExists) {
       resolve({});
-    } else {
+    }
+    else {
       try {
         customWebpackConfig = require(customWebpackConfigPath);
-      } catch (err) {
+      }
+      catch (err) {
         console.log("Failed to load config file:");
         console.error(err);
         customWebpackConfig = {};
-      } finally {
+      }
+      finally {
         resolve(customWebpackConfig);
       }
     }

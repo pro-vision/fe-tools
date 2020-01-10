@@ -14,5 +14,5 @@ jobs:
         - npm run lint
     - stage: test
       script:
-        # Lint all
+        - npm run bootstrap
         - npm run test

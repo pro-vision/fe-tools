@@ -3,7 +3,7 @@ import { realpathSync, existsSync } from "fs";
 import slash from "slash";
 
 import { defaultConfig } from "../config/default.config";
-import inferLoaderFromFiletype from "./inferLoaderFromFiletype/inferLoaderFromFileType";
+import inferLoaderFromFiletype from "./inferLoaderFromFiletype/inferLoaderFromFiletype";
 
 const appDirectory = realpathSync(process.cwd());
 export const resolveApp = relativePath =>
@@ -18,8 +18,7 @@ if (customConfigExists) {
   try {
     const pvConfig = require(customConfigPath);
     config = { ...defaultConfig, ...pvConfig };
-  }
-  catch {
+  } catch {
     config = defaultConfig;
   }
 }
@@ -37,17 +36,14 @@ export const getCustomWebpackConfig = configName =>
 
     if (!customWebpackConfigExists) {
       resolve({});
-    }
-    else {
+    } else {
       try {
         customWebpackConfig = require(customWebpackConfigPath);
-      }
-      catch (err) {
+      } catch (err) {
         console.log("Failed to load config file:");
         console.error(err);
         customWebpackConfig = {};
-      }
-      finally {
+      } finally {
         resolve(customWebpackConfig);
       }
     }

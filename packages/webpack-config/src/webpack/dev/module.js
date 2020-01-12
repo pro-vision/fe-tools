@@ -8,4 +8,9 @@ import { devServerSettings } from "./settings/devServerSettings";
 // Tasks
 import { moduleCompileCSS } from "./tasks/compileCSS/module";
 
-export const devConfigModule = merge(defaultConfigModule, basicSettings, devServerSettings, moduleCompileCSS);
+export const devConfigModule = merge(
+  defaultConfigModule,
+  basicSettings,
+  devServerSettings,
+  moduleCompileCSS
+);

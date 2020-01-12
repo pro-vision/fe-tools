@@ -7,4 +7,8 @@ import { basicSettings } from "./settings/basicSettings";
 // Tasks
 import { compileCSS } from "./tasks/compileCSS";
 
-export const prodConfigLegacy = merge(defaultConfigLegacy, basicSettings, compileCSS);
+export const prodConfigLegacy = merge(
+  defaultConfigLegacy,
+  basicSettings,
+  compileCSS
+);

@@ -1,5 +1,5 @@
 {
-  "extends": ["pv"],
+  "extends": ["pv", "plugin:prettier/recommended"],
   "parser": "babel-eslint",
   "env": {
     "node": true,

@@ -7,4 +7,8 @@ import { basicSettings } from "./settings/basicSettings";
 // Tasks
 import { compileCSS } from "./tasks/compileCSS";
 
-export const prodConfigModule = merge(defaultConfigModule, basicSettings, compileCSS);
+export const prodConfigModule = merge(
+  defaultConfigModule,
+  basicSettings,
+  compileCSS
+);

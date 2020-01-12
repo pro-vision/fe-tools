@@ -5,13 +5,13 @@ export const compileShadowCSS = {
         test: /\.shadow\.scss$/,
         use: [
           {
-            loader: require.resolve("raw-loader"),
+            loader: require.resolve("raw-loader")
           },
           {
             loader: require.resolve("sass-loader")
-          },
+          }
         ]
       }
-    ],
+    ]
   }
 };

@@ -32,9 +32,8 @@ prepareWebpackConfig("development").then(webpackConfig => {
 
   const devServer = new WebpackDevServer(compiler, devServerConfig);
 
-  const devServerUrl = `http${devServerConfig.https ? "s" : ""}://${
-    devServerConfig.host
-  }:${devServerConfig.port}`;
+  // prettier-ignore
+  const devServerUrl = `http${devServerConfig.https ? "s" : ""}://${devServerConfig.host}:${devServerConfig.port}`;
 
   // Launch WebpackDevServer.
   devServer.listen(devServerConfig.port, devServerConfig.host, err => {

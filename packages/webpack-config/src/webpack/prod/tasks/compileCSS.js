@@ -1,4 +1,3 @@
-
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 
 export const compileCSS = {
@@ -10,16 +9,13 @@ export const compileCSS = {
         use: [
           MiniCssExtractPlugin.loader,
           {
-            loader: require.resolve("css-loader"),
+            loader: require.resolve("css-loader")
           },
           {
             loader: require.resolve("postcss-loader"),
             options: {
               ident: "postcss",
-              plugins: () => [
-                require("postcss-preset-env"),
-                require("cssnano"),
-              ],
+              plugins: () => [require("postcss-preset-env"), require("cssnano")]
             }
           },
           require.resolve("sass-loader")
@@ -31,5 +27,5 @@ export const compileCSS = {
     new MiniCssExtractPlugin({
       filename: "css/[name].css"
     })
-  ],
+  ]
 };

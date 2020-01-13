@@ -10,29 +10,33 @@ const assembleHbs = (markup, data, hbsInstance) => {
 };
 
 const assemblePages = async (options, hbsInstance) => {
-
   const { baseDir, pages, templMap, target, dataPool } = options;
 
   const pagesPaths = await getPaths(pages);
 
+  return await Promise.all(
+    pagesPaths.map(async path => {
+      const filename = basename(path, ".hbs");
+      const relpath = relative(baseDir, path);
+      const reldir = dirname(relpath);
 
-  return await Promise.all(pagesPaths.map(async path => {
-    const filename = basename(path, ".hbs");
-    const relpath = relative(baseDir, path);
-    const reldir = dirname(relpath);
+      const markup = await asyncReadFile(path);
 
-    const markup = await asyncReadFile(path);
+      const frontmatter = loadFront(markup);
 
-    const frontmatter = loadFront(markup);
+      const curData = { ...dataPool, ...frontmatter };
+      const pageMarkup = applyTemplate(
+        templMap,
+        curData.layout,
+        frontmatter.__content
+      );
 
-    const curData = {...dataPool, ...frontmatter};
-    const pageMarkup = applyTemplate(templMap, curData.layout, frontmatter.__content);
-
-    const result = assembleHbs(pageMarkup, curData, hbsInstance);
-    await asyncWriteFile(target, reldir, filename, result);
-  }));
+      const result = assembleHbs(pageMarkup, curData, hbsInstance);
+      await asyncWriteFile(target, reldir, filename, result);
+    })
+  );
 };
 
 module.exports = {
-  assemblePages,
+  assemblePages
 };

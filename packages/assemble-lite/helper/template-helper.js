@@ -5,15 +5,16 @@ const { getPaths, asyncReadFile } = require("./io-helper");
 const loadTemplates = async templates => {
   const templatePaths = await getPaths(templates);
   const templMap = new Map();
-  await Promise.all(templatePaths.map(async path => {
-    const filename = basename(path, ".hbs");
-    const markup = await asyncReadFile(path);
+  await Promise.all(
+    templatePaths.map(async path => {
+      const filename = basename(path, ".hbs");
+      const markup = await asyncReadFile(path);
 
-    templMap.set(filename, markup);
-  }));
+      templMap.set(filename, markup);
+    })
+  );
   return templMap;
 };
-
 
 const applyTemplate = (templMap, templateName, page) => {
   if (!templMap.has(templateName)) return page;
@@ -24,5 +25,5 @@ const applyTemplate = (templMap, templateName, page) => {
 
 module.exports = {
   loadTemplates,
-  applyTemplate,
+  applyTemplate
 };

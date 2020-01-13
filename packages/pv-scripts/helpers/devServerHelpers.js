@@ -13,8 +13,7 @@ function getCompiler({ webpackConfig, webpack }) {
 
   try {
     compiler = webpack(webpackConfig);
-  }
-  catch (err) {
+  } catch (err) {
     console.log(chalk.red("Failed to compile."));
     console.log();
     console.log(err.message || err);

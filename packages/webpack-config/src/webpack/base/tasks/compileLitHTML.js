@@ -13,10 +13,10 @@ export const compileLitHTML = {
                 require.resolve("@babel/preset-env"),
                 {
                   targets: {
-                    ie: 11,
-                  },
-                },
-              ],
+                    ie: 11
+                  }
+                }
+              ]
             ],
             plugins: [
               [
@@ -32,13 +32,15 @@ export const compileLitHTML = {
                   regenerator: true,
                   useESModules: false,
                   helpers: false,
-                  absoluteRuntime: path.dirname(require.resolve("@babel/runtime/package.json")),
-                },
-              ],
-            ],
-          },
-        },
-      },
+                  absoluteRuntime: path.dirname(
+                    require.resolve("@babel/runtime/package.json")
+                  )
+                }
+              ]
+            ]
+          }
+        }
+      }
     ]
   }
 };

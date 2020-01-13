@@ -33,9 +33,10 @@ function webpackBuild(webpackConfig) {
           errors: [err.message],
           warnings: []
         });
-      }
-      else {
-        messages = formatWebpackMessages(stats.toJson({ all: false, warnings: true, errors: true }));
+      } else {
+        messages = formatWebpackMessages(
+          stats.toJson({ all: false, warnings: true, errors: true })
+        );
       }
       if (messages.errors.length) {
         // Only keep the first error. Others are often indicative
@@ -61,9 +62,12 @@ prepareWebpackConfig("production")
       if (warnings.length) {
         console.log(chalk.yellow("Compiled with warnings.\n"));
         console.log(warnings.join("\n\n"));
-        console.log(`\nSearch for the ${chalk.underline(chalk.yellow("keywords"))} to learn more about each warning.`);
-      }
-      else {
+        console.log(
+          `\nSearch for the ${chalk.underline(
+            chalk.yellow("keywords")
+          )} to learn more about each warning.`
+        );
+      } else {
         console.log(chalk.green("Compiled successfully.\n"));
       }
     },

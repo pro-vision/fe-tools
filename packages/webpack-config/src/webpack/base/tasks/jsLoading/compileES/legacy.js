@@ -34,7 +34,9 @@ export const legacyCompileES = {
                     regenerator: true,
                     useESModules: false,
                     helpers: false,
-                    absoluteRuntime: path.dirname(require.resolve("@babel/runtime/package.json"))
+                    absoluteRuntime: path.dirname(
+                      require.resolve("@babel/runtime/package.json")
+                    )
                   }
                 ],
                 require.resolve("@babel/plugin-transform-async-to-generator"),

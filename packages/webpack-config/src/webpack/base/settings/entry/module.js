@@ -1,10 +1,12 @@
-
-import { appName, jsEntry, cssEntry, addCssEntry } from "../../../../helpers/paths";
+import {
+  appName,
+  jsEntry,
+  cssEntry,
+  addCssEntry
+} from "../../../../helpers/paths";
 
 const getEntries = () => {
-  const entries = [
-    jsEntry()
-  ];
+  const entries = [jsEntry()];
 
   if (addCssEntry()) entries.push(cssEntry);
 
@@ -13,6 +15,6 @@ const getEntries = () => {
 
 export const moduleEntrySettings = {
   entry: {
-    [appName]: getEntries(),
+    [appName]: getEntries()
   }
 };

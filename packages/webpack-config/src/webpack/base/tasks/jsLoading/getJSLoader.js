@@ -14,8 +14,7 @@ export const getJSLoader = type => {
 
   if (!useTS) {
     loaders = [moduleCompileES, legacyCompileES];
-  }
-  else if (useReact) {
+  } else if (useReact) {
     loaders = [moduleCompileTSX, legacyCompileTSX];
   }
 

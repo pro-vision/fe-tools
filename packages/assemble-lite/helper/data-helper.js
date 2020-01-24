@@ -13,7 +13,8 @@ const loadData = async data => {
 
     if (ext === ".json") {
       dataPool[filename] = await readJson(path);
-    } else if (ext === ".yaml" || ext === ".yml") {
+    }
+    else if (ext === ".yaml" || ext === ".yml") {
       dataPool[filename] = safeLoad(await readFile(path, "utf-8"), { filename });
     }
   }));

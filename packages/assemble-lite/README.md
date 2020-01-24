@@ -22,7 +22,7 @@ assembleLite({
     'src/components/**/*.json',
     'src/components/**/*.yaml',
     'src/templates/**/*.json',
-    'src/templates/**/*.yaml'
+    'src/templates/**/*.yml'
   ],
   helpers: 'src/helpers/*.js',
   target: 'target/pages',

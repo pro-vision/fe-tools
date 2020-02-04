@@ -20,7 +20,7 @@ export const legacyCompileCSS = {
               plugins: () => [
                 require("postcss-preset-env")({
                   features: {
-                    'dir-pseudo-class': { dir: 'ltr' }
+                    "dir-pseudo-class": { dir: "ltr" }
                   }
                 }),
                 require("cssnano")

@@ -19,7 +19,7 @@ export const compileCSS = {
               plugins: () => [
                 require("postcss-preset-env")({
                   features: {
-                    'dir-pseudo-class': { dir: 'ltr' }
+                    "dir-pseudo-class": { dir: "ltr" }
                   }
                 }),
                 require("cssnano"),

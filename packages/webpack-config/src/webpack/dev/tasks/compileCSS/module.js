@@ -18,7 +18,14 @@ export const moduleCompileCSS = {
             loader: require.resolve("postcss-loader"),
             options: {
               ident: "postcss",
-              plugins: () => [require("postcss-preset-env"), require("cssnano")]
+              plugins: () => [
+                require("postcss-preset-env")({
+                  features: {
+                    "dir-pseudo-class": { dir: "ltr" }
+                  }
+                }),
+                require("cssnano")
+              ]
             }
           },
           {

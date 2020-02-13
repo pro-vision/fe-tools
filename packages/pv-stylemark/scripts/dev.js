@@ -64,28 +64,19 @@ const watchFiles = () => {
     lsgIndex,
     gulp.series(recompileMessage, copyClickdummyFiles, recompiledMessage)
   );
-  gulp.watch(
-    join(componentsSrc, "**/*.hbs"),
-    gulp.series(
-      recompileMessage,
-      assembleClickdummyComponents,
-      assembleClickdummyPages,
-      assembleLSGComponents,
-      buildStylemark,
-      recompiledMessage
-    )
-  );
-  gulp.watch(
-    join(componentsSrc, "**/*.json"),
-    gulp.series(
-      recompileMessage,
-      assembleClickdummyComponents,
-      assembleClickdummyPages,
-      assembleLSGComponents,
-      buildStylemark,
-      recompiledMessage
-    )
-  );
+  for (const ext of ["hbs", "json", "yaml", "yml"]) {
+    gulp.watch(
+      join(componentsSrc, `**/*.${ext}`),
+      gulp.series(
+        recompileMessage,
+        assembleClickdummyComponents,
+        assembleClickdummyPages,
+        assembleLSGComponents,
+        buildStylemark,
+        recompiledMessage
+      )
+    );
+  }
 };
 
 const build = done => gulp.series(buildClickdummy, buildLSG)(done);

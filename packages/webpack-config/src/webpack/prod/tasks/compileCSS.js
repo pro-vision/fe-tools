@@ -15,7 +15,14 @@ export const compileCSS = {
             loader: require.resolve("postcss-loader"),
             options: {
               ident: "postcss",
-              plugins: () => [require("postcss-preset-env"), require("cssnano")]
+              plugins: () => [
+                require("postcss-preset-env")({
+                  features: {
+                    "dir-pseudo-class": { dir: "ltr" }
+                  }
+                }),
+                require("cssnano")
+              ]
             }
           },
           require.resolve("sass-loader")

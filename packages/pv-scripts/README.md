@@ -47,7 +47,7 @@ Basic Configuration can be done in a `pv.config.js` file in the npm project root
 | useReact        | boolean | false                | defines whether you want to use React                                                                           |
 | hbsEntry        | string  |                      | defines path of your handlebars entry file                                                                      |
 | hbsTarget       | string  |                      | defines path to your handlebars target file                                                                     |
-| hbsPartialDir   | string  |                      | defines path to your a handlebars partials directory                                                            |
+| handlebarsLoaderOptions   | string  |            | Object with additional options for the `handlebars-loader`. See https://github.com/pcardune/handlebars-loader for these options. Paths are relative to `pv.config.js`                                                       |
 | copyStaticFiles | boolean | false                | defines whether content of `/static` should be copied to target                                                 |
 | cleanDest       | boolean | false                | defines whether the destination folder should be cleaned before every pv-scripts run                            |
 | fontsSrc        | string  | "resources/fonts/"   | defines folder in which the fonts are located                                                                   |

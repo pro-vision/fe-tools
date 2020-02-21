@@ -22,7 +22,15 @@ export const compileCSS = {
                     "dir-pseudo-class": { dir: "ltr" }
                   }
                 }),
-                require("cssnano"),
+                require("cssnano")({
+                  preset: ["default", {
+                    // Prevent conversion of colors to smallest representation, to avoid problems
+                    // when converting `rgba(255, 255, 255, opacity)` to `hsla(0,0%,100%, opacity)`.
+                    // The compressor in AEM strips the `%` from the `0%` saturation value,
+                    // resulting in an invalid property value.
+                    colormin: false,
+                  }]
+                }),
               ],
             }
           },

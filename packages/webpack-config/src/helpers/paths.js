@@ -121,7 +121,7 @@ export const hbsTarget = useHtmlCompiler ? resolveApp(config.hbsTarget) : "/";
 /******************************************************************************
  ** handlerbars-loader options
  ******************************************************************************/
-const handlebarsLoaderOptions = config.handlebarsLoaderOptions || {};
+const handlebarsLoaderOptions = config.handlebarsLoaderOptions;
 // expect paths to be relative to ov.config.js similar to the other configurations. and convert to absolute paths
 // helperDirs
 if (handlebarsLoaderOptions.helperDirs) handlebarsLoaderOptions.helperDirs = handlebarsLoaderOptions.helperDirs.map(resolveApp);

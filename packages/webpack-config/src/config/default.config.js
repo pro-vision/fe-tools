@@ -13,5 +13,6 @@ export const defaultConfig = {
   enableTypeCheck: true,
   fontsSrc: "resources/fonts/",
   resourcesSrc: "resources",
-  autoConsoleClear: false
+  autoConsoleClear: false,
+  handlebarsLoaderOptions: {},
 };

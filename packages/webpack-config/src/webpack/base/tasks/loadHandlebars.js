@@ -1,4 +1,4 @@
-import { hbsPartialDir as options } from "../../../helpers/paths";
+import { handlebarsLoaderOptions as options } from "../../../helpers/paths";
 
 export const loadHandlebars = {
   module: {

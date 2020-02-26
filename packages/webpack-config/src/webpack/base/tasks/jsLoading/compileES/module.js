@@ -40,7 +40,7 @@ export const moduleCompileES = {
                   }
                 ],
                 require.resolve("@babel/plugin-syntax-dynamic-import"),
-                require.resolve("@babel/plugin-proposal-class-properties"),
+                [require.resolve("@babel/plugin-proposal-class-properties"), { loose: true }],
                 require.resolve("@babel/plugin-proposal-object-rest-spread")
               ]
             }

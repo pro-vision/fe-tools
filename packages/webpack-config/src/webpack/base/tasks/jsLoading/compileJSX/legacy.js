@@ -26,7 +26,7 @@ export const legacyCompileJSX = {
                     legacy: true
                   }
                 ],
-                require.resolve("@babel/plugin-proposal-class-properties"),
+                [require.resolve("@babel/plugin-proposal-class-properties"), { loose: true }],
                 require.resolve("@babel/plugin-transform-arrow-functions"),
                 require.resolve("@babel/plugin-syntax-dynamic-import"),
                 require.resolve("@babel/plugin-syntax-import-meta"),

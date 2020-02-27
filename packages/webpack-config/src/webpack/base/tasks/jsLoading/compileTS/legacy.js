@@ -42,8 +42,12 @@ export const legacyCompileTS = {
                 ],
                 require.resolve("@babel/plugin-transform-async-to-generator"),
                 require.resolve("@babel/plugin-syntax-dynamic-import"),
-                [require.resolve("@babel/plugin-proposal-class-properties"), { loose: true }],
-                require.resolve("@babel/plugin-proposal-object-rest-spread")
+                [
+                  require.resolve("@babel/plugin-proposal-class-properties"),
+                  { loose: true }
+                ],
+                require.resolve("@babel/plugin-proposal-object-rest-spread"),
+                require.resolve("@babel/plugin-proposal-optional-chaining")
               ]
             }
           }

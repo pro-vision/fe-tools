@@ -29,9 +29,9 @@
     "@pro-vision/webpack-config": "^2.0.5",
     "chalk": "3.0.0",
     "cross-spawn": "7.0.1",
-    "react-dev-utils": "9.1.0",
-    "webpack": "4.41.2",
-    "webpack-dev-server": "3.9.0",
+    "react-dev-utils": "10.2.0",
+    "webpack": "4.41.6",
+    "webpack-dev-server": "3.10.3",
     "webpack-merge": "4.2.2"
   }
 }

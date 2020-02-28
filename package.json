@@ -19,8 +19,20 @@
     "eslint-config-pv": "^2.2.2",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-prettier": "^3.1.0",
+    "husky": "^4.2.3",
     "lerna": "^3.16.4",
+    "lint-staged": "^10.0.8",
     "prettier": "^1.18.2",
     "rollup": "^1.20.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.ts": [
+      "lint"
+    ]
   }
 }

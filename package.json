@@ -9,11 +9,14 @@
     "bootstrap": "lerna run build && lerna bootstrap",
     "add": "lerna add @pro-vision/pv-scripts --scope=",
     "lint": " eslint packages",
-    "lint:fix": "eslint --fix packages"
+    "lint:fix": "eslint --fix packages",
+    "commit": "git-cz"
   },
   "devDependencies": {
     "@types/eslint": "^6.1.1",
     "babel-eslint": "^10.0.3",
+    "commitizen": "^4.0.3",
+    "cz-conventional-changelog": "^3.1.0",
     "eslint": "^6.1.0",
     "eslint-config-prettier": "^6.1.0",
     "eslint-config-pv": "^2.2.2",
@@ -27,12 +30,18 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "commit-msg": "node scripts/verify-commit-msg.js"
     }
   },
   "lint-staged": {
     "*.ts": [
       "lint"
     ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }

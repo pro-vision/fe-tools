@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "create-package": "lerna create",
-    "publish": "lerna run build && lerna publish",
+    "publish": "lerna run build && lerna publish -m \"chore(root): Publish packages\"",
     "build": "lerna run build",
     "test": "lerna run test",
     "bootstrap": "lerna run build && lerna bootstrap",

@@ -1,4 +1,4 @@
-module.exports = function({name, componentName, constructorName}) {
+module.exports = function({name, componentName, constructorName, isCustomElement}) {
 
   return (
 `// http://galenframework.com/docs/reference-galen-javascript-api/
@@ -6,7 +6,7 @@ module.exports = function({name, componentName, constructorName}) {
 load("../../../../js/galen/init.js");
 
 this.${constructorName} = $page("${name}", {
-  component: ".${componentName}"
+  component: "${isCustomElement ? componentName : `.${componentName}`}"
 }, {
 });
 

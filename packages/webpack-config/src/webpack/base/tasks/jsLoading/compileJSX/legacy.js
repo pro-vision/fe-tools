@@ -1,3 +1,5 @@
+import getBrowserslist from "../../../getBrowserslist";
+
 export const legacyCompileJSX = {
   module: {
     rules: [
@@ -12,9 +14,7 @@ export const legacyCompileJSX = {
                 [
                   require.resolve("@babel/preset-env"),
                   {
-                    targets: {
-                      esmodules: false
-                    }
+                    targets: getBrowserslist().legacy
                   }
                 ],
                 require.resolve("@babel/preset-react")

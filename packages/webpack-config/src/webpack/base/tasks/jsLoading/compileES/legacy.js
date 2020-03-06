@@ -1,3 +1,5 @@
+import getBrowserslist from "../../../getBrowserslist";
+
 const path = require("path");
 
 export const legacyCompileES = {
@@ -14,9 +16,7 @@ export const legacyCompileES = {
                 [
                   require.resolve("@babel/preset-env"),
                   {
-                    targets: {
-                      esmodules: false
-                    }
+                    targets: getBrowserslist().legacy
                   }
                 ]
               ],

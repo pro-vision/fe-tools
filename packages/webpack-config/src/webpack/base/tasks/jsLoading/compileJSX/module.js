@@ -1,3 +1,5 @@
+import getBrowserslist from "../../../getBrowserslist";
+
 export const moduleCompileJSX = {
   module: {
     rules: [
@@ -12,9 +14,7 @@ export const moduleCompileJSX = {
                 [
                   require.resolve("@babel/preset-env"),
                   {
-                    targets: {
-                      esmodules: true
-                    }
+                    targets: getBrowserslist().modern
                   }
                 ],
                 require.resolve("@babel/preset-react")

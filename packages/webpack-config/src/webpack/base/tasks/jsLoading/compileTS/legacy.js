@@ -1,3 +1,5 @@
+import getBrowserslist from "../../../getBrowserslist";
+
 const path = require("path");
 
 export const legacyCompileTS = {
@@ -14,9 +16,7 @@ export const legacyCompileTS = {
                 [
                   require.resolve("@babel/preset-env"),
                   {
-                    targets: {
-                      esmodules: false
-                    }
+                    targets: getBrowserslist().legacy
                   }
                 ],
                 require.resolve("@babel/preset-typescript")

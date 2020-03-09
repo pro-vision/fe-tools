@@ -1,3 +1,5 @@
+import getBrowserslist from "../../../getBrowserslist";
+
 const path = require("path");
 
 export const moduleCompileES = {
@@ -14,9 +16,7 @@ export const moduleCompileES = {
                 [
                   require.resolve("@babel/preset-env"),
                   {
-                    targets: {
-                      esmodules: true
-                    }
+                    targets: getBrowserslist().modern,
                   }
                 ]
               ],

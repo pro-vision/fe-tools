@@ -7,6 +7,14 @@ const scriptIndex = args.findIndex(
   x => x === 'prod' || x === 'dev'
 );
 
+// check if stats flag is not used in dev mode.
+if (args.includes("dev") && (args.includes("--stats") || args.includes("--statsJson"))) {
+  console.warn("PV_SCRIPTS: '--stats' & '--statsJson' flags should only be used in combination with prod build. To provide correct values and don't slow the development unnecessarily.");
+}
+// flags used to generate webpack-bundle-analyzer reports
+if (args.includes("--stats")) process.env.PV_WEBPACK_STATS = "html";
+if (args.includes("--statsJson")) process.env.PV_WEBPACK_STATS = "json";
+
 const script = scriptIndex === -1 ? args[0] : args[scriptIndex];
 
 const nodeArgs = scriptIndex > 0 ? args.slice(0, scriptIndex) : [];

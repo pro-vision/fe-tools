@@ -33,6 +33,13 @@ Transpiles and bundles your code (JS/TS/JSX/TSX/SCSS) via `webpack` (+ all neede
 npx pv-scripts prod
 ```
 
+#### CLI flags
+
+##### `--stats` or `--statsJson`
+Webpack build will use [webpack-bundle-analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer) to generate an html report or json output regarding the bundle sizes and its composition. Which will be stored under `target/report_module.html | target/report_legacy.html` and `target/report_module.json | target/report_legacy.json`.
+
+This flag should only be used in combination with `prod` build to have a realistic information from the optimized bundles.
+
 ### Configuration
 
 #### Basic Configuration

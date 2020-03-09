@@ -67,6 +67,7 @@
     "slash": "3.0.0",
     "style-loader": "1.1.3",
     "webpack": "4.41.6",
+    "webpack-bundle-analyzer": "3.6.0",
     "webpack-merge": "4.2.2"
   }
 }

@@ -9,7 +9,8 @@
     "lib": "lib"
   },
   "files": [
-    "lib/webpack-config.js"
+    "lib/webpack-config.js",
+    "lib/.browserslistrc"
   ],
   "publishConfig": {
     "access": "public"

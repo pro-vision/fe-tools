@@ -1,6 +1,6 @@
 {
   "name": "@pro-vision/pv-scripts",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "CLI for zero configuration frontend-toolchain setup.",
   "author": "Frederik Riewerts <friewerts@pro-vision.de>",
   "license": "ISC",
@@ -26,7 +26,7 @@
     "pv-scripts": "./bin/pv-scripts.js"
   },
   "dependencies": {
-    "@pro-vision/webpack-config": "^2.1.0",
+    "@pro-vision/webpack-config": "^2.1.1",
     "chalk": "3.0.0",
     "cross-spawn": "7.0.1",
     "react-dev-utils": "10.2.0",

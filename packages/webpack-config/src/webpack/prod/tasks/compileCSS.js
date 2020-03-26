@@ -11,10 +11,14 @@ export const compileCSS = {
           MiniCssExtractPlugin.loader,
           {
             loader: require.resolve("css-loader"),
+            options: {
+              sourceMap: true,
+            }
           },
           {
             loader: require.resolve("postcss-loader"),
             options: {
+              sourceMap: true,
               ident: "postcss",
               plugins: () => [
                 require("postcss-preset-env")({
@@ -34,7 +38,12 @@ export const compileCSS = {
               ],
             }
           },
-          require.resolve("sass-loader")
+          {
+            loader: require.resolve("sass-loader"),
+            options: {
+              sourceMap: true
+            }
+          }
         ]
       }
     ]

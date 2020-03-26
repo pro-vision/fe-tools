@@ -11,11 +11,15 @@ export const legacyCompileCSS = {
             loader: require.resolve("style-loader")
           },
           {
-            loader: require.resolve("css-loader")
+            loader: require.resolve("css-loader"),
+            options: {
+              sourceMap: true,
+            }
           },
           {
             loader: require.resolve("postcss-loader"),
             options: {
+              sourceMap: true,
               ident: "postcss",
               plugins: () => [
                 require("postcss-preset-env")({

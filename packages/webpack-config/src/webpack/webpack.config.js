@@ -11,4 +11,4 @@ export const getConfig = runMode => {
   return [prodConfigModule, prodConfigLegacy];
 };
 
-export { getCustomWebpackConfig, autoConsoleClear } from "../helpers/paths";
+export { getCustomWebpackConfig, autoConsoleClear, getAppConfig } from "../helpers/paths";

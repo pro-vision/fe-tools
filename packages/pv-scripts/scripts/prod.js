@@ -9,11 +9,14 @@ process.on("unhandledRejection", err => {
   throw err;
 });
 
+const path = require("path");
 const chalk = require("chalk");
 const webpack = require("webpack");
 // const webpackMerge = require('webpack-merge');
 const formatWebpackMessages = require("react-dev-utils/formatWebpackMessages");
 const printBuildError = require("react-dev-utils/printBuildError");
+const { explore } = require("source-map-explorer");
+const { getAppConfig } = require("@pro-vision/webpack-config");
 
 const { prepareWebpackConfig } = require("../helpers/prepareWebpackConfig");
 
@@ -44,6 +47,18 @@ function webpackBuild(webpackConfig) {
           messages.errors.length = 1;
         }
         return reject(new Error(messages.errors.join("\n\n")));
+      }
+
+      // generate the css stats
+      if (process.env.PV_WEBPACK_STATS) {
+        const destPath = getAppConfig().destPath;
+        explore(`${path.resolve(".", destPath, "css")}/*.css`, {
+          output: {
+            format: process.env.PV_WEBPACK_STATS,
+            filename: `${path.resolve(".", "target/report_css")}.${process.env.PV_WEBPACK_STATS}`,
+          },
+        })
+          .catch(error => console.error(error));
       }
 
       return resolve({

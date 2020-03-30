@@ -57,6 +57,9 @@ function webpackBuild(webpackConfig) {
             format: process.env.PV_WEBPACK_STATS,
             filename: `${path.resolve(".", "target/report_css")}.${process.env.PV_WEBPACK_STATS}`,
           },
+          // ignore column checks which would throw because of generated eol during the build
+          // (see https://github.com/danvk/source-map-explorer/issues/179)
+          noBorderChecks: true,
         })
           .catch(error => console.error(error));
       }

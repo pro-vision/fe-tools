@@ -9,11 +9,14 @@ process.on("unhandledRejection", err => {
   throw err;
 });
 
+const path = require("path");
 const chalk = require("chalk");
 const webpack = require("webpack");
 // const webpackMerge = require('webpack-merge');
 const formatWebpackMessages = require("react-dev-utils/formatWebpackMessages");
 const printBuildError = require("react-dev-utils/printBuildError");
+const { explore } = require("source-map-explorer");
+const { getAppConfig } = require("@pro-vision/webpack-config");
 
 const { prepareWebpackConfig } = require("../helpers/prepareWebpackConfig");
 
@@ -44,6 +47,21 @@ function webpackBuild(webpackConfig) {
           messages.errors.length = 1;
         }
         return reject(new Error(messages.errors.join("\n\n")));
+      }
+
+      // generate the css stats
+      if (process.env.PV_WEBPACK_STATS) {
+        const destPath = getAppConfig().destPath;
+        explore(path.resolve(process.cwd(), destPath, "css/*.css"), {
+          output: {
+            format: process.env.PV_WEBPACK_STATS,
+            filename: path.resolve(process.cwd(), destPath, `report_css.${process.env.PV_WEBPACK_STATS}`),
+          },
+          // ignore column checks which would throw because of generated eol during the build
+          // (see https://github.com/danvk/source-map-explorer/issues/179)
+          noBorderChecks: true,
+        })
+          .catch(error => console.error(error));
       }
 
       return resolve({

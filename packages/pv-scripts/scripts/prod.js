@@ -52,10 +52,10 @@ function webpackBuild(webpackConfig) {
       // generate the css stats
       if (process.env.PV_WEBPACK_STATS) {
         const destPath = getAppConfig().destPath;
-        explore(`${path.resolve(".", destPath, "css")}/*.css`, {
+        explore(path.resolve(process.cwd(), destPath, "css/*.css"), {
           output: {
             format: process.env.PV_WEBPACK_STATS,
-            filename: `${path.resolve(".", "target/report_css")}.${process.env.PV_WEBPACK_STATS}`,
+            filename: path.resolve(process.cwd(), destPath, `report_css.${process.env.PV_WEBPACK_STATS}`),
           },
           // ignore column checks which would throw because of generated eol during the build
           // (see https://github.com/danvk/source-map-explorer/issues/179)

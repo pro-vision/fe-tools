@@ -1,4 +1,4 @@
-import merge from "webpack-merge";
+import { merge } from "webpack-merge";
 import webpackBundleAnalyzer from "webpack-bundle-analyzer";
 
 // Base Config
@@ -15,7 +15,8 @@ const additionalPlugins = {
 if (process.env.PV_WEBPACK_STATS) {
   additionalPlugins.plugins.push(
     new webpackBundleAnalyzer.BundleAnalyzerPlugin({
-      analyzerMode: process.env.PV_WEBPACK_STATS === "json" ? "disabled" : "static",
+      analyzerMode:
+        process.env.PV_WEBPACK_STATS === "json" ? "disabled" : "static",
       generateStatsFile: process.env.PV_WEBPACK_STATS === "json",
       openAnalyzer: false,
       reportFilename: "report_legacy.html",
@@ -24,4 +25,9 @@ if (process.env.PV_WEBPACK_STATS) {
   );
 }
 
-export const prodConfigLegacy = merge(defaultConfigLegacy, basicSettings, compileCSS, additionalPlugins);
+export const prodConfigLegacy = merge(
+  defaultConfigLegacy,
+  basicSettings,
+  compileCSS,
+  additionalPlugins
+);

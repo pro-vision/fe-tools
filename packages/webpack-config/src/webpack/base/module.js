@@ -1,4 +1,4 @@
-import merge from "webpack-merge";
+import { merge } from "webpack-merge";
 
 // Settings
 import { moduleEntrySettings } from "./settings/entry/module";
@@ -17,9 +17,13 @@ import { copyResources as copyResourcesTask } from "./tasks/copyResources";
 import { compileHTML } from "./tasks/compileHTML";
 import { copyStatic } from "./tasks/copyStatic";
 // Helper
-import { useHtmlCompiler, getAppConfig, shouldCopyResources } from "../../helpers/paths";
+import {
+  useHtmlCompiler,
+  getAppConfig,
+  shouldCopyResources,
+} from "../../helpers/paths";
 
-const { useTS, copyStaticFiles, cleanDest, enableTypeCheck} = getAppConfig();
+const { useTS, copyStaticFiles, cleanDest, enableTypeCheck } = getAppConfig();
 
 export const defaultConfigModule = merge(
   moduleEntrySettings,

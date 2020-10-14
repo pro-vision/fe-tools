@@ -1,4 +1,4 @@
-import merge from "webpack-merge";
+import { merge } from "webpack-merge";
 
 // Settings
 import { legacyEntrySettings } from "./settings/entry/legacy";

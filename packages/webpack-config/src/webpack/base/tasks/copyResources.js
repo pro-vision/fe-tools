@@ -6,8 +6,8 @@ const { resourcesSrc } = getAppConfig();
 
 export const copyResources = {
   plugins: [
-    new CopyWebpackPlugin([
-      { from: resolveApp(resourcesSrc), to: resourcesSrc }
-    ])
-  ]
+    new CopyWebpackPlugin({
+      patterns: [{ from: resolveApp(resourcesSrc), to: resourcesSrc }],
+    }),
+  ],
 };

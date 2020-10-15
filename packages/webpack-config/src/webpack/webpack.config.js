@@ -1,3 +1,5 @@
+import webpack from "webpack";
+
 import { devConfigModule } from "./dev/module";
 import { devConfigLegacy } from "./dev/legacy";
 import { prodConfigModule } from "./prod/module";
@@ -12,3 +14,4 @@ export const getConfig = runMode => {
 };
 
 export { getCustomWebpackConfig, autoConsoleClear, getAppConfig } from "../helpers/paths";
+export const webpackInstance = webpack;

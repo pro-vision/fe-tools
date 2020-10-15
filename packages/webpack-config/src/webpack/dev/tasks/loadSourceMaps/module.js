@@ -7,7 +7,7 @@ export const moduleLoadSourceMaps = {
       {
         // assuming third party dependencies such as @kluntje have only .js or .mjs extensions
         test: /\.(js|mjs)$/,
-        use: ["source-map-loader"]
+        use: require.resolve("source-map-loader")
       }
     ]
   }

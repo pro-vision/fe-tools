@@ -5,6 +5,6 @@ export const moduleOutputSettings = {
     path: appTarget,
     publicPath,
     filename: "js/[name].js",
-    chunkFilename: "resources/js/chunks/[name].[hash].js"
+    chunkFilename: "resources/js/chunks/[name].[chunkhash].js"
   }
 };

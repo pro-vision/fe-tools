@@ -5,7 +5,7 @@ import { resolveApp } from "../../../helpers/paths";
 export const copyStatic = {
   plugins: [
     new CopyWebpackPlugin({
-      patterns: [{ from: resolveApp("static"), to: "." }],
-    }),
-  ],
+      patterns: [{ from: resolveApp("static"), to: "." }]
+    })
+  ]
 };

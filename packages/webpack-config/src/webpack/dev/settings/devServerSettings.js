@@ -1,4 +1,3 @@
-
 import { getAppConfig, publicPath } from "../../../helpers/paths";
 
 export const devServerSettings = {

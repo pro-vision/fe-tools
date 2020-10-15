@@ -11,11 +11,13 @@ function formatMessage({ message }) {
 
   // Strip webpack-added headers off errors/warnings
   // https://github.com/webpack/webpack/blob/master/lib/ModuleError.js
-  lines = lines.filter((line) => !/Module [A-z ]+\(from/.test(line));
+  lines = lines.filter(line => {
+    return !/Module [A-z ]+\(from/.test(line);
+  });
 
   // Transform parsing error into syntax error
-  // TODO: move this to our ESLint formatter?
-  lines = lines.map((line) => {
+  // @TODO: move this to our ESLint formatter?
+  lines = lines.map(line => {
     const parsingError = /Line (\d+):(?:(\d+):)?\s*Parsing error: (.+)$/.exec(
       line
     );
@@ -60,7 +62,7 @@ function formatMessage({ message }) {
       lines[0],
       lines[1]
         .replace("Error: ", "")
-        .replace("Module not found: Cannot find file:", "Cannot find file:"),
+        .replace("Module not found: Cannot find file:", "Cannot find file:")
     ];
   }
 
@@ -86,10 +88,11 @@ function formatMessage({ message }) {
   lines = message.split("\n");
 
   // Remove duplicated newlines
-  lines = lines.filter(
-    (line, index, arr) =>
+  lines = lines.filter((line, index, arr) => {
+    return (
       index === 0 || line.trim() !== "" || line.trim() !== arr[index - 1].trim()
-  );
+    );
+  });
 
   // Reassemble the message
   message = lines.join("\n");
@@ -97,12 +100,12 @@ function formatMessage({ message }) {
 }
 
 function formatWebpackMessages(jsonStats) {
-  const formattedErrors = jsonStats.errors.map((message) =>
-    formatMessage(message, true)
-  );
-  const formattedWarnings = jsonStats.warnings.map((message) =>
-    formatMessage(message, false)
-  );
+  const formattedErrors = jsonStats.errors.map(message => {
+    return formatMessage(message, true);
+  });
+  const formattedWarnings = jsonStats.warnings.map(message => {
+    return formatMessage(message, false);
+  });
   const result = { errors: formattedErrors, warnings: formattedWarnings };
   if (result.errors.some(isLikelyASyntaxError)) {
     // If there are any syntax errors, show just them.

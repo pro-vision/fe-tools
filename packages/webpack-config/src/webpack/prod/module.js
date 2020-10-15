@@ -9,7 +9,7 @@ import { basicSettings } from "./settings/basicSettings";
 import { compileCSS } from "./tasks/compileCSS";
 
 const additionalPlugins = {
-  plugins: [],
+  plugins: []
 };
 
 if (process.env.PV_WEBPACK_STATS) {
@@ -20,7 +20,7 @@ if (process.env.PV_WEBPACK_STATS) {
       generateStatsFile: process.env.PV_WEBPACK_STATS === "json",
       openAnalyzer: false,
       reportFilename: "report_module.html",
-      statsFilename: "report_module.json",
+      statsFilename: "report_module.json"
     })
   );
 }

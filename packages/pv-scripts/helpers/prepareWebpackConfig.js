@@ -1,7 +1,7 @@
 const { merge } = require("webpack-merge");
 const {
   getConfig,
-  getCustomWebpackConfig,
+  getCustomWebpackConfig
 } = require("@pro-vision/webpack-config");
 
 async function prepareWebpackConfig(mode) {
@@ -42,10 +42,10 @@ async function prepareWebpackConfig(mode) {
 
   return [
     merge(defaultModuleConfig, customModuleConfig),
-    merge(defaultLegacyConfig, customLegacyConfig),
+    merge(defaultLegacyConfig, customLegacyConfig)
   ];
 }
 
 module.exports = {
-  prepareWebpackConfig,
+  prepareWebpackConfig
 };

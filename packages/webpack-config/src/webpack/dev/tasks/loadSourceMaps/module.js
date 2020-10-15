@@ -3,12 +3,12 @@
  */
 export const moduleLoadSourceMaps = {
   module: {
-    rules: [{
-      // assuming third party dependencies such as @kluntje have only .js or .mjs extensions
-      test: /\.(js|mjs)$/,
-      use: [
-        "source-map-loader",
-      ]
-    }],
-  },
+    rules: [
+      {
+        // assuming third party dependencies such as @kluntje have only .js or .mjs extensions
+        test: /\.(js|mjs)$/,
+        use: ["source-map-loader"]
+      }
+    ]
+  }
 };

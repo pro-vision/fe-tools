@@ -16,7 +16,7 @@ export const moduleCompileES = {
                 [
                   require.resolve("@babel/preset-env"),
                   {
-                    targets: getBrowserslist().modern,
+                    targets: getBrowserslist().modern
                   }
                 ]
               ],

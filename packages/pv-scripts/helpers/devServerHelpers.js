@@ -1,6 +1,5 @@
 const chalk = require("chalk");
 const clearConsole = require("react-dev-utils/clearConsole");
-const formatWebpackMessages = require("react-dev-utils/formatWebpackMessages");
 const { autoConsoleClear } = require("@pro-vision/webpack-config");
 
 const formatWebpackMessages = require("./formatWebpackMessages");
@@ -15,8 +14,7 @@ function getCompiler({ webpackConfig, webpack }) {
 
   try {
     compiler = webpack(webpackConfig);
-  }
-  catch (err) {
+  } catch (err) {
     console.log(chalk.red("Failed to compile."));
     console.log();
     console.log(err.message || err);

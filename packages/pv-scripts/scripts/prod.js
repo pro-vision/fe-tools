@@ -35,9 +35,10 @@ function webpackBuild(webpackConfig) {
           errors: [err.message],
           warnings: []
         });
-      }
-      else {
-        messages = formatWebpackMessages(stats.toJson({ all: false, warnings: true, errors: true }));
+      } else {
+        messages = formatWebpackMessages(
+          stats.toJson({ all: false, warnings: true, errors: true })
+        );
       }
       if (messages.errors.length) {
         // Only keep the first error. Others are often indicative
@@ -54,13 +55,18 @@ function webpackBuild(webpackConfig) {
         explore(path.resolve(process.cwd(), destPath, "css/*.css"), {
           output: {
             format: process.env.PV_WEBPACK_STATS,
-            filename: path.resolve(process.cwd(), destPath, `report_css.${process.env.PV_WEBPACK_STATS}`),
+            filename: path.resolve(
+              process.cwd(),
+              destPath,
+              `report_css.${process.env.PV_WEBPACK_STATS}`
+            )
           },
           // ignore column checks which would throw because of generated eol during the build
           // (see https://github.com/danvk/source-map-explorer/issues/179)
-          noBorderChecks: true,
-        })
-          .catch(error => console.error(error));
+          noBorderChecks: true
+        }).catch(error => {
+          return console.error(error);
+        });
       }
 
       return resolve({
@@ -72,15 +78,20 @@ function webpackBuild(webpackConfig) {
 }
 
 prepareWebpackConfig("production")
-  .then(webpackConfig => webpackBuild(webpackConfig))
+  .then(webpackConfig => {
+    return webpackBuild(webpackConfig);
+  })
   .then(
     ({ warnings }) => {
       if (warnings.length) {
         console.log(chalk.yellow("Compiled with warnings.\n"));
         console.log(warnings.join("\n\n"));
-        console.log(`\nSearch for the ${chalk.underline(chalk.yellow("keywords"))} to learn more about each warning.`);
-      }
-      else {
+        console.log(
+          `\nSearch for the ${chalk.underline(
+            chalk.yellow("keywords")
+          )} to learn more about each warning.`
+        );
+      } else {
         console.log(chalk.green("Compiled successfully.\n"));
       }
     },

@@ -12,21 +12,26 @@ const defaultOptions = {
   pages: "",
   templates: "",
   data: "",
-  target: "",
+  target: ""
 };
 
 const assemble = async options => {
-
-  const { baseDir, partials, pages, templates, data, helpers, target, } = { ...defaultOptions, ...options};
+  const { baseDir, partials, pages, templates, data, helpers, target } = {
+    ...defaultOptions,
+    ...options
+  };
 
   const [templMap, dataPool] = await Promise.all([
     loadTemplates(templates),
     loadData(data),
     loadPartials(partials, Handlebars),
-    loadHelpers(helpers, Handlebars),
+    loadHelpers(helpers, Handlebars)
   ]);
 
-  await assemblePages({ baseDir, pages, templMap, target, dataPool}, Handlebars);
+  await assemblePages(
+    { baseDir, pages, templMap, target, dataPool },
+    Handlebars
+  );
 
   return;
 };

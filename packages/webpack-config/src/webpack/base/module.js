@@ -20,7 +20,7 @@ import { copyStatic } from "./tasks/copyStatic";
 import {
   useHtmlCompiler,
   getAppConfig,
-  shouldCopyResources,
+  shouldCopyResources
 } from "../../helpers/paths";
 
 const { useTS, copyStaticFiles, cleanDest, enableTypeCheck } = getAppConfig();

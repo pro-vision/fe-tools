@@ -2,7 +2,7 @@ const stylemark = require("stylemark");
 
 const { resolveApp, getAppConfig, join } = require("../../helper/paths");
 
-const {destPath, lsgConfigPath} = getAppConfig();
+const { destPath, lsgConfigPath } = getAppConfig();
 
 const buildStylemark = done => {
   stylemark({

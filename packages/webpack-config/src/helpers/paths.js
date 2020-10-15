@@ -5,7 +5,9 @@ import slash from "slash";
 import { defaultConfig } from "../config/default.config";
 
 const appDirectory = realpathSync(process.cwd());
-export const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
+export const resolveApp = relativePath => {
+  return path.resolve(appDirectory, relativePath);
+};
 
 // try to load pv.config.js
 let config = defaultConfig;
@@ -16,16 +18,17 @@ if (customConfigExists) {
   try {
     const pvConfig = require(customConfigPath);
     config = { ...defaultConfig, ...pvConfig };
-  }
-  catch {
+  } catch {
     config = defaultConfig;
   }
 }
 
-export const getAppConfig = () => config;
+export const getAppConfig = () => {
+  return config;
+};
 
-export const getCustomWebpackConfig = configName =>
-  new Promise(resolve => {
+export const getCustomWebpackConfig = configName => {
+  return new Promise(resolve => {
     let customWebpackConfig;
     const customWebpackConfigPath = resolveApp(configName);
 
@@ -33,21 +36,19 @@ export const getCustomWebpackConfig = configName =>
 
     if (!customWebpackConfigExists) {
       resolve({});
-    }
-    else {
+    } else {
       try {
         customWebpackConfig = require(customWebpackConfigPath);
-      }
-      catch (err) {
+      } catch (err) {
         console.log("Failed to load config file:");
         console.error(err);
         customWebpackConfig = {};
-      }
-      finally {
+      } finally {
         resolve(customWebpackConfig);
       }
     }
   });
+};
 
 const getJSExtName = options => {
   if (options.useReact) {
@@ -55,7 +56,6 @@ const getJSExtName = options => {
   }
 
   return options.useTS ? ".ts" : ".js";
-
 };
 
 export const publicPath = process.env.PUBLIC_PATH || "/";
@@ -64,7 +64,8 @@ export const appPath = resolveApp(".");
 export const appSrc = resolveApp(config.srcPath);
 
 export const jsEntry = () => {
-  if (config.jsEntry !== defaultConfig.jsEntry) return resolveApp(config.jsEntry);
+  if (config.jsEntry !== defaultConfig.jsEntry)
+    return resolveApp(config.jsEntry);
 
   const extname = path.extname(config.jsEntry);
 
@@ -72,12 +73,14 @@ export const jsEntry = () => {
 };
 
 export const jsLegacyEntry = () => {
-  if (config.jsLegacyEntry !== defaultConfig.jsLegacyEntry) return resolveApp(config.jsLegacyEntry);
+  if (config.jsLegacyEntry !== defaultConfig.jsLegacyEntry)
+    return resolveApp(config.jsLegacyEntry);
 
   const extname = path.extname(config.jsLegacyEntry);
 
   return resolveApp(
-    config.jsLegacyEntry.replace(extname, getJSExtName(config)));
+    config.jsLegacyEntry.replace(extname, getJSExtName(config))
+  );
 };
 
 export const addCssEntry = () => {
@@ -97,8 +100,12 @@ const getAppName = () => {
 
 export const appName = getAppName();
 
-export const shouldCopyResources = () => existsSync(resolveApp(getAppConfig().resourcesSrc));
-export const autoConsoleClear = () => getAppConfig().autoConsoleClear;
+export const shouldCopyResources = () => {
+  return existsSync(resolveApp(getAppConfig().resourcesSrc));
+};
+export const autoConsoleClear = () => {
+  return getAppConfig().autoConsoleClear;
+};
 
 /**
  * node's `path.join`, but with forward slashes independent of the platform
@@ -109,7 +116,6 @@ export const autoConsoleClear = () => getAppConfig().autoConsoleClear;
 export function join(...paths) {
   return slash(path.join(...paths));
 }
-
 
 /******************************************************************************
  ** CompileHTML helper
@@ -124,11 +130,18 @@ export const hbsTarget = useHtmlCompiler ? resolveApp(config.hbsTarget) : "/";
 const handlebarsLoaderOptions = config.handlebarsLoaderOptions;
 // expect paths to be relative to ov.config.js similar to the other configurations. and convert to absolute paths
 // helperDirs
-if (handlebarsLoaderOptions.helperDirs) handlebarsLoaderOptions.helperDirs = handlebarsLoaderOptions.helperDirs.map(resolveApp);
+if (handlebarsLoaderOptions.helperDirs)
+  handlebarsLoaderOptions.helperDirs = handlebarsLoaderOptions.helperDirs.map(
+    resolveApp
+  );
 // partialDirs
-if (handlebarsLoaderOptions.partialDirs) handlebarsLoaderOptions.partialDirs = handlebarsLoaderOptions.partialDirs.map(resolveApp);
+if (handlebarsLoaderOptions.partialDirs)
+  handlebarsLoaderOptions.partialDirs = handlebarsLoaderOptions.partialDirs.map(
+    resolveApp
+  );
 // runtime
-if (handlebarsLoaderOptions.runtime) handlebarsLoaderOptions.runtime = resolveApp(handlebarsLoaderOptions.runtime);
+if (handlebarsLoaderOptions.runtime)
+  handlebarsLoaderOptions.runtime = resolveApp(handlebarsLoaderOptions.runtime);
 
 export { handlebarsLoaderOptions };
 

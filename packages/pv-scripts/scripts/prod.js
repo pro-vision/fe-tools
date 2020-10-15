@@ -11,12 +11,12 @@ process.on("unhandledRejection", err => {
 
 const path = require("path");
 const chalk = require("chalk");
-const formatWebpackMessages = require("react-dev-utils/formatWebpackMessages");
 const printBuildError = require("react-dev-utils/printBuildError");
 const { explore } = require("source-map-explorer");
 const { getAppConfig } = require("@pro-vision/webpack-config");
 const { webpackInstance: webpack } = require("@pro-vision/webpack-config");
 
+const formatWebpackMessages = require("../helpers/formatWebpackMessages");
 const { prepareWebpackConfig } = require("../helpers/prepareWebpackConfig");
 
 // Create the production build

@@ -30,6 +30,7 @@
     "chalk": "4.1.0",
     "cross-spawn": "7.0.3",
     "react-dev-utils": "10.2.1",
+    "slash": "3.0.0",
     "source-map-explorer": "2.5.0",
     "webpack": "5.1.0",
     "webpack-dev-server": "3.11.0",

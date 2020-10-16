@@ -16,6 +16,7 @@ const tsTypeChecking = require("./tasks/tsTypeChecking");
 const copyResourcesTask = require("./tasks/copyResources");
 const compileHTML = require("./tasks/compileHTML");
 const copyStatic = require("./tasks/copyStatic");
+const compileCSS = require("./tasks/compileCSS");
 // Helper
 const {
   useHtmlCompiler,
@@ -34,6 +35,7 @@ module.exports = merge(
   cleanDest ? cleanDestTask : {},
   getJSLoader("module"),
   useTS && enableTypeCheck ? tsTypeChecking : {},
+  compileCSS,
   compileShadowCSS,
   useHtmlCompiler ? compileHTML : {},
   loadFonts,

@@ -5,8 +5,6 @@ const webpackBundleAnalyzer = require("webpack-bundle-analyzer");
 const defaultConfigModule = require("../base/module");
 // Settings
 const basicSettings = require("./settings/basicSettings");
-// Tasks
-const compileCSS = require("./tasks/compileCSS");
 
 const additionalPlugins = {
   plugins: []
@@ -25,9 +23,4 @@ if (process.env.PV_WEBPACK_STATS) {
   );
 }
 
-module.exports = merge(
-  defaultConfigModule,
-  basicSettings,
-  compileCSS,
-  additionalPlugins
-);
+module.exports = merge(defaultConfigModule, basicSettings, additionalPlugins);

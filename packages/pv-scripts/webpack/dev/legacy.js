@@ -5,12 +5,5 @@ const defaultConfigLegacy = require("../base/legacy");
 // Settings
 const basicSettings = require("./settings/basicSettings");
 const devServerSettings = require("./settings/devServerSettings");
-// Tasks
-const legacyCompileCSS = require("./tasks/compileCSS/legacy");
 
-module.exports = merge(
-  defaultConfigLegacy,
-  basicSettings,
-  devServerSettings,
-  legacyCompileCSS
-);
+module.exports = merge(defaultConfigLegacy, basicSettings, devServerSettings);

@@ -13,6 +13,7 @@ const compileKluntje = require("./tasks/compileKluntje");
 const loadFonts = require("./tasks/loadFonts");
 const compileShadowCSS = require("./tasks/compileShadowCSS");
 const loadHandlebars = require("./tasks/loadHandlebars");
+const compileCSS = require("./tasks/compileCSS");
 
 module.exports = merge(
   legacyEntrySettings,
@@ -21,6 +22,7 @@ module.exports = merge(
   resolveSettings,
   performanceSettings,
   getJSLoader("legacy"),
+  compileCSS,
   compileLitHTML,
   compileKluntje,
   compileShadowCSS,

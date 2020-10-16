@@ -1,7 +1,7 @@
 const chalk = require("chalk");
 const clearConsole = require("react-dev-utils/clearConsole");
-const { autoConsoleClear } = require("@pro-vision/webpack-config");
 
+const { autoConsoleClear } = require("./paths");
 const formatWebpackMessages = require("./formatWebpackMessages");
 
 const isInteractive = process.stdout.isTTY && autoConsoleClear();

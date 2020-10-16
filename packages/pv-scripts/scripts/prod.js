@@ -11,11 +11,11 @@ process.on("unhandledRejection", err => {
 
 const path = require("path");
 const chalk = require("chalk");
+const webpack = require("webpack");
 const printBuildError = require("react-dev-utils/printBuildError");
 const { explore } = require("source-map-explorer");
-const { getAppConfig } = require("@pro-vision/webpack-config");
-const { webpackInstance: webpack } = require("@pro-vision/webpack-config");
 
+const { getAppConfig } = require("../helpers/paths");
 const formatWebpackMessages = require("../helpers/formatWebpackMessages");
 const { prepareWebpackConfig } = require("../helpers/prepareWebpackConfig");
 

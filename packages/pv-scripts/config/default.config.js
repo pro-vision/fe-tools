@@ -1,4 +1,4 @@
-export const defaultConfig = {
+module.exports = {
   devServerPort: 8616,
   srcPath: "src",
   destPath: "target",

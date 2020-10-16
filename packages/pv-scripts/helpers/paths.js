@@ -2,7 +2,7 @@ const path = require("path");
 const { realpathSync, existsSync } = require("fs");
 const slash = require("slash");
 
-const { defaultConfig } = require("../config/default.config");
+const defaultConfig = require("../config/default.config");
 
 const appDirectory = realpathSync(process.cwd());
 

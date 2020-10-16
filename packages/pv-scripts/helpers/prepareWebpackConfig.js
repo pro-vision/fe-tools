@@ -1,8 +1,7 @@
 const { merge } = require("webpack-merge");
-const {
-  getConfig,
-  getCustomWebpackConfig
-} = require("@pro-vision/webpack-config");
+
+const { getCustomWebpackConfig } = require("../helpers/paths");
+const { getConfig } = require("../webpack/getConfig");
 
 async function prepareWebpackConfig(mode) {
   const customModeConfigName =

@@ -13,10 +13,10 @@ process.on("unhandledRejection", err => {
 
 const chalk = require("chalk");
 const WebpackDevServer = require("webpack-dev-server");
+const webpack = require("webpack");
 const clearConsole = require("react-dev-utils/clearConsole");
-const { autoConsoleClear } = require("@pro-vision/webpack-config");
-const { webpackInstance: webpack } = require("@pro-vision/webpack-config");
 
+const { autoConsoleClear } = require("../helpers/paths");
 const { prepareWebpackConfig } = require("../helpers/prepareWebpackConfig");
 const { getCompiler } = require("../helpers/devServerHelpers");
 const isInteractive = process.stdout.isTTY && autoConsoleClear();

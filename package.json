@@ -4,7 +4,7 @@
   "scripts": {
     "create-package": "lerna create",
     "publish": "lerna run build && lerna publish --conventional-commits -m \"chore(root): Publish packages\"",
-    "publish:canary": "lerna run build && lerna publish --canary --conventional-commits -m \"chore(root): Canary release\"",
+    "publish:canary": "lerna run build && lerna publish --canary",
     "build": "lerna run build",
     "test": "lerna run test",
     "bootstrap": "lerna run build && lerna bootstrap",

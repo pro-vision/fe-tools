@@ -1,7 +1,8 @@
-const { appName, jsLegacyEntry } = require("../../../../helpers/paths");
+const { jsLegacyEntry } = require("../../../../helpers/paths");
+const { getAppName } = require("../../../../helpers/buildConfigHelpers");
 
 module.exports = {
   entry: {
-    [appName]: [jsLegacyEntry()]
+    [getAppName()]: [jsLegacyEntry()]
   }
 };

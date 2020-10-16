@@ -1,20 +1,19 @@
+const { jsEntry, cssEntry } = require("../../../../helpers/paths");
 const {
-  appName,
-  jsEntry,
-  cssEntry,
-  addCssEntry
-} = require("../../../../helpers/paths");
+  getAppName,
+  shouldAddCssEntry
+} = require("../../../../helpers/buildConfigHelpers");
 
 const getEntries = () => {
   const entries = [jsEntry()];
 
-  if (addCssEntry()) entries.push(cssEntry);
+  if (shouldAddCssEntry()) entries.push(cssEntry);
 
   return entries;
 };
 
 module.exports = {
   entry: {
-    [appName]: getEntries()
+    [getAppName()]: getEntries()
   }
 };

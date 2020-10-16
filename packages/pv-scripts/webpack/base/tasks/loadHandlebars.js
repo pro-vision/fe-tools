@@ -1,4 +1,6 @@
-const { handlebarsLoaderOptions: options } = require("../../../helpers/paths");
+const {
+  getHandlebarsLoaderOptions
+} = require("../../../helpers/buildConfigHelpers");
 
 module.exports = {
   module: {
@@ -8,7 +10,7 @@ module.exports = {
         use: [
           {
             loader: require.resolve("handlebars-loader"),
-            options
+            options: getHandlebarsLoaderOptions()
           }
         ]
       }

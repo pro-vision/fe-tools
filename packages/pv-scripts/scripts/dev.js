@@ -16,10 +16,10 @@ const WebpackDevServer = require("webpack-dev-server");
 const webpack = require("webpack");
 const clearConsole = require("react-dev-utils/clearConsole");
 
-const { autoConsoleClear } = require("../helpers/paths");
+const { autoConsoleClearEnabled } = require("../helpers/buildConfigHelpers");
 const { prepareWebpackConfig } = require("../helpers/prepareWebpackConfig");
 const { getCompiler } = require("../helpers/devServerHelpers");
-const isInteractive = process.stdout.isTTY && autoConsoleClear();
+const isInteractive = process.stdout.isTTY && autoConsoleClearEnabled();
 
 prepareWebpackConfig("development").then(webpackConfig => {
   // Create a webpack compiler that is configured with custom messages.

@@ -19,12 +19,12 @@ const copyStatic = require("./tasks/copyStatic");
 const compileCSS = require("./tasks/compileCSS");
 // Helper
 const {
-  useHtmlCompiler,
-  getAppConfig,
-  shouldCopyResources
-} = require("../../helpers/paths");
+  getBuildConfig,
+  shouldCopyResources,
+  shouldUseHtmlCompiler
+} = require("../../helpers/buildConfigHelpers");
 
-const { useTS, copyStaticFiles, cleanDest, enableTypeCheck } = getAppConfig();
+const { useTS, copyStaticFiles, cleanDest, enableTypeCheck } = getBuildConfig();
 
 module.exports = merge(
   moduleEntrySettings,
@@ -37,7 +37,7 @@ module.exports = merge(
   useTS && enableTypeCheck ? tsTypeChecking : {},
   compileCSS,
   compileShadowCSS,
-  useHtmlCompiler ? compileHTML : {},
+  shouldUseHtmlCompiler() ? compileHTML : {},
   loadFonts,
   loadHandlebars,
   copyStaticFiles ? copyStatic : {},

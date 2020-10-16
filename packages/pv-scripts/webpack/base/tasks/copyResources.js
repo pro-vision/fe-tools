@@ -1,8 +1,9 @@
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
-const { resolveApp, getAppConfig } = require("../../../helpers/paths");
+const { resolveApp } = require("../../../helpers/paths");
+const { getBuildConfig } = require("../../../helpers/buildConfigHelpers");
 
-const { resourcesSrc } = getAppConfig();
+const { resourcesSrc } = getBuildConfig();
 
 module.exports = {
   plugins: [

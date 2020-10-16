@@ -1,4 +1,4 @@
-const { getAppConfig } = require("../../../../helpers/paths");
+const { getBuildConfig } = require("../../../../helpers/buildConfigHelpers");
 const moduleCompileTS = require("./compileTS/module");
 const legacyCompileTS = require("./compileTS/legacy");
 const moduleCompileES = require("./compileES/module");
@@ -9,7 +9,7 @@ const moduleCompileTSX = require("./compileTSX/module");
 const legacyCompileTSX = require("./compileTSX/legacy");
 
 module.exports = type => {
-  const { useTS, useReact } = getAppConfig();
+  const { useTS, useReact } = getBuildConfig();
   let loaders = [moduleCompileTS, legacyCompileTS];
 
   if (!useTS) {

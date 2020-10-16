@@ -15,7 +15,7 @@ const webpack = require("webpack");
 const printBuildError = require("react-dev-utils/printBuildError");
 const { explore } = require("source-map-explorer");
 
-const { getAppConfig } = require("../helpers/paths");
+const { getBuildConfig } = require("../helpers/buildConfigHelpers");
 const formatWebpackMessages = require("../helpers/formatWebpackMessages");
 const { prepareWebpackConfig } = require("../helpers/prepareWebpackConfig");
 
@@ -51,7 +51,7 @@ function webpackBuild(webpackConfig) {
 
       // generate the css stats
       if (process.env.PV_WEBPACK_STATS) {
-        const destPath = getAppConfig().destPath;
+        const destPath = getBuildConfig().destPath;
         explore(path.resolve(process.cwd(), destPath, "css/*.css"), {
           output: {
             format: process.env.PV_WEBPACK_STATS,

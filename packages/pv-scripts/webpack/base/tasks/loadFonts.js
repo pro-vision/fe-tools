@@ -1,6 +1,7 @@
-const { publicPath, getAppConfig, join } = require("../../../helpers/paths");
+const { publicPath, join } = require("../../../helpers/paths");
+const { getBuildConfig } = require("../../../helpers/buildConfigHelpers");
 
-const { fontsSrc } = getAppConfig();
+const { fontsSrc } = getBuildConfig();
 
 module.exports = {
   module: {

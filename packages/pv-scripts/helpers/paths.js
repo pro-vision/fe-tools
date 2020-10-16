@@ -1,39 +1,20 @@
 const path = require("path");
-const { realpathSync, existsSync } = require("fs");
+const { realpathSync } = require("fs");
 const slash = require("slash");
 
+const {
+  getBuildConfig,
+  getJSExtName,
+  shouldUseHtmlCompiler
+} = require("./buildConfigHelpers");
 const defaultConfig = require("../config/default.config");
+
+const config = getBuildConfig();
 
 const appDirectory = realpathSync(process.cwd());
 
 const resolveApp = relativePath => {
   return path.resolve(appDirectory, relativePath);
-};
-
-// try to load pv.config.js
-let config = defaultConfig;
-const customConfigPath = resolveApp("pv.config.js");
-const customConfigExists = existsSync(customConfigPath);
-
-if (customConfigExists) {
-  try {
-    const pvConfig = require(customConfigPath);
-    config = { ...defaultConfig, ...pvConfig };
-  } catch {
-    config = defaultConfig;
-  }
-}
-
-const getAppConfig = () => {
-  return config;
-};
-
-const getJSExtName = options => {
-  if (options.useReact) {
-    return options.useTS ? ".tsx" : ".jsx";
-  }
-
-  return options.useTS ? ".ts" : ".js";
 };
 
 const publicPath = process.env.PUBLIC_PATH || "/";
@@ -61,30 +42,8 @@ const jsLegacyEntry = () => {
   );
 };
 
-const addCssEntry = () => {
-  if (config.cssEntry !== defaultConfig.cssEntry) return true;
-  return existsSync(resolveApp(config.cssEntry));
-};
-
 const cssEntry = resolveApp(config.cssEntry);
 const appTarget = resolveApp(config.destPath);
-
-const getAppName = () => {
-  const { namespace } = getAppConfig();
-  if (namespace === "") return "app";
-
-  return `${namespace}.app`;
-};
-
-const appName = getAppName();
-
-const shouldCopyResources = () => {
-  return existsSync(resolveApp(getAppConfig().resourcesSrc));
-};
-
-const autoConsoleClear = () => {
-  return getAppConfig().autoConsoleClear;
-};
 
 /**
  * node's `path.join`, but with forward slashes independent of the platform
@@ -99,50 +58,19 @@ function join(...paths) {
 /******************************************************************************
  ** CompileHTML helper
  ******************************************************************************/
-const useHtmlCompiler = Boolean(config.hbsEntry && config.hbsTarget);
-const hbsEntry = useHtmlCompiler ? resolveApp(config.hbsEntry) : "/";
-const hbsTarget = useHtmlCompiler ? resolveApp(config.hbsTarget) : "/";
-
-/******************************************************************************
- ** handlerbars-loader options
- ******************************************************************************/
-const handlebarsLoaderOptions = config.handlebarsLoaderOptions;
-// expect paths to be relative to ov.config.js similar to the other configurations. and convert to absolute paths
-// helperDirs
-if (handlebarsLoaderOptions.helperDirs)
-  handlebarsLoaderOptions.helperDirs = handlebarsLoaderOptions.helperDirs.map(
-    resolveApp
-  );
-// partialDirs
-if (handlebarsLoaderOptions.partialDirs)
-  handlebarsLoaderOptions.partialDirs = handlebarsLoaderOptions.partialDirs.map(
-    resolveApp
-  );
-// runtime
-if (handlebarsLoaderOptions.runtime)
-  handlebarsLoaderOptions.runtime = resolveApp(handlebarsLoaderOptions.runtime);
-
-/******************************************************************************
- ** EOD CompileHTML helper
- ******************************************************************************/
+const hbsEntry = shouldUseHtmlCompiler() ? resolveApp(config.hbsEntry) : "/";
+const hbsTarget = shouldUseHtmlCompiler() ? resolveApp(config.hbsTarget) : "/";
 
 module.exports = {
   resolveApp,
-  getAppConfig,
   publicPath,
   appPath,
   appSrc,
   jsEntry,
   jsLegacyEntry,
-  addCssEntry,
   cssEntry,
   appTarget,
-  appName,
-  shouldCopyResources,
-  autoConsoleClear,
   join,
-  useHtmlCompiler,
   hbsEntry,
-  hbsTarget,
-  handlebarsLoaderOptions
+  hbsTarget
 };

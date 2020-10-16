@@ -28,29 +28,6 @@ const getAppConfig = () => {
   return config;
 };
 
-const getCustomWebpackConfig = configName => {
-  return new Promise(resolve => {
-    let customWebpackConfig;
-    const customWebpackConfigPath = resolveApp(configName);
-
-    const customWebpackConfigExists = existsSync(customWebpackConfigPath);
-
-    if (!customWebpackConfigExists) {
-      resolve({});
-    } else {
-      try {
-        customWebpackConfig = require(customWebpackConfigPath);
-      } catch (err) {
-        console.log("Failed to load config file:");
-        console.error(err);
-        customWebpackConfig = {};
-      } finally {
-        resolve(customWebpackConfig);
-      }
-    }
-  });
-};
-
 const getJSExtName = options => {
   if (options.useReact) {
     return options.useTS ? ".tsx" : ".jsx";
@@ -152,7 +129,6 @@ if (handlebarsLoaderOptions.runtime)
 module.exports = {
   resolveApp,
   getAppConfig,
-  getCustomWebpackConfig,
   publicPath,
   appPath,
   appSrc,

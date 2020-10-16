@@ -1,6 +1,6 @@
 const { merge } = require("webpack-merge");
 
-const { getCustomWebpackConfig } = require("../helpers/paths");
+const { getCustomWebpackConfig } = require("../helpers/webpackConfigHelpers");
 const { getConfig } = require("../webpack/getConfig");
 
 async function prepareWebpackConfig(mode) {

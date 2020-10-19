@@ -14,10 +14,10 @@ const copyAssets = () => {
   return src(join(lsgAssetsSrc, "**")).pipe(dest(join(destPath, "lsg_assets")));
 };
 
-const copyStyleguideFiles = done => {
+const copyStyleguideFiles = (done) => {
   return parallel(copyMdFiles, copyAssets)(done);
 };
 
 module.exports = {
-  copyStyleguideFiles
+  copyStyleguideFiles,
 };

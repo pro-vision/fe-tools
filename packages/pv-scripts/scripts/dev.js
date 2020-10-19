@@ -5,7 +5,7 @@ process.env.NODE_ENV = "development";
 // Makes the script crash on unhandled rejections instead of silently
 // ignoring them. In the future, promise rejections that are not handled will
 // terminate the Node.js process with a non-zero exit code.
-process.on("unhandledRejection", err => {
+process.on("unhandledRejection", (err) => {
   throw err;
 });
 
@@ -21,11 +21,11 @@ const { prepareWebpackConfig } = require("../helpers/prepareWebpackConfig");
 const { getCompiler } = require("../helpers/devServerHelpers");
 const isInteractive = process.stdout.isTTY && autoConsoleClearEnabled();
 
-prepareWebpackConfig("development").then(webpackConfig => {
+prepareWebpackConfig("development").then((webpackConfig) => {
   // Create a webpack compiler that is configured with custom messages.
   const compiler = getCompiler({
     webpackConfig,
-    webpack
+    webpack,
   });
 
   const devServerConfig = webpackConfig[0].devServer;
@@ -37,7 +37,7 @@ prepareWebpackConfig("development").then(webpackConfig => {
   }:${devServerConfig.port}`;
 
   // Launch WebpackDevServer.
-  devServer.listen(devServerConfig.port, devServerConfig.host, err => {
+  devServer.listen(devServerConfig.port, devServerConfig.host, (err) => {
     if (err) {
       return console.log(err);
     }
@@ -50,7 +50,7 @@ prepareWebpackConfig("development").then(webpackConfig => {
     );
   });
 
-  ["SIGINT", "SIGTERM"].forEach(sig => {
+  ["SIGINT", "SIGTERM"].forEach((sig) => {
     process.on(sig, () => {
       devServer.close();
       process.exit();

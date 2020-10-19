@@ -5,7 +5,7 @@ process.env.NODE_ENV = "production";
 // Makes the script crash on unhandled rejections instead of silently
 // ignoring them. In the future, promise rejections that are not handled will
 // terminate the Node.js process with a non-zero exit code.
-process.on("unhandledRejection", err => {
+process.on("unhandledRejection", (err) => {
   throw err;
 });
 
@@ -33,7 +33,7 @@ function webpackBuild(webpackConfig) {
         }
         messages = formatWebpackMessages({
           errors: [err.message],
-          warnings: []
+          warnings: [],
         });
       } else {
         messages = formatWebpackMessages(
@@ -59,26 +59,26 @@ function webpackBuild(webpackConfig) {
               process.cwd(),
               destPath,
               `report_css.${process.env.PV_WEBPACK_STATS}`
-            )
+            ),
           },
           // ignore column checks which would throw because of generated eol during the build
           // (see https://github.com/danvk/source-map-explorer/issues/179)
-          noBorderChecks: true
-        }).catch(error => {
+          noBorderChecks: true,
+        }).catch((error) => {
           return console.error(error);
         });
       }
 
       return resolve({
         stats,
-        warnings: messages.warnings
+        warnings: messages.warnings,
       });
     });
   });
 }
 
 prepareWebpackConfig("production")
-  .then(webpackConfig => {
+  .then((webpackConfig) => {
     return webpackBuild(webpackConfig);
   })
   .then(
@@ -95,14 +95,14 @@ prepareWebpackConfig("production")
         console.log(chalk.green("Compiled successfully.\n"));
       }
     },
-    err => {
+    (err) => {
       console.log(chalk.red("Failed to compile.\n"));
       printBuildError(err);
 
       process.exit(1);
     }
   )
-  .catch(err => {
+  .catch((err) => {
     console.log("sss");
 
     if (err && err.message) {

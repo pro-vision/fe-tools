@@ -15,7 +15,7 @@ const assemblePages = async (options, hbsInstance) => {
   const pagesPaths = await getPaths(pages);
 
   return await Promise.all(
-    pagesPaths.map(async path => {
+    pagesPaths.map(async (path) => {
       const filename = basename(path, ".hbs");
       const relpath = relative(baseDir, path);
       const reldir = dirname(relpath);
@@ -38,5 +38,5 @@ const assemblePages = async (options, hbsInstance) => {
 };
 
 module.exports = {
-  assemblePages
+  assemblePages,
 };

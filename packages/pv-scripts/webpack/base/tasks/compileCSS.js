@@ -18,9 +18,9 @@ module.exports = {
                     require.resolve("postcss-preset-env"),
                     {
                       features: {
-                        "dir-pseudo-class": { dir: "ltr" }
-                      }
-                    }
+                        "dir-pseudo-class": { dir: "ltr" },
+                      },
+                    },
                   ],
                   [
                     require.resolve("cssnano"),
@@ -32,23 +32,23 @@ module.exports = {
                           // when converting `rgba(255, 255, 255, opacity)` to `hsla(0,0%,100%, opacity)`.
                           // The compressor in AEM strips the `%` from the `0%` saturation value,
                           // resulting in an invalid property value.
-                          colormin: false
-                        }
-                      ]
-                    }
-                  ]
-                ]
-              }
-            }
+                          colormin: false,
+                        },
+                      ],
+                    },
+                  ],
+                ],
+              },
+            },
           },
-          require.resolve("sass-loader")
-        ]
-      }
-    ]
+          require.resolve("sass-loader"),
+        ],
+      },
+    ],
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "css/[name].css"
-    })
-  ]
+      filename: "css/[name].css",
+    }),
+  ],
 };

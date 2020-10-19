@@ -7,7 +7,7 @@ const defaultConfigLegacy = require("../base/legacy");
 const basicSettings = require("./settings/basicSettings");
 
 const additionalPlugins = {
-  plugins: []
+  plugins: [],
 };
 
 if (process.env.PV_WEBPACK_STATS) {
@@ -18,7 +18,7 @@ if (process.env.PV_WEBPACK_STATS) {
       generateStatsFile: process.env.PV_WEBPACK_STATS === "json",
       openAnalyzer: false,
       reportFilename: "report_legacy.html",
-      statsFilename: "report_legacy.json"
+      statsFilename: "report_legacy.json",
     })
   );
 }

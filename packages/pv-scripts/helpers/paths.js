@@ -5,7 +5,7 @@ const slash = require("slash");
 const {
   getBuildConfig,
   getJSExtName,
-  shouldUseHtmlCompiler
+  shouldUseHtmlCompiler,
 } = require("./buildConfigHelpers");
 const defaultConfig = require("../config/default.config");
 
@@ -13,7 +13,7 @@ const config = getBuildConfig();
 
 const appDirectory = realpathSync(process.cwd());
 
-const resolveApp = relativePath => {
+const resolveApp = (relativePath) => {
   return path.resolve(appDirectory, relativePath);
 };
 
@@ -72,5 +72,5 @@ module.exports = {
   appTarget,
   join,
   hbsEntry,
-  hbsTarget
+  hbsTarget,
 };

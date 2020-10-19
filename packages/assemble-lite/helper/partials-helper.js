@@ -7,11 +7,11 @@ const loadPartials = async (partials, hbsInstance) => {
   const partialPaths = await getPaths(partials);
 
   return await Promise.all(
-    partialPaths.map(async path => {
+    partialPaths.map(async (path) => {
       const filename = basename(path, ".hbs");
       const markup = await asyncReadFile(path);
       const { clearedMarkup } = loadFront(markup, {
-        contentKeyName: "clearedMarkup"
+        contentKeyName: "clearedMarkup",
       });
       hbsInstance.registerPartial(filename, clearedMarkup);
     })
@@ -19,5 +19,5 @@ const loadPartials = async (partials, hbsInstance) => {
 };
 
 module.exports = {
-  loadPartials
+  loadPartials,
 };

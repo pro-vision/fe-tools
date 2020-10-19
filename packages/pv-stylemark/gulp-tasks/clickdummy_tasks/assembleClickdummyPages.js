@@ -7,7 +7,7 @@ const {
   cdTemplatesSrc,
   componentsSrc,
   cdPagesSrc,
-  hbsHelperSrc
+  hbsHelperSrc,
 } = getAppConfig();
 
 const assembleClickdummyPages = () => {
@@ -19,15 +19,15 @@ const assembleClickdummyPages = () => {
     data: [
       resolveApp(join(componentsSrc, "**/*.json")),
       resolveApp(join(componentsSrc, "**/*.yaml")),
-      resolveApp(join(componentsSrc, "**/*.yml"))
+      resolveApp(join(componentsSrc, "**/*.yml")),
     ],
     helpers: resolveApp(join(hbsHelperSrc, "*.js")),
-    target: resolveApp(join(destPath, "pages"))
+    target: resolveApp(join(destPath, "pages")),
   });
 };
 
 assembleClickdummyPages();
 
 module.exports = {
-  assembleClickdummyPages
+  assembleClickdummyPages,
 };

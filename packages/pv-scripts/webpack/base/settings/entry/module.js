@@ -1,7 +1,7 @@
 const { jsEntry, cssEntry } = require("../../../../helpers/paths");
 const {
   getAppName,
-  shouldAddCssEntry
+  shouldAddCssEntry,
 } = require("../../../../helpers/buildConfigHelpers");
 
 const getEntries = () => {
@@ -14,6 +14,6 @@ const getEntries = () => {
 
 module.exports = {
   entry: {
-    [getAppName()]: getEntries()
-  }
+    [getAppName()]: getEntries(),
+  },
 };

@@ -2,8 +2,8 @@ const { existsSync } = require("fs");
 
 const { resolveApp } = require("./paths");
 
-const getCustomWebpackConfig = configName => {
-  return new Promise(resolve => {
+const getCustomWebpackConfig = (configName) => {
+  return new Promise((resolve) => {
     let customWebpackConfig;
     const customWebpackConfigPath = resolveApp(configName);
 
@@ -26,5 +26,5 @@ const getCustomWebpackConfig = configName => {
 };
 
 module.exports = {
-  getCustomWebpackConfig
+  getCustomWebpackConfig,
 };

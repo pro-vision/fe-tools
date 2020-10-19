@@ -6,7 +6,7 @@ const {
   destPath,
   cdTemplatesSrc,
   componentsSrc,
-  hbsHelperSrc
+  hbsHelperSrc,
 } = getAppConfig();
 
 function* composeDataPaths(...fileExtensions) {
@@ -24,12 +24,12 @@ const assembleClickdummyComponents = () => {
     templates: resolveApp(join(cdTemplatesSrc, "**/*.hbs")),
     data: [...composeDataPaths("json", "yaml", "yml")],
     helpers: resolveApp(join(hbsHelperSrc, "*.js")),
-    target: resolveApp(join(destPath, "components"))
+    target: resolveApp(join(destPath, "components")),
   });
 };
 
 assembleClickdummyComponents();
 
 module.exports = {
-  assembleClickdummyComponents
+  assembleClickdummyComponents,
 };

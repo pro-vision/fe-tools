@@ -5,7 +5,7 @@ const slash = require("slash");
 const { defaultConfig } = require("../config/default.config");
 
 const appDirectory = realpathSync(process.cwd());
-const resolveApp = relativePath => {
+const resolveApp = (relativePath) => {
   return resolve(appDirectory, relativePath);
 };
 
@@ -40,5 +40,5 @@ function slashJoin(...paths) {
 module.exports = {
   resolveApp,
   getAppConfig,
-  join: slashJoin
+  join: slashJoin,
 };

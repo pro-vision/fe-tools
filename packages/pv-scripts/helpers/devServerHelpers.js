@@ -35,7 +35,7 @@ function getCompiler({ webpackConfig, webpack }) {
 
   // 'done' event fires when Webpack has finished recompiling the bundle.
   // Whether or not you have warnings or errors, you will get this event.
-  compiler.hooks.done.tap("done", stats => {
+  compiler.hooks.done.tap("done", (stats) => {
     if (isInteractive) {
       clearConsole();
     }
@@ -43,7 +43,7 @@ function getCompiler({ webpackConfig, webpack }) {
     const statsData = stats.toJson({
       all: false,
       warnings: true,
-      errors: true
+      errors: true,
     });
 
     const messages = formatWebpackMessages(statsData);
@@ -75,5 +75,5 @@ function getCompiler({ webpackConfig, webpack }) {
 }
 
 module.exports = {
-  getCompiler
+  getCompiler,
 };

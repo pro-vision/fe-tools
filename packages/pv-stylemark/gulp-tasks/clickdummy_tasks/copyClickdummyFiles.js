@@ -8,10 +8,10 @@ const copyRoot = () => {
   return src(lsgIndex).pipe(dest(destPath));
 };
 
-const copyClickdummyFiles = done => {
+const copyClickdummyFiles = (done) => {
   return parallel(copyRoot)(done);
 };
 
 module.exports = {
-  copyClickdummyFiles
+  copyClickdummyFiles,
 };

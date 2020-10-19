@@ -5,6 +5,6 @@ module.exports = {
     path: appTarget,
     publicPath,
     filename: "js/[name].js",
-    chunkFilename: "resources/js/chunks/[name].[chunkhash].js"
-  }
+    chunkFilename: "resources/js/chunks/[name].[chunkhash].js",
+  },
 };

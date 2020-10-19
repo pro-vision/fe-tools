@@ -6,7 +6,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: hbsEntry,
-      filename: hbsTarget
-    })
-  ]
+      filename: hbsTarget,
+    }),
+  ],
 };

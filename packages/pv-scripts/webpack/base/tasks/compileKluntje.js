@@ -13,17 +13,17 @@ module.exports = {
                 require.resolve("@babel/preset-env"),
                 {
                   targets: {
-                    ie: 11
-                  }
-                }
-              ]
+                    ie: 11,
+                  },
+                },
+              ],
             ],
             plugins: [
               [
                 require.resolve("@babel/plugin-proposal-decorators"),
                 {
-                  legacy: true
-                }
+                  legacy: true,
+                },
               ],
               [
                 require.resolve("@babel/plugin-transform-runtime"),
@@ -34,13 +34,13 @@ module.exports = {
                   helpers: false,
                   absoluteRuntime: path.dirname(
                     require.resolve("@babel/runtime/package.json")
-                  )
-                }
-              ]
-            ]
-          }
-        }
-      }
-    ]
-  }
+                  ),
+                },
+              ],
+            ],
+          },
+        },
+      },
+    ],
+  },
 };

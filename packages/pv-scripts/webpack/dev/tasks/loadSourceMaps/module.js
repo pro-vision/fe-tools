@@ -7,8 +7,8 @@ module.exports = {
       {
         // assuming third party dependencies such as @kluntje have only .js or .mjs extensions
         test: /\.(js|mjs)$/,
-        use: require.resolve("source-map-loader")
-      }
-    ]
-  }
+        use: require.resolve("source-map-loader"),
+      },
+    ],
+  },
 };

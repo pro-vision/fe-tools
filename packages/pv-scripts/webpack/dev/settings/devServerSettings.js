@@ -13,6 +13,6 @@ module.exports = {
     quiet: true,
     clientLogLevel: "none",
     port: devServerPort,
-    watchContentBase: true
-  }
+    watchContentBase: true,
+  },
 };

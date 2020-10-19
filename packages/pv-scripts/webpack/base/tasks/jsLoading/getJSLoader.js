@@ -8,7 +8,7 @@ const legacyCompileJSX = require("./compileJSX/legacy");
 const moduleCompileTSX = require("./compileTSX/module");
 const legacyCompileTSX = require("./compileTSX/legacy");
 
-module.exports = type => {
+module.exports = (type) => {
   const { useTS, useReact } = getBuildConfig();
   let loaders = [moduleCompileTS, legacyCompileTS];
 

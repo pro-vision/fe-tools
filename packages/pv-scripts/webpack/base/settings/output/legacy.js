@@ -20,7 +20,7 @@ module.exports = {
       // The environment supports 'for of' iteration ('for (const x of array) { ... }').
       forOf: false,
       // The environment supports ECMAScript Module syntax to import ECMAScript modules (import ... from '...').
-      module: false
-    }
-  }
+      module: false,
+    },
+  },
 };

@@ -21,7 +21,7 @@ const compileCSS = require("./tasks/compileCSS");
 const {
   getBuildConfig,
   shouldCopyResources,
-  shouldUseHtmlCompiler
+  shouldUseHtmlCompiler,
 } = require("../../helpers/buildConfigHelpers");
 
 const { useTS, copyStaticFiles, cleanDest, enableTypeCheck } = getBuildConfig();

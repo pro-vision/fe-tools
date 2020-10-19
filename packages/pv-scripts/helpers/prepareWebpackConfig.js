@@ -41,10 +41,10 @@ async function prepareWebpackConfig(mode) {
 
   return [
     merge(defaultModuleConfig, customModuleConfig),
-    merge(defaultLegacyConfig, customLegacyConfig)
+    merge(defaultLegacyConfig, customLegacyConfig),
   ];
 }
 
 module.exports = {
-  prepareWebpackConfig
+  prepareWebpackConfig,
 };

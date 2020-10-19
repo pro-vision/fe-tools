@@ -14,5 +14,5 @@ module.exports = {
   fontsSrc: "resources/fonts/",
   resourcesSrc: "resources",
   autoConsoleClear: false,
-  handlebarsLoaderOptions: {}
+  handlebarsLoaderOptions: {},
 };

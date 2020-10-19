@@ -14,11 +14,11 @@ module.exports = {
             options: {
               publicPath: join(publicPath, fontsSrc),
               name: "[name].[ext]",
-              outputPath: fontsSrc
-            }
-          }
-        ]
-      }
-    ]
-  }
+              outputPath: fontsSrc,
+            },
+          },
+        ],
+      },
+    ],
+  },
 };

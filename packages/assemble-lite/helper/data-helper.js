@@ -4,11 +4,11 @@ const { safeLoad } = require("js-yaml");
 
 const { getPaths } = require("./io-helper");
 
-const loadData = async data => {
+const loadData = async (data) => {
   const dataPool = {};
   const dataPaths = await getPaths(data);
   await Promise.all(
-    dataPaths.map(async path => {
+    dataPaths.map(async (path) => {
       const ext = extname(path);
       const filename = basename(path, ext);
 
@@ -16,7 +16,7 @@ const loadData = async data => {
         dataPool[filename] = await readJson(path);
       } else if (ext === ".yaml" || ext === ".yml") {
         dataPool[filename] = safeLoad(await readFile(path, "utf-8"), {
-          filename
+          filename,
         });
       }
     })
@@ -25,5 +25,5 @@ const loadData = async data => {
 };
 
 module.exports = {
-  loadData
+  loadData,
 };

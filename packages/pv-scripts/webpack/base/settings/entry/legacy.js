@@ -3,6 +3,6 @@ const { getAppName } = require("../../../../helpers/buildConfigHelpers");
 
 module.exports = {
   entry: {
-    [getAppName()]: [jsLegacyEntry()]
-  }
+    [getAppName()]: [jsLegacyEntry()],
+  },
 };

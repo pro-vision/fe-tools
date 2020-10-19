@@ -1,6 +1,6 @@
 const { spawn } = require("cross-spawn");
 
-const assembleLSGComponents = done => {
+const assembleLSGComponents = (done) => {
   spawn.sync(
     "node",
     [require.resolve("../lsg_tasks/assembleLSGComponents.js")],
@@ -11,5 +11,5 @@ const assembleLSGComponents = done => {
 };
 
 module.exports = {
-  assembleLSGComponents
+  assembleLSGComponents,
 };

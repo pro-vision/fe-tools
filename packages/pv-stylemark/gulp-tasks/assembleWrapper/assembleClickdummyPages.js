@@ -1,6 +1,6 @@
 const { spawn } = require("cross-spawn");
 
-const assembleClickdummyPages = done => {
+const assembleClickdummyPages = (done) => {
   spawn.sync(
     "node",
     [require.resolve("../clickdummy_tasks/assembleClickdummyPages.js")],
@@ -11,5 +11,5 @@ const assembleClickdummyPages = done => {
 };
 
 module.exports = {
-  assembleClickdummyPages
+  assembleClickdummyPages,
 };

@@ -8,7 +8,7 @@ module.exports = {
   plugins: [
     new ForkTsCheckerWebpackPlugin({
       typescript: resolve.sync("typescript", {
-        basedir: join(appPath, "node_modules")
+        basedir: join(appPath, "node_modules"),
       }),
       async: false,
       useTypescriptIncrementalApi: true,
@@ -18,7 +18,7 @@ module.exports = {
       reportFiles: ["**"],
       watch: appSrc,
       silent: true,
-      formatter: typescriptFormatter
-    })
-  ]
+      formatter: typescriptFormatter,
+    }),
+  ],
 };

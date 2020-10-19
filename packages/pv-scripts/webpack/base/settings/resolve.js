@@ -10,7 +10,7 @@ module.exports = {
       SRC: resolve(appPath, "src/"),
       JS: resolve(appPath, "src/js/"),
       Styles: resolve(appPath, "src/styles/"),
-      Components: resolve(appPath, "src/components/")
-    }
-  }
+      Components: resolve(appPath, "src/components/"),
+    },
+  },
 };

@@ -5,7 +5,7 @@ const defaultConfig = require("../config/default.config");
 
 const appDirectory = realpathSync(process.cwd());
 
-const resolveApp = relativePath => {
+const resolveApp = (relativePath) => {
   return path.resolve(appDirectory, relativePath);
 };
 
@@ -26,7 +26,7 @@ const getBuildConfig = () => {
   return config;
 };
 
-const getJSExtName = options => {
+const getJSExtName = (options) => {
   if (options.useReact) {
     return options.useTS ? ".tsx" : ".jsx";
   }
@@ -94,5 +94,5 @@ module.exports = {
   shouldCopyResources,
   shouldAddCssEntry,
   shouldUseHtmlCompiler,
-  getHandlebarsLoaderOptions
+  getHandlebarsLoaderOptions,
 };

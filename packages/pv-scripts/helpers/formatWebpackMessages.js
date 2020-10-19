@@ -11,13 +11,13 @@ function formatMessage({ message }) {
 
   // Strip webpack-added headers off errors/warnings
   // https://github.com/webpack/webpack/blob/master/lib/ModuleError.js
-  lines = lines.filter(line => {
+  lines = lines.filter((line) => {
     return !/Module [A-z ]+\(from/.test(line);
   });
 
   // Transform parsing error into syntax error
   // @TODO: move this to our ESLint formatter?
-  lines = lines.map(line => {
+  lines = lines.map((line) => {
     const parsingError = /Line (\d+):(?:(\d+):)?\s*Parsing error: (.+)$/.exec(
       line
     );
@@ -62,7 +62,7 @@ function formatMessage({ message }) {
       lines[0],
       lines[1]
         .replace("Error: ", "")
-        .replace("Module not found: Cannot find file:", "Cannot find file:")
+        .replace("Module not found: Cannot find file:", "Cannot find file:"),
     ];
   }
 
@@ -100,10 +100,10 @@ function formatMessage({ message }) {
 }
 
 function formatWebpackMessages(jsonStats) {
-  const formattedErrors = jsonStats.errors.map(message => {
+  const formattedErrors = jsonStats.errors.map((message) => {
     return formatMessage(message, true);
   });
-  const formattedWarnings = jsonStats.warnings.map(message => {
+  const formattedWarnings = jsonStats.warnings.map((message) => {
     return formatMessage(message, false);
   });
   const result = { errors: formattedErrors, warnings: formattedWarnings };

@@ -6,7 +6,7 @@ const {
   destPath,
   lsgTemplatesSrc,
   componentsSrc,
-  hbsHelperSrc
+  hbsHelperSrc,
 } = getAppConfig();
 
 const assembleLSGComponents = () => {
@@ -18,15 +18,15 @@ const assembleLSGComponents = () => {
     data: [
       resolveApp(join(componentsSrc, "**/*.json")),
       resolveApp(join(componentsSrc, "**/*.yaml")),
-      resolveApp(join(componentsSrc, "**/*.yml"))
+      resolveApp(join(componentsSrc, "**/*.yml")),
     ],
     helpers: resolveApp(join(hbsHelperSrc, "*.js")),
-    target: resolveApp(join(destPath, "/lsg_components"))
+    target: resolveApp(join(destPath, "/lsg_components")),
   });
 };
 
 assembleLSGComponents();
 
 module.exports = {
-  assembleLSGComponents
+  assembleLSGComponents,
 };

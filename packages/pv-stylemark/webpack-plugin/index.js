@@ -12,14 +12,14 @@ class PvStylemarkPlugin {
     compiler.hooks.afterCompile.tapAsync(
       "PvStylemarkPlugin",
       (compilation, callback) => {
-        getFilesToWatch().then(files => {
+        getFilesToWatch().then((files) => {
           // make sure platform separator is used
           files = files.map(path.normalize);
 
           if (Array.isArray(compilation.fileDependencies)) {
             compilation.fileDependencies.push(...files);
           } else {
-            files.forEach(file => {
+            files.forEach((file) => {
               return compilation.fileDependencies.add(file);
             });
           }
@@ -31,5 +31,5 @@ class PvStylemarkPlugin {
 }
 
 module.exports = {
-  PvStylemarkPlugin
+  PvStylemarkPlugin,
 };

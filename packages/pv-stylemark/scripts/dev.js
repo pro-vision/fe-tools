@@ -2,35 +2,35 @@ const gulp = require("gulp");
 
 // Assemble Clickdummy
 const {
-  assembleClickdummyComponents
+  assembleClickdummyComponents,
 } = require("../gulp-tasks/assembleWrapper/assembleClickdummyComponents");
 const {
-  assembleClickdummyPages
+  assembleClickdummyPages,
 } = require("../gulp-tasks/assembleWrapper/assembleClickdummyPages");
 const {
-  copyClickdummyFiles
+  copyClickdummyFiles,
 } = require("../gulp-tasks/clickdummy_tasks/copyClickdummyFiles");
 // Assemble Stylemark
 const {
-  assembleLSGComponents
+  assembleLSGComponents,
 } = require("../gulp-tasks/assembleWrapper/assembleLSGComponents");
 const {
-  copyStyleguideFiles
+  copyStyleguideFiles,
 } = require("../gulp-tasks/lsg_tasks/copyStyleguideFiles");
 const { buildStylemark } = require("../gulp-tasks/lsg_tasks/buildStylemark");
 const { getAppConfig, join } = require("../helper/paths");
 
-const recompileMessage = done => {
+const recompileMessage = (done) => {
   console.log("Recompiling LSG...");
   done();
 };
 
-const recompiledMessage = done => {
+const recompiledMessage = (done) => {
   console.log("LSG Recompiled!");
   done();
 };
 
-const buildClickdummy = done => {
+const buildClickdummy = (done) => {
   return gulp.series(
     assembleClickdummyComponents,
     assembleClickdummyPages,
@@ -38,7 +38,7 @@ const buildClickdummy = done => {
   )(done);
 };
 
-const buildLSG = done => {
+const buildLSG = (done) => {
   return gulp.series(
     assembleLSGComponents,
     copyStyleguideFiles,
@@ -85,7 +85,7 @@ const watchFiles = () => {
   }
 };
 
-const build = done => {
+const build = (done) => {
   return gulp.series(buildClickdummy, buildLSG)(done);
 };
 

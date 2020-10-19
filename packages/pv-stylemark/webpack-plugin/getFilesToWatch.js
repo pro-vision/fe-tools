@@ -30,5 +30,5 @@ const getFilesToWatch = async () => {
 };
 
 module.exports = {
-  getFilesToWatch
+  getFilesToWatch,
 };

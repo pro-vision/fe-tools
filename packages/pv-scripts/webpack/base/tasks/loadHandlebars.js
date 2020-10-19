@@ -1,5 +1,5 @@
 const {
-  getHandlebarsLoaderOptions
+  getHandlebarsLoaderOptions,
 } = require("../../../helpers/buildConfigHelpers");
 
 module.exports = {
@@ -10,10 +10,10 @@ module.exports = {
         use: [
           {
             loader: require.resolve("handlebars-loader"),
-            options: getHandlebarsLoaderOptions()
-          }
-        ]
-      }
-    ]
-  }
+            options: getHandlebarsLoaderOptions(),
+          },
+        ],
+      },
+    ],
+  },
 };

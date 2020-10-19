@@ -1,23 +1,20 @@
 const resolve = require("resolve");
-const ForkTsCheckerWebpackPlugin = require("react-dev-utils/ForkTsCheckerWebpackPlugin");
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const typescriptFormatter = require("react-dev-utils/typescriptFormatter");
 
-const { appPath, appSrc, join } = require("../../../helpers/paths");
+const { appPath, join } = require("../../../helpers/paths");
 
 module.exports = {
   plugins: [
     new ForkTsCheckerWebpackPlugin({
-      typescript: resolve.sync("typescript", {
-        basedir: join(appPath, "node_modules"),
-      }),
       async: false,
-      useTypescriptIncrementalApi: true,
-      checkSyntacticErrors: true,
-      tsconfig: join(appPath, "tsconfig.json"),
-      eslint: true,
-      reportFiles: ["**"],
-      watch: appSrc,
-      silent: true,
+      typescript: {
+        typescriptPath: resolve.sync("typescript", {
+          basedir: join(appPath, "node_modules"),
+        }),
+        context: appPath,
+        configFile: join(appPath, "tsconfig.json"),
+      },
       formatter: typescriptFormatter,
     }),
   ],

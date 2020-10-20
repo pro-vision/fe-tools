@@ -48,17 +48,18 @@ Basic Configuration can be done in a `pv.config.js` file in the npm project root
 
 | key             | type    | default              | usage                                                                                                           |
 | --------------- | ------- | -------------------- | --------------------------------------------------------------------------------------------------------------- |
-| devServerPort   | number  | 8616                 | set `webpack-dev-server` port                                                                                   |
-| srcPath         | string  | "src"                | defines the working directory                                                                                   |
-| destPath        | string  | "target"             | defines where to put bundled files                                                                              |
-| namespace       | string  | ""                   | this controls the name-prefix on your bundled files following this pattern `[namespace].app.[?legacy].(js|css)` |
-| jsEntry         | string  | "src/index.ts"       | defines path of your (JS\|TS\|JSX\|TSX) entry file                                                              |
-| jsLegacyEntry   | string  | "src/legacyIndex.ts" | defines path of your (JS\|TS\|JSX\|TSX) legacy entry file                                                       |
-| cssEntry        | string  | "src/index.scss"     | defines path of your SCSS entry file. If `src/index.scss` does not exist, no error is thrown but the css generation is simply skipped|
-| useTS           | boolean | true                 | defines whether you want to use Typescript                                                                      |
-| useReact        | boolean | false                | defines whether you want to use React                                                                           |
-| hbsEntry        | string  |                      | defines path of your handlebars entry file                                                                      |
-| hbsTarget       | string  |                      | defines path to your handlebars target file                                                                     |
+| devServerPort             | number  | 8616                 | set `webpack-dev-server` port                                                                                   |
+| srcPath                   | string  | "src"                | defines the working directory                                                                                   |
+| destPath                  | string  | "target"             | defines where to put bundled files                                                                              |
+| namespace                 | string  | ""                   | this controls the name-prefix on your bundled files following this pattern `[namespace].app.[?legacy].(js|css)` |
+| jsEntry                   | string  | "src/index.ts"       | defines path of your (JS\|TS\|JSX\|TSX) entry file                                                              |
+| jsLegacyEntry             | string  | "src/legacyIndex.ts" | defines path of your (JS\|TS\|JSX\|TSX) legacy entry file                                                       |
+| disableLegacyBuild        | boolean  | false               | disables legacy build                                                     |
+| cssEntry                  | string  | "src/index.scss"     | defines path of your SCSS entry file. If `src/index.scss` does not exist, no error is thrown but the css generation is simply skipped|
+| useTS                     | boolean | true                 | defines whether you want to use Typescript                                                                      |
+| useReact                  | boolean | false                | defines whether you want to use React                                                                           |
+| hbsEntry                  | string  |                      | defines path of your handlebars entry file                                                                      |
+| hbsTarget                 | string  |                      | defines path to your handlebars target file                                                                     |
 | handlebarsLoaderOptions   | string  | {}         | Object with additional options for the `handlebars-loader`. See https://github.com/pcardune/handlebars-loader for these options. Paths are relative to `pv.config.js`                                                       |
 | copyStaticFiles | boolean | false                | defines whether content of `/static` should be copied to target                                                 |
 | cleanDest       | boolean | false                | defines whether the destination folder should be cleaned before every pv-scripts run                            |

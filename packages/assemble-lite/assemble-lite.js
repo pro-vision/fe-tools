@@ -15,9 +15,11 @@ const defaultOptions = {
   target: "",
 };
 
-const assemble = async options => {
-
-  const { baseDir, partials, pages, templates, data, helpers, target, } = { ...defaultOptions, ...options};
+const assemble = async (options) => {
+  const { baseDir, partials, pages, templates, data, helpers, target } = {
+    ...defaultOptions,
+    ...options,
+  };
 
   const [templMap, dataPool] = await Promise.all([
     loadTemplates(templates),
@@ -26,7 +28,10 @@ const assemble = async options => {
     loadHelpers(helpers, Handlebars),
   ]);
 
-  await assemblePages({ baseDir, pages, templMap, target, dataPool}, Handlebars);
+  await assemblePages(
+    { baseDir, pages, templMap, target, dataPool },
+    Handlebars
+  );
 
   return;
 };

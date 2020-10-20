@@ -1,23 +1,36 @@
-const webpackMerge = require("webpack-merge");
-const { getConfig, getCustomWebpackConfig } = require("@pro-vision/webpack-config");
+const { merge } = require("webpack-merge");
+
+const { getCustomWebpackConfig } = require("../helpers/webpackConfigHelpers");
+const { getConfig } = require("../webpack/getConfig");
 
 async function prepareWebpackConfig(mode) {
-  const customModeConfigName = mode === "development" ? "webpack.config.dev" : "webpack.config.prod";
+  const customModeConfigName =
+    mode === "development" ? "webpack.config.dev" : "webpack.config.prod";
   const customWebpackConfig = await getCustomWebpackConfig("webpack.config.js");
-  const customWebpackModuleConfig = await getCustomWebpackConfig("webpack.config.module.js");
-  const customWebpackLegacyConfig = await getCustomWebpackConfig("webpack.config.legacy.js");
-  const customWebpackModeConfig = await getCustomWebpackConfig(`${customModeConfigName}.js`);
-  const customWebpackModeModuleConfig = await getCustomWebpackConfig(`${customModeConfigName}.module.js`);
-  const customWebpackModeLegacyConfig = await getCustomWebpackConfig(`${customModeConfigName}.legacy.js`);
+  const customWebpackModuleConfig = await getCustomWebpackConfig(
+    "webpack.config.module.js"
+  );
+  const customWebpackLegacyConfig = await getCustomWebpackConfig(
+    "webpack.config.legacy.js"
+  );
+  const customWebpackModeConfig = await getCustomWebpackConfig(
+    `${customModeConfigName}.js`
+  );
+  const customWebpackModeModuleConfig = await getCustomWebpackConfig(
+    `${customModeConfigName}.module.js`
+  );
+  const customWebpackModeLegacyConfig = await getCustomWebpackConfig(
+    `${customModeConfigName}.legacy.js`
+  );
 
-  const customModuleConfig = webpackMerge(
+  const customModuleConfig = merge(
     customWebpackConfig,
     customWebpackModuleConfig,
     customWebpackModeConfig,
     customWebpackModeModuleConfig
   );
 
-  const customLegacyConfig = webpackMerge(
+  const customLegacyConfig = merge(
     customWebpackConfig,
     customWebpackLegacyConfig,
     customWebpackModeConfig,
@@ -27,11 +40,11 @@ async function prepareWebpackConfig(mode) {
   const [defaultModuleConfig, defaultLegacyConfig] = getConfig(mode);
 
   return [
-    webpackMerge(defaultModuleConfig, customModuleConfig),
-    webpackMerge(defaultLegacyConfig, customLegacyConfig)
+    merge(defaultModuleConfig, customModuleConfig),
+    merge(defaultLegacyConfig, customLegacyConfig),
   ];
 }
 
 module.exports = {
-  prepareWebpackConfig
+  prepareWebpackConfig,
 };

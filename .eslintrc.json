@@ -1,5 +1,6 @@
 {
-  "extends": ["pv"],
+  "extends": ["pv", "prettier"],
+  "plugins": ["prettier"],
   "parser": "babel-eslint",
   "env": {
     "node": true,
@@ -7,6 +8,7 @@
   },
   "rules": {
     "global-require": 0,
-    "no-console": "off"
+    "no-console": "off",
+    "prettier/prettier": ["error"]
   }
 }

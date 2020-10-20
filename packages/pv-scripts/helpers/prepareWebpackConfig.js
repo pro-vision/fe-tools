@@ -1,6 +1,7 @@
 const { merge } = require("webpack-merge");
 
 const { getCustomWebpackConfig } = require("../helpers/webpackConfigHelpers");
+const { legacyBuildDisabled } = require("../helpers/buildConfigHelpers");
 const { getConfig } = require("../webpack/getConfig");
 
 async function prepareWebpackConfig(mode) {
@@ -38,6 +39,10 @@ async function prepareWebpackConfig(mode) {
   );
 
   const [defaultModuleConfig, defaultLegacyConfig] = getConfig(mode);
+
+  if (legacyBuildDisabled()) {
+    return merge(defaultModuleConfig, customModuleConfig);
+  }
 
   return [
     merge(defaultModuleConfig, customModuleConfig),

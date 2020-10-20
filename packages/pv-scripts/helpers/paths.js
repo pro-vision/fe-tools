@@ -1,5 +1,5 @@
 const path = require("path");
-const { realpathSync } = require("fs");
+const { realpathSync, existsSync } = require("fs");
 const slash = require("slash");
 
 const {
@@ -23,8 +23,9 @@ const appPath = resolveApp(".");
 const appSrc = resolveApp(config.srcPath);
 
 const jsEntry = () => {
-  if (config.jsEntry !== defaultConfig.jsEntry)
+  if (config.jsEntry !== defaultConfig.jsEntry) {
     return resolveApp(config.jsEntry);
+  }
 
   const extname = path.extname(config.jsEntry);
 
@@ -32,14 +33,21 @@ const jsEntry = () => {
 };
 
 const jsLegacyEntry = () => {
-  if (config.jsLegacyEntry !== defaultConfig.jsLegacyEntry)
+  if (config.jsLegacyEntry !== defaultConfig.jsLegacyEntry) {
     return resolveApp(config.jsLegacyEntry);
+  }
 
   const extname = path.extname(config.jsLegacyEntry);
 
-  return resolveApp(
+  const jsLegacyEntryPath = resolveApp(
     config.jsLegacyEntry.replace(extname, getJSExtName(config))
   );
+
+  const jsLegacyEntryExists = existsSync(jsLegacyEntryPath);
+
+  if (jsLegacyEntryExists) return jsLegacyEntryPath;
+
+  return jsEntry();
 };
 
 const cssEntry = resolveApp(config.cssEntry);

@@ -6,7 +6,13 @@ function isLikelyASyntaxError(message) {
 }
 
 // Cleans up webpack error messages.
-function formatMessage({ message }) {
+function formatMessage(stats) {
+  let { message } = stats;
+
+  if (message === undefined) {
+    message = stats;
+  }
+
   let lines = message.split("\n");
 
   // Strip webpack-added headers off errors/warnings

@@ -17,8 +17,6 @@ const resolveApp = (relativePath) => {
   return path.resolve(appDirectory, relativePath);
 };
 
-const fileExists = (path) => {};
-
 const publicPath = process.env.PUBLIC_PATH || "/";
 
 const appPath = resolveApp(".");

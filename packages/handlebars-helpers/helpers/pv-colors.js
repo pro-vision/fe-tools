@@ -1,62 +1,64 @@
-var fs = require('fs');
+const fs = require("fs");
 
-module.exports = function(path, namespace, _, opt) {
-
-  const data = fs.readFileSync(
-    path, 
-    {
-      encoding: 'utf-8'
-    }
+function getGroupName(groupRows) {
+  const groupName = groupRows.filter((groupRow) =>
+    groupRow.startsWith("// Group-Name:")
   );
+  if (groupName.length === 0) return "Unsorted Colors";
 
-  const groups = data.split('// LSG-Color-Group').filter(groups => groups !== '');
+  return groupName[0].split("Group-Name:")[1].trim();
+}
 
-  const colorData = groups.map((group) =>getGroupInfos(group, namespace));
+function getGroupDescription(groupRows) {
+  const groupDescription = groupRows.filter((groupRow) =>
+    groupRow.startsWith("// Group-Description:")
+  );
+  if (groupDescription.length === 0) return false;
 
-  var results = '';
-  colorData.forEach( (item) => {
-    results += opt.fn(item);
-  });
-  return results;
-};
+  return groupDescription[0].split("Group-Description:")[1].trim();
+}
+
+function getColorDefs(groupRows, namespace) {
+  const colorDefs = groupRows.filter((groupRow) =>
+    groupRow.startsWith(namespace)
+  );
+  return colorDefs;
+}
+
+function getColorInfos(colorDef) {
+  const infos = colorDef.split(":");
+  return {
+    name: infos[0].trim(),
+    hex: infos[1].trim(),
+  };
+}
 
 function getGroupInfos(group, namespace) {
-  const groupRows = group.split('\n').filter(row => row !== '');
+  const groupRows = group.split("\n").filter((row) => row !== "");
   const groupName = getGroupName(groupRows);
   const groupDescription = getGroupDescription(groupRows);
   const colorInfos = getColorDefs(groupRows, namespace).map(getColorInfos);
   return {
     groupName,
     groupDescription,
-    colorInfos
+    colorInfos,
   };
 }
 
-function getGroupName(groupRows) {
-  let groupName = groupRows.filter((groupRow) => groupRow.startsWith('// Group-Name:'));
-  if (groupName.length === 0) return 'Unsorted Colors';
+module.exports = function (path, namespace, _, opt) {
+  const data = fs.readFileSync(path, {
+    encoding: "utf-8",
+  });
 
-  return groupName[0].split('Group-Name:')[1].trim();
-}
+  const groups = data
+    .split("// LSG-Color-Group")
+    .filter((group) => group !== "");
 
-function getGroupDescription(groupRows) {
-  let groupDescription = groupRows.filter((groupRow) => groupRow.startsWith('// Group-Description:'));
-  if (groupDescription.length === 0) return false;
+  const colorData = groups.map((group) => getGroupInfos(group, namespace));
 
-  return groupDescription[0].split('Group-Description:')[1].trim();
-}
-
-function getColorDefs(groupRows, namespace) {
-  let colorDefs = groupRows.filter((groupRow) => groupRow.startsWith(namespace));
-  return colorDefs;
-}
-
-
-
-function getColorInfos(colorDef) {
-  const infos = colorDef.split(':');
-  return {
-    name: infos[0].trim(),
-    hex: infos[1].trim()
-  }
-}
+  let results = "";
+  colorData.forEach((item) => {
+    results += opt.fn(item);
+  });
+  return results;
+};

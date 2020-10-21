@@ -1,4 +1,4 @@
-module.exports = function(rootContext, path) {
+module.exports = function (rootContext, path) {
   let nestedPath = "";
   let pathPrefix = "";
 

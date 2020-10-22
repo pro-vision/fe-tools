@@ -1,0 +1,18 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "strict": true,
+    "target": "es2017",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "noUnusedLocals": true,
+    "strictPropertyInitialization": false,
+    "sourceMap": true,
+    "allowJs": false,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  }
+}

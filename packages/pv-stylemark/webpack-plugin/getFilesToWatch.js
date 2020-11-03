@@ -12,31 +12,32 @@ const {
 } = getAppConfig();
 
 const getFilesToWatch = async () => {
-  const files = [lsgIndex];
+  const files = {
 
-  // stylemark .md files
-  files.push(...(await asyncGlob(join(componentsSrc, "**/*.md"))));
-  // assets
-  files.push(...(await asyncGlob(join(lsgAssetsSrc, "**"))));
+    staticStylemarkFiles: [
+      lsgIndex,
+      // stylemark .md files
+      ...(await asyncGlob(join(componentsSrc, "**/*.md"))),
+      // static assets / resources
+      ...(await asyncGlob(join(lsgAssetsSrc, "**")))
+    ],
 
-  // add .json Components files
-  files.push(...(await asyncGlob(join(componentsSrc, "**/*.json"))));
-
-  // add .yaml/.yml Component files
-  files.push(...(await asyncGlob(join(componentsSrc, "**/*.yaml"))));
-  files.push(...(await asyncGlob(join(componentsSrc, "**/*.yml"))));
-
-  // handlebars helpers
-  files.push(...(await asyncGlob(join(hbsHelperSrc, "*.js"))));
-
-  // add .hbs Components files
-  files.push(...(await asyncGlob(join(componentsSrc, "**/*.hbs"))));
-
-  // add .hbs Pages files
-  files.push(...(await asyncGlob(join(cdPagesSrc, "**/*.hbs"))));
-
-  // add .hbs Template files
-  files.push(...(await asyncGlob(join(cdTemplatesSrc, "**/*.hbs"))));
+    assembleFiles: [
+      // add .json Components files
+      ...(await asyncGlob(join(componentsSrc, "**/*.json"))),
+      // add .yaml/.yml Component files
+      ...(await asyncGlob(join(componentsSrc, "**/*.yaml"))),
+      ...(await asyncGlob(join(componentsSrc, "**/*.yml"))),
+      // handlebars helpers
+      ...(await asyncGlob(join(hbsHelperSrc, "*.js"))),
+      // add .hbs Components files
+      ...(await asyncGlob(join(componentsSrc, "**/*.hbs"))),
+      // add .hbs Pages files
+      ...(await asyncGlob(join(cdPagesSrc, "**/*.hbs"))),
+      // add .hbs Template files
+      ...(await asyncGlob(join(cdTemplatesSrc, "**/*.hbs")))
+    ]
+  };
 
   return files;
 };

@@ -1,13 +1,12 @@
-const { spawn } = require("cross-spawn");
+const { fork } = require("child_process");
 
 const assembleLSGComponents = (done) => {
-  spawn.sync(
-    "node",
-    [require.resolve("../lsg_tasks/assembleLSGComponents.js")],
-    { stdio: "inherit" }
-  );
 
-  done();
+  fork(require.resolve("../lsg_tasks/assembleLSGComponents.js"), [], {
+    stdio: "inherit"
+  }).on("exit", () => {
+    done();
+  });
 };
 
 module.exports = {

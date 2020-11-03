@@ -1,13 +1,12 @@
-const { spawn } = require("cross-spawn");
+const { fork } = require("child_process");
 
 const assembleClickdummyPages = (done) => {
-  spawn.sync(
-    "node",
-    [require.resolve("../clickdummy_tasks/assembleClickdummyPages.js")],
-    { stdio: "inherit" }
-  );
 
-  done();
+  fork(require.resolve("../clickdummy_tasks/assembleClickdummyPages.js"), [], {
+    stdio: "inherit"
+  }).on("exit", () => {
+    done();
+  });
 };
 
 module.exports = {

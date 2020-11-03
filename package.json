@@ -3,31 +3,31 @@
   "private": true,
   "scripts": {
     "create-package": "lerna create",
-    "publish": "lerna run build && lerna publish --conventional-commits -m \"chore(root): Publish packages\"",
-    "build": "lerna run build",
+    "publish": "lerna publish --conventional-commits -m \"chore(root): Publish packages\"",
+    "publish:canary": "lerna publish --force-publish --canary",
     "test": "lerna run test",
-    "bootstrap": "lerna run build && lerna bootstrap",
+    "bootstrap": "lerna bootstrap",
     "add": "lerna add @pro-vision/pv-scripts --scope=",
     "lint": " eslint packages",
     "lint:fix": "eslint --fix packages",
     "commit": "git-cz"
   },
   "devDependencies": {
-    "@types/eslint": "^6.1.1",
-    "babel-eslint": "^10.0.3",
-    "commitizen": "^4.0.3",
-    "cpy-cli": "^3.1.0",
-    "cz-conventional-changelog": "^3.1.0",
-    "eslint": "^6.1.0",
-    "eslint-config-prettier": "^6.1.0",
-    "eslint-config-pv": "^2.2.2",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-prettier": "^3.1.0",
-    "husky": "^4.2.3",
-    "lerna": "^3.16.4",
-    "lint-staged": "^10.0.8",
-    "prettier": "^1.18.2",
-    "rollup": "^1.20.0"
+    "@types/eslint": "^7.2.4",
+    "@typescript-eslint/eslint-plugin": "^4.4.1",
+    "babel-eslint": "^10.1.0",
+    "commitizen": "^4.2.1",
+    "cpy-cli": "^3.1.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^7.11.0",
+    "eslint-config-prettier": "^6.13.0",
+    "eslint-config-pv": "^2.3.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "husky": "^4.3.0",
+    "lerna": "^3.22.1",
+    "lint-staged": "^10.4.2",
+    "prettier": "^2.1.2"
   },
   "husky": {
     "hooks": {
@@ -44,5 +44,6 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  }
+  },
+  "dependencies": {}
 }

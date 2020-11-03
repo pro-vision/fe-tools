@@ -12,7 +12,9 @@
   "root": true,
   "rules": {
     "global-require": 0,
-    "no-console": "off"
+    "no-console": "off",
+    // note you must disable the base rule as it can report incorrect errors
+    "no-use-before-define": "off",
   },
   "settings":  {
     "react":  {

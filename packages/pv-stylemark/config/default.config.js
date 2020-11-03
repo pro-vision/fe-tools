@@ -8,9 +8,9 @@ const defaultConfig = {
   lsgAssetsSrc: "src/assets/",
   lsgIndex: "src/styleguide/index.html",
   lsgConfigPath: "config/config.stylemark.yaml",
-  resourcesSrc: "resources"
+  resourcesSrc: "resources",
 };
 
 module.exports = {
-  defaultConfig
+  defaultConfig,
 };

@@ -1,6 +1,6 @@
 {
   "name": "@pro-vision/pv-stylemark",
-  "version": "2.0.5",
+  "version": "3.0.0",
   "description": "CLI for zero configuration stylemark-lsg-toolchain setup",
   "author": "Frederik Riewerts <friewerts@pro-vision.de>",
   "license": "ISC",
@@ -30,10 +30,10 @@
   },
   "main": "webpack-plugin/index.js",
   "dependencies": {
-    "@pro-vision/assemble-lite": "^1.2.1",
-    "cross-spawn": "7.0.1",
+    "@pro-vision/assemble-lite": "^2.0.0",
+    "cross-spawn": "7.0.3",
     "gulp": "4.0.2",
     "slash": "3.0.0",
-    "stylemark": "3.1.3"
+    "stylemark": "3.1.7"
   }
 }

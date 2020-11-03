@@ -1,7 +1,7 @@
 const glob = require("glob");
 const fs = require("fs-extra");
 
-const asyncGlob = globPattern => {
+const asyncGlob = (globPattern) => {
   if (typeof globPattern !== "string") {
     return [];
   }
@@ -17,7 +17,7 @@ const asyncGlob = globPattern => {
   });
 };
 
-const getPaths = async globPattern => {
+const getPaths = async (globPattern) => {
   let curPatterns = globPattern;
 
   if (typeof curPatterns === "string") {
@@ -26,16 +26,20 @@ const getPaths = async globPattern => {
 
   let paths = [];
 
-  await Promise.all(curPatterns.map(async pattern => {
-    const curPaths = await asyncGlob(pattern);
-    paths = paths.concat(curPaths);
-    return curPaths;
-  }));
+  await Promise.all(
+    curPatterns.map(async (pattern) => {
+      const curPaths = await asyncGlob(pattern);
+      paths = paths.concat(curPaths);
+      return curPaths;
+    })
+  );
 
   return paths;
 };
 
-const asyncReadFile = filePath => fs.readFile(filePath, "utf8");
+const asyncReadFile = (filePath) => {
+  return fs.readFile(filePath, "utf8");
+};
 
 const asyncWriteFile = async (target, reldir, filename, markup) => {
   await fs.ensureDir(`${target}/${reldir}`);
@@ -46,5 +50,5 @@ module.exports = {
   getPaths,
   asyncReadFile,
   asyncWriteFile,
-  asyncGlob
+  asyncGlob,
 };

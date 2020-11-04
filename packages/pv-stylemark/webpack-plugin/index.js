@@ -8,9 +8,9 @@ class PvStylemarkPlugin {
     this.watchedFiles = { staticStylemarkFiles: [], assembleFiles: [] };
   }
   apply(compiler) {
-    compiler.hooks.emit.tapPromise("PvStylemarkPlugin", compilation => {
+    compiler.hooks.emit.tapPromise("PvStylemarkPlugin", (compilation) => {
       const changedFiles = Array.from(compilation.fileTimestamps.keys()).filter(
-        watchfile => {
+        (watchfile) => {
           return (
             (this.prevTimestamps.get(watchfile) || this.startTime) <
             (compilation.fileTimestamps.get(watchfile) || Infinity)
@@ -18,10 +18,10 @@ class PvStylemarkPlugin {
         }
       );
 
-      const changedStylemarkFiles = changedFiles.filter(filePath =>
+      const changedStylemarkFiles = changedFiles.filter((filePath) =>
         this.watchedFiles.staticStylemarkFiles.includes(filePath)
       );
-      const changedAssembleFiles = changedFiles.filter(filePath =>
+      const changedAssembleFiles = changedFiles.filter((filePath) =>
         this.watchedFiles.assembleFiles.includes(filePath)
       );
 
@@ -41,14 +41,14 @@ class PvStylemarkPlugin {
         shouldCopyStyleguideFiles:
           !changedFiles.length || changedStylemarkFiles.length,
         // unless files were changed but none was a assemble file
-        shouldAssemble: !changedFiles.length || changedAssembleFiles.length
+        shouldAssemble: !changedFiles.length || changedAssembleFiles.length,
       });
     });
 
     compiler.hooks.afterCompile.tapAsync(
       "PvStylemarkPlugin",
       (compilation, callback) => {
-        getFilesToWatch().then(filesToWatch => {
+        getFilesToWatch().then((filesToWatch) => {
           const files = Object.values(filesToWatch).flat();
           // memorize stylemark relevant files to compare during emit phase
           this.watchedFiles = filesToWatch;
@@ -56,7 +56,7 @@ class PvStylemarkPlugin {
           if (Array.isArray(compilation.fileDependencies)) {
             compilation.fileDependencies.push(...files);
           } else {
-            files.forEach(file => compilation.fileDependencies.add(file));
+            files.forEach((file) => compilation.fileDependencies.add(file));
           }
           callback();
         });

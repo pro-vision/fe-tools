@@ -15,7 +15,7 @@ const asyncGlob = (globPattern) => {
       }
       // make sure to use absolute paths and that platform separator is used
       resolve(
-        files.map(filePath =>
+        files.map((filePath) =>
           path.normalize(path.resolve(process.cwd(), filePath))
         )
       );

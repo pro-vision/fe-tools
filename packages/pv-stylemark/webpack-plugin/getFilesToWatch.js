@@ -8,18 +8,17 @@ const {
   cdTemplatesSrc,
   lsgIndex,
   lsgAssetsSrc,
-  hbsHelperSrc
+  hbsHelperSrc,
 } = getAppConfig();
 
 const getFilesToWatch = async () => {
   const files = {
-
     staticStylemarkFiles: [
       lsgIndex,
       // stylemark .md files
       ...(await asyncGlob(join(componentsSrc, "**/*.md"))),
       // static assets / resources
-      ...(await asyncGlob(join(lsgAssetsSrc, "**")))
+      ...(await asyncGlob(join(lsgAssetsSrc, "**"))),
     ],
 
     assembleFiles: [
@@ -35,8 +34,8 @@ const getFilesToWatch = async () => {
       // add .hbs Pages files
       ...(await asyncGlob(join(cdPagesSrc, "**/*.hbs"))),
       // add .hbs Template files
-      ...(await asyncGlob(join(cdTemplatesSrc, "**/*.hbs")))
-    ]
+      ...(await asyncGlob(join(cdTemplatesSrc, "**/*.hbs"))),
+    ],
   };
 
   return files;

@@ -1,7 +1,6 @@
 const { fork } = require("child_process");
 
 const assembleClickdummyComponents = (done) => {
-
   fork(
     require.resolve("../clickdummy_tasks/assembleClickdummyComponents.js"),
     [],

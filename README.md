@@ -1,6 +1,6 @@
 # pv-tools
 
-![Travis Status](https://api.travis-ci.org/pro-vision/fe-tools.svg?branch=master)
+![Travis Status](https://api.travis-ci.com/pro-vision/fe-tools.svg?branch=master)
 
 
 Monorepo containing pv-fe-tools.

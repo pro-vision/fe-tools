@@ -3,9 +3,10 @@ const { getFilesToWatch } = require("./getFilesToWatch");
 
 class PvStylemarkPlugin {
   constructor() {
-    this.startTime = Date.now();
-    this.prevTimestamps = new Map();
+    // list of files currently being watched which need a re-compile of assemble or stylemark when modified
     this.watchedFiles = { staticStylemarkFiles: [], assembleFiles: [] };
+    // is false during watch mode and when re-compiling because some files have been changed
+    this.firstRun = true;
   }
   apply(compiler) {
     compiler.hooks.emit.tapAsync(
@@ -14,50 +15,56 @@ class PvStylemarkPlugin {
         // add files for stylemark and assemble to webpack to watch
         const filesToWatch = await getFilesToWatch();
         const allFiles = Object.values(filesToWatch).flat();
-        if (Array.isArray(compilation.fileDependencies)) {
-          compilation.fileDependencies.push(...allFiles);
-        } else {
-          allFiles.forEach((file) => compilation.fileDependencies.add(file));
-        }
+        allFiles.forEach((file) => compilation.fileDependencies.add(file));
 
-        const changedFiles = Array.from(
-          compilation.fileTimestamps.keys()
-        ).filter((watchfile) => {
-          return (
-            (this.prevTimestamps.get(watchfile) || this.startTime) <
-            (compilation.fileTimestamps.get(watchfile) || Infinity)
+        const changedFiles = this.firstRun
+          ? []
+          : [...compiler.modifiedFiles, ...compiler.removedFiles];
+
+        const changedStylemarkFiles = changedFiles
+          // modified / removed files
+          .filter((filePath) =>
+            this.watchedFiles.staticStylemarkFiles.includes(filePath)
+          )
+          // new files
+          .concat(
+            filesToWatch.staticStylemarkFiles.filter(
+              (filePath) =>
+                !this.watchedFiles.staticStylemarkFiles.includes(filePath)
+            )
           );
-        });
+        const changedAssembleFiles = changedFiles
+          // modified / removed files
+          .filter((filePath) =>
+            this.watchedFiles.assembleFiles.includes(filePath)
+          )
+          // new files
+          .concat(
+            filesToWatch.assembleFiles.filter(
+              (filePath) => !this.watchedFiles.assembleFiles.includes(filePath)
+            )
+          );
 
-        // memorize stylemark relevant files to compare during emit phase
+        // memorize stylemark relevant files to compare during next emit phase
         this.watchedFiles = filesToWatch;
 
-        const changedStylemarkFiles = changedFiles.filter((filePath) =>
-          this.watchedFiles.staticStylemarkFiles.includes(filePath)
-        );
-        const changedAssembleFiles = changedFiles.filter((filePath) =>
-          this.watchedFiles.assembleFiles.includes(filePath)
-        );
-
-        this.prevTimestamps = compilation.fileTimestamps;
-
-        // called during watch change, but the change wasn't in any relevant files
+        // only needs build on the first run and when stylemark or assemble files have been changed
         if (
-          changedFiles.length &&
-          !changedStylemarkFiles.length &&
-          !changedAssembleFiles.length
+          this.firstRun ||
+          changedStylemarkFiles.length ||
+          changedAssembleFiles.length
         ) {
-          callback();
-          return;
+          await buildStylemark({
+            // unless files were changed but none was a static stylemark file
+            shouldCopyStyleguideFiles:
+              this.firstRun || changedStylemarkFiles.length,
+            // unless files were changed but none was a assemble file
+            shouldAssemble: this.firstRun || changedAssembleFiles.length,
+          });
         }
 
-        await buildStylemark({
-          // unless files were changed but none was a static stylemark file
-          shouldCopyStyleguideFiles:
-            !changedFiles.length || changedStylemarkFiles.length,
-          // unless files were changed but none was a assemble file
-          shouldAssemble: !changedFiles.length || changedAssembleFiles.length,
-        });
+         // for the next iteration
+        this.firstRun = false;
 
         callback();
       }

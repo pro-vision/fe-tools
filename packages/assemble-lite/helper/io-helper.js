@@ -1,5 +1,6 @@
 const glob = require("glob");
 const fs = require("fs-extra");
+const path = require("path");
 
 const asyncGlob = (globPattern) => {
   if (typeof globPattern !== "string") {
@@ -12,7 +13,12 @@ const asyncGlob = (globPattern) => {
         reject(err);
         return;
       }
-      resolve(files);
+      // make sure to use absolute paths and that platform separator is used
+      resolve(
+        files.map((filePath) =>
+          path.normalize(path.resolve(process.cwd(), filePath))
+        )
+      );
     });
   });
 };

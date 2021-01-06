@@ -52,9 +52,15 @@ const asyncWriteFile = async (target, reldir, filename, markup) => {
   return fs.writeFile(`${target}/${reldir}/${filename}.html`, markup, "utf8");
 };
 
+// returns the basename without extension of the provided file path
+function getName(filePath) {
+  return path.parse(filePath).name;
+}
+
 module.exports = {
   getPaths,
   asyncReadFile,
   asyncWriteFile,
   asyncGlob,
+  getName,
 };

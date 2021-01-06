@@ -9,38 +9,56 @@ const {
   lsgIndex,
   lsgAssetsSrc,
   hbsHelperSrc,
+  lsgTemplatesSrc,
 } = getAppConfig();
 
+// glob pattern for the files used in the living styleguide
+const fileGlobes = {
+  staticStylemarkFiles: {
+    index: lsgIndex,
+    // stylemark .md files
+    markDown: join(componentsSrc, "**/*.md"),
+    // static assets / resources
+    resources: join(lsgAssetsSrc, "**"),
+  },
+  assembleFiles: {
+    data: [
+      // add .json,.yaml/.yml Component data files
+      join(componentsSrc, "**/*.{json,yaml,yml}"),
+      // add .json,.yaml/.yml Layout data files
+      join(cdTemplatesSrc, "**/*.{json,yaml,yml}"),
+    ],
+    // handlebars helpers
+    helpers: join(hbsHelperSrc, "*.js"),
+    // add .hbs Components files
+    components: join(componentsSrc, "**/*.hbs"),
+    // add .hbs Pages files
+    pages: join(cdPagesSrc, "**/*.hbs"),
+    // add .hbs Template/Layout files
+    layouts: join(cdTemplatesSrc, "**/*.hbs"),
+    // Living styleguide Layouts
+    lsgLayouts: join(lsgTemplatesSrc, "**/*.hbs"),
+  },
+};
+
 const getFilesToWatch = async () => {
-  const files = {
-    staticStylemarkFiles: [
-      lsgIndex,
-      // stylemark .md files
-      ...(await asyncGlob(join(componentsSrc, "**/*.md"))),
-      // static assets / resources
-      ...(await asyncGlob(join(lsgAssetsSrc, "**"))),
-    ],
+  // get paths for assemble and lsg in parallel
+  const lsgFilesPromise = Promise.all(
+    Object.values(fileGlobes.staticStylemarkFiles).map(asyncGlob)
+  );
+  const assembleFilesPromise = Promise.all(
+    Object.values(fileGlobes.assembleFiles).flat().map(asyncGlob)
+  );
+  const lsgFiles = (await lsgFilesPromise).flat();
+  const assembleFiles = (await assembleFilesPromise).flat();
 
-    assembleFiles: [
-      // add .json Components files
-      ...(await asyncGlob(join(componentsSrc, "**/*.json"))),
-      // add .yaml/.yml Component files
-      ...(await asyncGlob(join(componentsSrc, "**/*.yaml"))),
-      ...(await asyncGlob(join(componentsSrc, "**/*.yml"))),
-      // handlebars helpers
-      ...(await asyncGlob(join(hbsHelperSrc, "*.js"))),
-      // add .hbs Components files
-      ...(await asyncGlob(join(componentsSrc, "**/*.hbs"))),
-      // add .hbs Pages files
-      ...(await asyncGlob(join(cdPagesSrc, "**/*.hbs"))),
-      // add .hbs Template files
-      ...(await asyncGlob(join(cdTemplatesSrc, "**/*.hbs"))),
-    ],
+  return {
+    lsgFiles,
+    assembleFiles,
   };
-
-  return files;
 };
 
 module.exports = {
+  fileGlobes,
   getFilesToWatch,
 };

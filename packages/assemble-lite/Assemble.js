@@ -581,7 +581,7 @@ module.exports = class Assemble {
   }
 
   // parses handlebars template and returns list of all partials and expressions used in it
-  _analyseHandlebars(str) {
+  _analyseHandlebars(str, filename) {
     try {
       const ast = Handlebars.parse(str);
 

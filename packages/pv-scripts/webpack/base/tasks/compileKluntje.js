@@ -4,7 +4,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /@kluntje\//,
+        test: /@kluntje[\\/]/,
         use: {
           loader: require.resolve("babel-loader"),
           options: {

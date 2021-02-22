@@ -8,10 +8,16 @@ module.exports = {
         exclude: /\.shadow\.scss$/,
         use: [
           MiniCssExtractPlugin.loader,
-          require.resolve("css-loader"),
+          {
+            loader: require.resolve("css-loader"),
+            options: {
+              sourceMap: true,
+            },
+          },
           {
             loader: require.resolve("postcss-loader"),
             options: {
+              sourceMap: true,
               postcssOptions: {
                 plugins: [
                   [
@@ -41,7 +47,12 @@ module.exports = {
               },
             },
           },
-          require.resolve("sass-loader"),
+          {
+            loader: require.resolve("sass-loader"),
+            options: {
+              sourceMap: true,
+            },
+          },
         ],
       },
     ],

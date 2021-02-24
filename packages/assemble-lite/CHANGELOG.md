@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.2](https://github.com/pro-vision/fe-tools/compare/@pro-vision/assemble-lite@2.0.1...@pro-vision/assemble-lite@2.0.2) (2021-02-24)
+
+
+### Bug Fixes
+
+* **assemble-lite:** add missing srces to package files list ([b2c6824](https://github.com/pro-vision/fe-tools/commit/b2c6824836e4fa968f809012cbb961c9863a86b4))
+
+
+
+
+
 ## [2.0.1](https://github.com/pro-vision/fe-tools/compare/@pro-vision/assemble-lite@2.0.0...@pro-vision/assemble-lite@2.0.1) (2021-02-24)
 
 

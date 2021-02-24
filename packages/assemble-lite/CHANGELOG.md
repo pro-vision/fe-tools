@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.3](https://github.com/pro-vision/fe-tools/compare/@pro-vision/assemble-lite@2.0.2...@pro-vision/assemble-lite@2.0.3) (2021-02-24)
+
+
+### Bug Fixes
+
+* **assemble-lite:** fixed multi handlebars instance bug with stylemark ([ce5d46f](https://github.com/pro-vision/fe-tools/commit/ce5d46fbd81ffe7cffcffbd61357b5341b688f90))
+
+
+
+
+
 ## [2.0.2](https://github.com/pro-vision/fe-tools/compare/@pro-vision/assemble-lite@2.0.1...@pro-vision/assemble-lite@2.0.2) (2021-02-24)
 
 

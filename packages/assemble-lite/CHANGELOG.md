@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.4](https://github.com/pro-vision/fe-tools/compare/@pro-vision/assemble-lite@2.0.3...@pro-vision/assemble-lite@2.0.4) (2021-02-24)
+
+
+### Bug Fixes
+
+* **pv-stylemark:** removed flat mathod and Assemble Instance ([85b6ca8](https://github.com/pro-vision/fe-tools/commit/85b6ca8cd80dc92081719f87620ac2ae48e01ab1))
+
+
+
+
+
 ## [2.0.3](https://github.com/pro-vision/fe-tools/compare/@pro-vision/assemble-lite@2.0.2...@pro-vision/assemble-lite@2.0.3) (2021-02-24)
 
 

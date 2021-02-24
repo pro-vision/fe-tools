@@ -1,17 +1,11 @@
-const Assemble = require("@pro-vision/assemble-lite/Assemble");
-
 const buildStylemark = require("../scripts/buildStylemarkLsg");
-const { getFilesToWatch, fileGlobes } = require("./getFilesToWatch");
-const { resolveApp, getAppConfig, join } = require("../helper/paths");
-
-const { destPath, componentsSrc } = getAppConfig();
+const { getFilesToWatch } = require("./getFilesToWatch");
 class PvStylemarkPlugin {
   constructor() {
     // list of files currently being watched which need a re-compile of assemble or stylemark when modified
-    this.watchedFiles = { lsgFiles: [], assembleFiles: [] };
+    this.watchedFiles = { staticStylemarkFiles: [], assembleFiles: [] };
     // is false during watch mode and when re-compiling because some files have been changed
     this.firstRun = true;
-    this.assemble = new Assemble();
   }
   apply(compiler) {
     compiler.hooks.emit.tapAsync(
@@ -19,7 +13,10 @@ class PvStylemarkPlugin {
       async (compilation, callback) => {
         // add files for stylemark and assemble to webpack to watch
         const filesToWatch = await getFilesToWatch();
-        const allFiles = Object.values(filesToWatch).flat();
+        const allFiles = Object.values(filesToWatch).reduce(
+          (acc, val) => acc.concat(val),
+          []
+        );
         allFiles.forEach((file) => compilation.fileDependencies.add(file));
 
         const changedFiles = this.firstRun
@@ -28,11 +25,14 @@ class PvStylemarkPlugin {
 
         const changedStylemarkFiles = changedFiles
           // modified / removed files
-          .filter((filePath) => this.watchedFiles.lsgFiles.includes(filePath))
+          .filter((filePath) =>
+            this.watchedFiles.staticStylemarkFiles.includes(filePath)
+          )
           // new files
           .concat(
-            filesToWatch.lsgFiles.filter(
-              (filePath) => !this.watchedFiles.lsgFiles.includes(filePath)
+            filesToWatch.staticStylemarkFiles.filter(
+              (filePath) =>
+                !this.watchedFiles.staticStylemarkFiles.includes(filePath)
             )
           );
         const changedAssembleFiles = changedFiles
@@ -54,39 +54,11 @@ class PvStylemarkPlugin {
         const buildAssemble = this.firstRun || changedAssembleFiles.length;
         const copyStylemarkFiles =
           this.firstRun || changedStylemarkFiles.length;
-        // only needs build on the first run and when stylemark or assemble files have been changed
-        const buildLsg = buildAssemble || copyStylemarkFiles;
 
-        if (buildAssemble) {
-          await this.assemble.build(
-            {
-              baseDir: resolveApp(componentsSrc),
-              components: resolveApp(fileGlobes.assembleFiles.components),
-              pages: resolveApp(fileGlobes.assembleFiles.pages),
-              data: fileGlobes.assembleFiles.data.map(resolveApp),
-              helpers: resolveApp(fileGlobes.assembleFiles.helpers),
-              layouts: resolveApp(fileGlobes.assembleFiles.layouts),
-              lsgLayouts: resolveApp(fileGlobes.assembleFiles.lsgLayouts),
-              componentsTargetDirectory: resolveApp(
-                join(destPath, "components")
-              ),
-              pagesTargetDirectory: resolveApp(join(destPath, "pages")),
-              lsgComponentsTargetDirectory: resolveApp(
-                join(destPath, "/lsg_components")
-              ),
-            },
-            this.firstRun ? null : changedAssembleFiles
-          );
-        }
-
-        if (buildLsg) {
-          await buildStylemark({
-            // unless files were changed but none was a static stylemark file
-            shouldCopyStyleguideFiles: copyStylemarkFiles,
-            // unless files were changed but none was an assemble file
-            shouldAssemble: false,
-          });
-        }
+        await buildStylemark({
+          shouldCopyStyleguideFiles: copyStylemarkFiles,
+          shouldAssemble: buildAssemble,
+        });
 
         // for the next iteration
         this.firstRun = false;

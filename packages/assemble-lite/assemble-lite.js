@@ -1,4 +1,4 @@
-const Handlebars = require("handlebars");
+const assembleHandlebars = require("handlebars").create();
 
 const { loadTemplates } = require("./helper/template-helper");
 const { loadData } = require("./helper/data-helper");
@@ -24,13 +24,13 @@ const assemble = async (options) => {
   const [templMap, dataPool] = await Promise.all([
     loadTemplates(templates),
     loadData(data),
-    loadPartials(partials, Handlebars),
-    loadHelpers(helpers, Handlebars),
+    loadPartials(partials, assembleHandlebars),
+    loadHelpers(helpers, assembleHandlebars),
   ]);
 
   await assemblePages(
     { baseDir, pages, templMap, target, dataPool },
-    Handlebars
+    assembleHandlebars
   );
 
   return;

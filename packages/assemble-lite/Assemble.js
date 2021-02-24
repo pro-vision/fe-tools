@@ -1,8 +1,8 @@
 const { basename, relative, dirname, extname } = require("path");
 const { readJson, readFile } = require("fs-extra");
-const Handlebars = require("handlebars");
+const pvHandlebars = require("handlebars").create();
 const { loadFront } = require("yaml-front-matter");
-const handlebarsHelpers = require("handlebars-helpers");
+const handlebarsHelpers = require("handlebars-helpers/lib/index");
 const { safeLoad } = require("js-yaml");
 
 const Timer = require("./Timer");
@@ -132,14 +132,14 @@ module.exports = class Assemble {
       this._removeObsolete(this.lsgLayouts, lsgLayoutPaths, getName);
       // remove obsolete helpers (strongly assuming helper name and file name are identical)
       this._removeObsolete(this.helpers, helperPaths, getName, ({ name }) =>
-        Handlebars.unregisterHelper(name)
+        pvHandlebars.unregisterHelper(name)
       );
       // remove obsolete templates
       this._removeObsolete(
         this.templates,
         [...componentPaths, ...pagePaths],
         (path) => path,
-        (tpl) => Handlebars.unregisterPartial(tpl.name)
+        (tpl) => pvHandlebars.unregisterPartial(tpl.name)
       );
       // #endregion remove
 
@@ -381,7 +381,7 @@ module.exports = class Assemble {
 
     // register components as partials
     if (type === "COMPONENT")
-      Handlebars.registerPartial(filename, this.templates[path].ast);
+      pvHandlebars.registerPartial(filename, this.templates[path].ast);
   }
 
   /**
@@ -488,15 +488,18 @@ module.exports = class Assemble {
    * @memberof Assemble
    */
   _loadHelpers(helperPaths, loadCommonHandlebarsHelpers = false) {
-    if (loadCommonHandlebarsHelpers)
-      Handlebars.registerHelper(handlebarsHelpers());
+    if (loadCommonHandlebarsHelpers) {
+      Object.values(handlebarsHelpers).forEach((helpers) => {
+        pvHandlebars.registerHelper(helpers);
+      });
+    }
 
     helperPaths.forEach((path) => {
       try {
         // remove from cache incase the helper was modified during watch task.
         delete require.cache[path];
         const helperFn = require(path);
-        Handlebars.registerHelper(helperFn);
+        pvHandlebars.registerHelper(helperFn);
         this.helpers[getName(path)] = { path, name: getName(path) };
       } catch (error) {
         console.error(
@@ -583,7 +586,7 @@ module.exports = class Assemble {
   // parses handlebars template and returns list of all partials and expressions used in it
   _analyseHandlebars(str, filename) {
     try {
-      const ast = Handlebars.parse(str);
+      const ast = pvHandlebars.parse(str);
 
       const scanner = new Visitor();
       scanner.accept(ast);
@@ -602,7 +605,7 @@ module.exports = class Assemble {
       console.error(error);
 
       return {
-        ast: Handlebars.parse(errorMarkup),
+        ast: pvHandlebars.parse(errorMarkup),
         partials: [],
         pathExpressions: [],
         failed: true,
@@ -619,7 +622,7 @@ module.exports = class Assemble {
    * @memberof Assemble
    */
   _getRenderFunction(ast, path) {
-    const compiledTemplate = Handlebars.compile(ast);
+    const compiledTemplate = pvHandlebars.compile(ast);
     return (data) => {
       try {
         return compiledTemplate(data);

@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1](https://github.com/pro-vision/fe-tools/compare/@pro-vision/assemble-lite@2.0.0...@pro-vision/assemble-lite@2.0.1) (2021-02-24)
+
+
+### Performance Improvements
+
+* **assemble-lite:** use filename in the error message ([bb4932c](https://github.com/pro-vision/fe-tools/commit/bb4932c8d6c21181dbbff882643919709000452d))
+* **pv-stylemark:** only run stylemark jobs when neccesery ([005b4dc](https://github.com/pro-vision/fe-tools/commit/005b4dc73a742dd26775b3426f0ae2adcb7642e5))
+* **pv-stylemark/assemble-lite:** add new variation of assemble-lite which has a statefull instance ([ebf78b6](https://github.com/pro-vision/fe-tools/commit/ebf78b6216d46a36ec615d1f9f26f5a959fe039e))
+
+
+
+
+
 # [2.0.0](https://github.com/pro-vision/fe-tools/compare/@pro-vision/assemble-lite@1.2.2...@pro-vision/assemble-lite@2.0.0) (2020-10-20)
 
 

@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@3.0.0...@pro-vision/pv-scripts@3.1.0) (2021-02-24)
+
+
+### Bug Fixes
+
+* **pv-scripts:** support windows seperators as well ([15bf0f2](https://github.com/pro-vision/fe-tools/commit/15bf0f2bb207512e892c22929c720bb957df8549))
+
+
+### Features
+
+* **webpack-config:** generate exact source-maps for css files ([952f40f](https://github.com/pro-vision/fe-tools/commit/952f40ffd68d750f4185bcb58d6235ce7b4d1f21))
+
+
+
+
+
 # [3.0.0](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@2.0.9...@pro-vision/pv-scripts@3.0.0) (2020-10-20)
 
 

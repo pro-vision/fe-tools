@@ -12,7 +12,10 @@
   },
   "files": [
     "helper",
-    "assemble-lite.js"
+    "assemble-lite.js",
+    "Assemble.js",
+    "Timer.js",
+    "Visitor.js"
   ],
   "publishConfig": {
     "access": "public"

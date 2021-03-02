@@ -10,7 +10,7 @@ const {
   lsgAssetsSrc,
   hbsHelperSrc,
   lsgTemplatesSrc,
-  lsgConfigPath
+  lsgConfigPath,
 } = getAppConfig();
 
 // glob pattern for the files used in the living styleguide

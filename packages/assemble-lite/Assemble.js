@@ -32,6 +32,9 @@ module.exports = class Assemble {
     this.lsgLayouts = {};
     // data which will be used when handlebars templates are rendered
     this.dataPool = {};
+    // data only used for the standalone components render when they are not in the lsg folder
+    // i.e. needed for pv-path helper
+    this.additionalComponentDataPool = {};
     // list of current handlebar helpers (which is also the file name of these helpers).
     this.helpers = {};
     // paths of files which throw an error during parsing or executing,
@@ -71,6 +74,7 @@ module.exports = class Assemble {
       components,
       pages,
       data,
+      additionalComponentData,
       helpers,
       layouts,
       lsgLayouts,
@@ -100,6 +104,7 @@ module.exports = class Assemble {
       componentPaths,
       pagePaths,
       dataPaths,
+      additionalComponentDataPaths,
     ] = await Promise.all([
       getPaths(helpers),
       getPaths(layouts),
@@ -107,6 +112,7 @@ module.exports = class Assemble {
       getPaths(components),
       getPaths(pages),
       getPaths(data),
+      getPaths(additionalComponentData),
     ]);
     this.log("Getting paths took:", timer.measure("GETTING-PATHS", true), "s");
 
@@ -128,6 +134,11 @@ module.exports = class Assemble {
 
       // #region remove data from memory for deleted files
       this._removeObsolete(this.dataPool, dataPaths, getName);
+      this._removeObsolete(
+        this.additionalComponentDataPool,
+        additionalComponentDataPaths,
+        getName
+      );
       this._removeObsolete(this.layouts, layoutPaths, getName);
       this._removeObsolete(this.lsgLayouts, lsgLayoutPaths, getName);
       // remove obsolete helpers (strongly assuming helper name and file name are identical)
@@ -151,6 +162,9 @@ module.exports = class Assemble {
       componentPaths = componentPaths.filter(wasModified);
       pagePaths = pagePaths.filter(wasModified);
       dataPaths = dataPaths.filter(wasModified);
+      additionalComponentDataPaths = additionalComponentDataPaths.filter(
+        wasModified
+      );
     }
 
     timer.start("READ-AND-PARSE-FILES");
@@ -172,8 +186,15 @@ module.exports = class Assemble {
 
     // read data
     const readData = await this._loadData(dataPaths);
+    const readAdditionalComponentData = await this._loadData(
+      additionalComponentDataPaths
+    );
     // merge with (potentially) old data
     Object.assign(this.dataPool, readData);
+    Object.assign(
+      this.additionalComponentDataPool,
+      readAdditionalComponentData
+    );
 
     this.log(
       "Reading and parsing took:",
@@ -432,7 +453,6 @@ module.exports = class Assemble {
       ...tpl.data,
     };
 
-    const body = tpl.render(curData);
     if (tpl.layout && !this.layouts.hasOwnProperty(tpl.layout))
       console.warn(
         `[Assemble-Lite] no layout file was defined for "${tpl.layout}"`
@@ -441,8 +461,14 @@ module.exports = class Assemble {
     if (tpl.type === "COMPONENT") {
       const writingJobs = [];
       if (layouts.NORMAL) {
+        const extendedData = Object.assign(
+          {},
+          curData,
+          this.additionalComponentDataPool
+        );
+        const body = tpl.render(extendedData);
         const layout = this.layouts[tpl.layout]
-          ? this.layouts[tpl.layout].render(curData)
+          ? this.layouts[tpl.layout].render(extendedData)
           : "";
         const html = layout ? layout.replace(/{%\s*body\s*%}/g, body) : body;
         // only write to disc when the value changes
@@ -455,6 +481,7 @@ module.exports = class Assemble {
       }
 
       if (layouts.LSG) {
+        const body = tpl.render(curData);
         const layout = this.lsgLayouts[tpl.layout]
           ? this.lsgLayouts[tpl.layout].render(curData)
           : "";
@@ -470,6 +497,7 @@ module.exports = class Assemble {
     }
     // for PAGE
     else {
+      const body = tpl.render(curData);
       const layout = this.layouts[tpl.layout]
         ? this.layouts[tpl.layout].render(curData)
         : "";

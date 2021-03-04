@@ -1,20 +1,19 @@
 const { resolve } = require("path");
-const handlebarsHelpers = require("handlebars-helpers");
+const handlebarsHelpers = require("handlebars-helpers/lib/index");
 
 const { getPaths } = require("./io-helper");
 
-
 const loadHelpers = async (helpers, hbsInstance) => {
-
-  hbsInstance.registerHelper(handlebarsHelpers());
+  Object.values(handlebarsHelpers).forEach((categoryHelpers) => {
+    hbsInstance.registerHelper(categoryHelpers);
+  });
 
   const helperPaths = await getPaths(helpers);
-  helperPaths.forEach(path => {
+  helperPaths.forEach((path) => {
     try {
       const helperFn = require(resolve(path));
       hbsInstance.registerHelper(helperFn);
-    }
-    catch(err) {
+    } catch (err) {
       throw new Error("Error:", err);
     }
   });
@@ -22,5 +21,5 @@ const loadHelpers = async (helpers, hbsInstance) => {
 };
 
 module.exports = {
-  loadHelpers
+  loadHelpers,
 };

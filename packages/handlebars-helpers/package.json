@@ -1,0 +1,26 @@
+{
+  "name": "@pro-vision/handlebars-helpers",
+  "version": "1.1.1",
+  "description": "Collection of useful Handlebars Helpers",
+  "author": "Frederik Riewerts <frederik.riewerts@gmail.com>",
+  "homepage": "https://github.com/pro-vision/fe-tools#readme",
+  "license": "ISC",
+  "main": "handlebars-helpers.js",
+  "directories": {
+    "lib": "helpers"
+  },
+  "files": [
+    "helpers",
+    "handlebars-helpers.js"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pro-vision/fe-tools.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pro-vision/fe-tools/issues"
+  }
+}

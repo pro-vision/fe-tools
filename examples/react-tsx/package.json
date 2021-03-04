@@ -9,24 +9,24 @@
   "author": "Alexander Muthmann <amuthmann@pro-vision.de>",
   "license": "ISC",
   "devDependencies": {
-    "@pro-vision/pv-scripts": "^2.0.0",
-    "@types/react": "^16.9.3",
-    "@types/react-dom": "^16.9.1",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "@types/eslint": "^6.1.1",
-    "eslint": "^6.4.0",
-    "eslint-config-prettier": "^6.3.0",
-    "eslint-config-pv": "^2.2.2",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-prettier": "^3.1.1",
-    "prettier": "^1.18.2",
-    "@typescript-eslint/eslint-plugin": "^2.3.1",
-    "@typescript-eslint/parser": "^2.3.1",
-    "typescript": "^3.6.3"
+    "@pro-vision/pv-scripts": "^2.0.9",
+    "@types/react": "^16.9.53",
+    "@types/react-dom": "^16.9.8",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "@types/eslint": "^7.2.4",
+    "eslint": "^7.11.0",
+    "eslint-config-prettier": "^6.13.0",
+    "eslint-config-pv": "^2.3.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.1.2",
+    "@typescript-eslint/eslint-plugin": "^4.5.0",
+    "@typescript-eslint/parser": "^4.5.0",
+    "typescript": "^4.0.3"
   },
   "dependencies": {
-    "eslint-plugin-react": "^7.14.3",
-    "whatwg-fetch": "^3.0.0"
+    "eslint-plugin-react": "^7.21.5",
+    "whatwg-fetch": "^3.4.1"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@pro-vision/assemble-lite",
-  "version": "1.1.1",
+  "version": "2.0.4",
   "description": "> TODO: description",
   "author": "Frederik Riewerts <frederik.riewerts@gmail.com>",
   "homepage": "https://github.com/pro-vision/fe-tools#readme",
@@ -12,7 +12,10 @@
   },
   "files": [
     "helper",
-    "assemble-lite.js"
+    "assemble-lite.js",
+    "Assemble.js",
+    "Timer.js",
+    "Visitor.js"
   ],
   "publishConfig": {
     "access": "public"
@@ -28,10 +31,11 @@
     "url": "https://github.com/pro-vision/fe-tools/issues"
   },
   "dependencies": {
-    "fs-extra": "8.1.0",
-    "glob": "7.1.4",
-    "handlebars": "4.3.1",
+    "fs-extra": "9.0.1",
+    "glob": "7.1.6",
+    "handlebars": "4.7.6",
     "handlebars-helpers": "0.10.0",
-    "yaml-front-matter": "4.0.0"
+    "js-yaml": "3.14.0",
+    "yaml-front-matter": "4.1.0"
   }
 }

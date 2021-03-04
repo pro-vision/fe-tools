@@ -145,9 +145,8 @@ function getPermission(filename) {
  * @async
  */
 async function writeFile(path, content) {
-  const asyncMkdirp = util.promisify(mkdirp);
   const asyncWriteFile = util.promisify(fs.writeFile);
-  await asyncMkdirp(dirname(path));
+  await mkdirp(dirname(path));
   await asyncWriteFile(path, content);
 }
 

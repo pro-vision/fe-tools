@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 "use strict";
-const program = require("commander");
+const { program } = require("commander");
 const { resolve } = require("path");
 const chalk = require("chalk");
 const figlet = require("figlet");
@@ -16,6 +16,9 @@ program
   .option("--dontCheck", "ask to generate for example unit test files even if the user didn't want a js file")
   .option("--verbose", "logs debug information")
   .parse(process.argv);
+
+// options provided by the user via CLI
+const cliOptions = program.opts();
 
 // read configuration from pv.config.js
 const {
@@ -33,7 +36,7 @@ if (useReact) {
 }
 
 // warn regarding missing feature
-if (program.yes) {
+if (cliOptions.yes) {
   console.log(chalk.orange("The 'YES' option is not implemented yet. Please open a github issue!"));
 }
 
@@ -72,11 +75,11 @@ async function run() {
   const options = await enquiry({
     useTS,
     // e.g. "related topic"
-    name: program.name.toLowerCase(),
-    dontCheck: program.dontCheck,
+    name: cliOptions.name.toLowerCase(),
+    dontCheck: cliOptions.dontCheck,
   });
 
-  if (program.verbose) console.log("Filled in data: ", options);
+  if (cliOptions.verbose) console.log("Filled in data: ", options);
 
   await generator({
     ...options,

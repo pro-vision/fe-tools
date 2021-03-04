@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 "use strict";
-const { program } = require("commander");
+const { program, Option } = require("commander");
 const { resolve } = require("path");
 const chalk = require("chalk");
 const figlet = require("figlet");
@@ -13,6 +13,8 @@ program
   .version(version)
   .option("-N, --name [component name]", "component name, incase you don't want to answer it in the cli interaction", "")
   .option("-Y, --yes", "answer all questions automatically with 'YES'")
+  .option("--skip [types...]", "list what files shouldn't be generated or question not asked. e.g. `--skip galen scss hbs data karma jest git`", [])
+  .addOption(new Option('--unit [unitTestType]', "should `jest` (default) or `karma` (karma+jasmine) be used for Unit Tess").choices(["jest", "karma"]).default("jest"))
   .option("--dontCheck", "ask to generate for example unit test files even if the user didn't want a js file")
   .option("--verbose", "logs debug information")
   .parse(process.argv);
@@ -77,6 +79,8 @@ async function run() {
     // e.g. "related topic"
     name: cliOptions.name.toLowerCase(),
     dontCheck: cliOptions.dontCheck,
+    skip: cliOptions.skip,
+    unitType: cliOptions.unit,
   });
 
   if (cliOptions.verbose) console.log("Filled in data: ", options);
@@ -84,6 +88,7 @@ async function run() {
   await generator({
     ...options,
     isInteractive: true,
+    unitType: cliOptions.unit,
     namespace,
   });
 

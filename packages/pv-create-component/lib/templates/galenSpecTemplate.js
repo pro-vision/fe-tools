@@ -8,7 +8,7 @@ module.exports = function({ componentName, isCustomElement }) {
 
 @objects
   module              ${isCustomElement ? componentName : `.${componentName}`}
-    btn               .${componentName}__btn
+     btn              .${componentName}__btn
 
 = initial =
   @on initial

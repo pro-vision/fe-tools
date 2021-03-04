@@ -9,4 +9,5 @@ module.exports = {
   JS_COMPONENTS_MAIN: "src/js/components/index.js",
   TS_COMPONENTS_MAIN: "src/js/components/index.ts",
   KARMA_MAIN: "src/js/karma/index.spec.js",
+  defaultUnitTestType: "jest",
 };

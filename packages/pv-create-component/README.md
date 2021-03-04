@@ -22,6 +22,8 @@ npm install --global pv-create-component
 
 ```bash
 pv-create-component
+# with flags
+pv-create-component --skip galen --verbose
 ```
 
 ## Custom Templates
@@ -49,6 +51,7 @@ These arguments will be passed to each template independent of the to be generat
 | `hasTs` |boolean |  |has a .ts file |
 | `hasJs` |boolean |  |has a .js file |
 | `hasUnit` |boolean |  |has unit test file |
+| `unitType` | `"jest"`/`"karma"` | "jest" |  type of unit tests |
 | `hasGalen` |boolean |  |has galen test files |
 | `gitAdd` |boolean |  |will be staged with git |
 
@@ -57,6 +60,30 @@ These arguments will be passed to each template independent of the to be generat
 Any necessary imports will automatically be added at the end of the main import file (ts, js, scss). But for the link to a new page in Living Styleguide it is expected that the `<!-- IMPORT-PLACEHOLDER -->` placeholder is in the `src/styleguide/index.html` file.
 
 ## Cli Options
+
+### `--skip`
+
+Skips asking questions regarding some particular file types / actions and won't generate the file. Options: `galen`, `scss`, `hbs`, `data`, `js`, `ts`, `karma`, `jest` and `git`.
+
+example:
+
+```bash
+npx pv-create-component --skip galen git
+```
+
+won't generate galen test files and won't git stage the generated files.
+
+### `--unit` (defaults to `jest`)
+
+Type of unit test. Choose one of `jest` (default) or `karma` for karma + jasmine test suits.
+
+example:
+
+```bash
+npx pv-create-component --unit karma
+# or
+npx pv-create-component --unit=karma
+```
 
 ### `--dontCheck`
 
@@ -76,6 +103,10 @@ example:
 ```bash
 npx pv-create-component --name "related topics"
 ```
+
+### `--help` or `-h`
+
+Prints all CLI options with their descriptions.
 
 ## `pv.config.js` options
 
@@ -106,6 +137,7 @@ await generator({
   hasTs: true,
   hasJs: false,
   hasUnit: false,
+  unitType: "karma",
   hasGalen: true,
   gitAdd: false,
 });

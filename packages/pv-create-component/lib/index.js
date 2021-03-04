@@ -16,7 +16,8 @@ const {
   PAGES_MAIN,
   JS_COMPONENTS_MAIN,
   TS_COMPONENTS_MAIN,
-  KARMA_MAIN
+  KARMA_MAIN,
+  defaultUnitTestType,
 } = require("../config");
 
 
@@ -37,7 +38,8 @@ const hbsTpl = getTemplate("hbsTemplate");
 const hbsPageTpl = getTemplate("hbsPageTemplate");
 const galenTestTpl = getTemplate("galenTestTemplate");
 const galenSpecTpl = getTemplate("galenSpecTemplate");
-const unitTpl = getTemplate("karmaTestsTemplate");
+const karmaTpl = getTemplate("karmaTemplate");
+const jestTpl = getTemplate("jestTemplate");
 const mdTpl = getTemplate("mdTemplate");
 const jsonTpl = getTemplate("jsonTemplate");
 const yamlTpl = getTemplate("yamlTemplate");
@@ -107,7 +109,7 @@ function fileExist(path) {
 
 /**
  * if in interactive mode, the user will be asked in the cli if the file should be overridden
- * in non interactive mode, permission as always granted.
+ * in non interactive mode, permission is always granted.
  *
  * @param {string} filename - name of the file which needs permission to be overridden
  * @returns {Promise<Boolean>}
@@ -239,6 +241,7 @@ function getTemplate(filename) {
  * @param {boolean} [hasTs=false] - component needs a .ts file
  * @param {boolean} [hasJs=false] - component needs a .js file
  * @param {boolean} [hasUnit=false] - and unit test file (.spec.js)
+ * @param {"jest"|"karma"} [unitType="jest"] - unit test type (jest vs. karma+jasmine)
  * @param {boolean} [hasGalen=false] - and galen test files
  * @param {boolean} [gitAdd=false] - git stage the new files
 
@@ -255,6 +258,7 @@ module.exports = async function generateFiles({
   hasTs = false,
   hasJs = false,
   hasUnit = false,
+  unitType = defaultUnitTestType,
   hasGalen = false,
   gitAdd: gitAddOption = false,
 }) {
@@ -306,6 +310,7 @@ module.exports = async function generateFiles({
    * @property {boolean} hasTs - has a .ts file
    * @property {boolean} hasJs - has a .js file
    * @property {boolean} hasUnit - has unit test file
+   * @param {"jest"|"karma"} unitType - unit test type (jest vs. karma+jasmine)
    * @property {boolean} hasGalen - has galen test files
    * @property {boolean} gitAdd - will be staged with git
    */
@@ -318,6 +323,7 @@ module.exports = async function generateFiles({
     hasTs,
     hasJs,
     hasUnit,
+    unitType,
     hasGalen,
     gitAdd,
     uppercase,
@@ -374,11 +380,16 @@ module.exports = async function generateFiles({
     await generateFile(`${baseName}/${baseName}__data.yaml`, yamlTpl(templateOptions));
   }
 
-  // unit test
-  if (hasUnit) {
-    await generateFile(`${baseName}/specs/unit/${baseName}.spec.js`, unitTpl(templateOptions));
+  // Karma+Jasmine unit test
+  if (hasUnit && unitType === "karma") {
+    await generateFile(`${baseName}/specs/unit/${baseName}.spec.js`, karmaTpl(templateOptions));
     // add import
     await addImport(KARMA_MAIN, `import "Components/${baseName}/specs/unit/${baseName}.spec.js";`);
+  }
+
+  // Jest unit test
+  if (hasUnit && unitType === "jest") {
+    await generateFile(`${baseName}/specs/unit/${baseName}.test.ts`, jestTpl(templateOptions));
   }
 
   // galen tests

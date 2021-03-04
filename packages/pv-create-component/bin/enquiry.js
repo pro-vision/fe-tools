@@ -1,6 +1,7 @@
 "use strict";
 
 const inquirer = require("inquirer");
+const config = require("../config");
 
 const DATA_FILE_TYPES = {JSON: ".json", YAML: ".yaml"};
 
@@ -12,9 +13,11 @@ const DATA_FILE_TYPES = {JSON: ".json", YAML: ".yaml"};
  * @param {boolean} [options.useTS = false] - use typescript instead of js
  * @param {boolean} [options.dontCheck = false] - ask to generate for example unit test files even if the user didn't want a js file
  *                                               this is helpful if some files needs to be generated later
+ * @param {"jest"|"karma"} [options.unitType = "jest"] - use "jest" or "karma" for unit test files code
+ * @param {boolean} [options.skip = []] - don't ask questions regarding this type of file and don't generate it
  * @returns {Promise<Object>} - info which user has filled in.
  */
-module.exports = async function enquiry ({name: defaultName, useTS = false, dontCheck = false} = {}) {
+module.exports = async function enquiry ({name: defaultName, useTS = false, dontCheck = false, unitType = config.defaultUnitTestType, skip = []} = {}) {
   const answers = await inquirer.prompt([
     // Component Name
     {
@@ -50,7 +53,7 @@ module.exports = async function enquiry ({name: defaultName, useTS = false, dont
     },
     //  has css
     {
-      when: currentAnswers => currentAnswers.type !== "Page",
+      when: currentAnswers => !skip.includes("scss") && currentAnswers.type !== "Page",
       type: "confirm",
       message: "Has scss?",
       "default": true,
@@ -58,15 +61,15 @@ module.exports = async function enquiry ({name: defaultName, useTS = false, dont
     },
     //  has html
     {
-      when: currentAnswers => currentAnswers.type !== "Page",
+      when: currentAnswers => !skip.includes("hbs") && currentAnswers.type !== "Page",
       type: "confirm",
       message: "Has hbs?",
       "default": true,
       name: "hasHbs",
     },
-    // type
+    // data type
     {
-      when: currentAnswers => currentAnswers.hasHbs,
+      when: currentAnswers => !skip.includes("data") && currentAnswers.hasHbs,
       type: "list",
       name: "dataFile",
       message: "Use Data File?",
@@ -79,7 +82,7 @@ module.exports = async function enquiry ({name: defaultName, useTS = false, dont
     },
     //  has js/ts
     {
-      when: currentAnswers => currentAnswers.type !== "Page",
+      when: currentAnswers => !skip.includes(useTS ? "ts" : "js") && currentAnswers.type !== "Page",
       type: "confirm",
       message: `Has ${useTS ? "ts" : "js"}?`,
       "default": true,
@@ -87,7 +90,7 @@ module.exports = async function enquiry ({name: defaultName, useTS = false, dont
     },
     //  has unit
     {
-      when: dontCheck || (currentAnswers => currentAnswers.hasJs || currentAnswers.hasTs),
+      when: !skip.includes(unitType) && (dontCheck || (currentAnswers => currentAnswers.hasJs || currentAnswers.hasTs)),
       type: "confirm",
       message: "Add Unit test?",
       "default": true,
@@ -95,7 +98,7 @@ module.exports = async function enquiry ({name: defaultName, useTS = false, dont
     },
     //  has Galen
     {
-      when: currentAnswers => currentAnswers.type !== "Page" && (currentAnswers.hasScss || dontCheck),
+      when: currentAnswers => !skip.includes("galen") && currentAnswers.type !== "Page" && (currentAnswers.hasScss || dontCheck),
       type: "confirm",
       message: "Add Galen test?",
       "default": true,
@@ -103,6 +106,7 @@ module.exports = async function enquiry ({name: defaultName, useTS = false, dont
     },
     //  git add
     {
+      when: !skip.includes("git"),
       type: "confirm",
       message: "track new files via git? (git add)",
       "default": true,

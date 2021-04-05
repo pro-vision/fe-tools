@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 "use strict";
 const { program, Option } = require("commander");
 const { resolve } = require("path");

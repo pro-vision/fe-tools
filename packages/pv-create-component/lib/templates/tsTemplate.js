@@ -21,7 +21,7 @@ class ${constructorName} extends Component {
       events: [
         {
           event: 'keyup',
-          target: '$input',
+          target: 'input',
           handler: 'handleInputChange',
         },
       ],

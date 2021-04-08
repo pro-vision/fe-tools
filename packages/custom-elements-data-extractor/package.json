@@ -1,0 +1,29 @@
+{
+  "name": "@pro-vision/custom-elements-data-extractor",
+  "version": "0.1.0",
+  "description": "Tooling to extract attributes data used in custom elements and generate HTML custom data to be used by vscode",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pro-vision/fe-tools.git",
+    "directory": "packages/custom-elements-data-extractor"
+  },
+  "scripts": {},
+  "keywords": [],
+  "author": "Mehran Behzad",
+  "license": "Apache-2.0",
+  "bin": {
+    "pv-custom-data": "./bin/cli.js"
+  },
+  "dependencies": {
+    "@babel/parser": "7.13.13",
+    "@babel/traverse": "7.13.13",
+    "commander": "7.2.0",
+    "doctrine": "3.0.0",
+    "globby": "11.0.3",
+    "kebab-case": "1.0.1",
+    "mkdirp": "1.0.4",
+    "slash": "3.0.0",
+    "title-case": "3.0.3"
+  }
+}

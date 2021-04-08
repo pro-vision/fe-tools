@@ -1,0 +1,23 @@
+{
+	"name": "handlebars-lsp-server",
+	"description": "Implementation of a Handlebars Language Server in node.",
+  "private": true,
+	"engines": {
+		"node": "*"
+	},
+	"dependencies": {
+		"@pro-vision/handlebars-helpers": "^1.1.1",
+		"globby": "^11.0.3",
+		"handlebars": "^4.7.7",
+		"handlebars-helpers": "^0.10.0",
+		"vscode-languageserver": "^7.0.0",
+		"vscode-languageserver-textdocument": "^1.0.1",
+		"vscode-uri": "^3.0.2",
+		"yaml-front-matter": "^4.1.1"
+	},
+	"devDependencies": {
+		"@types/handlebars-helpers": "^0.5.2",
+		"@types/vscode": "^1.52.0",
+		"@types/yaml-front-matter": "^4.1.0"
+	}
+}

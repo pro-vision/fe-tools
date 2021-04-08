@@ -1,0 +1,54 @@
+{
+	"name": "vscode-pv-handlebars-language-server",
+	"displayName": "p!v Handlebars Language Server",
+	"description": "A Language Server for Handlebars in Assemble(-lite) Projects",
+	"author": "Mehran Behzad",
+	"icon": "images/logo.png",
+	"license": "Apache-2.0",
+	"version": "0.6.2",
+	"repository": {
+    "type": "git",
+    "url": "https://github.com/pro-vision/fe-tools.git",
+    "directory": "packages/vscode-pv-handlebars-language-server"
+  },
+	"publisher": "pro-vision",
+	"keywords": [
+		"handlebars",
+		"vscode"
+	],
+	"engines": {
+		"vscode": "^1.43.0"
+	},
+	"activationEvents": [
+		"onLanguage:handlebars"
+	],
+	"main": "./client/out/extension",
+	"contributes": {
+		"configuration": {
+			"type": "object",
+			"title": "p!v Handlebars Language Server Configuration",
+			"properties": {
+				"P!VHandlebarsLanguageServer.showHoverInfo": {
+					"scope": "window",
+					"type": "boolean",
+					"default": true,
+					"description": "Show links to documentation of handlebars helpers on hover."
+				}
+			}
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -b",
+		"watch": "tsc -b -w",
+		"postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
+		"pkg": "vsce package --out \"releases\"",
+    "version": "npm run pkg && git add -A releases",
+		"deploy": "vsce publish"
+	},
+	"devDependencies": {
+		"@types/node": "^12.12.0",
+		"typescript": "^4.2.3",
+		"vsce": "^1.87.0"
+	}
+}

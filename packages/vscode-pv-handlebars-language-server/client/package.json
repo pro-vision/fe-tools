@@ -1,0 +1,14 @@
+{
+	"name": "handlebars-lsp-client",
+	"description": "VSCode part of the handlebars language server",
+	"engines": {
+		"vscode": "^1.52.0"
+	},
+	"dependencies": {
+		"vscode-languageclient": "^7.0.0"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.52.0",
+		"vscode-test": "^1.3.0"
+	}
+}

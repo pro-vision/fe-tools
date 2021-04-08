@@ -1,9 +1,9 @@
 module.exports = function({constructorName, componentName}) {
 
   return (
-`import { Component } from 'Core/Component';
-import { ACTIVE } from 'Helper/cssClasses';
-import { addClass } from 'Helper/domHelper';
+`import { Component } from "Core/Component";
+import { ACTIVE } from "Helper/cssClasses";
+import { addClass } from "Helper/domHelper";
 
 /**
  * Custom Element to .. @TODO
@@ -14,15 +14,15 @@ class ${constructorName} extends Component {
     super({
 
       ui: {
-        input: '.${componentName}__input :-one',
-        buttons: '.${componentName}__label',
+        input: ".${componentName}__input :-one",
+        buttons: ".${componentName}__label",
       },
 
       events: [
         {
-          event: 'keyup',
-          target: 'input',
-          handler: 'handleInputChange',
+          event: "keyup",
+          target: "input",
+          handler: "handleInputChange",
         },
       ],
 
@@ -55,7 +55,7 @@ class ${constructorName} extends Component {
   }
 }
 
-customElements.define('${componentName}', ${constructorName});
+customElements.define("${componentName}", ${constructorName});
 
 export default ${constructorName};
 

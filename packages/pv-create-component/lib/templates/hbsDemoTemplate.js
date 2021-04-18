@@ -1,9 +1,9 @@
-module.exports = function({componentName}) {
+module.exports = function({componentName, dataFile}) {
   return (
 `---
 layout: default
 ---
 
-{{> ${componentName}}}
+{{> ${componentName}${dataFile ? ` @root.${componentName}__data` : ""}}}
 `);
 };

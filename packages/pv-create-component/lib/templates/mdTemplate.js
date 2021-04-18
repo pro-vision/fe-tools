@@ -1,6 +1,6 @@
-module.exports = function({name, componentName, type}) {
+module.exports = function({uppercase, componentName, type}) {
   return `---
-name: ${name}
+name: ${uppercase}
 category: ${type}s
 ---
 

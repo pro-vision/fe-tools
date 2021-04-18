@@ -1,9 +1,9 @@
-module.exports = function({componentName, isCustomElement}) {
+module.exports = function({componentName, isCustomElement, dataFile}) {
   const tagsName = isCustomElement ? componentName : "div";
 
   return (
 `<${tagsName} class="${componentName}">
-  {{${componentName}__data.name}}
+  ${dataFile ? "{{name}}" : ""}
 </${tagsName}>
 `
   );

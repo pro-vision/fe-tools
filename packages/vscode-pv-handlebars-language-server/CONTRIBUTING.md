@@ -27,4 +27,4 @@
 
 ## Build and deploy locally
 
-- run `vsce package` to generate a .vsix file (in the releases directory). install it via "install from vsix" from command pallet.
+- run `vsce package` (or `npm run pkg`) to generate a .vsix file (in the releases directory). install it via "install from VSIX" from command pallet.

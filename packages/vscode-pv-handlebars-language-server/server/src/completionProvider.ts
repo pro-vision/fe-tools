@@ -1,3 +1,4 @@
+import * as path from "path";
 import { CompletionItem, CompletionItemKind, InsertTextFormat, Position } from "vscode-languageserver/node";
 import type { TextDocument } from "vscode-languageserver-textdocument";
 
@@ -12,7 +13,12 @@ import {
   getDataFiles,
   getComponentsRootPath,
   getHbsContent,
+  basename,
+  getPVConfig,
+  getFrontendRootPath,
 } from "./helpers";
+import { getClassRules } from "./cssProvider";
+import SettingsService from "./SettingsService";
 
 /**
  * provide completion suggestion for the current position in the handlebars file
@@ -36,21 +42,20 @@ export async function completionProvider(
 
   const lastClosing = text.lastIndexOf("}}");
   const lastOpening = text.lastIndexOf("{{");
+  const componentsRootPath = getComponentsRootPath(filePath);
 
   // is inside a hbs double curly bracket pair
   if (lastOpening > lastClosing && text[lastOpening + 2] !== "!") {
     // start after the last opening {{
     text = text.slice(lastOpening);
 
-    const componentsRootPath = getComponentsRootPath(filePath);
-
     // partial name e.g. `{{> parti`
     if (/^{{#?>\s*[a-zA-Z0-9_-]+$/.test(text)) {
-      const partialNames = await getPartials(componentsRootPath);
+      const partials = await getPartials(componentsRootPath);
       return (
-        partialNames
+        partials
           // don't suggest the current file as a partial option
-          .filter(({ path }) => path !== filePath)
+          .filter((partial) => partial.path !== filePath)
           .map(({ name }) => ({
             label: name,
             kind: CompletionItemKind.Property,
@@ -60,12 +65,12 @@ export async function completionProvider(
 
     // partial parameter/context. e.g `{{> partial this someKe`
     if (
-      /^{{#?>\s*(?<partialName>[a-zA-Z0-9_-]+)\s+(?<params>((@*[a-zA-Z0-9_.-]+)\s+)*)(?<hash>([a-zA-Z0-9_.-]+\s*=\s*(@*[a-zA-Z0-9_.-]+|".*"|\(.*\))\s+)*)[a-zA-Z0-9_-]*$/.test(
+      /^{{#?>\s*(?<partialName>[a-zA-Z0-9_-]+)\s+(?<params>((@*[a-zA-Z0-9_.-]+)\s+)*)(?<hash>([a-zA-Z0-9_.-]+\s*=\s*(@*[a-zA-Z0-9_.-]+|"(.|\s)*"|\(.*\))\s+)*)[a-zA-Z0-9_-]*$/.test(
         text,
       )
     ) {
       const regExMatch = text.match(
-        /^{{#?>\s*(?<partialName>[a-zA-Z0-9_-]+)\s+(?<params>((@*[a-zA-Z0-9_.-]+)\s+)*)(?<hash>([a-zA-Z0-9_.-]+\s*=\s*(@*[a-zA-Z0-9_.-]+|".*"|\(.*\))\s+)*)[a-zA-Z0-9_-]*$/,
+        /^{{#?>\s*(?<partialName>[a-zA-Z0-9_-]+)\s+(?<params>((@*[a-zA-Z0-9_.-]+)\s+)*)(?<hash>([a-zA-Z0-9_.-]+\s*=\s*(@*[a-zA-Z0-9_.-]+|"(.|\s)*"|\(.*\))\s+)*)[a-zA-Z0-9_-]*$/,
       );
       const hash = regExMatch?.groups?.hash;
       const partialName = regExMatch?.groups?.partialName;
@@ -126,7 +131,7 @@ export async function completionProvider(
     }
 
     // closing block helper e.g. `{{/withLas`
-    if (/^{{\/[a-zA-Z0-9_-]+$/.test(text)) {
+    if (/^{{\/[a-zA-Z0-9_-]*$/.test(text)) {
       const allHelpers = await getAllHelperNames(componentsRootPath);
 
       return allHelpers.map(helperName => {
@@ -161,6 +166,30 @@ export async function completionProvider(
         filterText: varName,
       }));
     }
+  }
+
+  // class="class-name {{#hbs}} other-class-name{{/}}"
+  if (/class="\s*(([a-zA-Z0-9_-]+\s+)|{{.*}}\s+)*[a-zA-Z0-9_-]*$/.test(text)) {
+    const settings = await SettingsService.getDocumentSettings(document.uri);
+    if (!settings.provideCssClassCompletion) return null;
+
+    const frontendRootPath = getFrontendRootPath(componentsRootPath);
+    const feSrcRoot = path.join(frontendRootPath , "/src");
+    const pvConfig = getPVConfig(frontendRootPath);
+
+    const rules = await getClassRules(feSrcRoot);
+    const classNames = Array.from(new Set(rules.map(rule => rule.className)));
+    const namespace = pvConfig?.namespace || "";
+
+    return classNames
+        .map(className => ({
+          label: className,
+          kind: CompletionItemKind.Value,
+          // start the list with css classes belonging to the same component as the partial,
+          // then the project classes
+          // then the author and 3rd party plugins'
+          sortText: `${className.startsWith(basename(filePath)) ? "00" : ""}${className.startsWith(namespace) ? "11" : ""}${className}`,
+        }));
   }
 
   return null;

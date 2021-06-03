@@ -10,6 +10,7 @@ import {
 } from "vscode-languageserver/node";
 import { TextDocument } from "vscode-languageserver-textdocument";
 
+import SettingsService from "./SettingsService";
 import { definitionProvider } from "./definitionProvider";
 import { completionProvider } from "./completionProvider";
 import { hoverProvider } from "./hoverProvider";
@@ -18,34 +19,29 @@ import { getFilePath } from "./helpers";
 // Create a connection for the server, using Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
 const connection = createConnection(ProposedFeatures.all);
+SettingsService.init(connection);
 
 // Create a simple text document manager.
 const documents: TextDocuments<TextDocument> = new TextDocuments(TextDocument);
-
-// The LS settings
-interface Settings {
-  showHoverInfo: number;
-}
-// Cache the settings of all open documents
-const documentSettings: Map<string, Thenable<Settings>> = new Map<string, Thenable<Settings>>();
-function getDocumentSettings(resource: string): Thenable<Settings> {
-  let result = documentSettings.get(resource);
-  if (!result) {
-    result = connection.workspace.getConfiguration({
-      scopeUri: resource,
-      section: "P!VHandlebarsLanguageServer",
-    });
-    documentSettings.set(resource, result);
-  }
-  return result;
-}
 
 connection.onInitialize((_params: InitializeParams) => {
   return {
     capabilities: {
       textDocumentSync: TextDocumentSyncKind.Incremental,
       // Tell the client that this server supports code completion.
-      completionProvider: { resolveProvider: false },
+      completionProvider: {
+        resolveProvider: false,
+        triggerCharacters: [
+          "@", // e.g. `{{@root`
+          ".", // e.g. `{{@root."
+          '"', // e.g. `class="`
+          " ", // e.g. `class="foo "`
+          // other characters or positions (e.g. parameter of a partial) is already a trigger character from vscode,
+          // adding letters here would allow auto completion for renaming class names,
+          // but would trigger a call to the completionProvider on each key stroke instead of re-using the old results
+          // which isn't performant
+        ],
+      },
       // supports goto definition
       definitionProvider: true,
       // supports hover tooltips
@@ -61,8 +57,7 @@ connection.onInitialized(() => {
 });
 
 connection.onDidChangeConfiguration(_change => {
-  // Reset all cached document settings
-  documentSettings.clear();
+  SettingsService.clearDocumentSettingsCache();
 });
 
 // This handler provides the initial list of the completion items.
@@ -80,7 +75,7 @@ connection.onCompletion(
 
 connection.onHover(async ({ textDocument, position }) => {
   const document = documents.get(textDocument.uri);
-  const settings = await getDocumentSettings(textDocument.uri);
+  const settings = await SettingsService.getDocumentSettings(textDocument.uri);
 
   if (document && settings.showHoverInfo) return hoverProvider(document, position);
 

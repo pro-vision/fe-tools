@@ -17,6 +17,9 @@ import {
   readFile,
   getDataFiles,
 } from "./helpers";
+import { getCustomElementsClassDeclarationLocation } from "./customElementDefinitionProvider";
+import { getCssClassDeclarationLocation } from "./cssProvider";
+import SettingsService from "./SettingsService";
 
 // finds the first expression in the ast with the provided name
 class Visitor extends Handlebars.Visitor {
@@ -41,7 +44,7 @@ export async function definitionProvider(
   document: TextDocument,
   position: Position,
   filePath: string,
-): Promise<Location | null> {
+): Promise<Location | Location[] | null> {
   // simple check if it is a component ala p!v archetype
   if (!isPVArchetype(filePath)) return null;
 
@@ -52,7 +55,7 @@ export async function definitionProvider(
   const symbolName = getCurrentSymbolsName(document, position);
 
   const componentsRootPath = `${filePath.split("/frontend/src/components")[0]}/frontend/src/components`;
-
+  // e.g. {{> partial
   if (isPartial(textBefore)) {
     const partialPaths = await globby(`${componentsRootPath}/**/${symbolName}.hbs`);
 
@@ -66,13 +69,15 @@ export async function definitionProvider(
 
       return Location.create(URI.file(partialPaths[0]).toString(), Range.create(lineNumber, 0, totalLineNumbers, 0));
     }
-  } else if (isPartialParameter(textBefore)) {
+  }
+  // e.g. {{> partial param
+  if (isPartialParameter(textBefore)) {
     const lastClosing = textBefore.lastIndexOf("}}");
     const lastOpening = textBefore.lastIndexOf("{{");
     if (lastOpening > lastClosing && textBefore[lastOpening + 2] !== "!") {
       const text = textBefore.slice(lastOpening);
       const partialName = text.match(
-        /^{{#?>\s*(?<partialName>[a-zA-Z0-9_-]+)\s+((([a-zA-Z0-9_-]+\s*=\s*((@*[a-zA-Z0-9_.-])+|".*"|\(.*\)|@*[a-zA-Z0-9_.-]+))|(@*[a-zA-Z0-9_.-]+))\s+)*(?<parameterName>[a-zA-Z0-9_-]+)$/,
+        /^{{#?>\s*(?<partialName>[a-zA-Z0-9_-]+)\s+((([a-zA-Z0-9_-]+\s*=\s*((@*[a-zA-Z0-9_.-])+|"(.|\s)*"|\(.*\)|@*[a-zA-Z0-9_.-]+))|(@*[a-zA-Z0-9_.-]+))\s+)*(?<parameterName>[a-zA-Z0-9_-]+)$/,
       )?.groups?.partialName;
       if (partialName) {
         const partialFilePath = await getPartialFile(componentsRootPath, partialName);
@@ -101,15 +106,32 @@ export async function definitionProvider(
         }
       }
     }
-  } else if (isHelper(textBefore)) {
+  }
+  // e.g. `{{#helper` or {{> partial (helper
+  else if (isHelper(textBefore)) {
     const customHelpers = await getCustomHelpers(componentsRootPath);
     const currentCustomHelper = customHelpers.find(helper => helper.name === symbolName);
     if (currentCustomHelper)
       return Location.create(URI.file(currentCustomHelper.path).toString(), Range.create(0, 0, 0, 0));
-  } else if (/@root\.[a-zA-Z0-9_-]+$/.test(textBefore)) {
+  }
+  // {{hbs @root.data}}
+  else if (/@root\.[a-zA-Z0-9_-]+$/.test(textBefore)) {
     const dataFiles = await getDataFiles(componentsRootPath);
     const dataFile = dataFiles.find(({ name }) => name === symbolName);
     if (dataFile) return Location.create(URI.file(dataFile.path).toString(), Range.create(0, 0, 0, 0));
+  }
+  // class="class-name {{#hbs}} other-class-name{{/}}"
+  else if (/class="\s*(([a-zA-Z0-9_-]+\s+)|{{.*}}\s+)*[a-zA-Z0-9_-]+$/.test(textBefore)) {
+    const settings = await SettingsService.getDocumentSettings(document.uri);
+    if (settings.provideCssClassGoToDefinition) return getCssClassDeclarationLocation(symbolName, filePath);
+  }
+  // <custom-element
+  if (/<\/?[a-z]+[a-z0-9_-]+$/.test(textBefore)) {
+    const customElementFile = await globby(`${componentsRootPath}/**/${symbolName}.ts`);
+    if (customElementFile.length) {
+      const cePath = customElementFile[0];
+      return getCustomElementsClassDeclarationLocation(cePath);
+    }
   }
   return null;
 }

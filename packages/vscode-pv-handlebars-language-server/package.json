@@ -32,7 +32,19 @@
 					"scope": "window",
 					"type": "boolean",
 					"default": true,
-					"description": "Show links to documentation of handlebars helpers on hover."
+					"description": "Shows links to documentation of handlebars helpers on hover."
+				},
+        "P!VHandlebarsLanguageServer.provideCssClassGoToDefinition": {
+					"scope": "window",
+					"type": "boolean",
+					"default": true,
+					"description": "Provides goto definition for css classes to their positions in .scss files."
+				},
+        "P!VHandlebarsLanguageServer.provideCssClassCompletion": {
+					"scope": "window",
+					"type": "boolean",
+					"default": true,
+					"description": "Provides completion for css classes in hbs files based on scss files."
 				}
 			}
 		}

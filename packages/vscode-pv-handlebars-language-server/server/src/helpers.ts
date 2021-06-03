@@ -9,12 +9,18 @@ import type { TextDocument } from "vscode-languageserver-textdocument";
 
 interface PVConfig {
   hbsHelperSrc?: string;
+  namespace?: string;
 }
 
 /**
  * `fs.readFile` but returns a Promise
  */
 export const readFile = promisify(fs.readFile);
+
+/**
+ * `fs.stat` but returns a Promise
+ */
+export const stat = promisify(fs.stat);
 
 /**
  * convert filepath to a unix path with forwarding slashes
@@ -202,7 +208,7 @@ export function isPartialParameter(text: string): boolean {
   const lastOpening = text.lastIndexOf("{{");
   if (lastOpening > lastClosing && text[lastOpening + 2] !== "!") {
     text = text.slice(lastOpening);
-    return /^{{#?>\s*([a-zA-Z0-9_-]+)\s+((([a-zA-Z0-9_-]+\s*=\s*((@*[a-zA-Z0-9_.-])+|".*"|\(.*\)|@*[a-zA-Z0-9_.-]+))|(@*[a-zA-Z0-9_.-]+))\s+)*[a-zA-Z0-9_-]+$/.test(
+    return /^{{#?>\s*([a-zA-Z0-9_-]+)\s+((([a-zA-Z0-9_-]+\s*=\s*((@*[a-zA-Z0-9_.-])+|"(.|\s)*"|\(.*\)|@*[a-zA-Z0-9_.-]+))|(@*[a-zA-Z0-9_.-]+))\s+)*[a-zA-Z0-9_-]+$/.test(
       text,
     );
   }

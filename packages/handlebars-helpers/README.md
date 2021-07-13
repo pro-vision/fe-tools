@@ -10,8 +10,8 @@ npm i @pro-vision/handlebars-helpers -D
 
 ## Usage
 
-```
-const pvHandlebarsHelpers = require('handlebars-helpers');
+```javascript
+const pvHandlebarsHelpers = require('@pro-vision/handlebars-helpers');
 
 module.exports = pvHandlebarsHelpers;
 ```

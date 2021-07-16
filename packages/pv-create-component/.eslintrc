@@ -1,0 +1,9 @@
+{
+  "rules": {
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "no-use-before-define": ["error", { "variables": true, "functions": false }],
+    "prefer-template": 0,
+    "strict": 0,
+    "indent": ["error", 2, { "ignoredNodes": ["TemplateLiteral *"] }],
+  }
+}

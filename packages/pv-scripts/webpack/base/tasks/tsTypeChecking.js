@@ -16,6 +16,9 @@ module.exports = {
         configFile: join(appPath, "tsconfig.json"),
       },
       formatter: typescriptFormatter,
+      logger: {
+        infrastructure: "silent",
+      },
     }),
   ],
 };

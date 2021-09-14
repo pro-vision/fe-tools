@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@3.1.0...@pro-vision/pv-scripts@4.0.0) (2021-09-14)
+
+
+### Build System
+
+* **pv-scripts:** updated dependencies ([e99141f](https://github.com/pro-vision/fe-tools/commit/e99141f72013b6e55bb2623a719a5f11ee1bf6e7))
+
+
+### BREAKING CHANGES
+
+* **pv-scripts:** Updated to v4 of webpack-dev-server. there are some breaking changes in the
+webpack.config syntax (see
+https://github.com/webpack/webpack-dev-server/blob/master/migration-v4.md)
+
+
+
+
+
 # [3.1.0](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@3.0.0...@pro-vision/pv-scripts@3.1.0) (2021-02-24)
 
 

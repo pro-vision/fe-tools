@@ -5,12 +5,12 @@
 	"author": "Mehran Behzad",
 	"icon": "images/logo.png",
 	"license": "Apache-2.0",
-	"version": "0.6.2",
+	"version": "0.7.0",
 	"repository": {
-    "type": "git",
-    "url": "https://github.com/pro-vision/fe-tools.git",
-    "directory": "packages/vscode-pv-handlebars-language-server"
-  },
+		"type": "git",
+		"url": "https://github.com/pro-vision/fe-tools.git",
+		"directory": "packages/vscode-pv-handlebars-language-server"
+	},
 	"publisher": "pro-vision",
 	"keywords": [
 		"handlebars",
@@ -34,13 +34,13 @@
 					"default": true,
 					"description": "Shows links to documentation of handlebars helpers on hover."
 				},
-        "P!VHandlebarsLanguageServer.provideCssClassGoToDefinition": {
+				"P!VHandlebarsLanguageServer.provideCssClassGoToDefinition": {
 					"scope": "window",
 					"type": "boolean",
 					"default": true,
 					"description": "Provides goto definition for css classes to their positions in .scss files."
 				},
-        "P!VHandlebarsLanguageServer.provideCssClassCompletion": {
+				"P!VHandlebarsLanguageServer.provideCssClassCompletion": {
 					"scope": "window",
 					"type": "boolean",
 					"default": true,
@@ -55,7 +55,7 @@
 		"watch": "tsc -b -w",
 		"postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
 		"pkg": "vsce package --out \"releases\"",
-    "version": "npm run pkg && git add -A releases",
+		"version": "npm run pkg && git add -A releases",
 		"deploy": "vsce publish"
 	},
 	"devDependencies": {

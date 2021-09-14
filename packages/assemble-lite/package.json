@@ -1,6 +1,6 @@
 {
   "name": "@pro-vision/assemble-lite",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Minimal Tool to render Handlebars-Files via Node",
   "author": "Frederik Riewerts <frederik.riewerts@gmail.com>",
   "homepage": "https://github.com/pro-vision/fe-tools#readme",

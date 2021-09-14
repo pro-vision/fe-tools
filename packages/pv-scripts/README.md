@@ -1,6 +1,6 @@
 # pv-scripts
 
-CLI for zero configuration frontend-toolchain setup.
+CLI for zero configuration frontend-toolchain-setup.
 
 ## Installation
 

@@ -1,6 +1,6 @@
 # handlebars-helpers
 
-Collection of useful Handlebars Helpers
+Collection of useful Handlebars Helpers.
 
 ## Installation
 

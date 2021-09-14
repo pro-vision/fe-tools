@@ -35,17 +35,14 @@ prepareWebpackConfig("development").then((webpackConfig) => {
     ? webpackConfig.devServer
     : webpackConfig[0].devServer;
 
-  const devServer = new WebpackDevServer(compiler, devServerConfig);
+  const devServer = new WebpackDevServer(devServerConfig, compiler);
 
   const devServerUrl = `http${devServerConfig.https ? "s" : ""}://${
     devServerConfig.host
   }:${devServerConfig.port}`;
 
   // Launch WebpackDevServer.
-  devServer.listen(devServerConfig.port, devServerConfig.host, (err) => {
-    if (err) {
-      return console.log(err);
-    }
+  devServer.startCallback(() => {
     if (isInteractive) {
       clearConsole();
     }
@@ -57,7 +54,7 @@ prepareWebpackConfig("development").then((webpackConfig) => {
 
   ["SIGINT", "SIGTERM"].forEach((sig) => {
     process.on(sig, () => {
-      devServer.close();
+      devServer.startCallback();
       process.exit();
     });
   });

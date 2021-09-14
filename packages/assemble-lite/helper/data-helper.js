@@ -1,6 +1,6 @@
 const { basename, extname } = require("path");
 const { readJson, readFile } = require("fs-extra");
-const { safeLoad } = require("js-yaml");
+const { load } = require("js-yaml");
 
 const { getPaths } = require("./io-helper");
 
@@ -15,7 +15,7 @@ const loadData = async (data) => {
       if (ext === ".json") {
         dataPool[filename] = await readJson(path);
       } else if (ext === ".yaml" || ext === ".yml") {
-        dataPool[filename] = safeLoad(await readFile(path, "utf-8"), {
+        dataPool[filename] = load(await readFile(path, "utf-8"), {
           filename,
         });
       }

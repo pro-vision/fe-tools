@@ -6,13 +6,18 @@ const { destPath, devServerPort } = getBuildConfig();
 module.exports = {
   devServer: {
     host: "0.0.0.0",
-    contentBase: destPath,
-    publicPath,
     open: false,
     hot: true,
-    quiet: true,
-    clientLogLevel: "none",
     port: devServerPort,
-    watchContentBase: true,
+    devMiddleware: {
+      publicPath,
+    },
+    static: {
+      directory: destPath,
+      watch: true,
+    },
+    client: {
+      logging: "none",
+    },
   },
 };

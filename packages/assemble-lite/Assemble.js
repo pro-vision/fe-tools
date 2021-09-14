@@ -3,7 +3,7 @@ const { readJson, readFile } = require("fs-extra");
 const pvHandlebars = require("handlebars").create();
 const { loadFront } = require("yaml-front-matter");
 const handlebarsHelpers = require("handlebars-helpers/lib/index");
-const { safeLoad } = require("js-yaml");
+const { load } = require("js-yaml");
 
 const Timer = require("./Timer");
 const Visitor = require("./Visitor");
@@ -531,7 +531,7 @@ module.exports = class Assemble {
           if (ext === ".json") {
             dataPool[filename] = await readJson(path);
           } else if (ext === ".yaml" || ext === ".yml") {
-            dataPool[filename] = safeLoad(await readFile(path, "utf-8"), {
+            dataPool[filename] = load(await readFile(path, "utf-8"), {
               filename,
             });
           }

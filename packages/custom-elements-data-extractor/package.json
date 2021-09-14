@@ -1,6 +1,6 @@
 {
   "name": "@pro-vision/custom-elements-data-extractor",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Tooling to extract attributes data used in custom elements and generate HTML custom data to be used by vscode",
   "main": "index.js",
   "repository": {

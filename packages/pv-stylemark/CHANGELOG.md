@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.6](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-stylemark@3.0.5...@pro-vision/pv-stylemark@3.0.6) (2021-09-14)
+
+**Note:** Version bump only for package @pro-vision/pv-stylemark
+
+
+
+
+
 ## [3.0.5](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-stylemark@3.0.4...@pro-vision/pv-stylemark@3.0.5) (2021-09-14)
 
 

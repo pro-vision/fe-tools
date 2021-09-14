@@ -5,15 +5,15 @@
 	"author": "Mehran Behzad",
 	"icon": "images/logo.png",
 	"license": "Apache-2.0",
-	"version": "0.7.0",
+	"version": "0.7.1",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/pro-vision/fe-tools.git",
 		"directory": "packages/vscode-pv-handlebars-language-server"
 	},
 	"publishConfig": {
-    "access": "public"
-  },
+		"access": "public"
+	},
 	"publisher": "pro-vision",
 	"keywords": [
 		"handlebars",

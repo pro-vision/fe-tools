@@ -6,6 +6,7 @@ module.exports = {
     publicPath,
     filename: "js/[name].legacy.js",
     chunkFilename: "resources/js/chunks/[name].legacy.[chunkhash].js",
+    assetModuleFilename: "resources/legacy/[base]",
     environment: {
       // The environment supports arrow functions ('() => { ... }').
       arrowFunction: false,

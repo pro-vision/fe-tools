@@ -6,5 +6,6 @@ module.exports = {
     publicPath,
     filename: "js/[name].js",
     chunkFilename: "resources/js/chunks/[name].[chunkhash].js",
+    assetModuleFilename: "resources/modern/[base]",
   },
 };

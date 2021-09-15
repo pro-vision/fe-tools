@@ -1,6 +1,6 @@
 {
   "name": "@pro-vision/pv-scripts",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "description": "CLI for zero configuration frontend-toolchain setup.",
   "author": "Frederik Riewerts <friewerts@pro-vision.de>",
   "license": "ISC",

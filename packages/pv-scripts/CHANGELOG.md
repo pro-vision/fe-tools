@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.3](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@4.0.2...@pro-vision/pv-scripts@4.0.3) (2021-09-15)
+
+
+### Bug Fixes
+
+* **pv-scripts:** fix port blocked issue by using stopCallback ([48d2479](https://github.com/pro-vision/fe-tools/commit/48d2479ddd9ac61a7886710e47f7302c568c9e64))
+
+
+
+
+
 ## [4.0.2](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@4.0.1...@pro-vision/pv-scripts@4.0.2) (2021-09-14)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.4](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@4.0.3...@pro-vision/pv-scripts@4.0.4) (2021-09-15)
+
+
+### Bug Fixes
+
+* **pv-scripts:** fixed reloading issue where browser freezed when changing a hbs file ([8bd6552](https://github.com/pro-vision/fe-tools/commit/8bd6552a2b1a935494e4bfd4488b41da065b0608))
+
+
+
+
+
 ## [4.0.3](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@4.0.2...@pro-vision/pv-scripts@4.0.3) (2021-09-15)
 
 

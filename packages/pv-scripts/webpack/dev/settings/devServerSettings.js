@@ -14,7 +14,7 @@ module.exports = {
     },
     static: {
       directory: destPath,
-      watch: true,
+      watch: false,
     },
     client: {
       logging: "none",

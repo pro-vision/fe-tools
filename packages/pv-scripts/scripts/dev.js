@@ -54,8 +54,9 @@ prepareWebpackConfig("development").then((webpackConfig) => {
 
   ["SIGINT", "SIGTERM"].forEach((sig) => {
     process.on(sig, () => {
-      devServer.startCallback();
-      process.exit();
+      devServer.stopCallback(() => {
+        process.exit();
+      });
     });
   });
 });

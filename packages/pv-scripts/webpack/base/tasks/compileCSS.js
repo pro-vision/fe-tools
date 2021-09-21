@@ -1,5 +1,7 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+const { shouldAddContentHash } = require("../../../helpers/buildConfigHelpers");
+
 module.exports = {
   module: {
     rules: [
@@ -59,7 +61,9 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "css/[name].css",
+      filename: shouldAddContentHash()
+        ? "css/[name].[contenthash].css"
+        : "css/[name].css",
     }),
   ],
 };

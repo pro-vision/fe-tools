@@ -61,7 +61,9 @@ const shouldUseHtmlCompiler = () => {
 };
 
 const shouldAddContentHash = () => {
-  return getBuildConfig().enableContentHash;
+  return (
+    process.env.NODE_ENV !== "development" && getBuildConfig().enableContentHash
+  );
 };
 
 const getHandlebarsLoaderOptions = () => {

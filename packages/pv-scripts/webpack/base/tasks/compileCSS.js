@@ -4,6 +4,10 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.css$/,
+        loader: require.resolve("css-loader"),
+      },
+      {
         test: /\.scss$/,
         exclude: /\.shadow\.scss$/,
         use: [

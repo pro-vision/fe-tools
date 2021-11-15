@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.7](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-stylemark@3.0.6...@pro-vision/pv-stylemark@3.0.7) (2021-11-15)
+
+
+### Bug Fixes
+
+* **pv-stylemark:** use glob pattern to target files instead of directory to work around windows bug ([b14287e](https://github.com/pro-vision/fe-tools/commit/b14287e4e3876a8a013b3d9553c05a0a6b0bc468))
+
+
+
+
+
 ## [3.0.6](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-stylemark@3.0.5...@pro-vision/pv-stylemark@3.0.6) (2021-09-14)
 
 **Note:** Version bump only for package @pro-vision/pv-stylemark

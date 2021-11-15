@@ -23,6 +23,7 @@ module.exports = {
           {
             loader: require.resolve("postcss-loader"),
             options: {
+              implementation: require("postcss"),
               sourceMap: true,
               postcssOptions: {
                 plugins: [

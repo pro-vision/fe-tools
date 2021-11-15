@@ -11,7 +11,9 @@ const copyMdFiles = () => {
 };
 
 const copyAssets = () => {
-  return src(join(lsgAssetsSrc, "**")).pipe(dest(join(destPath, "lsg_assets")));
+  return src(join(lsgAssetsSrc, "**/*.*")).pipe(
+    dest(join(destPath, "lsg_assets"))
+  );
 };
 
 const copyStyleguideFiles = (done) => {

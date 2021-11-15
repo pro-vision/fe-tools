@@ -1,10 +1,15 @@
 const { appTarget, publicPath } = require("../../../../helpers/paths");
+const {
+  shouldAddContentHash,
+} = require("../../../../helpers/buildConfigHelpers");
 
 module.exports = {
   output: {
     path: appTarget,
     publicPath,
-    filename: "js/[name].legacy.js",
+    filename: shouldAddContentHash()
+      ? "js/[name].[contenthash].legacy.js"
+      : "js/[name].legacy.js",
     chunkFilename: "resources/js/chunks/[name].legacy.[chunkhash].js",
     assetModuleFilename: "resources/legacy/[base]",
     environment: {

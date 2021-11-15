@@ -3,6 +3,7 @@ const { merge } = require("webpack-merge");
 // Settings
 const moduleEntrySettings = require("./settings/entry/module");
 const moduleOutputSettings = require("./settings/output/module");
+const baseSettings = require("./settings/baseSettings");
 const contextSettings = require("./settings/context");
 const resolveSettings = require("./settings/resolve");
 const performanceSettings = require("./settings/performance");
@@ -29,6 +30,7 @@ const { useTS, copyStaticFiles, cleanDest, enableTypeCheck } = getBuildConfig();
 module.exports = merge(
   moduleEntrySettings,
   moduleOutputSettings,
+  baseSettings,
   contextSettings,
   resolveSettings,
   performanceSettings,

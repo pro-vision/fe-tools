@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.1](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@4.1.0...@pro-vision/pv-scripts@4.1.1) (2022-01-19)
+
+**Note:** Version bump only for package @pro-vision/pv-scripts
+
+
+
+
+
 # [4.1.0](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@4.0.4...@pro-vision/pv-scripts@4.1.0) (2021-11-15)
 
 

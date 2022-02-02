@@ -21,6 +21,9 @@ module.exports = {
                 ],
                 require.resolve("@babel/preset-typescript"),
               ],
+              assumptions: {
+                setPublicClassFields: true,
+              },
               plugins: [
                 [
                   require.resolve("@babel/plugin-proposal-decorators"),
@@ -28,6 +31,7 @@ module.exports = {
                     legacy: true,
                   },
                 ],
+                require.resolve("@babel/plugin-proposal-class-properties"),
                 [
                   require.resolve("@babel/plugin-transform-runtime"),
                   {

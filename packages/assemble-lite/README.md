@@ -1,6 +1,6 @@
 # assemble-lite
 
-Minimal Tool to render Handlebars-Files via Node
+Minimal Tool to render Handlebars-Files via Node.
 
 ## Installation
 

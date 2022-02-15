@@ -1,5 +1,6 @@
 const glob = require("glob");
 const fs = require("fs-extra");
+const path = require("path");
 
 const asyncGlob = (globPattern) => {
   if (typeof globPattern !== "string") {
@@ -12,7 +13,12 @@ const asyncGlob = (globPattern) => {
         reject(err);
         return;
       }
-      resolve(files);
+      // make sure to use absolute paths and that platform separator is used
+      resolve(
+        files.map((filePath) =>
+          path.normalize(path.resolve(process.cwd(), filePath))
+        )
+      );
     });
   });
 };
@@ -46,9 +52,15 @@ const asyncWriteFile = async (target, reldir, filename, markup) => {
   return fs.writeFile(`${target}/${reldir}/${filename}.html`, markup, "utf8");
 };
 
+// returns the basename without extension of the provided file path
+function getName(filePath) {
+  return path.parse(filePath).name;
+}
+
 module.exports = {
   getPaths,
   asyncReadFile,
   asyncWriteFile,
   asyncGlob,
+  getName,
 };

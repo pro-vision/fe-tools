@@ -3,39 +3,35 @@ const {
 } = require("../gulp-tasks/lsg_tasks/copyStyleguideFiles");
 const {
   assembleLSGComponents,
-} = require("../gulp-tasks/assembleWrapper/assembleLSGComponents");
+} = require("../gulp-tasks/lsg_tasks/assembleLSGComponents");
 const { buildStylemark } = require("../gulp-tasks/lsg_tasks/buildStylemark");
 const {
   copyClickdummyFiles,
 } = require("../gulp-tasks/clickdummy_tasks/copyClickdummyFiles");
 const {
   assembleClickdummyComponents,
-} = require("../gulp-tasks/assembleWrapper/assembleClickdummyComponents");
+} = require("../gulp-tasks/clickdummy_tasks/assembleClickdummyComponents");
 const {
   assembleClickdummyPages,
-} = require("../gulp-tasks/assembleWrapper/assembleClickdummyPages");
+} = require("../gulp-tasks/clickdummy_tasks/assembleClickdummyPages");
 
-const buildStylemarkLsg = async () => {
+async function buildStylemarkLsg({
+  shouldCopyStyleguideFiles = true,
+  shouldAssemble = true,
+} = {}) {
   await Promise.all([
-    new Promise((resolve) => {
-      return copyStyleguideFiles(resolve);
-    }),
-    new Promise((resolve) => {
-      return copyClickdummyFiles(resolve);
-    }),
-    new Promise((resolve) => {
-      return assembleClickdummyComponents(resolve);
-    }),
-    new Promise((resolve) => {
-      return assembleClickdummyPages(resolve);
-    }),
-    new Promise((resolve) => {
-      return assembleLSGComponents(resolve);
-    }),
+    shouldCopyStyleguideFiles &&
+      new Promise((resolve) => copyStyleguideFiles(resolve)),
+    shouldCopyStyleguideFiles &&
+      new Promise((resolve) => copyClickdummyFiles(resolve)),
+    shouldAssemble && assembleClickdummyComponents(),
+    shouldAssemble & assembleClickdummyPages(),
+    shouldAssemble && assembleLSGComponents(),
   ]);
+
   await new Promise((resolve) => {
     return buildStylemark(resolve);
   });
-};
+}
 
 module.exports = buildStylemarkLsg;

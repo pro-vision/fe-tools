@@ -16,4 +16,5 @@ module.exports = {
   resourcesSrc: "resources",
   autoConsoleClear: false,
   handlebarsLoaderOptions: {},
+  enableContentHash: false,
 };

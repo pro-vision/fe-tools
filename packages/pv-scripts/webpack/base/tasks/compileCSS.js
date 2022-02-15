@@ -1,17 +1,30 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+const { shouldAddContentHash } = require("../../../helpers/buildConfigHelpers");
+
 module.exports = {
   module: {
     rules: [
+      {
+        test: /\.css$/,
+        loader: require.resolve("css-loader"),
+      },
       {
         test: /\.scss$/,
         exclude: /\.shadow\.scss$/,
         use: [
           MiniCssExtractPlugin.loader,
-          require.resolve("css-loader"),
+          {
+            loader: require.resolve("css-loader"),
+            options: {
+              sourceMap: true,
+            },
+          },
           {
             loader: require.resolve("postcss-loader"),
             options: {
+              implementation: require("postcss"),
+              sourceMap: true,
               postcssOptions: {
                 plugins: [
                   [
@@ -41,14 +54,21 @@ module.exports = {
               },
             },
           },
-          require.resolve("sass-loader"),
+          {
+            loader: require.resolve("sass-loader"),
+            options: {
+              sourceMap: true,
+            },
+          },
         ],
       },
     ],
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "css/[name].css",
+      filename: shouldAddContentHash()
+        ? "css/[name].[contenthash].css"
+        : "css/[name].css",
     }),
   ],
 };

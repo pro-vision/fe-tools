@@ -1,4 +1,4 @@
-const { publicPath, join } = require("../../../helpers/paths");
+const { join } = require("../../../helpers/paths");
 const { getBuildConfig } = require("../../../helpers/buildConfigHelpers");
 
 const { fontsSrc } = getBuildConfig();
@@ -8,16 +8,10 @@ module.exports = {
     rules: [
       {
         test: /\.(woff|otf|eot|ttf)([?]?.*)$/,
-        use: [
-          {
-            loader: require.resolve("file-loader"),
-            options: {
-              publicPath: join(publicPath, fontsSrc),
-              name: "[name].[ext]",
-              outputPath: fontsSrc,
-            },
-          },
-        ],
+        type: "asset/resource",
+        generator: {
+          filename: join(fontsSrc, "[base]"),
+        },
       },
     ],
   },

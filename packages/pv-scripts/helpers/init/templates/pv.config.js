@@ -1,9 +1,10 @@
 module.exports = function (appConfig) {
   return `module.exports = {
+  // destPath: "target",
   ${
     appConfig.namespace !== ""
       ? `namespace: "${appConfig.namespace}",`
-      : '// namespace: "app"'
+      : '// namespace: "app",'
   }
   // devServerPort: 8616,
   copyStaticFiles: false,

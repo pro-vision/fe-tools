@@ -1,0 +1,33 @@
+{
+  "extends": [
+    "stylelint-config-recommended-scss",
+    "@pro-vision/stylelint-config-pv/scss",
+    "@pro-vision/stylelint-config-pv/order",
+    "stylelint-config-prettier"
+  ],
+  "plugins": [
+    "stylelint-scss",
+    "stylelint-prettier"
+  ],
+  "rules": {
+    "prettier/prettier": true,
+    "no-descending-specificity": null,
+    "declaration-no-important": null,
+    "selector-type-no-unknown": null,
+    "scss/at-extend-no-missing-placeholder": null,
+    "scss/at-function-parentheses-space-before": null,
+    "scss/no-global-function-names": null,
+    "selector-class-pattern": [
+      "^((vic|aem)\\-[a-z0-9\\-\\_]{1}[a-z0-9\\-\\_]*$|[a-z0-9]*$)",
+      {
+        "message": "does not follow hyphenated BEM style with prefix 'vic-'."
+      }
+    ],
+    "selector-id-pattern": [
+      "^(vic\\-[a-z0-9\\-\\_]{1}[a-z0-9\\-\\_]*$|[a-z0-9]*$)",
+      {
+        "message": "does not follow hyphenated BEM style with prefix 'vic-'."
+      }
+    ]
+  }
+}

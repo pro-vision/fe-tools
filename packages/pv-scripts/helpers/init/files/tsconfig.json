@@ -5,6 +5,7 @@
     "target": "es2017",
     "module": "esnext",
     "moduleResolution": "node",
+    "esModuleInterop": true,
     "experimentalDecorators": true,
     "noUnusedLocals": true,
     "strictPropertyInitialization": false,
@@ -12,7 +13,15 @@
     "allowJs": false,
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"]
+      "Config/*": ["src/js/config/*"],
+      "Core/*": ["src/js/core/*"],
+      "Constants/*": ["src/js/constants/*"],
+      "Abstracts/*": ["src/components/abstract/*"],
+      "Components/*": ["src/components/*"],
+      "Icons/*": ["resources/icons/*"],
+      "Helper/*": ["src/js/helper/*"],
+      "Services/*": ["src/js/services/*"],
+      "Interfaces/*": ["src/js/interfaces/*"]
     }
   }
 }

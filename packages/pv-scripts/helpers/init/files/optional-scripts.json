@@ -1,0 +1,14 @@
+{
+  "eslint": {
+    "eslint": "eslint  \"src/**/*.ts \"",
+    "eslint:fix": "eslint  \"src/**/*.ts \" --fix"
+  },
+  "stylelint": {
+    "stylelint": "stylelint \"src/**/*.scss\"",
+    "stylelint:fix": "stylelint \"src/**/*.scss\" --fix"
+  },
+  "jest": {
+    "test:unit": "jest",
+    "test:unit:dev": "jest --watch"
+  }
+}

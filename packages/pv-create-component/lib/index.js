@@ -5,7 +5,7 @@ const { resolve: pathResolve, dirname } = require("path");
 const util = require("util");
 const chalk = require("chalk");
 const inquirer = require("inquirer");
-const simpleGit = require("simple-git/promise")(__dirname);
+const simpleGit = require("simple-git");
 const mkdirp = require("mkdirp");
 
 const {
@@ -196,7 +196,7 @@ async function generateFile(filename, content, dir = COMPONENTS_DIR) {
   try {
     await writeFile(path, content);
     if (gitAdd) {
-      await simpleGit.add(path);
+      await simpleGit({ baseDir: process.cwd() }).add(path);
     }
     console.log(chalk.green("✓ " + path) + " was generated!");
   }

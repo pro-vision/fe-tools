@@ -3,10 +3,8 @@ module.exports = {
     rules: [
       {
         test: /\.shadow\.scss$/,
+        type: "asset/source",
         use: [
-          {
-            loader: require.resolve("raw-loader"),
-          },
           {
             loader: require.resolve("sass-loader"),
           },

@@ -11,8 +11,9 @@ const browserslist = require("browserslist");
 module.exports = function getBrowserslist() {
   const projectBrowsersList = browserslist.findConfig(path.resolve(".")) || {};
 
-  // default browserslist is copied to the same output directory during the build
-  const defaultBrowsersList = browserslist.findConfig(path.resolve(__dirname));
+  const defaultBrowsersList = browserslist.findConfig(
+    path.resolve(__dirname, "../../config")
+  );
 
   return Object.assign({}, defaultBrowsersList, projectBrowsersList);
 };

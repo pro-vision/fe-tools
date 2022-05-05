@@ -1,6 +1,6 @@
 # pv-scripts
 
-CLI for zero configuration frontend-toolchain setup.
+CLI for zero configuration frontend-toolchain-setup.
 
 ## Installation
 
@@ -65,8 +65,8 @@ Basic Configuration can be done in a `pv.config.js` file in the npm project root
 | cleanDest       | boolean | false                | defines whether the destination folder should be cleaned before every pv-scripts run                            |
 | fontsSrc        | string  | "resources/fonts/"   | defines folder in which the fonts are located                                                                   |
 | resourcesSrc    | string  | "resources"           | defines resources folder which is copied to target/resources                                                   |
-| autoConsoleClear | boolean  | "false"              | defines whether the console should be cleared automatically in dev-mode                                        |
-
+| autoConsoleClear | boolean  | false              | defines whether the console should be cleared automatically in dev-mode                                        |
+| enableContentHash | boolean  | false              | defines whether generated js and css files should contain a content hash in their names                                         |
 ##### Example:
 
 ```js
@@ -116,7 +116,7 @@ Valid webpack.config file which will be merged with the legacy build of the prod
 
 #### Browserslist
 
-A default browser query is used for compiling javascript and css. i.e. IE11 for the "legacy" bundle and latest 2 versions of evergreen browsers (chrome, firefox, safari, edge) for the "modern" bundle. And all combined for the css output. You can define your own [browserslist](https://github.com/browserslist/browserslist) to override any of these target groups. Don't forget to define default browsers, browser for `[modern]` or `[legacy]` environment. See default [.browserslistrc](https://github.com/pro-vision/fe-tools/tree/master/packages/webpack-config/src/config/.browserslistrc) file for an example.
+A default browser query is used for compiling javascript and css. i.e. IE11 for the "legacy" bundle and latest 2 versions of evergreen browsers (chrome, firefox, safari, edge) for the "modern" bundle. And all combined for the css output. You can define your own [browserslist](https://github.com/browserslist/browserslist) to override any of these target groups. Don't forget to define default browsers, browser for `[modern]` or `[legacy]` environment. See default [.browserslistrc](https://github.com/pro-vision/fe-tools/tree/master/packages/pv-scripts/config/.browserslistrc) file for an example.
 
 ## Examples
 

@@ -60,6 +60,12 @@ const shouldUseHtmlCompiler = () => {
   return Boolean(config.hbsEntry && config.hbsTarget);
 };
 
+const shouldAddContentHash = () => {
+  return (
+    process.env.NODE_ENV !== "development" && getBuildConfig().enableContentHash
+  );
+};
+
 const getHandlebarsLoaderOptions = () => {
   const handlebarsLoaderOptions = getBuildConfig().handlebarsLoaderOptions;
   // expect paths to be relative to pv.config.js similar to the other configurations. and convert to absolute paths
@@ -100,4 +106,5 @@ module.exports = {
   shouldUseHtmlCompiler,
   getHandlebarsLoaderOptions,
   legacyBuildDisabled,
+  shouldAddContentHash,
 };

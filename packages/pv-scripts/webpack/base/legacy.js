@@ -3,6 +3,7 @@ const { merge } = require("webpack-merge");
 // Settings
 const legacyEntrySettings = require("./settings/entry/legacy");
 const legacyOutputSettings = require("./settings/output/legacy");
+const baseSettings = require("./settings/baseSettings");
 const contextSettings = require("./settings/context");
 const resolveSettings = require("./settings/resolve");
 const performanceSettings = require("./settings/performance");
@@ -18,6 +19,7 @@ const compileCSS = require("./tasks/compileCSS");
 module.exports = merge(
   legacyEntrySettings,
   legacyOutputSettings,
+  baseSettings,
   contextSettings,
   resolveSettings,
   performanceSettings,

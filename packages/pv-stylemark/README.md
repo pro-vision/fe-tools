@@ -1,6 +1,6 @@
 # pv-stylemark
 
-CLI for zero configuration stylemark-lsg-toolchain setup.
+CLI for zero configuration stylemark-lsg-toolchain-setup.
 
 ## Installation
 

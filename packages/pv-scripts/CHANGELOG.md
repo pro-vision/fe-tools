@@ -3,6 +3,93 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.1](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@4.1.0...@pro-vision/pv-scripts@4.1.1) (2022-01-19)
+
+**Note:** Version bump only for package @pro-vision/pv-scripts
+
+
+
+
+
+# [4.1.0](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@4.0.4...@pro-vision/pv-scripts@4.1.0) (2021-11-15)
+
+
+### Bug Fixes
+
+* **pv-scripts:** add postcss as direct dependency ([8c242fa](https://github.com/pro-vision/fe-tools/commit/8c242fa9ef41947ea537d349508e395e0cb9bff7))
+* **pv-scripts:** ignore warning on missing source map in dependencies ([296fae9](https://github.com/pro-vision/fe-tools/commit/296fae93ff92ccffef2ae4c5b7a7c99d5831e937))
+* **pv-scripts:** ignore warning on missing source map in dependencies ([ec43135](https://github.com/pro-vision/fe-tools/commit/ec43135505487a8253533212f1348dfcf8c2ee84))
+
+
+### Features
+
+* **pv-scripts:** add basic loader for css files to support external css dependencies ([af0de92](https://github.com/pro-vision/fe-tools/commit/af0de92accabdf612b07e085bfed050a6e409e01))
+* **pv-scripts:** add config flag to enable content hashs for js and css files ([298efcb](https://github.com/pro-vision/fe-tools/commit/298efcb458b6825625cd0b019fc219ed41f867ff))
+* **pv-scripts:** add config flag to enable content hashs for js and css files ([e871191](https://github.com/pro-vision/fe-tools/commit/e871191a10f44b9a70140e53594a9cbd3959050c))
+
+
+
+
+
+## [4.0.4](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@4.0.3...@pro-vision/pv-scripts@4.0.4) (2021-09-15)
+
+
+### Bug Fixes
+
+* **pv-scripts:** fixed reloading issue where browser freezed when changing a hbs file ([8bd6552](https://github.com/pro-vision/fe-tools/commit/8bd6552a2b1a935494e4bfd4488b41da065b0608))
+
+
+
+
+
+## [4.0.3](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@4.0.2...@pro-vision/pv-scripts@4.0.3) (2021-09-15)
+
+
+### Bug Fixes
+
+* **pv-scripts:** fix port blocked issue by using stopCallback ([48d2479](https://github.com/pro-vision/fe-tools/commit/48d2479ddd9ac61a7886710e47f7302c568c9e64))
+
+
+
+
+
+## [4.0.2](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@4.0.1...@pro-vision/pv-scripts@4.0.2) (2021-09-14)
+
+
+### Bug Fixes
+
+* **pv-scripts:** replaced file- and raw-loader with asset-module ([6f8cc6e](https://github.com/pro-vision/fe-tools/commit/6f8cc6e44d0db2d429969592a78c6fb7cfa40fdd))
+
+
+
+
+
+## [4.0.1](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@4.0.0...@pro-vision/pv-scripts@4.0.1) (2021-09-14)
+
+**Note:** Version bump only for package @pro-vision/pv-scripts
+
+
+
+
+
+# [4.0.0](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@3.1.0...@pro-vision/pv-scripts@4.0.0) (2021-09-14)
+
+
+### Build System
+
+* **pv-scripts:** updated dependencies ([e99141f](https://github.com/pro-vision/fe-tools/commit/e99141f72013b6e55bb2623a719a5f11ee1bf6e7))
+
+
+### BREAKING CHANGES
+
+* **pv-scripts:** Updated to v4 of webpack-dev-server. there are some breaking changes in the
+webpack.config syntax (see
+https://github.com/webpack/webpack-dev-server/blob/master/migration-v4.md)
+
+
+
+
+
 # [3.1.0](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@3.0.0...@pro-vision/pv-scripts@3.1.0) (2021-02-24)
 
 

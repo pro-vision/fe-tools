@@ -2,13 +2,8 @@ const assemble = require("@pro-vision/assemble-lite");
 
 const { resolveApp, getAppConfig, join } = require("../../helper/paths");
 
-const {
-  destPath,
-  cdTemplatesSrc,
-  componentsSrc,
-  cdPagesSrc,
-  hbsHelperSrc,
-} = getAppConfig();
+const { destPath, cdTemplatesSrc, componentsSrc, cdPagesSrc, hbsHelperSrc } =
+  getAppConfig();
 
 const assembleClickdummyPages = () => {
   return assemble({

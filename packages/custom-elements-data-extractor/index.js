@@ -138,9 +138,7 @@ class CustomElementDataExtractor {
     return [
       {
         name: "Living Styleguide",
-        url: `http://localhost:${
-          this.port
-        }/styleguide/index.html#${elementName
+        url: `http://localhost:${this.port}/styleguide/index.html#${elementName
           .replace(this.namespace, "")
           .replace(/^(e|m)-/, "")}`,
       },

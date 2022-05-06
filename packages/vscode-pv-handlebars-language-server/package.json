@@ -17,7 +17,8 @@
 	"publisher": "pro-vision",
 	"keywords": [
 		"handlebars",
-		"vscode"
+		"vscode",
+		"language-server"
 	],
 	"engines": {
 		"vscode": "^1.43.0"

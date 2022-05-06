@@ -22,5 +22,6 @@
   },
   "bugs": {
     "url": "https://github.com/pro-vision/fe-tools/issues"
-  }
+  },
+  "scripts": {}
 }

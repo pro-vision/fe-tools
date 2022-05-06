@@ -8,6 +8,9 @@
     "name": "mbehzad",
     "email": "mbehzad@pro-vision.de"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "bin": {
     "pv-create-component": "./bin/pv-create-component.js"
   },

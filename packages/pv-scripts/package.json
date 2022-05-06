@@ -1,6 +1,6 @@
 {
   "name": "@pro-vision/pv-scripts",
-  "version": "4.1.1",
+  "version": "4.1.4",
   "description": "CLI for zero configuration frontend-toolchain setup.",
   "author": "Frederik Riewerts <friewerts@pro-vision.de>",
   "license": "ISC",
@@ -21,9 +21,7 @@
     "type": "git",
     "url": "https://github.com/pro-vision/fe-tools"
   },
-  "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
-  },
+  "scripts": {},
   "bin": {
     "pv-scripts": "./bin/pv-scripts.js"
   },

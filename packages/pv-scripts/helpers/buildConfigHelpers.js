@@ -71,15 +71,13 @@ const getHandlebarsLoaderOptions = () => {
   // expect paths to be relative to pv.config.js similar to the other configurations. and convert to absolute paths
   // helperDirs
   if (handlebarsLoaderOptions.helperDirs) {
-    handlebarsLoaderOptions.helperDirs = handlebarsLoaderOptions.helperDirs.map(
-      resolveApp
-    );
+    handlebarsLoaderOptions.helperDirs =
+      handlebarsLoaderOptions.helperDirs.map(resolveApp);
   }
   // partialDirs
   if (handlebarsLoaderOptions.partialDirs) {
-    handlebarsLoaderOptions.partialDirs = handlebarsLoaderOptions.partialDirs.map(
-      resolveApp
-    );
+    handlebarsLoaderOptions.partialDirs =
+      handlebarsLoaderOptions.partialDirs.map(resolveApp);
   }
 
   // runtime

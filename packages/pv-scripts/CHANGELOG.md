@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.4](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@4.1.3...@pro-vision/pv-scripts@4.1.4) (2022-05-06)
+
+**Note:** Version bump only for package @pro-vision/pv-scripts
+
+
+
+
+
+## [4.1.3](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@4.1.2...@pro-vision/pv-scripts@4.1.3) (2022-05-06)
+
+
+### Bug Fixes
+
+* **pv-scripts:** fix the relative path to the default browserslistrc file ([39b00cc](https://github.com/pro-vision/fe-tools/commit/39b00cc704629bd6cc47f44d75fd39d8cadd77be))
+
+
+
+
+
+## [4.1.2](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@4.1.1...@pro-vision/pv-scripts@4.1.2) (2022-02-02)
+
+
+### Bug Fixes
+
+* **pv-scripts:** fixed babel-plugin-proposal-decorators runtime issue ([c110ce1](https://github.com/pro-vision/fe-tools/commit/c110ce136d729e2536d8bce6df5451489eba8d9f))
+
+
+
+
+
 ## [4.1.1](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@4.1.0...@pro-vision/pv-scripts@4.1.1) (2022-01-19)
 
 **Note:** Version bump only for package @pro-vision/pv-scripts

@@ -2,12 +2,8 @@ const assemble = require("@pro-vision/assemble-lite");
 
 const { resolveApp, getAppConfig, join } = require("../../helper/paths");
 
-const {
-  destPath,
-  lsgTemplatesSrc,
-  componentsSrc,
-  hbsHelperSrc,
-} = getAppConfig();
+const { destPath, lsgTemplatesSrc, componentsSrc, hbsHelperSrc } =
+  getAppConfig();
 
 const assembleLSGComponents = () => {
   return assemble({

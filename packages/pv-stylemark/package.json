@@ -1,6 +1,6 @@
 {
   "name": "@pro-vision/pv-stylemark",
-  "version": "3.0.8",
+  "version": "3.0.10",
   "description": "CLI for zero configuration stylemark-lsg-toolchain setup",
   "author": "Frederik Riewerts <friewerts@pro-vision.de>",
   "license": "ISC",
@@ -22,15 +22,13 @@
     "type": "git",
     "url": "https://github.com/pro-vision/fe-tools"
   },
-  "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
-  },
+  "scripts": {},
   "bin": {
     "pv-stylemark": "./bin/pv-stylemark.js"
   },
   "main": "webpack-plugin/index.js",
   "dependencies": {
-    "@pro-vision/assemble-lite": "^2.0.6",
+    "@pro-vision/assemble-lite": "^2.0.8",
     "cross-spawn": "7.0.3",
     "gulp": "4.0.2",
     "slash": "3.0.0",

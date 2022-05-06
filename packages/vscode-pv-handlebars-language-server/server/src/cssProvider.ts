@@ -67,7 +67,7 @@ export async function getClassRules(feSrcRoot: string): Promise<CSSClassInfo[]> 
     let ast: Root;
 
     try {
-      ast = postcssScss.parse(fileContent);
+      ast = postcssScss.parse(fileContent) as Root;
     } catch (error) {
       console.log("error css parsing: ", filePath, error);
       continue;

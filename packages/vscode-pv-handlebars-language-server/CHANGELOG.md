@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.5](https://github.com/pro-vision/fe-tools/compare/vscode-pv-handlebars-language-server@0.7.4...vscode-pv-handlebars-language-server@0.7.5) (2022-05-06)
+
+**Note:** Version bump only for package vscode-pv-handlebars-language-server
+
+
+
+
+
 ## [0.7.4](https://github.com/pro-vision/fe-tools/compare/vscode-pv-handlebars-language-server@0.7.3...vscode-pv-handlebars-language-server@0.7.4) (2022-05-06)
 
 **Note:** Version bump only for package vscode-pv-handlebars-language-server

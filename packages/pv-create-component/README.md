@@ -15,7 +15,7 @@ The Folder structure and File naming is opinionated and based on current p!v pro
 ## Install
 
 ```bash
-npm install --global pv-create-component
+npm install --save-dev @pro-vision/pv-create-component
 ```
 
 ## Usage
@@ -125,7 +125,7 @@ Generate TypeScript files instead of Javascript files.
 You can also use the generator directly. For example in a project scaffolding script.
 
 ```javascript
-const generator = require("pv-create-component");
+const generator = require("@pro-vision/pv-create-component");
 
 await generator({
   namespace: "pv",

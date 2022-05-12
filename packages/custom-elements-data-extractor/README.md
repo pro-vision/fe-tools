@@ -2,12 +2,21 @@
 
 Tooling to extract data regarding the properties / attributes of custom elements. And generate custom data for [VSCode auto compilation](https://github.com/microsoft/vscode-html-languageservice/blob/main/docs/customData.md) for custom html tags.
 
+## Install
+
+```cmd
+npm install --save-dev @pro-vision/custom-elements-data-extractor
+```
+
 ## Usage
 
 Install module as local or global dependency and call as npm script or in the command line with:
 
-```cmd
+```sh
 pv-custom-data --components "src/components/**/*.ts" --iconsDir "resources/icons/" --outDir "data/"
+
+# or if you want to try it without installing it
+npx @pro-vision/custom-elements-data-extractor --components "src/components/**/*.ts" --iconsDir "resources/icons/" --outDir "data/"
 ```
 
 ```js

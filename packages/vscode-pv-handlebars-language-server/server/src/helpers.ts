@@ -59,7 +59,9 @@ export function getFilePath(document: TextDocument): string {
  * @returns {boolean}
  */
 export function isPVArchetype(templatePath: string): boolean {
-  return templatePath.includes("/frontend/src/components") || templatePath.includes("/frontend/src/pages");
+  return templatePath.includes("/frontend/src/components")
+   || templatePath.includes("/frontend/src/pages")
+   || templatePath.includes("/frontend/src/layouts");
 }
 
 /**

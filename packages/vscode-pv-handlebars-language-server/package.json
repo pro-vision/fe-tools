@@ -2,6 +2,7 @@
 	"name": "vscode-pv-handlebars-language-server",
 	"displayName": "p!v Handlebars Language Server",
 	"description": "A Language Server for Handlebars in Assemble(-lite) Projects",
+	"private": true,
 	"author": "Mehran Behzad",
 	"icon": "images/logo.png",
 	"license": "Apache-2.0",

@@ -54,7 +54,11 @@ export async function definitionProvider(
 
   const symbolName = getCurrentSymbolsName(document, position);
 
-  const componentsRootPath = `${filePath.split("/frontend/src/components")[0]}/frontend/src/components`;
+  const componentsRootPath = filePath.includes("src/components/")
+    ? `${filePath.split("/frontend/src/components")[0]}/frontend/src/components`
+    : filePath.includes("src/pages/")
+      ? `${filePath.split("/frontend/src/pages")[0]}/frontend/src/components`
+      : `${filePath.split("/frontend/src/layouts")[0]}/frontend/src/components`;
   // e.g. {{> partial
   if (isPartial(textBefore)) {
     const partialPaths = await globby(`${componentsRootPath}/**/${symbolName}.hbs`);

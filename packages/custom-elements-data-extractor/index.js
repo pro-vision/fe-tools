@@ -138,6 +138,7 @@ class CustomElementDataExtractor {
     return [
       {
         name: "Living Styleguide",
+        // eslint-disable-next-line
         url: `http://localhost:${this.port}/styleguide/index.html#${elementName
           .replace(this.namespace, "")
           .replace(/^(e|m)-/, "")}`,

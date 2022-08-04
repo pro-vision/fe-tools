@@ -16,6 +16,7 @@ import {
   basename,
   getPVConfig,
   getFrontendRootPath,
+  getLayoutFiles,
 } from "./helpers";
 import { getClassRules } from "./cssProvider";
 import SettingsService from "./SettingsService";
@@ -189,6 +190,27 @@ export async function completionProvider(
           // then the project classes
           // then the author and 3rd party plugins'
           sortText: `${className.startsWith(basename(filePath)) ? "00" : ""}${className.startsWith(namespace) ? "11" : ""}${className}`,
+        }));
+  }
+
+  /*
+   layout reference in the yaml front matter:
+   
+   ---
+   ...
+   layout: name
+   ---
+  */
+  if (/^\n*---[^---]*layout:\s*(\w|\d)*$/.test(text)) {
+    const isPageTemplate = filePath.includes("/frontend/src/pages");
+    const layouts = await getLayoutFiles(componentsRootPath);
+    const relevantLayouts = layouts?.[isPageTemplate ? "pages" : "lsg"];
+    
+    if (relevantLayouts)
+      return Object.keys(relevantLayouts)
+        .map(layoutName => ({
+          label: layoutName,
+          kind: CompletionItemKind.Value,
         }));
   }
 

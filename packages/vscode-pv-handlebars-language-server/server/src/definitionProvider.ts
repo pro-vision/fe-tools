@@ -16,6 +16,7 @@ import {
   getCurrentSymbolsName,
   readFile,
   getDataFiles,
+  getLayoutFiles,
 } from "./helpers";
 import { getCustomElementsClassDeclarationLocation } from "./customElementDefinitionProvider";
 import { getCssClassDeclarationLocation } from "./cssProvider";
@@ -59,6 +60,7 @@ export async function definitionProvider(
     : filePath.includes("src/pages/")
       ? `${filePath.split("/frontend/src/pages")[0]}/frontend/src/components`
       : `${filePath.split("/frontend/src/layouts")[0]}/frontend/src/components`;
+  
   // e.g. {{> partial
   if (isPartial(textBefore)) {
     const partialPaths = await globby(`${componentsRootPath}/**/${symbolName}.hbs`);
@@ -130,11 +132,44 @@ export async function definitionProvider(
     if (settings.provideCssClassGoToDefinition) return getCssClassDeclarationLocation(symbolName, filePath);
   }
   // <custom-element
-  if (/<\/?[a-z]+[a-z0-9_-]+$/.test(textBefore)) {
+  else if (/<\/?[a-z]+[a-z0-9_-]+$/.test(textBefore)) {
     const customElementFile = await globby(`${componentsRootPath}/**/${symbolName}.ts`);
     if (customElementFile.length) {
       const cePath = customElementFile[0];
       return getCustomElementsClassDeclarationLocation(cePath);
+    }
+  }
+  /*
+   layout reference in the yaml front matter:
+   
+   ---
+   ...
+   layout: name
+   ---
+  */
+  else if (/^\n*---[^---]*layout:\s*(\w|\d)+$/.test(textBefore)) {
+    // templates inside /page/ directory use different layouts than the open under /components/
+    const isPageTemplate = filePath.includes("/frontend/src/pages");
+    const layouts = await getLayoutFiles(componentsRootPath);
+    const layoutFilePath = layouts?.[isPageTemplate ? "pages" : "lsg"]?.[symbolName];
+
+    if (layoutFilePath) {
+      const fileContent = await getFileContent(layoutFilePath);
+      // placeholder assemble-lite uses to place content in the layout
+      const BODY_PLACEHOLDER = "{% body%}";
+      const placeholderStart = fileContent.indexOf(BODY_PLACEHOLDER);
+
+      // where placeholder is placed (if found)
+      if (placeholderStart !== -1) {
+        const before = fileContent.slice(0, placeholderStart);
+        const lineNumber = (before.match(/\n/g) || []).length;        
+        return Location.create(URI.file(layoutFilePath).toString(), Range.create(lineNumber, 0, lineNumber, 1000));
+      }
+      // whole file
+      else {
+        return Location.create(URI.file(layoutFilePath).toString(), Range.create(0, 0, 0, 0));
+      }
+      
     }
   }
   return null;

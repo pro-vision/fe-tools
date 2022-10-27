@@ -1,12 +1,14 @@
 const { appTarget, publicPath } = require("../../../../helpers/paths");
 const {
   shouldAddContentHash,
+  getAppName,
 } = require("../../../../helpers/buildConfigHelpers");
 
 module.exports = {
   output: {
     path: appTarget,
     publicPath,
+    chunkLoadingGlobal: `${getAppName()}.globalLoadingChunk`,
     filename: shouldAddContentHash()
       ? "js/[name].[contenthash].legacy.js"
       : "js/[name].legacy.js",

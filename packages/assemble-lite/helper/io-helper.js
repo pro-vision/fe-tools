@@ -30,17 +30,11 @@ const getPaths = async (globPattern) => {
     curPatterns = [globPattern];
   }
 
-  let paths = [];
-
-  await Promise.all(
-    curPatterns.map(async (pattern) => {
-      const curPaths = await asyncGlob(pattern);
-      paths = paths.concat(curPaths);
-      return curPaths;
-    })
+  const paths = await Promise.all(
+    curPatterns.map((pattern) => asyncGlob(pattern))
   );
 
-  return paths;
+  return paths.flat();
 };
 
 const asyncReadFile = (filePath) => {

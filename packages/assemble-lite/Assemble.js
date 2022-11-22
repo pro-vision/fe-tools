@@ -49,6 +49,20 @@ module.exports = class Assemble {
     if (this.verbose) console.log("[Assemble-Lite] ", ...args);
   }
 
+  // first error message during build, will be used to throw when there was no custom onError handler and the build should hard fail
+  _errorMsg = null;
+  // call the optional provided callback function with the error message
+  error(msg, error) {
+    console.error(msg);
+    console.error(error);
+
+    const errorMsg = `${msg} :: ${error.message}`;
+
+    if (this.onError) this.onError?.(errorMsg);
+    // there is no custom error handler, throw and fail the build
+    else if (!this._errorMsg) this._errorMsg = errorMsg;
+  }
+
   /**
    * builds all the html pages, based on the provided arguments,
    * an re-uses cached items from the previous builds
@@ -64,6 +78,7 @@ module.exports = class Assemble {
    *     componentsTargetDirectory,
    *     pagesTargetDirectory,
    *     lsgComponentsTargetDirectory,
+   *     onError?,
    *   }
    * @param {string[] | null} modifiedFiles - list of paths of files which have been modified compared to the last build
    * @memberof Assemble
@@ -81,11 +96,14 @@ module.exports = class Assemble {
       componentsTargetDirectory,
       pagesTargetDirectory,
       lsgComponentsTargetDirectory,
+      onError,
     },
     modifiedFiles
   ) {
     this.log("--------------------------------");
     this.log("Build start ...");
+    this.onError = onError;
+    this._errorMsg = null;
 
     // use a timer to measure execution duration for individual tasks
     const timer = new Timer();
@@ -329,6 +347,8 @@ module.exports = class Assemble {
     );
     this.log("Build end. took:", timer.measure("BUILD", true), "s");
     this.log("--------------------------------");
+
+    if (this._errorMsg) throw this._errorMsg;
   }
 
   /**
@@ -530,10 +550,10 @@ module.exports = class Assemble {
         pvHandlebars.registerHelper(helperFn);
         this.helpers[getName(path)] = { path, name: getName(path) };
       } catch (error) {
-        console.error(
-          `[Assemble-Lite] Failed reading handlebars helper ${basename(path)}`
+        this.error(
+          `[Assemble-Lite] Failed reading handlebars helper ${basename(path)}`,
+          error
         );
-        console.error(error);
         // make sure on the next iteration, the helper is re-read,
         // so the user can't forget about this issue
         this.failedPaths.push(path);
@@ -564,10 +584,10 @@ module.exports = class Assemble {
             });
           }
         } catch (error) {
-          console.error(
-            `[assemble-lite] Failed reading data file ${basename(path)}`
+          this.error(
+            `[assemble-lite] Failed reading data file ${basename(path)}`,
+            error
           );
-          console.error(error);
           // make sure on the next iteration, the helper is re-read,
           // so the user can't forget about this issue (if it still exist)
           this.failedPaths.push(path);
@@ -601,8 +621,7 @@ module.exports = class Assemble {
         path
       )}`;
       const errorMarkup = `<!-- ${errorMessage} -->`;
-      console.error(errorMessage);
-      console.error(error);
+      this.error(errorMessage, error);
 
       return {
         clearedMarkup: errorMarkup,
@@ -626,11 +645,9 @@ module.exports = class Assemble {
         failed: false,
       };
     } catch (error) {
-      console.error();
       const errorMessage = `[assemble-lite] error parsing ${filename}.hbs`;
       const errorMarkup = `<!-- ${errorMessage} -->`;
-      console.error(errorMessage);
-      console.error(error);
+      this.error(errorMessage, error);
 
       return {
         ast: pvHandlebars.parse(errorMarkup),
@@ -659,8 +676,7 @@ module.exports = class Assemble {
         const errorMessage = `[assemble-lite] failed to render template for ${basename(
           path
         )}`;
-        console.error(errorMessage);
-        console.error(error);
+        this.error(errorMessage, error);
 
         return `<!-- ${errorMessage} -->`;
       }

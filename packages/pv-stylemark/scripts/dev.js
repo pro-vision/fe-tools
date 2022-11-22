@@ -3,17 +3,17 @@ const gulp = require("gulp");
 // Assemble Clickdummy
 const {
   assembleClickdummyComponents,
-} = require("../gulp-tasks/assembleWrapper/assembleClickdummyComponents");
+} = require("../gulp-tasks/clickdummy_tasks/assembleClickdummyComponents");
 const {
   assembleClickdummyPages,
-} = require("../gulp-tasks/assembleWrapper/assembleClickdummyPages");
+} = require("../gulp-tasks/clickdummy_tasks/assembleClickdummyPages");
 const {
   copyClickdummyFiles,
 } = require("../gulp-tasks/clickdummy_tasks/copyClickdummyFiles");
 // Assemble Stylemark
 const {
   assembleLSGComponents,
-} = require("../gulp-tasks/assembleWrapper/assembleLSGComponents");
+} = require("../gulp-tasks/lsg_tasks/assembleLSGComponents");
 const {
   copyStyleguideFiles,
 } = require("../gulp-tasks/lsg_tasks/copyStyleguideFiles");

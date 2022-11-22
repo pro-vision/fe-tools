@@ -77,6 +77,9 @@ class PvStylemarkPlugin {
               lsgComponentsTargetDirectory: resolveApp(
                 join(destPath, "/lsg_components")
               ),
+              onError(errorMessage) {
+                compilation.errors.push(errorMessage);
+              },
             },
             this.firstRun ? null : changedAssembleFiles
           );

@@ -60,7 +60,7 @@ export async function definitionProvider(
     : filePath.includes("src/pages/")
       ? `${filePath.split("/frontend/src/pages")[0]}/frontend/src/components`
       : `${filePath.split("/frontend/src/layouts")[0]}/frontend/src/components`;
-  
+
   // e.g. {{> partial
   if (isPartial(textBefore)) {
     const partialPaths = await globby(`${componentsRootPath}/**/${symbolName}.hbs`);
@@ -141,7 +141,7 @@ export async function definitionProvider(
   }
   /*
    layout reference in the yaml front matter:
-   
+
    ---
    ...
    layout: name
@@ -162,14 +162,14 @@ export async function definitionProvider(
       // where placeholder is placed (if found)
       if (placeholderStart !== -1) {
         const before = fileContent.slice(0, placeholderStart);
-        const lineNumber = (before.match(/\n/g) || []).length;        
+        const lineNumber = (before.match(/\n/g) || []).length;
         return Location.create(URI.file(layoutFilePath).toString(), Range.create(lineNumber, 0, lineNumber, 1000));
       }
       // whole file
       else {
         return Location.create(URI.file(layoutFilePath).toString(), Range.create(0, 0, 0, 0));
       }
-      
+
     }
   }
   return null;

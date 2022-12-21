@@ -155,9 +155,9 @@ interface LayoutFiles {lsg?: {[name: string]: string}, pages?: {[name: string]: 
 export async function getLayoutFiles(componentsRootPath: string): Promise<LayoutFiles | null> {
   const frontendRootPath = getFrontendRootPath(componentsRootPath);
   const pvConfig = getPVConfig(frontendRootPath);
-  
+
   if (pvConfig === null) return null;
-  
+
   const layouts: Array<{name: "lsg" | "pages", dir: string | undefined}> = [
     {
       name: "lsg",
@@ -168,7 +168,7 @@ export async function getLayoutFiles(componentsRootPath: string): Promise<Layout
       dir: pvConfig.cdTemplatesSrc,
     },
   ];
-  
+
   const layoutFiles: LayoutFiles = {};
 
   for (const {name, dir} of layouts) {

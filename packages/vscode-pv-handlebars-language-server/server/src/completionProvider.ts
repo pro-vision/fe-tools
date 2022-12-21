@@ -195,7 +195,7 @@ export async function completionProvider(
 
   /*
    layout reference in the yaml front matter:
-   
+
    ---
    ...
    layout: name
@@ -205,7 +205,7 @@ export async function completionProvider(
     const isPageTemplate = filePath.includes("/frontend/src/pages");
     const layouts = await getLayoutFiles(componentsRootPath);
     const relevantLayouts = layouts?.[isPageTemplate ? "pages" : "lsg"];
-    
+
     if (relevantLayouts)
       return Object.keys(relevantLayouts)
         .map(layoutName => ({

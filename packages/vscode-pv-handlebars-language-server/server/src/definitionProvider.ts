@@ -132,7 +132,7 @@ export async function definitionProvider(
     if (settings.provideCssClassGoToDefinition) return getCssClassDeclarationLocation(symbolName, filePath);
   }
   // <custom-element
-  else if (/<\/?[a-z]+[a-z0-9_-]+$/.test(textBefore)) {
+  else if (/<\/?[a-z]+[a-z0-9_-]+$/.test(textBefore) || / is="[a-z]+[a-z0-9_-]+$/.test(textBefore)) {
     const customElementFile = await globby(`${componentsRootPath}/**/${symbolName}.ts`);
     if (customElementFile.length) {
       const cePath = customElementFile[0];

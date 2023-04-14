@@ -28,7 +28,7 @@ pv-create-component --skip galen --verbose
 
 ## Custom Templates
 
-You can also provide custom templates for these files or for some of them, with the boilerplate most suitable for you project (e.g. grid system, common util imports, etc.). These files should be put inside `scripts/create-component/templates` folder and named similar to the default templates (see [lib/templates](https://github.com/pro-vision/fe-tools/tree/master/packages/pv-create-component/lib/templates)).
+You can also provide custom templates for these files or for some of them, with the boilerplate most suitable for your project (e.g. grid system, common util imports, etc.). These files should be put inside `scripts/create-component/templates` folder and named similar to the default templates (see [lib/templates](https://github.com/pro-vision/fe-tools/tree/master/packages/pv-create-component/lib/templates)).
 
 Each template should expose a function as it's default export which invoked by an object with the parameters from the cli enquiry response, should return the content of the to be generated file for the new component as a string.
 
@@ -47,11 +47,11 @@ These arguments will be passed to each template independent of the to be generat
 | `type` |string |"Element" | one of: "Element", "Module", "Page" |
 | `hasScss` |boolean | |component has .scss file |
 | `hasHbs` |boolean | |component has .hbs file |
-| `dataFile` |string |  |handlebars data is in a yaml or json file. one of ".json", ".yaml" or `undefined` |
+| `dataFile` |string \| false | |handlebars data is in a yaml or json file. one of ".json", ".yaml" or `false` |
 | `hasTs` |boolean |  |has a .ts file |
 | `hasJs` |boolean |  |has a .js file |
 | `hasUnit` |boolean |  |has unit test file |
-| `unitType` | `"jest"`/`"karma"` | "jest" |  type of unit tests |
+| `unit` | `"jest"`/`"karma"` | "jest" |  type of unit tests |
 | `hasGalen` |boolean |  |has galen test files |
 | `gitAdd` |boolean |  |will be staged with git |
 
@@ -104,6 +104,18 @@ example:
 npx pv-create-component --name "related topics"
 ```
 
+### `--namespace` (defaults to pv.config.js#namespace)
+
+namespace used to prefix the component name
+
+### `--config, -C` path to customized configuration
+
+default will look under `scripts/create-component/config.js`
+
+### `--templatesDir` path to the directory containing customized boilerplate templates
+
+default will look under `scripts/create-component/templates`
+
 ### `--help` or `-h`
 
 Prints all CLI options with their descriptions.
@@ -119,6 +131,52 @@ Project namespace to be used as a prefix for the component name.
 ### `useTS` [=true]
 
 Generate TypeScript files instead of Javascript files.
+
+## Customize Configuration
+
+Similar to the templates for boilerplate code, the questions asked in the CLI and the logic behind creating the files can be extended or modified.
+
+For this create `scripts/create-component/config.js` which should have a default export of the modified configurations. (See [pv-create-component/config.js](https://github.com/pro-vision/fe-tools/tree/master/packages/pv-create-component/config.js))
+
+```js
+const config = require("@pro-vision/pv-create-component/config");
+
+/* add additional files type */
+config.push({
+  id: "CYPRESS", // identifier which can be used for future overrides/modifications
+  prompt: { // see https://github.com/SBoudrias/Inquirer.js for more options
+    name: "hasCypress",
+    when: (options) => options.hasHbs,
+    type: "confirm",
+    message: "Add Cypress test?",
+    default: true,
+  },
+  files: [
+    {
+      id: "CYPRESS-FILE",
+      when: (options) => options.hasCypress,
+      template: tpl, // function which will return the boilerplate code
+      // path of the file to be created
+      path: (options) =>
+        `src/components/${options.componentName}/specs/e2e/${options.componentName}.cy.ts`,
+    },
+  ],
+});
+
+
+/* modify existing import placement e.g. instead of the end of index.scss */
+config.find(item => item.id === "SCSS").imports[0].placeholder = options =>
+  options.type === "Element" ? "/* Element Import */" : "/* Module Import */";
+
+
+/* allow creating components without type prefix for example for core component */
+config.find(item => item.id === "TYPE").prompt.choices.push("Core Component");
+// and use as `npm run new -- --namespace cmp --name title` to generate cmp-title files
+
+module.exports = config;
+```
+
+See [pv-create-component/types.d.ts](https://github.com/pro-vision/fe-tools/tree/master/packages/pv-create-component/types.d.ts) for info regarding the options.
 
 ## Using Programmatically
 
@@ -137,8 +195,14 @@ await generator({
   hasTs: true,
   hasJs: false,
   hasUnit: false,
-  unitType: "karma",
+  unit: "karma",
   hasGalen: true,
   gitAdd: false,
 });
+
+// or with customized config
+const config = require("@pro-vision/pv-create-component/config");
+// modify config as needed
+
+await generator(options, config);
 ```

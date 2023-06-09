@@ -42,7 +42,11 @@ prepareWebpackConfig("development").then((webpackConfig) => {
   }:${devServerConfig.port}`;
 
   // Launch WebpackDevServer.
-  devServer.startCallback(() => {
+  devServer.startCallback((error) => {
+    if (error) {
+      throw error;
+    }
+
     if (isInteractive) {
       clearConsole();
     }

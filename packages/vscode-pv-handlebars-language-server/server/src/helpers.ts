@@ -10,6 +10,8 @@ import type { TextDocument } from "vscode-languageserver-textdocument";
 interface PVConfig {
   hbsHelperSrc?: string;
   namespace?: string;
+  lsgTemplatesSrc?: string;
+  cdTemplatesSrc?: string;
 }
 
 /**
@@ -59,7 +61,9 @@ export function getFilePath(document: TextDocument): string {
  * @returns {boolean}
  */
 export function isPVArchetype(templatePath: string): boolean {
-  return templatePath.includes("/frontend/src/components") || templatePath.includes("/frontend/src/pages");
+  return templatePath.includes("/frontend/src/components")
+   || templatePath.includes("/frontend/src/pages")
+   || templatePath.includes("/frontend/src/layouts");
 }
 
 /**
@@ -143,6 +147,39 @@ export async function getCustomHelperFiles(componentsRootPath: string): Promise<
   const helpersGlob = toUnixPath(path.join(frontendRootPath, pvConfig.hbsHelperSrc, "/**/*.js"));
   const helperPaths = await globby(helpersGlob);
   return helperPaths.map(filePath => ({ path: filePath, name: path.basename(filePath, ".js") }));
+}
+
+interface LayoutFiles {lsg?: {[name: string]: string}, pages?: {[name: string]: string}}
+
+// list of hbs files which are used in assemble-lite as layouts for lsg components or pages
+export async function getLayoutFiles(componentsRootPath: string): Promise<LayoutFiles | null> {
+  const frontendRootPath = getFrontendRootPath(componentsRootPath);
+  const pvConfig = getPVConfig(frontendRootPath);
+
+  if (pvConfig === null) return null;
+
+  const layouts: Array<{name: "lsg" | "pages", dir: string | undefined}> = [
+    {
+      name: "lsg",
+      dir: pvConfig.lsgTemplatesSrc,
+    },
+    {
+      name: "pages",
+      dir: pvConfig.cdTemplatesSrc,
+    },
+  ];
+
+  const layoutFiles: LayoutFiles = {};
+
+  for (const {name, dir} of layouts) {
+    if (dir) {
+      const pageLayoutsGlob = toUnixPath(path.join(frontendRootPath , dir, "/**/*.hbs"));
+      const layouts = await globby(pageLayoutsGlob);
+      layoutFiles[name] = Object.fromEntries(layouts.map(filePath => [path.basename(filePath, ".hbs"), filePath]));
+    }
+  }
+
+  return layoutFiles;
 }
 
 /**

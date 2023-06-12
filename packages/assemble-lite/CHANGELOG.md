@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.9](https://github.com/pro-vision/fe-tools/compare/@pro-vision/assemble-lite@2.0.8...@pro-vision/assemble-lite@2.0.9) (2023-06-12)
+
+
+### Bug Fixes
+
+* **assemble-lite:** fix order of data loads being dependent on the file read race condition ([a3f54dc](https://github.com/pro-vision/fe-tools/commit/a3f54dc0c3be3e3d09caba88c5497dbcdd0b687b))
+
+
+
+
+
 ## [2.0.8](https://github.com/pro-vision/fe-tools/compare/@pro-vision/assemble-lite@2.0.7...@pro-vision/assemble-lite@2.0.8) (2022-05-06)
 
 **Note:** Version bump only for package @pro-vision/assemble-lite

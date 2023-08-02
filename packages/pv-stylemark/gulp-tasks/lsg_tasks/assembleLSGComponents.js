@@ -21,8 +21,6 @@ const assembleLSGComponents = () => {
   });
 };
 
-assembleLSGComponents();
-
 module.exports = {
   assembleLSGComponents,
 };

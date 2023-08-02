@@ -24,8 +24,6 @@ const assembleClickdummyComponents = () => {
   });
 };
 
-assembleClickdummyComponents();
-
 module.exports = {
   assembleClickdummyComponents,
 };

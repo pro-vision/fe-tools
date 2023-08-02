@@ -21,8 +21,6 @@ const assembleClickdummyPages = () => {
   });
 };
 
-assembleClickdummyPages();
-
 module.exports = {
   assembleClickdummyPages,
 };

@@ -25,7 +25,7 @@ async function buildStylemarkLsg({
     shouldCopyStyleguideFiles &&
       new Promise((resolve) => copyClickdummyFiles(resolve)),
     shouldAssemble && assembleClickdummyComponents(),
-    shouldAssemble & assembleClickdummyPages(),
+    shouldAssemble && assembleClickdummyPages(),
     shouldAssemble && assembleLSGComponents(),
   ]);
 

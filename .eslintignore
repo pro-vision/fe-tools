@@ -3,5 +3,6 @@
 **/lib/**
 **/test-pack/**
 **/minimal-test/**
+**/pv-stylemark/**
 packages/vscode-pv-handlebars-language-server/client/out/**
 packages/vscode-pv-handlebars-language-server/server/out/**

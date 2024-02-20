@@ -1,0 +1,29 @@
+<dds-nav class="dds-nav">
+  <header class="dds-nav__header">
+    {{#if lsgConfig.theme.logo}}
+      <img class="dds-nav__logo" src="{{lsgConfig.theme.logo}}" alt="{{lsgConfig.name}}">
+    {{else}}
+      <h1 class="dds-nav__title">{{lsgConfig.name}}</h1>
+    {{/if}}
+    <button class="dds-nav__nav-toggle">
+      <span class="dds-nav__nav-toggle-icon"></span>
+    </button>
+  </header>
+  <div class="dds-nav__search-input-box">
+    <input type="text" class="dds-nav__search-input" placeholder="Search">
+  </div>
+  <div class="dds-nav__categories">
+  {{#each lsgData}}
+    <div class="dds-nav__category">
+      <h3 class="dds-nav__category-name">{{categoryName}}</h3>
+      <ul class="dds-nav__category-list">
+        {{#each categoryItems}}
+        <li class="dds-nav__category-item">
+          <a class="dds-nav__category-link" href="#{{componentName}}">{{options.name}}</a>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+  {{/each}}
+  </div>
+</dds-nav>

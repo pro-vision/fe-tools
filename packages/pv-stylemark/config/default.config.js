@@ -5,7 +5,6 @@ const defaultConfig = {
   componentsSrc: "src/components/",
   cdPagesSrc: "src/pages/",
   hbsHelperSrc: "helpers/handlebarsHelper/",
-  lsgAssetsSrc: "src/assets/",
   lsgIndex: "src/styleguide/index.html",
   lsgConfigPath: "config/config.stylemark.yaml",
   resourcesSrc: "resources",

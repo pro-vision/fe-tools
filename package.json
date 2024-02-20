@@ -6,6 +6,7 @@
     "publish": "lerna publish --conventional-commits -m \"chore(root): Publish packages\"",
     "publish:canary": "lerna publish --force-publish --canary",
     "test": "lerna run test",
+    "build": "lerna run build",
     "bootstrap": "lerna bootstrap",
     "add": "lerna add @pro-vision/pv-scripts --scope=",
     "lint": " eslint packages",
@@ -36,7 +37,7 @@
     }
   },
   "lint-staged": {
-    "*.ts": [
+    "*.js": [
       "lint"
     ]
   },

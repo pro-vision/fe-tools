@@ -1,0 +1,18 @@
+@font-face {
+  font-display: swap;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../../resources/fonts/inter/inter-regular.woff2') format('woff2');
+}
+
+
+@font-face {
+  font-display: swap;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../../resources/fonts/inter/inter-700.woff2') format('woff2');
+}
+
+$dds-font-family--inter: 'Inter', sans-serif;

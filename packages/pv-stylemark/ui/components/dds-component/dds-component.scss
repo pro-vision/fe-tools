@@ -1,0 +1,69 @@
+.dds-component {
+  position: relative;
+  background: $dds-color__black-000;
+  border-radius: 4px;
+  width: 100%;
+  padding: 24px;
+
+  &__name {
+    @extend %dds-typo__headline-1;
+
+    margin: 0 0 24px;
+  }
+
+  &__description {
+    h1 {
+      @extend %dds-typo__headline-1;
+
+      margin: 24px 0;
+    }
+
+    h2 {
+      @extend %dds-typo__headline-2;
+
+      margin: 16px 0;
+    }
+
+    h3 {
+      @extend %dds-typo__headline-3;
+
+      margin: 12px 0;
+    }
+
+    h4 {
+      @extend %dds-typo__headline-4;
+
+      margin: 12px 0;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    p {
+      margin: 0 0 16px;
+    }
+
+    dds-example {
+      margin: 24px 0 40px;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    code {
+      background: $dds-color__black-010;
+      border-radius: 4px;
+    }
+  }
+}

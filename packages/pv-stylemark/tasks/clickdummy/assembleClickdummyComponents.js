@@ -2,8 +2,7 @@ const assemble = require("@pro-vision/assemble-lite");
 
 const { resolveApp, getAppConfig, join } = require("../../helper/paths");
 
-const { destPath, cdTemplatesSrc, componentsSrc, hbsHelperSrc } =
-  getAppConfig();
+const { destPath, cdTemplatesSrc, componentsSrc, hbsHelperSrc } = getAppConfig();
 
 function* composeDataPaths(...fileExtensions) {
   for (const ext of fileExtensions) {
@@ -23,8 +22,6 @@ const assembleClickdummyComponents = () => {
     target: resolveApp(join(destPath, "components")),
   });
 };
-
-assembleClickdummyComponents();
 
 module.exports = {
   assembleClickdummyComponents,

@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-stylemark@3.0.11...@pro-vision/pv-stylemark@4.0.0) (2024-02-20)
+
+
+### Code Refactoring
+
+* **pv-stylemark:** replaced stylemark with own impl ([2ae386d](https://github.com/pro-vision/fe-tools/commit/2ae386d85557cbd13b2a6dfed8ec3366c36bdf51))
+
+
+### BREAKING CHANGES
+
+* **pv-stylemark:** With removing stylemark the seperate lsg-assets folder is not needed anymore. If
+you want to use assets in your LSG you have to copy them seperatly, pv-scripts users can just use
+the resources folder in most cases. Also the minimal required node-version has changed to node 18.
+
+
+
+
+
 ## [3.0.11](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-stylemark@3.0.10...@pro-vision/pv-stylemark@3.0.11) (2023-06-12)
 
 **Note:** Version bump only for package @pro-vision/pv-stylemark

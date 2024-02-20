@@ -1,7 +1,6 @@
 const defaultConfig = {
   destPath: "target",
   cdTemplatesSrc: "src/templates/",
-  lsgTemplatesSrc: "src/styleguide/templates/",
   componentsSrc: "src/components/",
   cdPagesSrc: "src/pages/",
   hbsHelperSrc: "helpers/handlebarsHelper/",

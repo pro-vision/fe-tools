@@ -11,10 +11,6 @@
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 .dds-page {
   @extend %dds-typo__body-reg;
 

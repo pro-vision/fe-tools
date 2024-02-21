@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.3](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-stylemark@4.0.2...@pro-vision/pv-stylemark@4.0.3) (2024-02-21)
+
+
+### Bug Fixes
+
+* **pv-stylemark:** fixed lsg asset loading issue ([80c9da0](https://github.com/pro-vision/fe-tools/commit/80c9da0798880c763c2c808bbf3d17c7a3949077))
+
+
+
+
+
 ## [4.0.2](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-stylemark@4.0.1...@pro-vision/pv-stylemark@4.0.2) (2024-02-21)
 
 

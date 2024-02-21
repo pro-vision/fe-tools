@@ -49,6 +49,19 @@
       margin: 0 0 16px;
     }
 
+    a {
+      color: $dds-color__black-070;
+      text-underline-offset: 2px;
+      transition: color 0.3s ease-in-out, text-underline-offset 0.3s ease-in-out;
+
+      @media (hover: hover) {
+        &:hover {
+          color: $dds-color__black-090;
+          text-underline-offset: 3px;
+        }
+      }
+    }
+
     dds-example {
       margin: 24px 0 40px;
 
@@ -62,8 +75,16 @@
     }
 
     code {
-      background: $dds-color__black-010;
+      display: inline-block;
+      padding: 2px 8px;
+      margin-bottom: 4px;
+      background: $dds-color__black-020;
+      color: $dds-color__black-070;
       border-radius: 4px;
+    }
+
+    pre code {
+      background: $dds-color__black-010;
     }
   }
 }

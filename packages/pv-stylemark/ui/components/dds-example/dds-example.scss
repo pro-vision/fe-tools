@@ -2,10 +2,8 @@ dds-example {
   display: flex;
   flex-direction: column;
   gap: 8px;
-}
 
-.dds-example {
-  &__example-link {
+  .dds-example__example-link {
     display: inline-block;
     margin-left: auto;
     color: inherit;
@@ -21,10 +19,13 @@ dds-example {
     @media (hover: hover) {
       &:hover {
         background: $dds-color__black-080;
+        color: $dds-color__white;
       }
     }
   }
+}
 
+.dds-example {
   &__example-box {
     height: 50vh;
     border: 1px solid #d0d0d0;

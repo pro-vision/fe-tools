@@ -10,7 +10,9 @@ const writeFile = async (target, reldir, filename, markup) => {
 };
 
 const watchGlob = async (curGlob, callback) => {
-  const paths = await glob(curGlob);
+  const paths = await glob(curGlob, {
+    windowsPathsNoEscape: true,
+  });
   const normalizedPaths = paths.map(filePath => normalize(resolve(process.cwd(), filePath)));
   normalizedPaths.forEach(path => {
     watchFile(path, () => callback());

@@ -121,7 +121,9 @@ const getDataSortedByCategory = (lsgData, config) => {
 
 const getLsgData = async (curGlob, config) => {
   const { componentsSrc } = getAppConfig();
-  const paths = await glob(curGlob);
+  const paths = await glob(curGlob, {
+    windowsPathsNoEscape: true,
+  });
   const normalizedPaths = paths.map(filePath => normalize(resolve(process.cwd(), filePath)));
 
   const data = await Promise.all(normalizedPaths.map(curPath => getLsgDataForPath(curPath, componentsSrc)));

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.2](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-stylemark@4.0.1...@pro-vision/pv-stylemark@4.0.2) (2024-02-21)
+
+
+### Bug Fixes
+
+* **pv-stylemark:** fixed windows path issue ([f03a00a](https://github.com/pro-vision/fe-tools/commit/f03a00ad7b4b62f1c19c72a22a91b64c83fee138))
+
+
+
+
+
 ## [4.0.1](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-stylemark@4.0.0...@pro-vision/pv-stylemark@4.0.1) (2024-02-20)
 
 **Note:** Version bump only for package @pro-vision/pv-stylemark

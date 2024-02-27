@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.4](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-stylemark@4.0.3...@pro-vision/pv-stylemark@4.0.4) (2024-02-27)
+
+
+### Bug Fixes
+
+* **pv-stylemark:** fixed html-box overflow issue ([0515c15](https://github.com/pro-vision/fe-tools/commit/0515c1587e29ac1b36ffcda7405fcde0dd1fcd16))
+
+
+
+
+
 ## [4.0.3](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-stylemark@4.0.2...@pro-vision/pv-stylemark@4.0.3) (2024-02-21)
 
 

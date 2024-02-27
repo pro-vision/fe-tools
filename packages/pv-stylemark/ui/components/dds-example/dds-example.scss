@@ -85,6 +85,7 @@ dds-example {
   &__html-box-content {
     display: none;
     padding: 24px;
+    overflow-x: auto;
     background: $dds-color__black-010;
 
     .dds-state--open & {

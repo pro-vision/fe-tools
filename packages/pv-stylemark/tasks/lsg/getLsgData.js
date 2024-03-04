@@ -111,7 +111,7 @@ const getDataSortedByCategory = (lsgData, config) => {
   const orderedCategoryList = categoryList.sort((a, b) => {
     const aIndex = orderConfig.indexOf(a.categoryName);
     const bIndex = orderConfig.indexOf(b.categoryName);
-    if (aIndex === -1 && bIndex === -1) return 0;
+    if (aIndex === -1 && bIndex === -1) return a.categoryName.localeCompare(b.categoryName);
     if (aIndex === -1) return 1;
     if (bIndex === -1) return -1;
     return aIndex - bIndex;

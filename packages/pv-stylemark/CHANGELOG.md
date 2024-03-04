@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.5](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-stylemark@4.0.4...@pro-vision/pv-stylemark@4.0.5) (2024-03-04)
+
+
+### Bug Fixes
+
+* **pv-stylemark:** alphabetically sort categories by default ([11bf7ee](https://github.com/pro-vision/fe-tools/commit/11bf7ee327c5d36c536850838e998e698e21ba6a))
+
+
+
+
+
 ## [4.0.4](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-stylemark@4.0.3...@pro-vision/pv-stylemark@4.0.4) (2024-02-27)
 
 

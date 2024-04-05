@@ -8,11 +8,11 @@ const { resolveApp, getAppConfig } = require("../../helper/paths");
 
 const getStylesData = stylesMatch => {
   const exampleKeys = stylesMatch
-    .match(/^\s*[a-zA-Z\-\d_]+.css/g)
-    .map(match => match.replace(/\s/g, "").replace(/.css$/g, ""));
+    .match(/^ *[\w\-]+\.css/)
+    .map(match => match.replace(/ /g, "").replace(/\.css$/g, ""));
   if (exampleKeys.length === 0) return null;
 
-  const styleContent = stylesMatch.replace(/^\s*[a-zA-Z\-\d_]+.css\s+(hidden)?\s+/g, "").trim();
+  const styleContent = stylesMatch.replace(/^ *[\w\-]+\.css( +hidden)?\s+/g, "").trim();
   return {
     exampleKey: exampleKeys[0],
     styleContent,
@@ -59,14 +59,14 @@ const getLsgDataForPath = async (path, componentsSrc) => {
 
   const { attributes: frontmatterData, body: fileContentBody } = frontmatter(fileContent);
 
-  const stylesRegex = new RegExp(/```\s*([a-zA-Z\-\d_]+\.css (hidden)?)\s*[^```]+```/g);
+  const stylesRegex = new RegExp(/``` *[\w\-]+\.css( +hidden)? *\n+[^```]+```/g);
 
   const stylesMatches = fileContentBody.match(stylesRegex) || [];
 
   const styles = stylesMatches.map(match => match.replace(/```/g, ""));
   const stylesList = styles.map(getStylesData);
 
-  const exampleRegex = new RegExp(/```\s*[a-zA-Z\-\d_]+:(\.\.\/)*[a-zA-Z\-\d_/]+\.[a-z]+\s*```/g);
+  const exampleRegex = new RegExp(/``` *[\w\-]+:(\.?\.\/)*[\w\-/]+\.[a-z]+\s*\n```/g);
 
   const exampleMatches = fileContentBody.match(exampleRegex) || [];
   const examples = exampleMatches.map(match => match.replace(/```/g, "").replace(/\s/g, ""));

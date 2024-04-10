@@ -20,13 +20,15 @@
       </style>
     {{/if}}
   </head>
-  <body class="dds-page">
+  <body class="dds-page theme-page">
     {{> lsg-nav}}
-    <main class="dds-page__main">
+    <main class="dds-page__main theme-content">
       {{#each lsgData}}
+      <div class="theme-content-category">
         {{#each categoryItems}}
 {{> lsg-component }}
         {{/each}}
+      </div>
       {{/each}}
     </main>
 

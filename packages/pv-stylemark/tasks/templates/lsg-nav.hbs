@@ -1,7 +1,7 @@
-<dds-nav class="dds-nav">
-  <header class="dds-nav__header">
+<dds-nav class="dds-nav theme-sidebar">
+  <header class="dds-nav__header theme-sidebar-header">
     {{#if lsgConfig.theme.logo}}
-      <img class="dds-nav__logo" src="{{lsgConfig.theme.logo}}" alt="{{lsgConfig.name}}">
+      <img class="dds-nav__logo theme-sidebar-header-logo" src="{{lsgConfig.theme.logo}}" alt="{{lsgConfig.name}}">
     {{else}}
       <h1 class="dds-nav__title">{{lsgConfig.name}}</h1>
     {{/if}}
@@ -9,17 +9,17 @@
       <span class="dds-nav__nav-toggle-icon"></span>
     </button>
   </header>
-  <div class="dds-nav__search-input-box">
+  <div class="dds-nav__search-input-box theme-sidebar-search">
     <input type="text" class="dds-nav__search-input" placeholder="Search">
   </div>
-  <div class="dds-nav__categories">
+  <div class="dds-nav__categories theme-sidebar-categories">
   {{#each lsgData}}
-    <div class="dds-nav__category">
-      <h3 class="dds-nav__category-name">{{categoryName}}</h3>
+    <div class="dds-nav__category theme-sidebar-category">
+      <h3 class="dds-nav__category-name theme-sidebar-category-title">{{categoryName}}</h3>
       <ul class="dds-nav__category-list">
         {{#each categoryItems}}
         <li class="dds-nav__category-item">
-          <a class="dds-nav__category-link" href="#{{componentName}}">{{options.name}}</a>
+          <a class="dds-nav__category-link theme-sidebar-element" href="#{{componentName}}">{{options.name}}</a>
         </li>
         {{/each}}
       </ul>

@@ -5,11 +5,16 @@
     {{{lsgConfig.examples.headHtml}}}
     {{#each exampleStyles}}
       <style>
-        {{this.styleContent}}
+        {{content}}
       </style>
     {{/each}}
   </head>
   <body>
     {{{componentMarkup}}}
+    {{#each exampleScripts}}
+      <script>
+        {{content}}
+      </script>
+    {{/each}}
   </body>
 </html>

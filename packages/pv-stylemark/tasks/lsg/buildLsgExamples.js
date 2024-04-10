@@ -12,11 +12,22 @@ const loadTemplate = async hbsInst => {
   return hbsInst.compile(templateContent);
 };
 
+/**
+ * @param {Object} config
+ * @param {import("./getLsgData.js").StyleMarkLSGData} lsgData
+ * @param {import("./getLsgData.js").StyleMarkExampleData} exampleData
+ * @param {Function} template
+ */
 const buildComponentExample = async (config, lsgData, exampleData, template) => {
   const { destPath } = getAppConfig();
-  const componentPath = resolveApp(join(destPath, "components", lsgData.componentPath, exampleData.examplePath));
   try {
-    let componentMarkup = await readFile(componentPath, { encoding: "utf-8" });
+    let componentMarkup = "";
+    if (exampleData.exampleMarkup.examplePath) {
+      const componentPath = resolveApp(join(destPath, "components", lsgData.componentPath, exampleData.exampleMarkup.examplePath + ".html"));
+      componentMarkup = await readFile(componentPath, { encoding: "utf-8" });
+    } else {
+      componentMarkup = exampleData.exampleMarkup.content;
+    }
     const configBodyHtml = config.examples?.bodyHtml ?? "{html}";
     componentMarkup = configBodyHtml.replace(/{html}/g, componentMarkup);
     const markup = template({

@@ -33,6 +33,7 @@ const { resolveApp, getAppConfig } = require("../../helper/paths");
  * @typedef {{
  *  componentName: string;
  *  componentPath: string;
+ *  srcPath: string;
  *  options: Object;
  *  description: string;
  *  examples: Array<StyleMarkExampleData>;
@@ -90,6 +91,7 @@ const getLsgDataForPath = async (markdownPath) => {
   const { name, dir } = pathParse(markdownPath);
   const componentsSrc = resolveApp(getAppConfig().componentsSrc);
   const componentPath = relPath(componentsSrc, dir);
+  const srcPath = relPath(componentsSrc, markdownPath);
 
   const { attributes: frontmatterData, body: fileContentBody } = frontmatter(fileContent);
 
@@ -112,6 +114,7 @@ const getLsgDataForPath = async (markdownPath) => {
   return {
     componentName: name,
     componentPath,
+    srcPath,
     options: frontmatterData,
     description,
     examples: exampleData,

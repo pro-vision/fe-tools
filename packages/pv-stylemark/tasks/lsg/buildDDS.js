@@ -2,6 +2,7 @@ const { buildLsgPage } = require("./buildLsgPage");
 const { getLsgData } = require("./getLsgData");
 const { buildLsgExamples } = require("./buildLsgExamples");
 const { copyUiAssets } = require("./copyUiAssets");
+const { copyAssets } = require("./copyAssets");
 const { getLsgConfig } = require("../../helper/config-helper");
 const { resolveApp, getAppConfig, join } = require("../../helper/paths");
 
@@ -12,6 +13,7 @@ const buildDDS = async () => {
   await buildLsgPage(lsgData, config);
   await buildLsgExamples(lsgData, config);
   await copyUiAssets();
+  await copyAssets(config);
 };
 
 module.exports = {

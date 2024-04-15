@@ -11,11 +11,19 @@ const { resolveApp, getAppConfig } = require("../../helper/paths");
  * @typedef {Object} StyleMarkCodeBlock
  * @property {string} exampleName - will be used to identify the html page rendered as an iframe
  * @property {string} [examplePath] - optional, will be a relative path to the html file (relative from target/components/path/to/markdown)
+ * @property {string} [search] - optional, the query params coming after the path in the code block. example: `?foo=bar` (? is part of the value)
+ * @property {string} [hash] - optional, hash value coming after the path in the code block e.g. `#anchor` (# is part of the value)
  * @property {"html"|"css"|"js"} language - `html` will create a new html page, `js` and `css` will be added in the html file
- * @property {"" | " hidden"} hidden - Indicates whether the code block should also be shown in the styleguide description of the component
  * @property {string} content - the content of the code block
+ * @property {Object} params
+ * @property {boolean} [params.hidden] - Indicates whether the code block should also be shown in the styleguide description of the component
+ * @property {boolean} [params.raw] - Indicates whether the html needs to be wrapped by stylemark or rendered as it comes, raw.
  * @example
- *    ```exampleName:examplePath.lang hidden
+ *    ```exampleName:examplePath.language hidden
+ *      content
+ *    ```
+ *    // new pattern
+ *    ```language exampleName examplePath[search][hash] hidden raw=false
  *      content
  *    ```
  */
@@ -39,7 +47,7 @@ const { resolveApp, getAppConfig } = require("../../helper/paths");
  * }} StyleMarkLSGData
  */
 
-// example code blocks
+// example code blocks:
 // ```example:/path/to/page.html
 // ```
 //
@@ -52,7 +60,22 @@ const { resolveApp, getAppConfig } = require("../../helper/paths");
 //     display: none;
 //   }
 // ```
-const regexExecutableCodeBlocks = /``` *(?<exampleName>[\w\-]+)(:(?<examplePath>(\.?\.\/)*[\w\-/]+))?\.(?<language>html|css|js)(?<hidden>( hidden)?) *\n+(?<content>[^```]*)```/g;
+const legacyRegexExecutableCodeBlocks = /``` *(?<exampleName>[\w\-]+)(:(?<examplePath>(\.?\.\/)*[\w\-/]+))?\.(?<language>html|css|js)(?<params>( .*)?) *\n+(?<content>[^```]*)```/g;
+
+// example code blocks:
+// ```html example ./path/to/page.html
+// ```
+//
+// ```js example
+//   console.log('Example 1: ' + data);
+// ```
+//
+// ```css example hidden
+//   button {
+//     display: none;
+//   }
+// ```
+const regexExecutableCodeBlocks = /``` *(?<language>html|css|js) (?<exampleName>[\w\-]+)( +(?<examplePath>(\.?\.\/)*[\w\-/]+\.[\w\-/]+))?(?<search>\?.+?)?(?<hash>#.+?)?(?<params>( .*))? *\n+(?<content>[^```]*)```/g
 
 const exampleParser = {
   name: "exampleParser",
@@ -161,11 +184,42 @@ const getLsgData = async (curGlob, config) => {
  * extracts the fenced code blocks from the markdown that are meant to be used in the example pages according to the stylemark spec (@link https://github.com/mpetrovich/stylemark/blob/main/README-SPEC.md)
  *
  * @param {string} markdownContent
- * @returns {Array<StyleMarkCodeBlock>}
+ * @returns {StyleMarkCodeBlock[]}
  */
-async function getExecutableCodeBlocks(markdownContent) {
-  return Array.from(markdownContent.matchAll(regexExecutableCodeBlocks))
-    .map(match => match.groups);
+function getExecutableCodeBlocks(markdownContent) {
+  return [
+    ...markdownContent.matchAll(legacyRegexExecutableCodeBlocks),
+    ...markdownContent.matchAll(regexExecutableCodeBlocks),
+  ].map(match => normalizeRegexGroups(match.groups));
+}
+
+/**
+ * the `groups` object of the regex for the executable code blocks, will be modified to have the object exactly how it is needed and not what is possible using only regex.
+ * this includes nested objects and boolean casting
+ * @param {object} groups
+ * @param {string} [groups.examplePath]
+ * @param {string} [groups.params]
+ * @param {string} groups.exampleName
+ * @param {string} groups.language
+ * @param {string} [groups.content]
+ * @returns {StyleMarkCodeBlock}
+ */
+function normalizeRegexGroups(groups) {
+  // "type=module hidden" --> `{ type: "module", hidden: true }`
+  groups.params = Object.fromEntries((groups.params ?? "").trim().split(" ").map(part => part.trim()).filter(part => part !== "").map(part => {
+    let [key, value] = part.split("=");
+    // for boolean, cast
+    if (value === "true") value = true;
+    if (value === "false") value = false;
+    return [key, value ?? true];
+  }));
+
+  if (groups.examplePath) {
+    // in the new pattern, the extension is part of examplePath. in the old one the extension is used for the `language` instead.
+    groups.examplePath = groups.examplePath.match(/\.[\w\-]+$/) ? groups.examplePath : `${groups.examplePath}.${groups.language}`;
+  }
+
+  return groups;
 }
 
 /**
@@ -176,18 +230,18 @@ async function getExecutableCodeBlocks(markdownContent) {
  * @returns {string}
  */
 function cleanMarkdownFromExecutableCodeBlocks(markdownContent, name, componentPath) {
-  return markdownContent.replace(regexExecutableCodeBlocks, (...args) => {
+  function replacer(...args) {
     let replacement = "";
     /** @type {StyleMarkCodeBlock} */
-    const groups = args.at(-1);
+    const groups = normalizeRegexGroups(args.at(-1));
 
     if (groups.language === "html") {
       // html file will be generated for html code blocks without a referenced file
-      const examplePath = groups.examplePath ? `${groups.examplePath}.html` : `${groups.exampleName}.html`;
+      const examplePath = groups.examplePath ? groups.examplePath : `${groups.exampleName}.html`;
       const markupUrl = join("../components", componentPath, examplePath);
-      replacement += `<dds-example name="${groups.exampleName}" path="${name}-${groups.exampleName}.html" ${groups.examplePath && !groups.hidden ? `markup-url="${markupUrl}"`: ""}></dds-example>`
+      replacement += `<dds-example name="${groups.exampleName}" path="${name}-${groups.exampleName}.html${groups.search ?? ""}${groups.hash ?? ""}" ${groups.examplePath && !groups.params.hidden ? `markup-url="${markupUrl}"`: ""}></dds-example>`
     }
-    if (groups.content && !groups.hidden) {
+    if (groups.content && !groups.params.hidden) {
       // add the css/js code blocks for the example. make sure it is indented the way `marked` can handle it
       replacement += `
 <details>
@@ -197,7 +251,11 @@ function cleanMarkdownFromExecutableCodeBlocks(markdownContent, name, componentP
     }
 
     return replacement;
-  });
+  }
+
+  return markdownContent
+    .replace(legacyRegexExecutableCodeBlocks, replacer)
+    .replace(regexExecutableCodeBlocks, replacer);
 }
 
 module.exports = {

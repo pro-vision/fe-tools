@@ -23,19 +23,32 @@ const buildComponentExample = async (config, lsgData, exampleData, template) => 
   try {
     let componentMarkup = "";
     if (exampleData.exampleMarkup.examplePath) {
-      const componentPath = resolveApp(join(destPath, "components", lsgData.componentPath, exampleData.exampleMarkup.examplePath + ".html"));
+      const componentPath = resolveApp(join(destPath, "components", lsgData.componentPath, exampleData.exampleMarkup.examplePath));
       componentMarkup = await readFile(componentPath, { encoding: "utf-8" });
     } else {
       componentMarkup = exampleData.exampleMarkup.content;
     }
     const configBodyHtml = config.examples?.bodyHtml ?? "{html}";
     componentMarkup = configBodyHtml.replace(/{html}/g, componentMarkup);
-    const markup = template({
-      lsgData,
-      componentMarkup,
-      exampleStyles: exampleData.exampleStyles,
-      lsgConfig: config,
-    });
+    // when the `raw` parameter is set in stylemark config, or the markdowns frontmatter or via the parameters of the code block in the markdown,
+    // the markup will be used as it is and not wrapped by stylemark generated markup
+    const useMarkupRaw = Object.assign({}, config.examples, lsgData.options, exampleData.exampleMarkup.params).raw;
+    let markup = "";
+    if (useMarkupRaw) {
+      const styles = exampleData.exampleStyles.map(style => `<style>${style.content}</style>`).join("\n");
+      const scripts = exampleData.exampleScripts.map(script => `<script>${script.content}</script>`).join("\n");
+      markup = componentMarkup
+        .replace("</head>", `${styles}\n</head>`)
+        .replace("</body>", `${scripts}\n</body>`);
+    } else {
+      markup = template({
+        lsgData,
+        componentMarkup,
+        exampleStyles: exampleData.exampleStyles,
+        exampleScripts: exampleData.exampleScripts,
+        lsgConfig: config,
+      });
+    }
     await writeFile(destPath, "styleguide", `${lsgData.componentName}-${exampleData.exampleName}`, markup);
   } catch (error) {
     console.warn(error);

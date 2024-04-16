@@ -1,10 +1,12 @@
-const getBrowserslist = require("../../../getBrowserslist");
+const path = require("path");
+
+const getBrowserslist = require("../../getBrowserslist");
 
 module.exports = {
   module: {
     rules: [
       {
-        test: /\.(ts|tsx)$/,
+        test: /\.ts?$/,
         exclude: /node_modules/,
         use: [
           {
@@ -14,10 +16,9 @@ module.exports = {
                 [
                   require.resolve("@babel/preset-env"),
                   {
-                    targets: getBrowserslist().legacy,
+                    targets: getBrowserslist().defaults,
                   },
                 ],
-                require.resolve("@babel/preset-react"),
                 require.resolve("@babel/preset-typescript"),
               ],
               assumptions: {
@@ -31,14 +32,20 @@ module.exports = {
                   },
                 ],
                 require.resolve("@babel/plugin-proposal-class-properties"),
-                require.resolve("@babel/plugin-transform-arrow-functions"),
+                [
+                  require.resolve("@babel/plugin-transform-runtime"),
+                  {
+                    corejs: false,
+                    regenerator: true,
+                    useESModules: true,
+                    helpers: false,
+                    absoluteRuntime: path.dirname(
+                      require.resolve("@babel/runtime/package.json")
+                    ),
+                  },
+                ],
                 require.resolve("@babel/plugin-syntax-dynamic-import"),
-                require.resolve("@babel/plugin-syntax-import-meta"),
-                require.resolve("@babel/plugin-proposal-json-strings"),
-                require.resolve("@babel/plugin-proposal-function-sent"),
-                require.resolve("@babel/plugin-proposal-export-namespace-from"),
-                require.resolve("@babel/plugin-proposal-numeric-separator"),
-                require.resolve("@babel/plugin-proposal-throw-expressions"),
+                require.resolve("@babel/plugin-proposal-object-rest-spread"),
                 require.resolve("@babel/plugin-proposal-optional-chaining"),
               ],
             },

@@ -16,10 +16,7 @@ const WebpackDevServer = require("webpack-dev-server");
 const webpack = require("webpack");
 const clearConsole = require("react-dev-utils/clearConsole");
 
-const {
-  autoConsoleClearEnabled,
-  legacyBuildDisabled,
-} = require("../helpers/buildConfigHelpers");
+const { autoConsoleClearEnabled } = require("../helpers/buildConfigHelpers");
 const { prepareWebpackConfig } = require("../helpers/prepareWebpackConfig");
 const { getCompiler } = require("../helpers/devServerHelpers");
 const isInteractive = process.stdout.isTTY && autoConsoleClearEnabled();
@@ -31,9 +28,7 @@ prepareWebpackConfig("development").then((webpackConfig) => {
     webpack,
   });
 
-  const devServerConfig = legacyBuildDisabled()
-    ? webpackConfig.devServer
-    : webpackConfig[0].devServer;
+  const devServerConfig = webpackConfig.devServer;
 
   const devServer = new WebpackDevServer(devServerConfig, compiler);
 

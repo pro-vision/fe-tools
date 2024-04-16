@@ -4,8 +4,6 @@ module.exports = {
   destPath: "target",
   namespace: "",
   jsEntry: "src/index.ts",
-  jsLegacyEntry: "src/legacyIndex.ts",
-  disableLegacyBuild: false,
   cssEntry: "src/index.scss",
   useTS: true,
   useReact: false,

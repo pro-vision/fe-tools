@@ -1,12 +1,12 @@
 const path = require("path");
 
-const getBrowserslist = require("../../../getBrowserslist");
+const getBrowserslist = require("../../getBrowserslist");
 
 module.exports = {
   module: {
     rules: [
       {
-        test: /\.ts?$/,
+        test: /\.js?$/,
         exclude: /node_modules/,
         use: [
           {
@@ -16,14 +16,10 @@ module.exports = {
                 [
                   require.resolve("@babel/preset-env"),
                   {
-                    targets: getBrowserslist().modern,
+                    targets: getBrowserslist().defaults,
                   },
                 ],
-                require.resolve("@babel/preset-typescript"),
               ],
-              assumptions: {
-                setPublicClassFields: true,
-              },
               plugins: [
                 [
                   require.resolve("@babel/plugin-proposal-decorators"),
@@ -31,7 +27,6 @@ module.exports = {
                     legacy: true,
                   },
                 ],
-                require.resolve("@babel/plugin-proposal-class-properties"),
                 [
                   require.resolve("@babel/plugin-transform-runtime"),
                   {

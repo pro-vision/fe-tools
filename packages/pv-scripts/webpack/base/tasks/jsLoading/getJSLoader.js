@@ -1,28 +1,14 @@
 const { getBuildConfig } = require("../../../../helpers/buildConfigHelpers");
-const moduleCompileTS = require("./compileTS/module");
-const legacyCompileTS = require("./compileTS/legacy");
-const moduleCompileES = require("./compileES/module");
-const legacyCompileES = require("./compileES/legacy");
-const moduleCompileJSX = require("./compileJSX/module");
-const legacyCompileJSX = require("./compileJSX/legacy");
-const moduleCompileTSX = require("./compileTSX/module");
-const legacyCompileTSX = require("./compileTSX/legacy");
+const compileTS = require("./compileTS");
+const compileES = require("./compileES");
+const compileJSX = require("./compileJSX");
+const compileTSX = require("./compileTSX");
 
-module.exports = (type) => {
+module.exports = () => {
   const { useTS, useReact } = getBuildConfig();
-  let loaders = [moduleCompileTS, legacyCompileTS];
 
-  if (!useTS) {
-    loaders = [moduleCompileES, legacyCompileES];
-  } else if (useReact) {
-    loaders = [moduleCompileTSX, legacyCompileTSX];
-  }
-
-  if (useReact && !useTS) {
-    loaders = [moduleCompileJSX, legacyCompileJSX];
-  }
-
-  if (type === "module") return loaders[0];
-
-  return loaders[1];
+  if (useReact && useTS) return compileTSX;
+  else if (useReact) return compileJSX;
+  else if (useTS) return compileTS;
+  return compileES;
 };

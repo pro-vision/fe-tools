@@ -1,8 +1,8 @@
 const { merge } = require("webpack-merge");
 
 // Settings
-const moduleEntrySettings = require("./settings/entry/module");
-const moduleOutputSettings = require("./settings/output/module");
+const entrySettings = require("./settings/entry");
+const outputSettings = require("./settings/output");
 const baseSettings = require("./settings/baseSettings");
 const contextSettings = require("./settings/context");
 const resolveSettings = require("./settings/resolve");
@@ -28,14 +28,14 @@ const {
 const { useTS, copyStaticFiles, cleanDest, enableTypeCheck } = getBuildConfig();
 
 module.exports = merge(
-  moduleEntrySettings,
-  moduleOutputSettings,
+  entrySettings,
+  outputSettings,
   baseSettings,
   contextSettings,
   resolveSettings,
   performanceSettings,
   cleanDest ? cleanDestTask : {},
-  getJSLoader("module"),
+  getJSLoader(),
   useTS && enableTypeCheck ? tsTypeChecking : {},
   compileCSS,
   compileShadowCSS,

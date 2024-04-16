@@ -11,7 +11,7 @@ npm i @pro-vision/pv-scripts -D
 ## Usage
 
 ### Requirements
-To use the CLI, you need to create at least the two entry-files (`jsEntry`, `jsLegacyEntry`), see [Basic Configuration](#basic-configuration).
+To use the CLI, you need to create at least the entry-file (`jsEntry`), see [Basic Configuration](#basic-configuration).
 
 ### Command Line Interface
 
@@ -36,7 +36,7 @@ npx pv-scripts prod
 #### CLI flags
 
 ##### `--stats` or `--statsJson`
-Webpack build will use [webpack-bundle-analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer) to generate an html report or json output regarding the bundle sizes and its composition. Which will be stored under `target/report_module.html | target/report_legacy.html` and `target/report_module.json | target/report_legacy.json`.
+Webpack build will use [webpack-bundle-analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer) to generate an html report or json output regarding the bundle sizes and its composition. Which will be stored under `target/report.html` and `target/report.json`.
 
 This flag should only be used in combination with `prod` build to have a realistic information from the optimized bundles.
 
@@ -51,10 +51,8 @@ Basic Configuration can be done in a `pv.config.js` file in the npm project root
 | devServerPort             | number  | 8616                 | set `webpack-dev-server` port                                                                                   |
 | srcPath                   | string  | "src"                | defines the working directory                                                                                   |
 | destPath                  | string  | "target"             | defines where to put bundled files                                                                              |
-| namespace                 | string  | ""                   | this controls the name-prefix on your bundled files following this pattern `[namespace].app.[?legacy].(js|css)` |
+| namespace                 | string  | ""                   | this controls the name-prefix on your bundled files following this pattern `[namespace].app.(js|css)`           |
 | jsEntry                   | string  | "src/index.ts"       | defines path of your (JS\|TS\|JSX\|TSX) entry file                                                              |
-| jsLegacyEntry             | string  | "src/legacyIndex.ts" | defines path of your (JS\|TS\|JSX\|TSX) legacy entry file                                                       |
-| disableLegacyBuild        | boolean  | false               | disables legacy build                                                     |
 | cssEntry                  | string  | "src/index.scss"     | defines path of your SCSS entry file. If `src/index.scss` does not exist, no error is thrown but the css generation is simply skipped|
 | useTS                     | boolean | true                 | defines whether you want to use Typescript                                                                      |
 | useReact                  | boolean | false                | defines whether you want to use React                                                                           |
@@ -67,7 +65,8 @@ Basic Configuration can be done in a `pv.config.js` file in the npm project root
 | resourcesSrc    | string  | "resources"           | defines resources folder which is copied to target/resources                                                   |
 | autoConsoleClear | boolean  | false              | defines whether the console should be cleared automatically in dev-mode                                        |
 | enableContentHash | boolean  | false              | defines whether generated js and css files should contain a content hash in their names                                         |
-##### Example:
+
+##### Example
 
 ```js
 // pv.config.js
@@ -75,7 +74,6 @@ module.exports = {
   devServerPort: 8616,
   destPath: "target",
   jsEntry: "src/index.js",
-  jsLegacyEntry: "src/legacyIndex.js",
   cssEntry: "src/index.scss",
   useTS: false,
   useReact: false,
@@ -90,33 +88,15 @@ For further customization of the webpack-config, specific config-files can be ad
 **webpack.config.js:**
 Valid webpack.config file which will be merged with both (dev/prod) default configs.
 
-**webpack.config.module.js:**
-Valid webpack.config file which will be merged with the module build of both (dev/prod) default configs.
-
-**webpack.config.legacy.js:**
-Valid webpack.config file which will be merged with the legacy build of both (dev/prod) default configs.
-
 **webpack.config.dev.js:**
 Valid webpack.config file which will be merged with the dev default config.
-
-**webpack.config.dev.module.js:**
-Valid webpack.config file which will be merged with the module build of the dev default config.
-
-**webpack.config.dev.legacy.js:**
-Valid webpack.config file which will be merged with the legacy build of the dev default config.
 
 **webpack.config.prod.js:**
 Valid webpack.config file which will be merged with the prod default config.
 
-**webpack.config.prod.module.js:**
-Valid webpack.config file which will be merged with the module build of the prod default config.
-
-**webpack.config.prod.legacy.js:**
-Valid webpack.config file which will be merged with the legacy build of the prod default config.
-
 #### Browserslist
 
-A default browser query is used for compiling javascript and css. i.e. IE11 for the "legacy" bundle and latest 2 versions of evergreen browsers (chrome, firefox, safari, edge) for the "modern" bundle. And all combined for the css output. You can define your own [browserslist](https://github.com/browserslist/browserslist) to override any of these target groups. Don't forget to define default browsers, browser for `[modern]` or `[legacy]` environment. See default [.browserslistrc](https://github.com/pro-vision/fe-tools/tree/master/packages/pv-scripts/config/.browserslistrc) file for an example.
+A default browser query is used for compiling javascript and css. i.e. latest 2 versions of evergreen browsers (chrome, firefox, safari, edge). You can define your own [browserslist](https://github.com/browserslist/browserslist). See default [.browserslistrc](https://github.com/pro-vision/fe-tools/tree/master/packages/pv-scripts/config/.browserslistrc) file for an example.
 
 ## Examples
 

@@ -9,7 +9,7 @@ This Language Server provides
 
 ## Example
 
-![Example](https://github.com/pro-vision/fe-tools/tree/master/packages/vscode-pv-handlebars-language-server/images/example.gif)
+![Example](https://github.com/pro-vision/fe-tools/raw/master/packages/vscode-pv-handlebars-language-server/images/example.gif)
 
 ## Requirement
 

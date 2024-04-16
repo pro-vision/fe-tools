@@ -5,7 +5,7 @@ const slash = require("slash");
 const { defaultConfig } = require("../config/default.config");
 
 const appDirectory = realpathSync(process.cwd());
-const resolveApp = (relativePath) => {
+const resolveApp = relativePath => {
   return resolve(appDirectory, relativePath);
 };
 

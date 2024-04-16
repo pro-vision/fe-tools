@@ -1,14 +1,13 @@
 module.exports = function({constructorName, componentName}) {
 
   return (
-`import { Component } from "Core/Component";
-import { ACTIVE } from "Helper/cssClasses";
-import { addClass, removeClass} from "Helper/domHelper";
+`import { Component } from "@kluntje/core";
+import { addClass, removeClass} from "@kluntje/js-utils/lib/dom-helpers";
 
 /**
  * Custom Element to .. @TODO
  */
-class ${constructorName} extends Component {
+export class ${constructorName} extends Component {
 
   constructor() {
     super({
@@ -51,12 +50,10 @@ class ${constructorName} extends Component {
   handleInputChange(e) {
     e.preventDefault();
 
-    addClass(this.ui.buttons, ACTIVE);
+    addClass(this.ui.buttons, "state-active");
   }
 }
 
 customElements.define("${componentName}", ${constructorName});
-
-export default ${constructorName};
 `);
 };

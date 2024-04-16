@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.2.0](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@4.1.4...@pro-vision/pv-scripts@4.2.0) (2023-06-12)
+
+
+### Bug Fixes
+
+* **pv-scripts:** update stats output of pv-scripts build ([ff9285d](https://github.com/pro-vision/fe-tools/commit/ff9285da77deb207a0964d91be9a28f8fdb57e57))
+
+
+### Features
+
+* **pv-scripts:** add support for json report ([c231ab2](https://github.com/pro-vision/fe-tools/commit/c231ab23a370cdb827a3cc92061279c19bfccd71))
+* **pv-scripts:** use custom name for the global function to load webpack chunck ([4a6fd8d](https://github.com/pro-vision/fe-tools/commit/4a6fd8dc811ef8db6b3cda8684cf1fab8e2e01b4))
+
+
+### Performance Improvements
+
+* **pv-scripts:** rethrow error thrown during devserver start ([38093f8](https://github.com/pro-vision/fe-tools/commit/38093f840ec1573668497f778f56372500941760))
+
+
+
+
+
 ## [4.1.4](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@4.1.3...@pro-vision/pv-scripts@4.1.4) (2022-05-06)
 
 **Note:** Version bump only for package @pro-vision/pv-scripts

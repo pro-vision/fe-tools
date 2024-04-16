@@ -1,6 +1,6 @@
 module.exports = function({componentName, constructorName, camelCase}) {
   return (
-`import ${constructorName} from "Components/${componentName}/${componentName}";
+`import { ${constructorName} } from "Components/${componentName}/${componentName}";
 
 describe("${componentName} tests:", () => {
   let ${camelCase}: ${constructorName};
@@ -10,7 +10,6 @@ describe("${componentName} tests:", () => {
   });
 
   describe("onComponentInitialized method:", () => {
-
     test("should dispatch created event", () => {
       spyOn(${camelCase}, "dispatchEvent");
       ${camelCase}.onComponentInitialized();

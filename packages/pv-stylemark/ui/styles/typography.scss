@@ -1,0 +1,50 @@
+%dds-typo__body-reg {
+  font-family: $dds-font-family--inter;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+%dds-typo__headline-1 {
+  font-family: $dds-font-family--inter;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+
+  @media (min-width: $bp-1) {
+    font-size: 32px;
+  }
+
+  @media (min-width: $bp-3) {
+    font-size: 40px;
+  }
+}
+
+%dds-typo__headline-2 {
+  font-family: $dds-font-family--inter;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+
+  @media (min-width: $bp-3) {
+    font-size: 32px;
+  }
+}
+
+%dds-typo__headline-3 {
+  font-family: $dds-font-family--inter;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+
+  @media (min-width: $bp-3) {
+    font-size: 24px;
+  }
+}
+
+%dds-typo__headline-4 {
+  font-family: $dds-font-family--inter;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+}

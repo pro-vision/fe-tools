@@ -1,11 +1,12 @@
 {
-  "extends": ["pv", "prettier"],
+  "extends": ["prettier"],
   "plugins": ["prettier"],
   "parser": "babel-eslint",
   "env": {
     "node": true,
     "browser": true
   },
+  "ignorePatterns": ["**/*.ts"],
   "rules": {
     "global-require": 0,
     "no-console": "off",

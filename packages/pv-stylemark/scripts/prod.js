@@ -1,46 +1,23 @@
-const gulp = require("gulp");
-
 // Assemble Clickdummy
-const {
-  assembleClickdummyComponents,
-} = require("../gulp-tasks/clickdummy_tasks/assembleClickdummyComponents");
-const {
-  assembleClickdummyPages,
-} = require("../gulp-tasks/clickdummy_tasks/assembleClickdummyPages");
-const {
-  copyClickdummyFiles,
-} = require("../gulp-tasks/clickdummy_tasks/copyClickdummyFiles");
+const { assembleClickdummyComponents } = require("../tasks/clickdummy/assembleClickdummyComponents");
+const { assembleClickdummyPages } = require("../tasks/clickdummy/assembleClickdummyPages");
+const { copyClickdummyFiles } = require("../tasks/clickdummy/copyClickdummyFiles");
 // Assemble Stylemark
-const {
-  assembleLSGComponents,
-} = require("../gulp-tasks/lsg_tasks/assembleLSGComponents");
-const {
-  copyStyleguideFiles,
-} = require("../gulp-tasks/lsg_tasks/copyStyleguideFiles");
-const { buildStylemark } = require("../gulp-tasks/lsg_tasks/buildStylemark");
+const { buildDDS } = require("../tasks/lsg/buildDDS");
 
-const buildClickdummy = (done) => {
-  return gulp.series(
-    assembleClickdummyComponents,
-    assembleClickdummyPages,
-    copyClickdummyFiles
-  )(done);
+const buildClickdummy = async () => {
+  await Promise.all([assembleClickdummyComponents(), assembleClickdummyPages(), copyClickdummyFiles()]);
 };
 
-const buildLSG = (done) => {
-  return gulp.series(
-    assembleLSGComponents,
-    copyStyleguideFiles,
-    buildStylemark
-  )(done);
+const buildLSG = async () => {
+  await buildDDS();
 };
 
-const build = (done) => {
-  return gulp.series(buildClickdummy, buildLSG)(done);
-};
-
-console.log("Assemble LSG...");
-
-build(() => {
+const build = async () => {
+  console.log("Assemble LSG...");
+  await buildClickdummy();
+  await buildLSG();
   console.log("LSG assembled!");
-});
+};
+
+build();

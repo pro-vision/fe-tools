@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{lsgData.options.name}}</title>
+    {{{lsgConfig.examples.headHtml}}}
+    {{#each exampleStyles}}
+      <style>
+        {{this.styleContent}}
+      </style>
+    {{/each}}
+  </head>
+  <body>
+    {{{componentMarkup}}}
+  </body>
+</html>

@@ -11,14 +11,14 @@ const additionalPlugins = {
 };
 
 if (process.env.PV_WEBPACK_STATS) {
+  const outputJson = process.env.PV_WEBPACK_STATS === "json";
   additionalPlugins.plugins.push(
     new webpackBundleAnalyzer.BundleAnalyzerPlugin({
-      analyzerMode:
-        process.env.PV_WEBPACK_STATS === "json" ? "disabled" : "static",
-      generateStatsFile: process.env.PV_WEBPACK_STATS === "json",
+      analyzerMode: outputJson ? "json" : "static",
+      generateStatsFile: outputJson,
       openAnalyzer: false,
-      reportFilename: "report_legacy.html",
-      statsFilename: "report_legacy.json",
+      reportFilename: `report_legacy${outputJson ? ".json" : ".html"}`,
+      statsFilename: "webpack_legacy_stats.json",
     })
   );
 }

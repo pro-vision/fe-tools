@@ -15,4 +15,5 @@ module.exports = {
   autoConsoleClear: false,
   handlebarsLoaderOptions: {},
   enableContentHash: false,
+  babelDecorator: "legacy", // babel-plugin-proposal-decorators' `version` property
 };

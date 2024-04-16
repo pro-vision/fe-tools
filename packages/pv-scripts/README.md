@@ -65,6 +65,7 @@ Basic Configuration can be done in a `pv.config.js` file in the npm project root
 | resourcesSrc    | string  | "resources"           | defines resources folder which is copied to target/resources                                                   |
 | autoConsoleClear | boolean  | false              | defines whether the console should be cleared automatically in dev-mode                                        |
 | enableContentHash | boolean  | false              | defines whether generated js and css files should contain a content hash in their names                                         |
+| babelDecorator  | string  | "legacy"             | @babel/plugin-proposal-decorators' `version` property                                                           |
 
 ##### Example
 
@@ -94,6 +95,9 @@ Valid webpack.config file which will be merged with the dev default config.
 **webpack.config.prod.js:**
 Valid webpack.config file which will be merged with the prod default config.
 
+**.babelrc.json**
+Will add additional babel plugins to the existing [webpack config](https://github.com/pro-vision/fe-tools/tree/master/packages/pv-scripts/webpack/base/tasks/compileJS.js)
+
 #### Browserslist
 
 A default browser query is used for compiling javascript and css. i.e. latest 2 versions of evergreen browsers (chrome, firefox, safari, edge). You can define your own [browserslist](https://github.com/browserslist/browserslist). See default [.browserslistrc](https://github.com/pro-vision/fe-tools/tree/master/packages/pv-scripts/config/.browserslistrc) file for an example.
@@ -103,4 +107,3 @@ A default browser query is used for compiling javascript and css. i.e. latest 2 
 You can find example projects in the `examples` folder:
 
 * React with TypeScript: [react-tsx](https://github.com/pro-vision/fe-tools/tree/master/examples/react-tsx)
-

@@ -1,6 +1,10 @@
 const path = require("path");
 
+const { getBuildConfig } = require("../../../helpers/buildConfigHelpers");
 const getBrowserslist = require("../getBrowserslist");
+
+const { babelDecorator } = getBuildConfig();
+const legacyDecorators = babelDecorator === "legacy";
 
 module.exports = {
   module: {
@@ -20,7 +24,12 @@ module.exports = {
                   },
                 ],
                 require.resolve("@babel/preset-react"),
-                require.resolve("@babel/preset-typescript"),
+                [
+                  require.resolve("@babel/preset-typescript"),
+                  {
+                    allowDeclareFields: true, // This will be enabled by default in Babel 8
+                  },
+                ],
               ],
               assumptions: {
                 setPublicClassFields: true,
@@ -29,10 +38,25 @@ module.exports = {
                 [
                   require.resolve("@babel/plugin-proposal-decorators"),
                   {
-                    legacy: true,
+                    version: babelDecorator,
                   },
                 ],
-                require.resolve("@babel/plugin-proposal-class-properties"),
+                ...(legacyDecorators
+                  ? [
+                      [
+                        require.resolve("@babel/plugin-transform-typescript"),
+                        {
+                          allowDeclareFields: true,
+                        },
+                      ],
+                      require.resolve(
+                        "@babel/plugin-transform-class-static-block"
+                      ),
+                      require.resolve(
+                        "@babel/plugin-proposal-class-properties"
+                      ),
+                    ]
+                  : []),
                 [
                   require.resolve("@babel/plugin-transform-runtime"),
                   {

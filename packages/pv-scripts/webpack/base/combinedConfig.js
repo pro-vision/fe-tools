@@ -18,6 +18,7 @@ const copyResourcesTask = require("./tasks/copyResources");
 const compileHTML = require("./tasks/compileHTML");
 const copyStatic = require("./tasks/copyStatic");
 const compileCSS = require("./tasks/compileCSS");
+const compileSVG = require("./tasks/compileSVG");
 // Helper
 const {
   getBuildConfig,
@@ -39,6 +40,7 @@ module.exports = merge(
   useTS && enableTypeCheck ? tsTypeChecking : {},
   compileCSS,
   compileShadowCSS,
+  compileSVG,
   shouldUseHtmlCompiler() ? compileHTML : {},
   loadFonts,
   loadHandlebars,

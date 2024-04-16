@@ -98,6 +98,20 @@ Valid webpack.config file which will be merged with the prod default config.
 **.babelrc.json**
 Will add additional babel plugins to the existing [webpack config](https://github.com/pro-vision/fe-tools/tree/master/packages/pv-scripts/webpack/base/tasks/compileJS.js)
 
+#### SVG loading
+
+svg files will be automatically loaded when imported/referenced by js/ts/scss files.
+
+Default behavior would be to extract the svg content when requested from js (this would allow to use the svg content easily to render markup), for css the svg will be emitted as a .svg file to the target folder and its url used in the output css. These can be overwritten by webpacks resource queries:
+
+| query | behavior | example |
+|-------|----------|---------|
+| `resource` or `external`  |  resource will be emitted to target folder and its url added to the import  |  `import svgUrl from("./icon.svg?resource"); fetch(svgUrl);` |
+|  `inline` |  svg content will be base64 encoded an used inline  |  `background-image: url("./img.svg?inline"); // => background-image: url(data:image/svg+xml;base64,PHN...` |
+| `auto`  | webpack will automatically choose between `resource` and `inline` based on the file size see [webpack's documentation](https://webpack.js.org/guides/asset-modules/).  |   |
+| `source` or `raw`  |  the svg files content will be used  | `import svgContent from("./icon.svg?raw");  el.innerHTML = svgContent;`  |
+| `/*! webpackIgnore: true */`  |  will ignore the file/url   |  `/* webpackIgnore: true */ background-image: url("http//some-url.svg");` |
+
 #### Browserslist
 
 A default browser query is used for compiling javascript and css. i.e. latest 2 versions of evergreen browsers (chrome, firefox, safari, edge). You can define your own [browserslist](https://github.com/browserslist/browserslist). See default [.browserslistrc](https://github.com/pro-vision/fe-tools/tree/master/packages/pv-scripts/config/.browserslistrc) file for an example.

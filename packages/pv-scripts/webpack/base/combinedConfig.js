@@ -8,7 +8,7 @@ const contextSettings = require("./settings/context");
 const resolveSettings = require("./settings/resolve");
 const performanceSettings = require("./settings/performance");
 // Tasks
-const getJSLoader = require("./tasks/jsLoading/getJSLoader");
+const compileJS = require("./tasks/compileJS");
 const loadFonts = require("./tasks/loadFonts");
 const compileShadowCSS = require("./tasks/compileShadowCSS");
 const loadHandlebars = require("./tasks/loadHandlebars");
@@ -35,7 +35,7 @@ module.exports = merge(
   resolveSettings,
   performanceSettings,
   cleanDest ? cleanDestTask : {},
-  getJSLoader(),
+  compileJS,
   useTS && enableTypeCheck ? tsTypeChecking : {},
   compileCSS,
   compileShadowCSS,

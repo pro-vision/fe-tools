@@ -36,10 +36,6 @@ module.exports = {
                 [
                   require.resolve("@babel/plugin-transform-runtime"),
                   {
-                    corejs: false,
-                    regenerator: true,
-                    useESModules: true,
-                    helpers: false,
                     absoluteRuntime: path.dirname(
                       require.resolve("@babel/runtime/package.json")
                     ),

@@ -54,7 +54,7 @@ class DSExample extends HTMLElement {
     this.renderComponent();
     window.addEventListener('click', () => this.handleWindowClick());
     this.viewportObserver = new IntersectionObserver(
-      (entries) => this.handleViewportChange(entries), 
+      (entries) => this.handleViewportChange(entries),
       {
         threshold: 0
       }
@@ -65,7 +65,7 @@ class DSExample extends HTMLElement {
   private renderComponent() {
     this.renderExampleLink();
     this.renderExampleBox();
-    this.renderHtmlBox();
+    if (this.markupUrl) this.renderHtmlBox();
   }
 
   private renderExampleLink() {

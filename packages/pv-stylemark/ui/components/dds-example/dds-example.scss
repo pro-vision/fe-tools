@@ -43,7 +43,8 @@ dds-example {
     }
   }
 
-  &__html-box-toggle {
+  &__html-box-toggle,
+  &__code-box-toggle {
     display: flex;
     gap: 8px;
     align-items: center;
@@ -76,9 +77,20 @@ dds-example {
       border-bottom: 5px solid transparent;
       border-left: 6px solid $dds-color__black-040;
 
-      .dds-state--open & {
+      .dds-state--open &,
+      [open] & {
         transform: rotate(90deg);
       }
+    }
+  }
+
+  &__code-box-toggle {
+    margin-top: 16px;
+
+    + pre {
+      margin: 0;
+      padding: 24px;
+      background: $dds-color__black-010;
     }
   }
 

@@ -112,6 +112,10 @@ Default behavior would be to extract the svg content when requested from js (thi
 | `source` or `raw`  |  the svg files content will be used  | `import svgContent from("./icon.svg?raw");  el.innerHTML = svgContent;`  |
 | `/*! webpackIgnore: true */`  |  will ignore the file/url   |  `/* webpackIgnore: true */ background-image: url("http//some-url.svg");` |
 
+#### SASS compilation
+
+Per default the new (dart-)`sass` package will be installed and used. You can also install the `sass-embedded` package as an npm dependency which will then be automatically used and is twice as fast as the default sass. If you need to use the legacy [sass syntax](https://sass-lang.com/documentation/breaking-changes/) (e.g. `/` instead of `math.div`) then you need to install `node-sass` as an npm dependency, and it will automatically be used when sass code is compiled.
+
 #### Browserslist
 
 A default browser query is used for compiling javascript and css. i.e. latest 2 versions of evergreen browsers (chrome, firefox, safari, edge). You can define your own [browserslist](https://github.com/browserslist/browserslist). See default [.browserslistrc](https://github.com/pro-vision/fe-tools/tree/master/packages/pv-scripts/config/.browserslistrc) file for an example.

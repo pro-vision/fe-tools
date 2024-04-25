@@ -11,6 +11,23 @@
     margin: 0 0 24px;
   }
 
+  &__source {
+    margin-bottom: 24px;
+    font-size: 14px;
+    font-weight: normal;
+    color: $dds-color__black-040;
+  }
+
+  &__source-label {
+    margin-right: 4px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  &__source-path {
+    font-family: Courier, monospace;
+  }
+
   &__description {
     h1 {
       @extend %dds-typo__headline-1;

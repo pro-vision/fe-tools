@@ -1,8 +1,8 @@
-const { appTarget, publicPath } = require("../../../../helpers/paths");
+const { appTarget, publicPath } = require("../../../helpers/paths");
 const {
   shouldAddContentHash,
   getAppName,
-} = require("../../../../helpers/buildConfigHelpers");
+} = require("../../../helpers/buildConfigHelpers");
 
 module.exports = {
   output: {
@@ -13,6 +13,6 @@ module.exports = {
       ? "js/[name].[contenthash].js"
       : "js/[name].js",
     chunkFilename: "resources/js/chunks/[name].[chunkhash].js",
-    assetModuleFilename: "resources/modern/[base]",
+    assetModuleFilename: "resources/[base]",
   },
 };

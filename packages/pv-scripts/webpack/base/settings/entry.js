@@ -1,8 +1,8 @@
-const { jsEntry, cssEntry } = require("../../../../helpers/paths");
+const { jsEntry, cssEntry } = require("../../../helpers/paths");
 const {
   getAppName,
   shouldAddCssEntry,
-} = require("../../../../helpers/buildConfigHelpers");
+} = require("../../../helpers/buildConfigHelpers");
 
 const getEntries = () => {
   const entries = [jsEntry()];

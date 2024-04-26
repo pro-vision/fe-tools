@@ -90,10 +90,6 @@ const getHandlebarsLoaderOptions = () => {
   return handlebarsLoaderOptions;
 };
 
-const legacyBuildDisabled = () => {
-  return getBuildConfig().disableLegacyBuild;
-};
-
 module.exports = {
   getBuildConfig,
   getJSExtName,
@@ -103,6 +99,5 @@ module.exports = {
   shouldAddCssEntry,
   shouldUseHtmlCompiler,
   getHandlebarsLoaderOptions,
-  legacyBuildDisabled,
   shouldAddContentHash,
 };

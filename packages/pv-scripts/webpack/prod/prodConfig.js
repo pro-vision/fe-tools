@@ -2,7 +2,7 @@ const { merge } = require("webpack-merge");
 const webpackBundleAnalyzer = require("webpack-bundle-analyzer");
 
 // Base Config
-const defaultConfigModule = require("../base/module");
+const defaultConfigModule = require("../base/combinedConfig");
 // Settings
 const basicSettings = require("./settings/basicSettings");
 
@@ -17,8 +17,8 @@ if (process.env.PV_WEBPACK_STATS) {
       analyzerMode: outputJson ? "json" : "static",
       generateStatsFile: outputJson,
       openAnalyzer: false,
-      reportFilename: `report_module${outputJson ? ".json" : ".html"}`,
-      statsFilename: "webpack_module_stats.json",
+      reportFilename: `report${outputJson ? ".json" : ".html"}`,
+      statsFilename: "webpack_stats.json",
     })
   );
 }

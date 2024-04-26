@@ -58,6 +58,7 @@ module.exports = {
             loader: require.resolve("sass-loader"),
             options: {
               sourceMap: true,
+              ...getSassImpelemntation(),
             },
           },
         ],
@@ -72,3 +73,25 @@ module.exports = {
     }),
   ],
 };
+
+// returns what node implementation the user has instaled,
+// this allows them to override the pv-scripts dependecy which will act as the default one.
+function getSassImpelemntation() {
+  const sassImplementationOptions = [
+    { pkg: "sass-embedded", api: "modern-compiler" }, // fastest
+    { pkg: "node-sass", api: "legacy" }, // legacy
+    { pkg: "sass", api: "modern" }, // default dependecy of pv-scripts
+  ];
+
+  for (const { pkg, api } of sassImplementationOptions) {
+    try {
+      require.resolve(pkg);
+      return {
+        implementation: require(pkg),
+        api,
+      };
+    } catch {}
+  }
+
+  return {};
+}

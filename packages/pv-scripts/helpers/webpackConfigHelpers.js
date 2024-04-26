@@ -25,6 +25,20 @@ const getCustomWebpackConfig = (configName) => {
   });
 };
 
+function getBuildDependencies() {
+  return [
+    "./pv.config.js",
+    "./webpack.config.js",
+    "./webpack.config.dev.js",
+    "./.browserslistrc",
+    "./.babelrc.json",
+    "./postcss.config.js",
+  ]
+    .map((configFile) => resolveApp(configFile))
+    .filter((filePath) => existsSync(filePath));
+}
+
 module.exports = {
   getCustomWebpackConfig,
+  getBuildDependencies,
 };

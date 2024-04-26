@@ -1,14 +1,12 @@
-const devConfigModule = require("./dev/module");
-const devConfigLegacy = require("./dev/legacy");
-const prodConfigModule = require("./prod/module");
-const prodConfigLegacy = require("./prod/legacy");
+const devConfig = require("./dev/devConfig");
+const prodConfig = require("./prod/prodConfig");
 
 const getConfig = (runMode) => {
   if (runMode === "development") {
-    return [devConfigModule, devConfigLegacy];
+    return devConfig;
   }
 
-  return [prodConfigModule, prodConfigLegacy];
+  return prodConfig;
 };
 
 module.exports = {

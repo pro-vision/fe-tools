@@ -32,24 +32,6 @@ const jsEntry = () => {
   return resolveApp(config.jsEntry.replace(extname, getJSExtName(config)));
 };
 
-const jsLegacyEntry = () => {
-  if (config.jsLegacyEntry !== defaultConfig.jsLegacyEntry) {
-    return resolveApp(config.jsLegacyEntry);
-  }
-
-  const extname = path.extname(config.jsLegacyEntry);
-
-  const jsLegacyEntryPath = resolveApp(
-    config.jsLegacyEntry.replace(extname, getJSExtName(config))
-  );
-
-  const jsLegacyEntryExists = existsSync(jsLegacyEntryPath);
-
-  if (jsLegacyEntryExists) return jsLegacyEntryPath;
-
-  return jsEntry();
-};
-
 const cssEntry = resolveApp(config.cssEntry);
 const appTarget = resolveApp(config.destPath);
 
@@ -75,7 +57,6 @@ module.exports = {
   appPath,
   appSrc,
   jsEntry,
-  jsLegacyEntry,
   cssEntry,
   appTarget,
   join,

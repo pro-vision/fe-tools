@@ -1,14 +1,14 @@
 const { merge } = require("webpack-merge");
 
 // Settings
-const moduleEntrySettings = require("./settings/entry/module");
-const moduleOutputSettings = require("./settings/output/module");
+const entrySettings = require("./settings/entry");
+const outputSettings = require("./settings/output");
 const baseSettings = require("./settings/baseSettings");
 const contextSettings = require("./settings/context");
 const resolveSettings = require("./settings/resolve");
 const performanceSettings = require("./settings/performance");
 // Tasks
-const getJSLoader = require("./tasks/jsLoading/getJSLoader");
+const compileJS = require("./tasks/compileJS");
 const loadFonts = require("./tasks/loadFonts");
 const compileShadowCSS = require("./tasks/compileShadowCSS");
 const loadHandlebars = require("./tasks/loadHandlebars");
@@ -18,6 +18,7 @@ const copyResourcesTask = require("./tasks/copyResources");
 const compileHTML = require("./tasks/compileHTML");
 const copyStatic = require("./tasks/copyStatic");
 const compileCSS = require("./tasks/compileCSS");
+const compileSVG = require("./tasks/compileSVG");
 // Helper
 const {
   getBuildConfig,
@@ -28,17 +29,18 @@ const {
 const { useTS, copyStaticFiles, cleanDest, enableTypeCheck } = getBuildConfig();
 
 module.exports = merge(
-  moduleEntrySettings,
-  moduleOutputSettings,
+  entrySettings,
+  outputSettings,
   baseSettings,
   contextSettings,
   resolveSettings,
   performanceSettings,
   cleanDest ? cleanDestTask : {},
-  getJSLoader("module"),
+  compileJS,
   useTS && enableTypeCheck ? tsTypeChecking : {},
   compileCSS,
   compileShadowCSS,
+  compileSVG,
   shouldUseHtmlCompiler() ? compileHTML : {},
   loadFonts,
   loadHandlebars,

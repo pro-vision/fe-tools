@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.1](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@5.0.0...@pro-vision/pv-scripts@5.0.1) (2024-04-29)
+
+
+### Bug Fixes
+
+* **pv-scripts:** fixed issue where prod-build process was not finished ([7af5db2](https://github.com/pro-vision/fe-tools/commit/7af5db2f355b7ab65d87eb8877a82304eb8e30f1))
+
+
+
+
+
 # [5.0.0](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@4.2.0...@pro-vision/pv-scripts@5.0.0) (2024-04-29)
 
 

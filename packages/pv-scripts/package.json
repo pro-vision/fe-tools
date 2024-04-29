@@ -1,6 +1,6 @@
 {
 	"name": "@pro-vision/pv-scripts",
-	"version": "4.2.0",
+	"version": "5.0.0",
 	"description": "CLI for zero configuration frontend-toolchain setup.",
 	"author": "Frederik Riewerts <friewerts@pro-vision.de>",
 	"license": "ISC",
@@ -22,8 +22,8 @@
 		"url": "https://github.com/pro-vision/fe-tools"
 	},
 	"engines": {
-    "node": ">=18.12.0"
-  },
+		"node": ">=18.12.0"
+	},
 	"bin": {
 		"pv-scripts": "./bin/pv-scripts.js"
 	},

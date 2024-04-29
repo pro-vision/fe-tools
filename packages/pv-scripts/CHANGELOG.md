@@ -3,6 +3,48 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@4.2.0...@pro-vision/pv-scripts@5.0.0) (2024-04-29)
+
+
+### Build System
+
+* **pv-scripts:** update webpack dependencies ([9cdae7c](https://github.com/pro-vision/fe-tools/commit/9cdae7c4c477a7057c17d5ad81da6d380069dddb))
+
+
+### Code Refactoring
+
+* **pv-scripts:** combine all webpack-babel configs for different js file types (js,ts,jsx,tsx) ([f350aa4](https://github.com/pro-vision/fe-tools/commit/f350aa44a9d99b28444f578e2cfae12ebe264798))
+
+
+### Features
+
+* **pv-scripts:** add additional support for the new es decorators ([584a5a6](https://github.com/pro-vision/fe-tools/commit/584a5a6f334ecb43140410fe704e6fec47f332f4))
+* **pv-scripts:** add suport for bundling svg files ([1a08e7d](https://github.com/pro-vision/fe-tools/commit/1a08e7d165dc3ffb8636f69c1ecebcf5ddbe4e8e))
+* **pv-scripts:** add support for webpack build caching ([92da961](https://github.com/pro-vision/fe-tools/commit/92da961c543a6ed3f842b843c161c795a3a2acc4))
+* **pv-scripts:** choose sass implementation automatically ([13abc3f](https://github.com/pro-vision/fe-tools/commit/13abc3f7e1a1351ea11dd83733857fc70026c7de))
+* **pv-scripts:** remove the "legacy" bundle ([0a23007](https://github.com/pro-vision/fe-tools/commit/0a230072ec1cdcaa2779eff921c7be379c4c86bf))
+* **pv-scripts:** replace using node-sass with (dart-)sass ([dc9642b](https://github.com/pro-vision/fe-tools/commit/dc9642b30e10f371db49c706070ade9a8bee3ed8))
+
+
+### BREAKING CHANGES
+
+* **pv-scripts:** Minimum `Node.js` version supported by the webpack plugins is `18.12.0`
+* **pv-scripts:** (medium-risk) svg files will automatically be boundled. check
+https://github.com/pro-vision/fe-tools/tree/master/packages/pv-scripts#svg-loading to see if you
+need to change your configuration
+* **pv-scripts:** (low-risk) webpack config is applied to jsx, ts and tsx files even when `useTS` or
+`useReact` are false in the pv.config.json. if you prefer to have a custom webpack config for these
+files instead, make sure to use `enforce: "pre"` in your custom webpack.config file
+* **pv-scripts:** "legacy" output is removed. only the "modern" bundle is generated, without any
+"module" or "modern" prefix. this also applies to all configurations (e.g. no
+webpack.config.module.js or no `[modern]` group in browserlist)
+* **pv-scripts:** see https://sass-lang.com/documentation/breaking-changes for migration from
+node-sass to dart-sass
+
+
+
+
+
 # [4.2.0](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@4.1.4...@pro-vision/pv-scripts@4.2.0) (2023-06-12)
 
 

@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.1.0](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-stylemark@4.0.5...@pro-vision/pv-stylemark@4.1.0) (2024-04-29)
+
+
+### Bug Fixes
+
+* **pv-stylemark:** fix regex extracting css code block ([fe3bb8d](https://github.com/pro-vision/fe-tools/commit/fe3bb8d4a12b194615fd40b1bd5ca6fda0e6dc5b))
+
+
+### Features
+
+* **pv-scripts:** add option to use the styleguide's example markup without modification ([c5a5e66](https://github.com/pro-vision/fe-tools/commit/c5a5e6606949d36815a69f8f648cfff25308aa8a)), closes [#227](https://github.com/pro-vision/fe-tools/issues/227)
+* **pv-stylemark:** add info regarding the source of the components styleguide to the new stlymark ([59deaac](https://github.com/pro-vision/fe-tools/commit/59deaac005f60d7dbd9cdeac70022e42cc8e96fd))
+* **pv-stylemark:** add styling for table and blockquote from the markdown ([f363928](https://github.com/pro-vision/fe-tools/commit/f363928cde46f24a35543278265843e0adc6af82))
+* **pv-stylemark:** add suport for js and html executable code blocks. support the hidden attribute ([9afa746](https://github.com/pro-vision/fe-tools/commit/9afa746f9df49913fcb328296512628678bf4cf9))
+
+
+
+
+
 ## [4.0.5](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-stylemark@4.0.4...@pro-vision/pv-stylemark@4.0.5) (2024-03-04)
 
 

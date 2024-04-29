@@ -77,36 +77,29 @@ function webpackBuild(webpackConfig) {
   });
 }
 
-prepareWebpackConfig("production")
-  .then((webpackConfig) => {
-    return webpackBuild(webpackConfig);
-  })
-  .then(
-    ({ warnings }) => {
-      if (warnings.length) {
-        console.log(chalk.yellow("Compiled with warnings.\n"));
-        console.log(warnings.join("\n\n"));
-        console.log(
-          `\nSearch for the ${chalk.underline(
-            chalk.yellow("keywords")
-          )} to learn more about each warning.`
-        );
-      } else {
-        console.log(chalk.green("Compiled successfully.\n"));
-      }
-    },
-    (err) => {
-      console.log(chalk.red("Failed to compile.\n"));
-      printBuildError(err);
+const buildProduction = async () => {
+  try {
+    const webpackConfig = await prepareWebpackConfig("production");
+    const { warnings } = await webpackBuild(webpackConfig);
 
-      process.exit(1);
+    if (warnings.length) {
+      console.log(chalk.yellow("Compiled with warnings.\n"));
+      console.log(warnings.join("\n\n"));
+      console.log(
+        `\nSearch for the ${chalk.underline(
+          chalk.yellow("keywords")
+        )} to learn more about each warning.`
+      );
+    } else {
+      console.log(chalk.green("Compiled successfully.\n"));
     }
-  )
-  .catch((err) => {
-    console.log("sss");
+    process.exit(0);
+  } catch (err) {
+    console.log(chalk.red("Failed to compile.\n"));
+    printBuildError(err);
 
-    if (err && err.message) {
-      console.log(err.message);
-    }
     process.exit(1);
-  });
+  }
+};
+
+buildProduction();

@@ -26,7 +26,7 @@ declare namespace PvCreateComponent {
     name: ComponentName; // e.g. "related content"
     type: ComponentTypes; // is this an element or module
     hasScss: boolean; // component has .scss file
-    hasHbs: hasHbs; // component has .hbs file
+    hasHbs: boolean; // component has .hbs file
     dataFile: DataFileType | false;
     hasTs: boolean; // component has .ts file
     hasJs: boolean; // component has .js file
@@ -54,7 +54,7 @@ declare namespace PvCreateComponent {
     files?: Array<{
       id?: string;
       // whether or not the file should be created
-      when?: boolean | ((opt: Options) => boolean) = true;
+      when?: boolean | ((opt: Options) => boolean);
       // function which returns the boilerplate code to be used as the starter
       template: (opt: TemplateOptions) => string;
       // path to stored the generated file. is relative to the cmd cwd
@@ -63,7 +63,7 @@ declare namespace PvCreateComponent {
     imports?: Array<{
       id?: string;
       // whether or not the import should be added
-      when: boolean | ((opt: Options) => boolean) = true;
+      when?: boolean | ((opt: Options) => boolean);
       // path of file where the import statement is added to
       path: string | ((opt: TemplateOptions) => string);
       // should return the import statement or any text which will be added to the file

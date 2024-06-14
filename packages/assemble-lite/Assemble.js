@@ -1,5 +1,7 @@
 const { basename, relative, dirname, extname } = require("path");
+const { promisify } = require("util");
 const { readJson, readFile } = require("fs-extra");
+const fsExtra = require("fs-extra");
 const pvHandlebars = require("handlebars").create();
 const { loadFront } = require("yaml-front-matter");
 const handlebarsHelpers = require("handlebars-helpers/lib/index");
@@ -7,12 +9,7 @@ const { load } = require("js-yaml");
 
 const Timer = require("./Timer");
 const Visitor = require("./Visitor");
-const {
-  getPaths,
-  asyncReadFile,
-  asyncWriteFile,
-  getName,
-} = require("./helper/io-helper");
+const { getPaths, asyncReadFile, getName } = require("./helper/io-helper");
 
 /**
  * provides an instance which build html pages from handlebars templates, helpers and data
@@ -40,6 +37,7 @@ module.exports = class Assemble {
     // it helps the user to not forget to fix stuff,
     // and sometimes a simple re-run might help. e.g. when there was a i/o issues
     this.failedPaths = [];
+    this.fs = fsExtra;
   }
 
   // console logs in verbose mode
@@ -443,7 +441,7 @@ module.exports = class Assemble {
 
     // only write to disc when the value changes
     if (html !== tpl.output)
-      await asyncWriteFile(targetDir, reldir, filename, html);
+      this._asyncWriteFile(targetDir, reldir, filename, html);
     tpl.output = html;
   }
 
@@ -621,5 +619,12 @@ module.exports = class Assemble {
         if (cb) cb(obj[key]);
         delete obj[key];
       });
+  }
+
+  // writes to the content to the file system. depending on the setup this might be the real file system or one in memory.
+  async _asyncWriteFile(target, reldir, filename, markup) {
+    await promisify(this.fs.mkdir)(`${target}/${reldir}`, { recursive: true });
+    // eslint-disable-next-line prettier/prettier
+    await promisify(this.fs.writeFile)(`${target}/${reldir}/${filename}.html`, markup);
   }
 };

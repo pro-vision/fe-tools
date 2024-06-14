@@ -1,12 +1,12 @@
 const { resolve } = require("path");
-const { readFile } = require("fs-extra");
+const { readFile: fsReadFile } = require("fs-extra");
 const hbsInstance = require("handlebars").create();
 
-const { writeFile } = require("../../helper/io-helper");
+const { writeFile, readFile } = require("../../helper/io-helper");
 const { resolveApp, getAppConfig, join } = require("../../helper/paths");
 
 const loadTemplate = async hbsInst => {
-  const templateContent = await readFile(resolve(__dirname, "../templates/lsg-example.hbs"), {
+  const templateContent = await fsReadFile(resolve(__dirname, "../templates/lsg-example.hbs"), {
     encoding: "utf-8",
   });
   return hbsInst.compile(templateContent);

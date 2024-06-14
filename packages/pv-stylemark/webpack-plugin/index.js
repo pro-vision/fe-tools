@@ -3,6 +3,7 @@ const Assemble = require("@pro-vision/assemble-lite/Assemble");
 const buildStylemark = require("../scripts/buildStylemarkLsg");
 const { getFilesToWatch, fileGlobes } = require("./getFilesToWatch");
 const { resolveApp, getAppConfig, join } = require("../helper/paths");
+const { updateFileSystemConnector } = require("../helper/io-helper");
 
 const { destPath, componentsSrc } = getAppConfig();
 class PvStylemarkPlugin {
@@ -43,6 +44,7 @@ class PvStylemarkPlugin {
       const buildLsg = buildAssemble || copyStylemarkFiles;
 
       if (buildAssemble) {
+        this.assemble.fs = compiler.outputFileSystem;
         await this.assemble.build(
           {
             baseDir: resolveApp(componentsSrc),
@@ -63,6 +65,7 @@ class PvStylemarkPlugin {
       }
 
       if (buildLsg) {
+        updateFileSystemConnector(compiler.outputFileSystem);
         await buildStylemark({
           // unless files were changed but none was a static stylemark file
           shouldCopyStyleguideFiles: copyStylemarkFiles,

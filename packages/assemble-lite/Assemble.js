@@ -121,8 +121,15 @@ module.exports = class Assemble {
       this.log("modified files:", modifiedFiles);
       if (this.failedPaths.length)
         this.log("failed paths from last build:", this.failedPaths);
+
+      const jsDataPaths = dataPaths.filter((path) => path.endsWith(".js"));
+      // js data files are `require`d, if modified, remove it from cache to get the new content
+      modifiedFiles.forEach((path) => {
+        if (jsDataPaths.includes(path)) delete require.cache[path];
+      });
       // re-try the failed files from the last try
-      modifiedFiles.push(...this.failedPaths);
+      // also add the js data providers, which might return different data, even when the file itself wasn't changed. e.g. fetching or reading from fs
+      modifiedFiles.push(...this.failedPaths, ...jsDataPaths);
       // reset the list from the last run for the next iteration
       this.failedPaths = [];
 
@@ -534,6 +541,8 @@ module.exports = class Assemble {
             dataPool[filename] = load(await readFile(path, "utf-8"), {
               filename,
             });
+          } else if (ext === ".js") {
+            dataPool[filename] = await this._loadJsData(path, filename);
           }
         } catch (error) {
           console.error(
@@ -547,6 +556,40 @@ module.exports = class Assemble {
       })
     );
     return dataPool;
+  }
+
+  // extracts data from the js data provider files
+  // some data files are provided via async function,
+  // during watch build, to have faster builds, if the functions takes too long to finish, the old stale data is used,
+  // and in the background the data is fetched and added to the data cache.
+  // this will be used on the next build cycle
+  async _loadJsData(path, name) {
+    let result = require(path);
+    // js returns a json
+    if (typeof result !== "function") return result;
+
+    // js returned a function
+    result = result();
+
+    // sync, can be used right away
+    if (!(result instanceof Promise)) return result;
+
+    // if there is no cached value for this data file,
+    // then there is no other option to wait till the data is generated
+    if (!this.dataPool.hasOwnProperty(name)) return await result;
+
+    const oldValue = this.dataPool[name];
+
+    return Promise.race([
+      // wait 20 ms for the result to be returned,
+      // fallback to the old stale value if it takes longer,
+      // and then update the cache once it is loaded
+      new Promise((resolve) => setTimeout(() => resolve(oldValue), 20)),
+      result.then((newValue) => {
+        this.dataPool[name] = newValue;
+        return newValue;
+      }),
+    ]);
   }
 
   /**

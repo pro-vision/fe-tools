@@ -5,6 +5,7 @@ interface Settings {
   showHoverInfo: boolean;
   provideCssClassGoToDefinition: boolean;
   provideCssClassCompletion: boolean;
+  validateHandlebars: boolean;
 }
 
 // singleton class to return users extension settings

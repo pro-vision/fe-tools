@@ -16,6 +16,7 @@ import { definitionProvider } from "./definitionProvider";
 import { completionProvider } from "./completionProvider";
 import { hoverProvider } from "./hoverProvider";
 import { getFilePath } from "./helpers";
+import { codelensProvider } from "./codelensProvider";
 
 // Create a connection for the server, using Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
@@ -57,6 +58,9 @@ connection.onInitialize((params: InitializeParams) => {
         workspaceDiagnostics: false,
       },
       workspaceFolders: { supported: true },
+      codeLensProvider: {
+        resolveProvider: true,
+      },
     },
   };
 });
@@ -106,6 +110,13 @@ connection.onDefinition(({ textDocument, position }) => {
   }
 
   return null;
+});
+
+connection.onCodeLens(async ({ textDocument }) => {
+  const document = documents.get(textDocument.uri);
+  const settings = await SettingsService.getDocumentSettings(textDocument.uri);
+
+  if (document && settings.showUIAndEvents) return codelensProvider(document);
 });
 
 // is called when the file is first opened and every time it is modified

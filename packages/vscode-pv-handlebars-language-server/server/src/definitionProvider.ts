@@ -133,6 +133,7 @@ export async function definitionProvider(
   }
   // <custom-element
   else if (/<\/?[a-z]+[a-z0-9_-]+$/.test(textBefore) || / is="[a-z]+[a-z0-9_-]+$/.test(textBefore)) {
+    // assuming filename and custom tag are the same
     const customElementFile = await globby(`${componentsRootPath}/**/${symbolName}.ts`);
     if (customElementFile.length) {
       const cePath = customElementFile[0];

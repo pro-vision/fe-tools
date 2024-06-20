@@ -4,7 +4,7 @@ import { promisify } from "util";
 import * as globby from "globby";
 import * as yamlFront from "yaml-front-matter";
 import { URI } from "vscode-uri";
-import type { Position } from "vscode-languageserver/node";
+import type { Position, TextDocumentIdentifier } from "vscode-languageserver/node";
 import type { TextDocument } from "vscode-languageserver-textdocument";
 
 interface PVConfig {
@@ -49,7 +49,7 @@ export function basename(filePath: string): string {
  * @param {TextDocument} document
  * @returns {string}
  */
-export function getFilePath(document: TextDocument): string {
+export function getFilePath(document: TextDocument | TextDocumentIdentifier): string {
   const fsPath = URI.parse(document.uri).fsPath;
   // convert to unix paths
   return toUnixPath(fsPath);

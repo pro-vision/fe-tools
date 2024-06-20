@@ -26,8 +26,11 @@ export function activate(context: ExtensionContext): void {
 
   // Options to control the language client
   const clientOptions: LanguageClientOptions = {
-    // Register the server for Handlebars documents
-    documentSelector: [{ scheme: "file", language: "handlebars" }],
+    // Register the server for Handlebars documents and Typescript
+    documentSelector: [
+      { scheme: "file", language: "handlebars" },
+      { scheme: "file", language: "typescript" },
+    ],
   };
 
   // Create the language client and start the client.

@@ -6,6 +6,7 @@ import * as yamlFront from "yaml-front-matter";
 import { URI } from "vscode-uri";
 import type { Position, TextDocumentIdentifier } from "vscode-languageserver/node";
 import type { TextDocument } from "vscode-languageserver-textdocument";
+import rgx from "./rgx";
 
 interface PVConfig {
   hbsHelperSrc?: string;
@@ -55,15 +56,25 @@ export function getFilePath(document: TextDocument | TextDocumentIdentifier): st
   return toUnixPath(fsPath);
 }
 
+export function isHandlebarsFile(uri: string) {
+  return uri.endsWith(".hbs");
+}
+
+export function isTypescriptFile(uri: string) {
+  return uri.endsWith(".ts");
+}
+
 /**
  * returns true if the .hbs file's path seams to belong to a repo with the p!v fe archetype structure
  * @param {string} templatePath - absolute path (with unix separators) to a hbs file
  * @returns {boolean}
  */
 export function isPVArchetype(templatePath: string): boolean {
-  return templatePath.includes("/frontend/src/components")
-   || templatePath.includes("/frontend/src/pages")
-   || templatePath.includes("/frontend/src/layouts");
+  return (
+    templatePath.includes("/frontend/src/components") ||
+    templatePath.includes("/frontend/src/pages") ||
+    templatePath.includes("/frontend/src/layouts")
+  );
 }
 
 /**
@@ -149,7 +160,10 @@ export async function getCustomHelperFiles(componentsRootPath: string): Promise<
   return helperPaths.map(filePath => ({ path: filePath, name: path.basename(filePath, ".js") }));
 }
 
-interface LayoutFiles {lsg?: {[name: string]: string}, pages?: {[name: string]: string}}
+interface LayoutFiles {
+  lsg?: { [name: string]: string };
+  pages?: { [name: string]: string };
+}
 
 // list of hbs files which are used in assemble-lite as layouts for lsg components or pages
 export async function getLayoutFiles(componentsRootPath: string): Promise<LayoutFiles | null> {
@@ -158,7 +172,7 @@ export async function getLayoutFiles(componentsRootPath: string): Promise<Layout
 
   if (pvConfig === null) return null;
 
-  const layouts: Array<{name: "lsg" | "pages", dir: string | undefined}> = [
+  const layouts: Array<{ name: "lsg" | "pages"; dir: string | undefined }> = [
     {
       name: "lsg",
       dir: pvConfig.lsgTemplatesSrc,
@@ -171,9 +185,9 @@ export async function getLayoutFiles(componentsRootPath: string): Promise<Layout
 
   const layoutFiles: LayoutFiles = {};
 
-  for (const {name, dir} of layouts) {
+  for (const { name, dir } of layouts) {
     if (dir) {
-      const pageLayoutsGlob = toUnixPath(path.join(frontendRootPath , dir, "/**/*.hbs"));
+      const pageLayoutsGlob = toUnixPath(path.join(frontendRootPath, dir, "/**/*.hbs"));
       const layouts = await globby(pageLayoutsGlob);
       layoutFiles[name] = Object.fromEntries(layouts.map(filePath => [path.basename(filePath, ".hbs"), filePath]));
     }
@@ -258,7 +272,7 @@ export function isPartialParameter(text: string): boolean {
  * @returns {string}
  */
 export async function getHbsContent(filePath: string): Promise<string> {
-  const fileContent = await readFile(filePath, { encoding: "utf-8" });
+  const fileContent = await getFileContent(filePath);
   const hbsCode = yamlFront.loadFront(fileContent).__content.trim();
   return hbsCode;
 }
@@ -280,4 +294,90 @@ export function getCurrentSymbolsName(document: TextDocument, position: Position
   const symbolName = symbolBeforeCursorPart + symbolAfterCursorPart;
 
   return symbolName;
+}
+
+// returns all the css classes in for the hbs template of the given ts file
+// and the hbs partials it is referencing directly or indirectly
+export async function getCssClasses(filePath: string) {
+  const dir = path.dirname(filePath);
+  const name = basename(filePath);
+
+  const cssClasses = [];
+  // assuming the markup example of the custom element defined in foo-bar.ts is in foo-bar.hbs
+  const hbsTemplate = (await globby(`${dir}/**/${name}.hbs`))[0];
+  if (!hbsTemplate) return [];
+
+  const templates = await getNestedTemplates(hbsTemplate);
+
+  for (const hbsFile of templates) {
+    const fileContent = hbsFile.fileContent;
+    const regex = new RegExp(rgx.hbs.classNamesAndTags(), "g");
+    let matches;
+    while ((matches = regex.exec(fileContent)) !== null) {
+      if (!matches.groups!.className) continue;
+
+      const contentBefore = fileContent.substring(0, matches.index);
+      const line = contentBefore.split("\n").length - 1;
+      const character = matches.index - contentBefore.lastIndexOf("\n");
+      let className = matches.groups!.className;
+      className = className.replace(/{{.*?}}/g, "");
+      const classes = className
+        .split(" ")
+        .map(c => c.trim())
+        .filter(c => c !== "");
+      cssClasses.push(
+        ...classes.map(clss => ({
+          className: clss,
+          location: {
+            filePath,
+            line,
+            character,
+          },
+        })),
+      );
+    }
+  }
+
+  return cssClasses;
+}
+
+// returns a list of all partials used in the given hbs content
+export async function getReferencedHbsPartialNames(fileContent: string) {
+  return Array.from(fileContent.matchAll(rgx.hbs.partials())).map(match => match.groups!.partial);
+}
+
+// returns a list of hbs files that are directly or indirectly via partial referenced in the given file(s)
+export async function getNestedTemplates(hbsTemplate: string) {
+  const visited: string[] = [];
+  async function searchRecursive(filePaths: string | string[]) {
+    const results: Array<{ filePath: string; fileContent: string }> = [];
+
+    if (Array.isArray(filePaths)) {
+      for (const filePath of filePaths) {
+        results.push(...(await searchRecursive(filePath)));
+      }
+    } else if (!visited.includes(filePaths)) {
+      visited.push(filePaths);
+      const fileContent = await getFileContent(filePaths);
+      results.push({ filePath: filePaths, fileContent });
+
+      let componentsRootPath;
+      try {
+        componentsRootPath = getComponentsRootPath(filePaths);
+      } catch (_err) {
+        // err e.g. in case of it not having p!v folder structure
+        return results;
+      }
+
+      const partials = await getReferencedHbsPartialNames(fileContent);
+      for (const partial of partials) {
+        const partialPaths = await globby(`${componentsRootPath}/**/${partial}.hbs`);
+        results.push(...(await searchRecursive(partialPaths)));
+      }
+    }
+
+    return results;
+  }
+
+  return searchRecursive(hbsTemplate);
 }

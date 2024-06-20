@@ -25,7 +25,8 @@
     "vscode": "^1.43.0"
   },
   "activationEvents": [
-    "onLanguage:handlebars"
+    "onLanguage:handlebars",
+    "onLanguage:typescript"
   ],
   "main": "./client/out/extension",
   "contributes": {
@@ -62,6 +63,12 @@
           "type": "boolean",
           "default": true,
           "description": "Show ui and event info for html elements used by the kluntje custom elements in the hbs files."
+        },
+        "P!VHandlebarsLanguageServer.provideUiCompletionInTypescript": {
+          "scope": "window",
+          "type": "boolean",
+          "default": true,
+          "description": "For @klutnje componets, suggest the css classes and ui names in the @uiElement and @uiEvent."
         }
       }
     }

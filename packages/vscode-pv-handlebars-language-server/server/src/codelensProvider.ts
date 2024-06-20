@@ -4,8 +4,8 @@ import { TextDocument } from "vscode-languageserver-textdocument";
 import globby = require("globby");
 import { getCustomElementsUIAndEvents } from "./customElementDefinitionProvider";
 import { getFilePath } from "./helpers";
+import rgx from "./rgx";
 
-const classAndTagRegEx = () => /<(?<tagName>[a-zA-Z0-9_-]+)[^>]*?(class="(?<className>[^"]*))?"/g;
 
 /**
  * creates an object that can be consumed by onCodeLens request handler (see vscode's `CodeLens` interface for more info)
@@ -54,7 +54,7 @@ export async function codelensProvider(textDocument: TextDocument) {
   if (!selectors) return null;
 
   const content = textDocument.getText();
-  const regex = classAndTagRegEx();
+  const regex = new RegExp(rgx.hbs.classNamesAndTags(), "g");
   let matches;
 
   while ((matches = regex.exec(content)) !== null) {

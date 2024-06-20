@@ -15,8 +15,9 @@ import DiagnosticProvide from "./diagnosticProvider";
 import { definitionProvider } from "./definitionProvider";
 import { completionProvider } from "./completionProvider";
 import { hoverProvider } from "./hoverProvider";
-import { getFilePath } from "./helpers";
+import { getFilePath, isHandlebarsFile, isTypescriptFile } from "./helpers";
 import { codelensProvider } from "./codelensProvider";
+import { tsCompletionProvider } from "./tsCompletionProvider";
 
 // Create a connection for the server, using Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
@@ -75,9 +76,11 @@ connection.onDidChangeConfiguration(_change => {
 
   // update diagnostics info for the open files
   openDocuments.forEach(async document => {
-    const settings = await SettingsService.getDocumentSettings(document.uri);
-    if (settings.validateHandlebars) DiagnosticProvide.setDiagnostics(document);
-    else DiagnosticProvide.unsetDiagnostics(document);
+    if (isHandlebarsFile(document.uri)) {
+      const settings = await SettingsService.getDocumentSettings(document.uri);
+      if (settings.validateHandlebars) DiagnosticProvide.setDiagnostics(document);
+      else DiagnosticProvide.unsetDiagnostics(document);
+    }
   });
 });
 
@@ -85,10 +88,15 @@ connection.onDidChangeConfiguration(_change => {
 connection.onCompletion(async (textDocumentPosition: TextDocumentPositionParams): Promise<CompletionItem[] | null> => {
   const document = documents.get(textDocumentPosition.textDocument.uri);
 
-  if (document) {
-    const filePath = getFilePath(document);
-    if (filePath) return completionProvider(document, textDocumentPosition.position, filePath);
-  }
+  if (!document) return null;
+
+  const filePath = getFilePath(document);
+  const settings = await SettingsService.getDocumentSettings(document.uri);
+
+  if (isHandlebarsFile(filePath)) return completionProvider(document, textDocumentPosition.position, filePath);
+  else if (isTypescriptFile(filePath) && settings.provideUiCompletionInTypescript)
+    return tsCompletionProvider(document, textDocumentPosition.position, filePath);
+
   return null;
 });
 
@@ -96,7 +104,7 @@ connection.onHover(async ({ textDocument, position }) => {
   const document = documents.get(textDocument.uri);
   const settings = await SettingsService.getDocumentSettings(textDocument.uri);
 
-  if (document && settings.showHoverInfo) return hoverProvider(document, position);
+  if (document && settings.showHoverInfo && isHandlebarsFile(textDocument.uri)) return hoverProvider(document, position);
 
   return null;
 });
@@ -106,7 +114,7 @@ connection.onDefinition(({ textDocument, position }) => {
 
   if (document) {
     const filePath = getFilePath(document);
-    if (filePath) return definitionProvider(document, position, filePath);
+    if (isHandlebarsFile(filePath)) return definitionProvider(document, position, filePath);
   }
 
   return null;
@@ -116,21 +124,26 @@ connection.onCodeLens(async ({ textDocument }) => {
   const document = documents.get(textDocument.uri);
   const settings = await SettingsService.getDocumentSettings(textDocument.uri);
 
-  if (document && settings.showUIAndEvents) return codelensProvider(document);
+  if (document && settings.showUIAndEvents && isHandlebarsFile(textDocument.uri)) return codelensProvider(document);
 });
 
 // is called when the file is first opened and every time it is modified
 // only supporting push diagnostics
 documents.onDidChangeContent(change => {
   const document = change.document;
-  DiagnosticProvide.setDiagnostics(document);
-  openDocuments.add(document);
+  if (isHandlebarsFile(document.uri)) {
+    DiagnosticProvide.setDiagnostics(document);
+    openDocuments.add(document);
+  }
 });
 
 // a document has closed: clear all diagnostics
 documents.onDidClose(event => {
-  DiagnosticProvide.unsetDiagnostics(event.document);
-  openDocuments.delete(event.document);
+  const document = event.document;
+  if (isHandlebarsFile(document.uri)) {
+    DiagnosticProvide.unsetDiagnostics(document);
+    openDocuments.delete(document);
+  }
 });
 
 // Make the text document manager listen on the connection

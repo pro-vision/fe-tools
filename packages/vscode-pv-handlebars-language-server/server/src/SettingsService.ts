@@ -7,6 +7,7 @@ interface Settings {
   provideCssClassCompletion: boolean;
   validateHandlebars: boolean;
   showUIAndEvents: boolean;
+  provideUiCompletionInTypescript: boolean;
 }
 
 // singleton class to return users extension settings

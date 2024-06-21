@@ -1,9 +1,9 @@
-module.exports = function({componentName, dataFile}) {
+module.exports = function({componentName, dataFile, hasHbs}) {
   return (
 `---
 layout: default
 ---
 
-{{> ${componentName}${dataFile ? ` @root.${componentName}__data` : ""}}}
+${hasHbs ? `{{> ${componentName}${dataFile ? ` @root.${componentName}__data` : ""}}}` : ""}
 `);
 };

@@ -10,8 +10,10 @@ export default {
     endsWithEventListenerDecoratorTarget: () => /@eventListener\({[^}]*target:\s*"[^"]*$/,
   },
   hbs: {
-    // `<some-tag class="className {{#if foo}}className2{{/if}}"`
-    classNamesAndTags: () => /<(?<tagName>[a-zA-Z0-9_-]+)[^>]*?(class="(?<className>[^"]*))?"/,
+    // `<some-tag`
+    tags: () => /<(?<tagName>[a-zA-Z0-9_-]+)/,
+    // `<some-tag ... class="className {{...}}className2"`
+    classNames: () => /<(?<tagName>[a-zA-Z0-9_-]+)[^>]*?class="(?<className>[^"]*)"/,
     // {{#> some-partial
     partials: () => /{{#?>\s*(?<partial>[-_a-zA-Z0-9]+)/g,
   },

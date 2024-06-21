@@ -18,6 +18,7 @@ import { hoverProvider } from "./hoverProvider";
 import { getFilePath, isHandlebarsFile, isTypescriptFile } from "./helpers";
 import { codelensProvider } from "./codelensProvider";
 import { tsCompletionProvider } from "./tsCompletionProvider";
+import { tsDefinitionProvider } from "./tsDefinitionProvider";
 
 // Create a connection for the server, using Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
@@ -86,45 +87,44 @@ connection.onDidChangeConfiguration(_change => {
 
 // This handler provides the initial list of the completion items.
 connection.onCompletion(async (textDocumentPosition: TextDocumentPositionParams): Promise<CompletionItem[] | null> => {
-  const document = documents.get(textDocumentPosition.textDocument.uri);
-
-  if (!document) return null;
+  const document = documents.get(textDocumentPosition.textDocument.uri)!;
 
   const filePath = getFilePath(document);
   const settings = await SettingsService.getDocumentSettings(document.uri);
 
   if (isHandlebarsFile(filePath)) return completionProvider(document, textDocumentPosition.position, filePath);
-  else if (isTypescriptFile(filePath) && settings.provideUiCompletionInTypescript)
+  else if (isTypescriptFile(filePath) && settings.provideUiSupportInTypescript)
     return tsCompletionProvider(document, textDocumentPosition.position, filePath);
 
   return null;
 });
 
 connection.onHover(async ({ textDocument, position }) => {
-  const document = documents.get(textDocument.uri);
+  const document = documents.get(textDocument.uri)!;
   const settings = await SettingsService.getDocumentSettings(textDocument.uri);
 
-  if (document && settings.showHoverInfo && isHandlebarsFile(textDocument.uri)) return hoverProvider(document, position);
+  if (settings.showHoverInfo && isHandlebarsFile(textDocument.uri)) return hoverProvider(document, position);
 
   return null;
 });
 
-connection.onDefinition(({ textDocument, position }) => {
-  const document = documents.get(textDocument.uri);
+connection.onDefinition(async ({ textDocument, position }) => {
+  const document = documents.get(textDocument.uri)!;
+  const settings = await SettingsService.getDocumentSettings(document.uri);
+  const filePath = getFilePath(document);
 
-  if (document) {
-    const filePath = getFilePath(document);
-    if (isHandlebarsFile(filePath)) return definitionProvider(document, position, filePath);
-  }
+  if (isHandlebarsFile(filePath)) return definitionProvider(document, position, filePath);
+  else if (isTypescriptFile(filePath) && settings.provideUiSupportInTypescript)
+    return tsDefinitionProvider(document, position, filePath);
 
   return null;
 });
 
 connection.onCodeLens(async ({ textDocument }) => {
-  const document = documents.get(textDocument.uri);
+  const document = documents.get(textDocument.uri)!;
   const settings = await SettingsService.getDocumentSettings(textDocument.uri);
 
-  if (document && settings.showUIAndEvents && isHandlebarsFile(textDocument.uri)) return codelensProvider(document);
+  if (settings.showUiAndEvents && isHandlebarsFile(textDocument.uri)) return codelensProvider(document);
 });
 
 // is called when the file is first opened and every time it is modified

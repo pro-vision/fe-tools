@@ -311,29 +311,33 @@ export async function getCssClasses(filePath: string) {
 
   for (const hbsFile of templates) {
     const fileContent = hbsFile.fileContent;
-    const regex = new RegExp(rgx.hbs.classNamesAndTags(), "g");
-    let matches;
-    while ((matches = regex.exec(fileContent)) !== null) {
-      if (!matches.groups!.className) continue;
-
-      const contentBefore = fileContent.substring(0, matches.index);
-      const line = contentBefore.split("\n").length - 1;
-      const character = matches.index - contentBefore.lastIndexOf("\n");
-      let className = matches.groups!.className;
+    const matches = Array.from(fileContent.matchAll(new RegExp(rgx.hbs.classNames(), "g")));
+    for (const match of matches) {
+      let className = match.groups!.className;
       className = className.replace(/{{.*?}}/g, "");
+
       const classes = className
         .split(" ")
         .map(c => c.trim())
         .filter(c => c !== "");
+
       cssClasses.push(
-        ...classes.map(clss => ({
-          className: clss,
-          location: {
-            filePath,
-            line,
-            character,
-          },
-        })),
+        ...classes.map(clss => {
+          const start = getPositionAt(fileContent, match!.index + match![0].indexOf(clss));
+          return {
+            className: clss,
+            location: {
+              filePath: hbsFile.filePath,
+              range: {
+                start: start,
+                end: {
+                  line: start.line,
+                  character: start.character + clss.length,
+                },
+              },
+            },
+          };
+        }),
       );
     }
   }
@@ -358,6 +362,7 @@ export async function getNestedTemplates(hbsTemplate: string) {
       }
     } else if (!visited.includes(filePaths)) {
       visited.push(filePaths);
+
       const fileContent = await getFileContent(filePaths);
       results.push({ filePath: filePaths, fileContent });
 
@@ -380,4 +385,23 @@ export async function getNestedTemplates(hbsTemplate: string) {
   }
 
   return searchRecursive(hbsTemplate);
+}
+
+/**
+ * Converts a zero-based offset to a position (line, character).
+ *
+ * @param {text} text
+ * @param {number} offset
+ * @returns {line: number, character: number}
+ */
+export function getPositionAt(text: string, offset: number) {
+  const textBefore = text.substring(0, offset);
+  const lines = textBefore.split("\n");
+  const line = lines.length - 1;
+  const character = lines.at(-1)!.length;
+
+  return {
+    line,
+    character,
+  };
 }

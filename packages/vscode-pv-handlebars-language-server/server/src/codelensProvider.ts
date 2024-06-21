@@ -6,7 +6,6 @@ import { getCustomElementsUIAndEvents } from "./customElementDefinitionProvider"
 import { getFilePath } from "./helpers";
 import rgx from "./rgx";
 
-
 /**
  * creates an object that can be consumed by onCodeLens request handler (see vscode's `CodeLens` interface for more info)
  *
@@ -54,16 +53,26 @@ export async function codelensProvider(textDocument: TextDocument) {
   if (!selectors) return null;
 
   const content = textDocument.getText();
-  const regex = new RegExp(rgx.hbs.classNamesAndTags(), "g");
-  let matches;
+  // supporting ui selector being a css class, or a tag name for now
+  const matches = [
+    ...content.matchAll(new RegExp(rgx.hbs.tags(), "g")),
+    ...content.matchAll(new RegExp(rgx.hbs.classNames(), "g")),
+  ];
 
-  while ((matches = regex.exec(content)) !== null) {
+  for (const match of matches) {
     for (const [selector, item] of Object.entries(selectors)) {
       const classMatch =
-        selector.startsWith(".") && matches.groups!.className?.split(" ").includes(selector.replace(/^./, ""));
-      const tagMatch = matches.groups!.tagName === selector;
+        selector.startsWith(".") &&
+        match
+          // remove handlebar expressions
+          .groups!.className?.replaceAll(/{{.*?}}/g, "")
+          // split each css class
+          .split(" ")
+          // check if one is the same as the ui selector
+          .includes(selector.replace(/^./, ""));
+      const tagMatch = match.groups!.tagName === selector;
       if (classMatch || tagMatch) {
-        const line = content.substring(0, matches.index).split("\n").length - 1;
+        const line = content.substring(0, match.index).split("\n").length - 1;
 
         if (item.ui) {
           codeLenses.push(

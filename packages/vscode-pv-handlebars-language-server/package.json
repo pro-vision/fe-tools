@@ -58,13 +58,13 @@
           "default": true,
           "description": "Marks any parse issue in the handlebars files."
         },
-        "P!VHandlebarsLanguageServer.showUIAndEvents": {
+        "P!VHandlebarsLanguageServer.showUiAndEvents": {
           "scope": "window",
           "type": "boolean",
           "default": true,
           "description": "Show ui and event info for html elements used by the kluntje custom elements in the hbs files."
         },
-        "P!VHandlebarsLanguageServer.provideUiCompletionInTypescript": {
+        "P!VHandlebarsLanguageServer.provideUiSupportInTypescript": {
           "scope": "window",
           "type": "boolean",
           "default": true,

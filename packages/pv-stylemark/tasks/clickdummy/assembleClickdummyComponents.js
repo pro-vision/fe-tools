@@ -6,8 +6,8 @@ const { destPath, cdTemplatesSrc, componentsSrc, hbsHelperSrc } = getAppConfig()
 
 function* composeDataPaths(...fileExtensions) {
   for (const ext of fileExtensions) {
-    yield resolveApp(join(componentsSrc, `**/*.${ext}`));
-    yield resolveApp(join(cdTemplatesSrc, `*.${ext}`));
+    yield resolveApp(join(componentsSrc, `**/*${ext}`));
+    yield resolveApp(join(cdTemplatesSrc, `*${ext}`));
   }
 }
 
@@ -17,7 +17,7 @@ const assembleClickdummyComponents = () => {
     partials: resolveApp(join(componentsSrc, "**/*.hbs")),
     pages: resolveApp(join(componentsSrc, "**/*.hbs")),
     templates: resolveApp(join(cdTemplatesSrc, "**/*.hbs")),
-    data: [...composeDataPaths("json", "yaml", "yml")],
+    data: [...composeDataPaths(".json", ".yaml", ".yml", "__data.js"), ],
     helpers: resolveApp(join(hbsHelperSrc, "*.js")),
     target: resolveApp(join(destPath, "components")),
   });

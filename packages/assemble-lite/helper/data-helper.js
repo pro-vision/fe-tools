@@ -18,6 +18,10 @@ const loadData = async (data) => {
         dataPool[filename] = load(await readFile(path, "utf-8"), {
           filename,
         });
+      } else if (ext === ".js") {
+        const provider = require(path);
+        dataPool[filename] =
+          typeof provider === "function" ? await provider() : provider;
       }
     })
   );

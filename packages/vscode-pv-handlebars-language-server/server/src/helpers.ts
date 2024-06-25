@@ -131,7 +131,7 @@ export async function getPartials(componentsRootPath: string): Promise<Array<{ p
  * @returns {Promise<Array<{ path: string, name: string }>>}
  */
 export async function getDataFiles(componentsRootPath: string): Promise<Array<{ path: string; name: string }>> {
-  const partialPaths = await globby(`${componentsRootPath}/**/*.{json,yaml,yml}`);
+  const partialPaths = await globby(`${componentsRootPath}/**/*{.{json,yaml,yml},__data.js}`);
   return partialPaths.map(filePath => ({ path: filePath, name: basename(filePath) }));
 }
 

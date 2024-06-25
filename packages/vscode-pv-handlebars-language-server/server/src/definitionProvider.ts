@@ -59,7 +59,9 @@ export async function definitionProvider(
     ? `${filePath.split("/frontend/src/components")[0]}/frontend/src/components`
     : filePath.includes("src/pages/")
     ? `${filePath.split("/frontend/src/pages")[0]}/frontend/src/components`
-    : `${filePath.split("/frontend/src/layouts")[0]}/frontend/src/components`;
+    : filePath.includes("src/layouts/")
+    ? `${filePath.split("/frontend/src/layouts")[0]}/frontend/src/components`
+    : `${filePath.split("/frontend/src/templates")[0]}/frontend/src/components`;
 
   // e.g. {{> partial
   if (isPartial(textBefore)) {

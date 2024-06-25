@@ -77,7 +77,8 @@ export function isPVArchetype(templatePath: string): boolean {
   return (
     templatePath.includes("/frontend/src/components") ||
     templatePath.includes("/frontend/src/pages") ||
-    templatePath.includes("/frontend/src/layouts")
+    templatePath.includes("/frontend/src/layouts") ||
+    templatePath.includes("/frontend/src/templates")
   );
 }
 

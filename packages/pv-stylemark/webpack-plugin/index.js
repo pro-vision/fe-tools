@@ -54,6 +54,9 @@ class PvStylemarkPlugin {
             layouts: resolveApp(fileGlobes.assembleFiles.layouts),
             componentsTargetDirectory: resolveApp(join(destPath, "components")),
             pagesTargetDirectory: resolveApp(join(destPath, "pages")),
+            onError(errorMessage) {
+              compilation.errors.push(errorMessage);
+            },
           },
           this.firstRun ? null : changedAssembleFiles,
         );

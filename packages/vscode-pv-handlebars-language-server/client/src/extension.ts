@@ -1,7 +1,8 @@
 import * as path from "path";
-import type { ExtensionContext } from "vscode";
+import { type ExtensionContext, commands } from "vscode";
 import { LanguageClient, TransportKind } from "vscode-languageclient/node";
 import type { LanguageClientOptions, ServerOptions } from "vscode-languageclient/node";
+import { goToLocation } from "./commands";
 
 let client: LanguageClient;
 
@@ -25,8 +26,11 @@ export function activate(context: ExtensionContext): void {
 
   // Options to control the language client
   const clientOptions: LanguageClientOptions = {
-    // Register the server for Handlebars documents
-    documentSelector: [{ scheme: "file", language: "handlebars" }],
+    // Register the server for Handlebars documents and Typescript
+    documentSelector: [
+      { scheme: "file", language: "handlebars" },
+      { scheme: "file", language: "typescript" },
+    ],
   };
 
   // Create the language client and start the client.
@@ -39,6 +43,10 @@ export function activate(context: ExtensionContext): void {
 
   // Start the client. This will also launch the server
   client.start();
+
+  // running "editor.action.goToLocations" command directly in server code didn't work,
+  // custom command to get the arguments and execute command from the client code
+  commands.registerCommand("P!VHandlebarsLanguageServer.codelensAction", goToLocation);
 }
 
 export function deactivate(): Thenable<void> | undefined {

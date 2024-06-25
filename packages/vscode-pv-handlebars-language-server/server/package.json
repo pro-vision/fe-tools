@@ -10,11 +10,11 @@
 		"@babel/traverse": "^7.13.15",
 		"@pro-vision/handlebars-helpers": "^1.1.1",
 		"globby": "^11.0.3",
-		"handlebars": "^4.7.7",
+		"handlebars": "^4.7.8",
 		"handlebars-helpers": "^0.10.0",
 		"postcss-scss": "^3.0.5",
 		"postcss-selector-parser": "^6.0.4",
-		"vscode-languageserver": "^7.0.0",
+		"vscode-languageserver": "^9.0.1",
 		"vscode-languageserver-textdocument": "^1.0.1",
 		"vscode-uri": "^3.0.2",
 		"yaml-front-matter": "^4.1.1"
@@ -22,6 +22,7 @@
 	"devDependencies": {
 		"@types/babel__traverse": "^7.11.1",
 		"@types/handlebars-helpers": "^0.5.2",
+		"@types/js-yaml": "^4.0.9",
 		"@types/vscode": "^1.52.0",
 		"@types/yaml-front-matter": "^4.1.0"
 	}

@@ -11,6 +11,10 @@ import rgx from "./rgx";
 interface PVConfig {
   hbsHelperSrc?: string;
   namespace?: string;
+  /**
+   * @deprecated
+   * was removed in pv-stylemark v4.
+   */
   lsgTemplatesSrc?: string;
   cdTemplatesSrc?: string;
 }
@@ -161,8 +165,13 @@ export async function getCustomHelperFiles(componentsRootPath: string): Promise<
 }
 
 interface LayoutFiles {
-  lsg?: { [name: string]: string };
-  pages?: { [name: string]: string };
+  // list of layouts only used to generate lsg_components
+  lsg?: {
+    // e.g. default: "/lsg/layouts/default.hbs"
+    [name: string]: string;
+  };
+  // layouts to generate pages/ and components/
+  normal?: { [name: string]: string };
 }
 
 // list of hbs files which are used in assemble-lite as layouts for lsg components or pages
@@ -172,13 +181,14 @@ export async function getLayoutFiles(componentsRootPath: string): Promise<Layout
 
   if (pvConfig === null) return null;
 
-  const layouts: Array<{ name: "lsg" | "pages"; dir: string | undefined }> = [
+  const layouts: Array<{ name: "lsg" | "normal"; dir: string | undefined }> = [
+    // still provide backwards compatibility for projects not yet migrated to the new pv-stylemark
     {
       name: "lsg",
       dir: pvConfig.lsgTemplatesSrc,
     },
     {
-      name: "pages",
+      name: "normal",
       dir: pvConfig.cdTemplatesSrc,
     },
   ];

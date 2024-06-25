@@ -204,7 +204,7 @@ export async function completionProvider(
   if (/^\n*---[^---]*layout:\s*(\w|\d)*$/.test(text)) {
     const isPageTemplate = filePath.includes("/frontend/src/pages");
     const layouts = await getLayoutFiles(componentsRootPath);
-    const relevantLayouts = layouts?.[isPageTemplate ? "pages" : "lsg"];
+    const relevantLayouts = isPageTemplate ? layouts?.normal : {...layouts?.normal , ...layouts?.lsg};
 
     if (relevantLayouts)
       return Object.keys(relevantLayouts)

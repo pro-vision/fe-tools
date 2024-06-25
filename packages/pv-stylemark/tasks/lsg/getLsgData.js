@@ -1,5 +1,5 @@
 const { readFile } = require("fs-extra");
-const { resolve, parse: pathParse, normalize, relative: relPath, join } = require("path");
+const { resolve, parse: pathParse, normalize, relative: relPath, join, dirname } = require("path");
 const { marked } = require("marked");
 const frontmatter = require("front-matter");
 const { glob } = require("glob");
@@ -242,7 +242,10 @@ function cleanMarkdownFromExecutableCodeBlocks(markdownContent, name, componentP
       // html file will be generated for html code blocks without a referenced file
       const examplePath = groups.examplePath ? groups.examplePath : `${groups.exampleName}.html`;
       const markupUrl = join("../components", componentPath, examplePath);
-      replacement += `<dds-example name="${groups.exampleName}" path="${name}-${groups.exampleName}.html${groups.search ?? ""}${groups.hash ?? ""}" ${groups.examplePath && !groups.params.hidden ? `markup-url="${markupUrl}"`: ""}></dds-example>`
+      // relative to `componentPath`
+      const exampleDir = groups.examplePath ? dirname(groups.examplePath) : "";
+      const htmlPath = join(componentPath, exampleDir, `${name}-${groups.exampleName}.html`);
+      replacement += `<dds-example name="${groups.exampleName}" path="${htmlPath}${groups.search ?? ""}${groups.hash ?? ""}" ${groups.examplePath && !groups.params.hidden ? `markup-url="${markupUrl}"`: ""}></dds-example>`
     }
     if (groups.content && !groups.params.hidden) {
       // add the css/js code blocks for the example. make sure it is indented the way `marked` can handle it

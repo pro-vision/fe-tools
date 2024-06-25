@@ -1,4 +1,4 @@
-const { resolve } = require("path");
+const { resolve, dirname } = require("path");
 const { readFile } = require("fs-extra");
 const hbsInstance = require("handlebars").create();
 
@@ -49,7 +49,9 @@ const buildComponentExample = async (config, lsgData, exampleData, template) => 
         lsgConfig: config,
       });
     }
-    await writeFile(destPath, "styleguide", `${lsgData.componentName}-${exampleData.exampleName}`, markup);
+    // path to the directory where the referenced example's markup file is, relative to the `componentPath`
+    const exampleDir = exampleData.exampleMarkup.examplePath ? dirname(exampleData.exampleMarkup.examplePath) : "";
+    await writeFile(destPath, `styleguide/${lsgData.componentPath}/${exampleDir}`, `${lsgData.componentName}-${exampleData.exampleName}`, markup);
   } catch (error) {
     console.warn(error);
   }

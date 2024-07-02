@@ -17,12 +17,10 @@ const fileGlobes = {
     resources: join(lsgAssetsSrc, "**"),
   },
   assembleFiles: {
-    data: [
-      // add .json,.yaml/.yml Component data files
-      join(componentsSrc, "**/*.{json,yaml,yml}"),
-      // add .json,.yaml/.yml Layout data files
-      join(cdTemplatesSrc, "**/*.{json,yaml,yml}"),
-    ],
+    // add .json,.yaml/.yml Component data files
+    data: join(componentsSrc, "**/*.{json,yaml,yml}"),
+    // add .json,.yaml/.yml Layout data files
+    additionalComponentData: join(cdTemplatesSrc, "**/*.{json,yaml,yml}"),
     // handlebars helpers
     helpers: join(hbsHelperSrc, "*.js"),
     // add .hbs Components files

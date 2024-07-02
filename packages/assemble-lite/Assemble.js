@@ -30,6 +30,9 @@ module.exports = class Assemble {
     this.layouts = {};
     // data which will be used when handlebars templates are rendered
     this.dataPool = {};
+    // data only used for the standalone components render when they are not in the lsg folder
+    // i.e. needed for pv-path helper
+    this.additionalComponentDataPool = {};
     // list of current handlebar helpers (which is also the file name of these helpers).
     this.helpers = {};
     // paths of files which throw an error during parsing or executing,
@@ -67,6 +70,7 @@ module.exports = class Assemble {
       components,
       pages,
       data,
+      additionalComponentData,
       helpers,
       layouts,
       componentsTargetDirectory,
@@ -87,14 +91,21 @@ module.exports = class Assemble {
 
     timer.start("GETTING-PATHS");
     // get the list of paths for all relevant files for rendering the handlebars templates
-    let [helperPaths, layoutPaths, componentPaths, pagePaths, dataPaths] =
-      await Promise.all([
-        getPaths(helpers),
-        getPaths(layouts),
-        getPaths(components),
-        getPaths(pages),
-        getPaths(data),
-      ]);
+    let [
+      helperPaths,
+      layoutPaths,
+      componentPaths,
+      pagePaths,
+      dataPaths,
+      additionalComponentDataPaths,
+    ] = await Promise.all([
+      getPaths(helpers),
+      getPaths(layouts),
+      getPaths(components),
+      getPaths(pages),
+      getPaths(data),
+      getPaths(additionalComponentData),
+    ]);
     this.log("Getting paths took:", timer.measure("GETTING-PATHS", true), "s");
 
     timer.start("PROCESSING-FILES");
@@ -111,6 +122,11 @@ module.exports = class Assemble {
 
       // #region remove data from memory for deleted files
       this._removeObsolete(this.dataPool, dataPaths, getName);
+      this._removeObsolete(
+        this.additionalComponentDataPool,
+        additionalComponentDataPaths,
+        getName
+      );
       this._removeObsolete(this.layouts, layoutPaths, getName);
       // remove obsolete helpers (strongly assuming helper name and file name are identical)
       this._removeObsolete(this.helpers, helperPaths, getName, ({ name }) =>
@@ -132,6 +148,8 @@ module.exports = class Assemble {
       componentPaths = componentPaths.filter(wasModified);
       pagePaths = pagePaths.filter(wasModified);
       dataPaths = dataPaths.filter(wasModified);
+      additionalComponentDataPaths =
+        additionalComponentDataPaths.filter(wasModified);
     }
 
     timer.start("READ-AND-PARSE-FILES");
@@ -152,8 +170,15 @@ module.exports = class Assemble {
 
     // read data
     const readData = await this._loadData(dataPaths);
+    const readAdditionalComponentData = await this._loadData(
+      additionalComponentDataPaths
+    );
     // merge with (potentially) old data
     Object.assign(this.dataPool, readData);
+    Object.assign(
+      this.additionalComponentDataPool,
+      readAdditionalComponentData
+    );
 
     this.log(
       "Reading and parsing took:",
@@ -381,6 +406,7 @@ module.exports = class Assemble {
 
     // rendering a component and not a page
     const isComponent = tpl.type === "COMPONENT";
+    if (isComponent) Object.assign(curData, this.additionalComponentDataPool);
     const targetDir = isComponent
       ? componentsTargetDirectory
       : pagesTargetDirectory;

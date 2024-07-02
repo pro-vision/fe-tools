@@ -2,16 +2,8 @@ const { asyncGlob } = require("@pro-vision/assemble-lite/helper/io-helper");
 
 const { getAppConfig, join } = require("../helper/paths");
 
-const {
-  componentsSrc,
-  cdPagesSrc,
-  cdTemplatesSrc,
-  lsgIndex,
-  lsgAssetsSrc,
-  hbsHelperSrc,
-  lsgTemplatesSrc,
-  lsgConfigPath,
-} = getAppConfig();
+const { componentsSrc, cdPagesSrc, cdTemplatesSrc, lsgIndex, lsgAssetsSrc, hbsHelperSrc, lsgConfigPath } =
+  getAppConfig();
 
 // glob pattern for the files used in the living styleguide
 const fileGlobes = {
@@ -39,8 +31,6 @@ const fileGlobes = {
     pages: join(cdPagesSrc, "**/*.hbs"),
     // add .hbs Template/Layout files
     layouts: join(cdTemplatesSrc, "**/*.hbs"),
-    // Living styleguide Layouts
-    lsgLayouts: join(lsgTemplatesSrc, "**/*.hbs"),
   },
 };
 

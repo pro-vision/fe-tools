@@ -51,10 +51,8 @@ class PvStylemarkPlugin {
             data: fileGlobes.assembleFiles.data.map(resolveApp),
             helpers: resolveApp(fileGlobes.assembleFiles.helpers),
             layouts: resolveApp(fileGlobes.assembleFiles.layouts),
-            lsgLayouts: resolveApp(fileGlobes.assembleFiles.lsgLayouts),
             componentsTargetDirectory: resolveApp(join(destPath, "components")),
             pagesTargetDirectory: resolveApp(join(destPath, "pages")),
-            lsgComponentsTargetDirectory: resolveApp(join(destPath, "/lsg_components")),
           },
           this.firstRun ? null : changedAssembleFiles,
         );

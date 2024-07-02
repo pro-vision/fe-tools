@@ -28,10 +28,11 @@ module.exports = class Assemble {
     this.templates = {};
     // key, value pairs of the path to .hbs files for layouts which will be read an processed
     this.layouts = {};
-    // same as {Assemble#layouts} but for the layouts used for lsg components outputs
-    this.lsgLayouts = {};
     // data which will be used when handlebars templates are rendered
     this.dataPool = {};
+    // data only used for the standalone components render when they are not in the lsg folder
+    // i.e. needed for pv-path helper
+    this.additionalComponentDataPool = {};
     // list of current handlebar helpers (which is also the file name of these helpers).
     this.helpers = {};
     // paths of files which throw an error during parsing or executing,
@@ -46,6 +47,20 @@ module.exports = class Assemble {
     if (this.verbose) console.log("[Assemble-Lite] ", ...args);
   }
 
+  // first error message during build, will be used to throw when there was no custom onError handler and the build should hard fail
+  _errorMsg = null;
+  // call the optional provided callback function with the error message
+  error(msg, error) {
+    console.error(msg);
+    console.error(error);
+
+    const errorMsg = `${msg} :: ${error.message}`;
+
+    if (this.onError) this.onError?.(errorMsg);
+    // there is no custom error handler, throw and fail the build
+    else if (!this._errorMsg) this._errorMsg = errorMsg;
+  }
+
   /**
    * builds all the html pages, based on the provided arguments,
    * an re-uses cached items from the previous builds
@@ -57,10 +72,9 @@ module.exports = class Assemble {
    *     data,
    *     helpers,
    *     layouts,
-   *     lsgLayouts,
    *     componentsTargetDirectory,
    *     pagesTargetDirectory,
-   *     lsgComponentsTargetDirectory,
+   *     onError?,
    *   }
    * @param {string[] | null} modifiedFiles - list of paths of files which have been modified compared to the last build
    * @memberof Assemble
@@ -71,17 +85,19 @@ module.exports = class Assemble {
       components,
       pages,
       data,
+      additionalComponentData,
       helpers,
       layouts,
-      lsgLayouts,
       componentsTargetDirectory,
       pagesTargetDirectory,
-      lsgComponentsTargetDirectory,
+      onError,
     },
     modifiedFiles
   ) {
     this.log("--------------------------------");
     this.log("Build start ...");
+    this.onError = onError;
+    this._errorMsg = null;
 
     // use a timer to measure execution duration for individual tasks
     const timer = new Timer();
@@ -96,25 +112,21 @@ module.exports = class Assemble {
     let [
       helperPaths,
       layoutPaths,
-      lsgLayoutPaths,
       componentPaths,
       pagePaths,
       dataPaths,
+      additionalComponentDataPaths,
     ] = await Promise.all([
       getPaths(helpers),
       getPaths(layouts),
-      getPaths(lsgLayouts),
       getPaths(components),
       getPaths(pages),
       getPaths(data),
+      getPaths(additionalComponentData),
     ]);
     this.log("Getting paths took:", timer.measure("GETTING-PATHS", true), "s");
 
     timer.start("PROCESSING-FILES");
-
-    // these lists will be used when only e.g. the lsg components need to be re-rendered (i.e. their layout has changed)
-    const onlyNormalRender = [];
-    const onlyLsgRender = [];
 
     // called during the watch task and only some files have been changed
     if (useCache) {
@@ -128,8 +140,12 @@ module.exports = class Assemble {
 
       // #region remove data from memory for deleted files
       this._removeObsolete(this.dataPool, dataPaths, getName);
+      this._removeObsolete(
+        this.additionalComponentDataPool,
+        additionalComponentDataPaths,
+        getName
+      );
       this._removeObsolete(this.layouts, layoutPaths, getName);
-      this._removeObsolete(this.lsgLayouts, lsgLayoutPaths, getName);
       // remove obsolete helpers (strongly assuming helper name and file name are identical)
       this._removeObsolete(this.helpers, helperPaths, getName, ({ name }) =>
         pvHandlebars.unregisterHelper(name)
@@ -147,18 +163,18 @@ module.exports = class Assemble {
       const wasModified = (path) => modifiedFiles.includes(path);
       helperPaths = helperPaths.filter(wasModified);
       layoutPaths = layoutPaths.filter(wasModified);
-      lsgLayoutPaths = lsgLayoutPaths.filter(wasModified);
       componentPaths = componentPaths.filter(wasModified);
       pagePaths = pagePaths.filter(wasModified);
       dataPaths = dataPaths.filter(wasModified);
+      additionalComponentDataPaths =
+        additionalComponentDataPaths.filter(wasModified);
     }
 
     timer.start("READ-AND-PARSE-FILES");
     // reads components and pages
     await Promise.all(
       [
-        layoutPaths.map((path) => this._processLayout(path, "NORMAL")),
-        lsgLayoutPaths.map((path) => this._processLayout(path, "LSG")),
+        layoutPaths.map((path) => this._processLayout(path)),
         componentPaths.map((path) => this._processTemplate(path, "COMPONENT")),
         pagePaths.map((path) => this._processTemplate(path, "PAGE")),
       ].flat()
@@ -172,8 +188,15 @@ module.exports = class Assemble {
 
     // read data
     const readData = await this._loadData(dataPaths);
+    const readAdditionalComponentData = await this._loadData(
+      additionalComponentDataPaths
+    );
     // merge with (potentially) old data
     Object.assign(this.dataPool, readData);
+    Object.assign(
+      this.additionalComponentDataPool,
+      readAdditionalComponentData
+    );
 
     this.log(
       "Reading and parsing took:",
@@ -240,28 +263,12 @@ module.exports = class Assemble {
           .map(({ path }) => path)
       );
 
-      lsgLayoutPaths.push(
-        ...Object.values(this.lsgLayouts)
-          .filter(({ path }) => !lsgLayoutPaths.includes(path))
-          .filter(({ pathExpressions }) =>
-            pathExpressions.some((exp) => modifications.includes(exp))
-          )
-          .map(({ path }) => path)
-      );
-
       // if some layouts have been changed,
       // mark the templates (components, pages) which referenced them to be re-rendered
-      const modifiedNormalLayouts = layoutPaths.map(getName);
-      const modifiedLsgLayouts = lsgLayoutPaths.map(getName);
-      const modifiedLayouts = [...modifiedNormalLayouts, ...modifiedLsgLayouts];
+      const modifiedLayouts = layoutPaths.map(getName);
       for (const tpl of listOfTemplates) {
         if (modifiedLayouts.includes(tpl.layout)) {
           toBeRenderedTemplates.push(tpl.path);
-          if (modifiedNormalLayouts.includes(tpl.layout))
-            onlyNormalRender.push(tpl.path);
-          // check instead of else, incase *both* layouts have been changed
-          if (modifiedLsgLayouts.includes(tpl.layout))
-            onlyLsgRender.push(tpl.path);
           listOfTemplates.delete(tpl);
         }
       }
@@ -278,21 +285,13 @@ module.exports = class Assemble {
       baseDir,
       componentsTargetDirectory,
       pagesTargetDirectory,
-      lsgComponentsTargetDirectory,
     };
 
     if (useCache) this.log("to be rendered templates: ", toBeRenderedTemplates);
 
     // render html in parallel
     await Promise.all(
-      toBeRenderedTemplates.map((path) =>
-        this._render(path, renderOption, {
-          // normal is false only when the path is only in lsg list
-          NORMAL:
-            onlyNormalRender.includes(path) || !onlyLsgRender.includes(path),
-          LSG: !onlyNormalRender.includes(path) || onlyLsgRender.includes(path),
-        })
-      )
+      toBeRenderedTemplates.map((path) => this._render(path, renderOption))
     );
     this.log(
       "Rendering took:",
@@ -308,6 +307,8 @@ module.exports = class Assemble {
     );
     this.log("Build end. took:", timer.measure("BUILD", true), "s");
     this.log("--------------------------------");
+
+    if (this._errorMsg) throw this._errorMsg;
   }
 
   /**
@@ -326,12 +327,8 @@ module.exports = class Assemble {
       // list of all partials referenced in the hbs
       partials: [],
       // html output which was last generated.
-      output: {
-        /** @type {string|null} */
-        NORMAL: null,
-        /** @type {string|null} */
-        LSG: null,
-      },
+      /** @type {string|null} */
+      output: null,
       // list of handlebars pathExpressions (helper, partial, keys, values) in the hbs file
       /** @type {string[]} */
       pathExpressions: [],
@@ -389,19 +386,20 @@ module.exports = class Assemble {
    * and memorize these information for future updates
    *
    * @param {string} path - path to .hbs files
-   * @param {"NORMAL" | "LSG"} type - is it the layout for an stylemarkt component or a normal component/page
    * @memberof Assemble
    */
-  async _processLayout(path, type) {
+  async _processLayout(path) {
     const filename = basename(path, ".hbs");
-    const markup = await asyncReadFile(path);
+    let markup = await asyncReadFile(path);
+    // replace {%body%} with a handlebars interpolation, which will be replaced with the content of rendered template
+    markup = markup.replace(/{%\s*body\s*%}/g, "{{{__body__}}}");
     const { ast, partials, pathExpressions, failed } = this._analyseHandlebars(
       markup,
       path
     );
     if (failed) this.failedPaths.push(path);
 
-    this[type === "LSG" ? "lsgLayouts" : "layouts"][getName(path)] = {
+    this.layouts[getName(path)] = {
       name: filename,
       path,
       partials,
@@ -413,13 +411,7 @@ module.exports = class Assemble {
 
   async _render(
     path,
-    {
-      baseDir,
-      componentsTargetDirectory,
-      pagesTargetDirectory,
-      lsgComponentsTargetDirectory,
-    },
-    layouts = { NORMAL: true, LSG: true }
+    { baseDir, componentsTargetDirectory, pagesTargetDirectory }
   ) {
     const filename = basename(path, ".hbs");
     const relpath = relative(baseDir, path);
@@ -432,52 +424,27 @@ module.exports = class Assemble {
       ...tpl.data,
     };
 
+    // rendering a component and not a page
+    const isComponent = tpl.type === "COMPONENT";
+    if (isComponent) Object.assign(curData, this.additionalComponentDataPool);
+    const targetDir = isComponent
+      ? componentsTargetDirectory
+      : pagesTargetDirectory;
+
     const body = tpl.render(curData);
-    if (tpl.layout && !this.layouts.hasOwnProperty(tpl.layout))
+    if (tpl.layout && !this.layouts.hasOwnProperty(tpl.layout)) {
       console.warn(
         `[Assemble-Lite] no layout file was defined for "${tpl.layout}"`
       );
-
-    if (tpl.type === "COMPONENT") {
-      const writingJobs = [];
-      if (layouts.NORMAL) {
-        const layout = this.layouts[tpl.layout]
-          ? this.layouts[tpl.layout].render(curData)
-          : "";
-        const html = layout ? layout.replace(/{%\s*body\s*%}/g, body) : body;
-        // only write to disc when the value changes
-        if (html !== tpl.output.NORMAL)
-          writingJobs.push(
-            asyncWriteFile(componentsTargetDirectory, reldir, filename, html)
-          );
-
-        tpl.output.NORMAL = html;
-      }
-
-      if (layouts.LSG) {
-        const layout = this.lsgLayouts[tpl.layout]
-          ? this.lsgLayouts[tpl.layout].render(curData)
-          : "";
-        const html = layout ? layout.replace(/{%\s*body\s*%}/g, body) : body;
-        if (html !== tpl.output.LSG)
-          writingJobs.push(
-            asyncWriteFile(lsgComponentsTargetDirectory, reldir, filename, html)
-          );
-        tpl.output.LSG = html;
-      }
-
-      await Promise.all(writingJobs);
     }
-    // for PAGE
-    else {
-      const layout = this.layouts[tpl.layout]
-        ? this.layouts[tpl.layout].render(curData)
-        : "";
-      const html = layout ? layout.replace(/{%\s*body\s*%}/g, body) : body;
-      if (html !== tpl.output.NORMAL)
-        await asyncWriteFile(pagesTargetDirectory, reldir, filename, html);
-      tpl.output.NORMAL = html;
-    }
+    const html = this.layouts[tpl.layout]
+      ? this.layouts[tpl.layout].render({ ...curData, __body__: body })
+      : body;
+
+    // only write to disc when the value changes
+    if (html !== tpl.output)
+      await asyncWriteFile(targetDir, reldir, filename, html);
+    tpl.output = html;
   }
 
   /**
@@ -502,10 +469,10 @@ module.exports = class Assemble {
         pvHandlebars.registerHelper(helperFn);
         this.helpers[getName(path)] = { path, name: getName(path) };
       } catch (error) {
-        console.error(
-          `[Assemble-Lite] Failed reading handlebars helper ${basename(path)}`
+        this.error(
+          `[Assemble-Lite] Failed reading handlebars helper ${basename(path)}`,
+          error
         );
-        console.error(error);
         // make sure on the next iteration, the helper is re-read,
         // so the user can't forget about this issue
         this.failedPaths.push(path);
@@ -536,10 +503,10 @@ module.exports = class Assemble {
             });
           }
         } catch (error) {
-          console.error(
-            `[assemble-lite] Failed reading data file ${basename(path)}`
+          this.error(
+            `[assemble-lite] Failed reading data file ${basename(path)}`,
+            error
           );
-          console.error(error);
           // make sure on the next iteration, the helper is re-read,
           // so the user can't forget about this issue (if it still exist)
           this.failedPaths.push(path);
@@ -573,8 +540,7 @@ module.exports = class Assemble {
         path
       )}`;
       const errorMarkup = `<!-- ${errorMessage} -->`;
-      console.error(errorMessage);
-      console.error(error);
+      this.error(errorMessage, error);
 
       return {
         clearedMarkup: errorMarkup,
@@ -598,11 +564,11 @@ module.exports = class Assemble {
         failed: false,
       };
     } catch (error) {
-      console.error();
-      const errorMessage = `[assemble-lite] error parsing ${filename}.hbs`;
+      const errorMessage = `[assemble-lite] error parsing ${basename(
+        filename
+      )}`;
       const errorMarkup = `<!-- ${errorMessage} -->`;
-      console.error(errorMessage);
-      console.error(error);
+      this.error(errorMessage, error);
 
       return {
         ast: pvHandlebars.parse(errorMarkup),
@@ -631,8 +597,7 @@ module.exports = class Assemble {
         const errorMessage = `[assemble-lite] failed to render template for ${basename(
           path
         )}`;
-        console.error(errorMessage);
-        console.error(error);
+        this.error(errorMessage, error);
 
         return `<!-- ${errorMessage} -->`;
       }

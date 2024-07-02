@@ -345,7 +345,9 @@ module.exports = class Assemble {
    */
   async _processLayout(path) {
     const filename = basename(path, ".hbs");
-    const markup = await asyncReadFile(path);
+    let markup = await asyncReadFile(path);
+    // replace {%body%} with a handlebars interpolation, which will be replaced with the content of rendered template
+    markup = markup.replace(/{%\s*body\s*%}/g, "{{{__body__}}}");
     const { ast, partials, pathExpressions, failed } = this._analyseHandlebars(
       markup,
       path
@@ -377,22 +379,22 @@ module.exports = class Assemble {
       ...tpl.data,
     };
 
-    const body = tpl.render(curData);
-    if (tpl.layout && !this.layouts.hasOwnProperty(tpl.layout))
-      console.warn(
-        `[Assemble-Lite] no layout file was defined for "${tpl.layout}"`
-      );
-
     // rendering a component and not a page
     const isComponent = tpl.type === "COMPONENT";
     const targetDir = isComponent
       ? componentsTargetDirectory
       : pagesTargetDirectory;
 
-    const layout = this.layouts[tpl.layout]
-      ? this.layouts[tpl.layout].render(curData)
-      : "";
-    const html = layout ? layout.replace(/{%\s*body\s*%}/g, body) : body;
+    const body = tpl.render(curData);
+    if (tpl.layout && !this.layouts.hasOwnProperty(tpl.layout)) {
+      console.warn(
+        `[Assemble-Lite] no layout file was defined for "${tpl.layout}"`
+      );
+    }
+    const html = this.layouts[tpl.layout]
+      ? this.layouts[tpl.layout].render({ ...curData, __body__: body })
+      : body;
+
     // only write to disc when the value changes
     if (html !== tpl.output)
       await asyncWriteFile(targetDir, reldir, filename, html);

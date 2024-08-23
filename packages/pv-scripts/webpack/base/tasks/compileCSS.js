@@ -30,9 +30,7 @@ module.exports = {
                   [
                     require.resolve("postcss-preset-env"),
                     {
-                      features: {
-                        "dir-pseudo-class": { dir: "ltr" },
-                      },
+                      features: {},
                     },
                   ],
                   [

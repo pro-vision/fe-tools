@@ -70,7 +70,9 @@ export async function codelensProvider(textDocument: TextDocument) {
           .split(" ")
           // check if one is the same as the ui selector
           .includes(selector.replace(/^./, ""));
-      const tagMatch = match.groups!.tagName === selector;
+
+      // ignore the tag matches for the classNames rgx because it is already catch by the tags rgx already.
+      const tagMatch = !("className" in match.groups!) && match.groups!.tagName === selector;
       if (classMatch || tagMatch) {
         const line = content.substring(0, match.index).split("\n").length - 1;
 

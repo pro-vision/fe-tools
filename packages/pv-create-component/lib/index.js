@@ -187,8 +187,8 @@ module.exports = async function generateFiles(options, config = require("../conf
 
   const {
     namespace = "",
-    name,
-    type,
+    name = "",
+    type = "",
     hasTs = false,
     hasJs = false,
   } = options;

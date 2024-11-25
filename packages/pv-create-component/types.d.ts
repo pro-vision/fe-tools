@@ -48,28 +48,30 @@ declare namespace PvCreateComponent {
   export type Prompt = import("@types/inquirer").Question;
 
   export interface ConfigItem {
-    // identifier which might be used by the user to find the config which needs modification
+    /** identifier which might be used by the user to find the config which needs modification */
     id?: string;
     prompt?: Prompt;
     files?: Array<{
       id?: string;
-      // whether or not the file should be created
+      /** whether or not the file should be created, if not set, it is assumed as `true` */
       when?: boolean | ((opt: Options) => boolean);
-      // function which returns the boilerplate code to be used as the starter
+      /** function which returns the boilerplate code to be used as the starter */
       template: (opt: TemplateOptions) => string;
-      // path to stored the generated file. is relative to the cmd cwd
+      /** path to store the generated file. is relative to the cmd cwd */
       path: (opt: TemplateOptions) => string;
     }>;
     imports?: Array<{
       id?: string;
-      // whether or not the import should be added
+      /** whether or not the import should be added, if not set, it is assumed as `true` */
       when?: boolean | ((opt: Options) => boolean);
-      // path of file where the import statement is added to
+      /** path of the file where the import statement is added to */
       path: string | ((opt: TemplateOptions) => string);
-      // should return the import statement or any text which will be added to the file
+      /** should return the import statement or any text which will be added to the file */
       template: (opt: TemplateOptions) => string;
-      // if provided, the import statement will be placed before it,
-      // otherwise it will be added at the end of file
+      /**
+       * if provided, the import statement will be placed before it,
+       * otherwise it will be added at the end of file
+       */
       placeholder?: string | ((opt: TemplateOptions) => string);
     }>;
   }

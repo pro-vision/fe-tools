@@ -5,10 +5,13 @@ interface Settings {
   showHoverInfo: boolean;
   provideCssClassGoToDefinition: boolean;
   provideCssClassCompletion: boolean;
+  validateHandlebars: boolean;
+  showUiAndEvents: boolean;
+  provideUiSupportInTypescript: boolean;
 }
 
 // singleton class to return users extension settings
-export default new class SettingsService {
+export default new (class SettingsService {
   connection?: Connection;
 
   // cache the settings of all open documents
@@ -46,4 +49,4 @@ export default new class SettingsService {
     // Reset all cached document settings
     this.documentSettings.clear();
   }
-}();
+})();

@@ -58,8 +58,10 @@ export async function definitionProvider(
   const componentsRootPath = filePath.includes("src/components/")
     ? `${filePath.split("/frontend/src/components")[0]}/frontend/src/components`
     : filePath.includes("src/pages/")
-      ? `${filePath.split("/frontend/src/pages")[0]}/frontend/src/components`
-      : `${filePath.split("/frontend/src/layouts")[0]}/frontend/src/components`;
+    ? `${filePath.split("/frontend/src/pages")[0]}/frontend/src/components`
+    : filePath.includes("src/layouts/")
+    ? `${filePath.split("/frontend/src/layouts")[0]}/frontend/src/components`
+    : `${filePath.split("/frontend/src/templates")[0]}/frontend/src/components`;
 
   // e.g. {{> partial
   if (isPartial(textBefore)) {
@@ -133,6 +135,7 @@ export async function definitionProvider(
   }
   // <custom-element
   else if (/<\/?[a-z]+[a-z0-9_-]+$/.test(textBefore) || / is="[a-z]+[a-z0-9_-]+$/.test(textBefore)) {
+    // assuming filename and custom tag are the same
     const customElementFile = await globby(`${componentsRootPath}/**/${symbolName}.ts`);
     if (customElementFile.length) {
       const cePath = customElementFile[0];
@@ -148,12 +151,23 @@ export async function definitionProvider(
    ---
   */
   else if (/^\n*---[^---]*layout:\s*(\w|\d)+$/.test(textBefore)) {
-    // templates inside /page/ directory use different layouts than the open under /components/
+    // templates inside /components/ directory in the older assemble/stylemark were rendered with the layout hbs files *and a second time* with the `lsgTemplatesSrc` layouts
+    // these option doesn't need to be shown for /pages/
     const isPageTemplate = filePath.includes("/frontend/src/pages");
-    const layouts = await getLayoutFiles(componentsRootPath);
-    const layoutFilePath = layouts?.[isPageTemplate ? "pages" : "lsg"]?.[symbolName];
+    const allLayouts = await getLayoutFiles(componentsRootPath);
+    if (!allLayouts) return null;
 
-    if (layoutFilePath) {
+    const normalLayouts = allLayouts.normal;
+    const lsgLayouts = allLayouts.lsg;
+
+    const layouts = [];
+    if (normalLayouts) layouts.push(...Object.entries(normalLayouts));
+    if (lsgLayouts && !isPageTemplate) layouts.push(...Object.entries(lsgLayouts));
+    const results = [];
+
+    for (const [name, layoutFilePath] of layouts) {
+      if (name !== symbolName) continue;
+
       const fileContent = await getFileContent(layoutFilePath);
       // placeholder assemble-lite uses to place content in the layout
       const BODY_PLACEHOLDER = "{% body%}";
@@ -163,14 +177,18 @@ export async function definitionProvider(
       if (placeholderStart !== -1) {
         const before = fileContent.slice(0, placeholderStart);
         const lineNumber = (before.match(/\n/g) || []).length;
-        return Location.create(URI.file(layoutFilePath).toString(), Range.create(lineNumber, 0, lineNumber, 1000));
+        results.push(
+          Location.create(URI.file(layoutFilePath).toString(), Range.create(lineNumber, 0, lineNumber, 1000)),
+        );
       }
       // whole file
       else {
-        return Location.create(URI.file(layoutFilePath).toString(), Range.create(0, 0, 0, 0));
+        results.push(Location.create(URI.file(layoutFilePath).toString(), Range.create(0, 0, 0, 0)));
       }
-
     }
+
+    return results;
   }
+
   return null;
 }

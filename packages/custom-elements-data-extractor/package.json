@@ -18,8 +18,8 @@
     "pv-custom-data": "./bin/cli.js"
   },
   "dependencies": {
-    "@babel/parser": "7.13.13",
-    "@babel/traverse": "7.13.13",
+    "@babel/parser": "7.25.3",
+    "@babel/traverse": "7.25.3",
     "commander": "7.2.0",
     "doctrine": "3.0.0",
     "globby": "11.0.3",

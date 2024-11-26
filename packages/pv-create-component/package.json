@@ -1,6 +1,6 @@
 {
   "name": "@pro-vision/pv-create-component",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "interactive CLI tool to generate boilerplate code for a new component.",
   "license": "Apache-2.0",
   "repository": "https://github.com/pro-vision/fe-tools",

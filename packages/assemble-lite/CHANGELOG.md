@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/pro-vision/fe-tools/compare/@pro-vision/assemble-lite@2.0.9...@pro-vision/assemble-lite@2.1.0) (2024-11-26)
+
+
+### Features
+
+* **assemble-lite, pv-stylemark, vscode-pv-handlebars-language-server:** data for templates from js ([366ef09](https://github.com/pro-vision/fe-tools/commit/366ef09ea64853c9f7bd37d3b0f885c351024702)), closes [#235](https://github.com/pro-vision/fe-tools/issues/235)
+
+
+
+
+
 ## [2.0.9](https://github.com/pro-vision/fe-tools/compare/@pro-vision/assemble-lite@2.0.8...@pro-vision/assemble-lite@2.0.9) (2023-06-12)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.2.0](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-stylemark@4.1.0...@pro-vision/pv-stylemark@4.2.0) (2024-11-26)
+
+
+### Features
+
+* **assemble-lite, pv-stylemark, vscode-pv-handlebars-language-server:** data for templates from js ([366ef09](https://github.com/pro-vision/fe-tools/commit/366ef09ea64853c9f7bd37d3b0f885c351024702)), closes [#235](https://github.com/pro-vision/fe-tools/issues/235)
+
+
+
+
+
 # [4.1.0](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-stylemark@4.0.5...@pro-vision/pv-stylemark@4.1.0) (2024-04-29)
 
 

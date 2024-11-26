@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.1.0](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@5.0.1...@pro-vision/pv-scripts@5.1.0) (2024-11-26)
+
+
+### Bug Fixes
+
+* **pv-scripts:** update sass-loader version ([a69078d](https://github.com/pro-vision/fe-tools/commit/a69078d62d1062ff1ff236163b363e1d5186146c))
+
+
+### Features
+
+* **pv-scripts:** remove postCss's dir plugin setting ([701e1ba](https://github.com/pro-vision/fe-tools/commit/701e1ba0dee02d7c09ec1e5d067d88c5dce33f48))
+
+
+
+
+
 ## [5.0.1](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@5.0.0...@pro-vision/pv-scripts@5.0.1) (2024-04-29)
 
 

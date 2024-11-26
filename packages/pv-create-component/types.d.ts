@@ -26,7 +26,7 @@ declare namespace PvCreateComponent {
     name: ComponentName; // e.g. "related content"
     type: ComponentTypes; // is this an element or module
     hasScss: boolean; // component has .scss file
-    hasHbs: hasHbs; // component has .hbs file
+    hasHbs: boolean; // component has .hbs file
     dataFile: DataFileType | false;
     hasTs: boolean; // component has .ts file
     hasJs: boolean; // component has .js file
@@ -48,28 +48,30 @@ declare namespace PvCreateComponent {
   export type Prompt = import("@types/inquirer").Question;
 
   export interface ConfigItem {
-    // identifier which might be used by the user to find the config which needs modification
+    /** identifier which might be used by the user to find the config which needs modification */
     id?: string;
     prompt?: Prompt;
     files?: Array<{
       id?: string;
-      // whether or not the file should be created
-      when?: boolean | ((opt: Options) => boolean) = true;
-      // function which returns the boilerplate code to be used as the starter
+      /** whether or not the file should be created, if not set, it is assumed as `true` */
+      when?: boolean | ((opt: Options) => boolean);
+      /** function which returns the boilerplate code to be used as the starter */
       template: (opt: TemplateOptions) => string;
-      // path to stored the generated file. is relative to the cmd cwd
+      /** path to store the generated file. is relative to the cmd cwd */
       path: (opt: TemplateOptions) => string;
     }>;
     imports?: Array<{
       id?: string;
-      // whether or not the import should be added
-      when: boolean | ((opt: Options) => boolean) = true;
-      // path of file where the import statement is added to
+      /** whether or not the import should be added, if not set, it is assumed as `true` */
+      when?: boolean | ((opt: Options) => boolean);
+      /** path of the file where the import statement is added to */
       path: string | ((opt: TemplateOptions) => string);
-      // should return the import statement or any text which will be added to the file
+      /** should return the import statement or any text which will be added to the file */
       template: (opt: TemplateOptions) => string;
-      // if provided, the import statement will be placed before it,
-      // otherwise it will be added at the end of file
+      /**
+       * if provided, the import statement will be placed before it,
+       * otherwise it will be added at the end of file
+       */
       placeholder?: string | ((opt: TemplateOptions) => string);
     }>;
   }

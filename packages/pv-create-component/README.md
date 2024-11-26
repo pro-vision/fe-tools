@@ -136,6 +136,8 @@ Generate TypeScript files instead of Javascript files.
 
 Similar to the templates for boilerplate code, the questions asked in the CLI and the logic behind creating the files can be extended or modified.
 
+### Extend default config
+
 For this create `scripts/create-component/config.js` which should have a default export of the modified configurations. (See [pv-create-component/config.js](https://github.com/pro-vision/fe-tools/tree/master/packages/pv-create-component/config.js))
 
 ```js
@@ -168,6 +170,9 @@ config.push({
 config.find(item => item.id === "SCSS").imports[0].placeholder = options =>
   options.type === "Element" ? "/* Element Import */" : "/* Module Import */";
 
+/* remove an option by setting it to `undefined` */
+config[config.findIndex(item => item.id === "UNIT")] = undefined;
+
 
 /* allow creating components without type prefix for example for core component */
 config.find(item => item.id === "TYPE").prompt.choices.push("Core Component");
@@ -177,6 +182,111 @@ module.exports = config;
 ```
 
 See [pv-create-component/types.d.ts](https://github.com/pro-vision/fe-tools/tree/master/packages/pv-create-component/types.d.ts) for info regarding the options.
+
+### New Configuration
+
+If the desired project tech-stack doesn't match the provided default config, a complete new configuration can also be created and used for the create new component cli.
+The  file, as was explained in the previous section, is a common js module that is placed at `scripts/create-component/config.js` or the path that is passed via the `--config` parameter and has a default export, that returns a list of configuration items.
+
+Each item consist of 3 optional parts:
+
+```ts
+{
+  // the question that the user is asked
+  prompt?: inquirer.Question;
+
+  // the files that will be created
+  files?: Array<{
+    // whether or not the file should be created
+    // `opt` is an object with the result of all the prompts, plus the cli options
+    when?: boolean | ((opt: Options) => boolean);
+    // a function which returns the boilerplate code that will be written into te file
+    // `opt` is the result of the prompt,
+    // plus if there is a prompt with `name: "name"` than its value will be converted to camelCase, kebab-case ... and be part of opt option, similar to what is described in the "Custom Templates" section.
+    // plus the cli options
+    template: (opt: TemplateOptions) => string;
+    // path to store the generated file. is relative to the cmd cwd
+    path: (opt: TemplateOptions) => string;
+  }>;
+
+  // a modification to an existing file, usually this is an import of the created file
+  imports?: Array<{
+    // whether or not the import should be added
+    // if not set, it falls back to always (i.e. `when: true`)
+    when?: boolean | ((opt: Options) => boolean);
+    // path of the file where the import statement is added to
+    path: string | ((opt: TemplateOptions) => string);
+    // should return the import statement or any text which will be added to the file
+    template: (opt: TemplateOptions) => string;
+    // if provided, the import statement will be placed before this placeholder,
+    // otherwise it will be added at the end of file
+    placeholder?: string | ((opt: TemplateOptions) => string);
+  }>;
+}
+```
+
+example:
+
+```js
+/// <reference types="@pro-vision/pv-create-component/types.d.ts"/>
+
+/**
+ * @type {PvCreateComponent.Config}
+ */
+module.exports = [
+  {
+    prompt: {
+      name: "name",
+      type: "input",
+      message: "What's the component's name?:",
+      validate(value) {
+        // only letters and numbers. (no special characters such as '-' and '_')
+        const pass = value.match(/(^[a-zA-Z0-9 ]+$)/g);
+        if (pass) return true;
+        return "Please enter only letters, numbers and spaces";
+      },
+      filter(name) {
+        // " Related Topics " -> "related topics"
+        return (
+          name
+            .trim()
+            .toLowerCase()
+            // only one empty space between letters is allowed
+            .replace(/ ( )+/g, " ")
+        );
+      },
+    },
+  },
+  {
+    prompt: {
+      name: "type",
+      type: "list",
+      message: "What type of component should it be",
+      choices: ["UI", "HOC"],
+    },
+    files: [
+      {
+        when: (opt) => opt.type === "UI",
+        template: require("./templates/uiComponentTemplate"),
+        path: (opt) => `src/${opt.kebabCase}.js`,
+      },
+      {
+        when: (opt) => opt.type === "UI",
+        template: require("./templates/uiComponentTemplate"),
+        path: (opt) => `src/${opt.camelCase}.jsx`,
+      },
+    ],
+    imports: [
+      {
+        when: (opt) => opt.type === "UI",
+        path: "/src/main.js",
+        template: (opt) => `import "src/${opt.camelCase}.jsx"`,
+        placeholder: "/* IMPORT PLACEHOLDER */",
+      },
+    ],
+  },
+];
+```
 
 ## Using Programmatically
 

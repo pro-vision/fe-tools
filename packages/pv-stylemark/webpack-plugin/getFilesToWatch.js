@@ -18,6 +18,7 @@ const getFilesToWatch = async () => {
       // add .yaml/.yml Component files
       ...(await asyncGlob(join(componentsSrc, "**/*.yaml"))),
       ...(await asyncGlob(join(componentsSrc, "**/*.yml"))),
+      ...(await asyncGlob(join(componentsSrc, "**/*__data.js"))),
       // handlebars helpers
       ...(await asyncGlob(join(hbsHelperSrc, "*.js"))),
       // add .hbs Components files

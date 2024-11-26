@@ -14,6 +14,7 @@ const assembleClickdummyPages = () => {
       resolveApp(join(componentsSrc, "**/*.json")),
       resolveApp(join(componentsSrc, "**/*.yaml")),
       resolveApp(join(componentsSrc, "**/*.yml")),
+      resolveApp(join(componentsSrc, "**/*__data.js")),
     ],
     helpers: resolveApp(join(hbsHelperSrc, "*.js")),
     target: resolveApp(join(destPath, "pages")),

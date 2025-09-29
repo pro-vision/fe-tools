@@ -3,6 +3,7 @@
 const { resolve: pathResolve } = require("path");
 
 const COMPONENTS_DIR = "src/components";
+const PAGES_DIR = "src/pages";
 const TEMPLATES_DIR = "scripts/create-component/templates";
 const SCSS_MAIN = "src/styles/index.scss";
 const PAGES_MAIN = "src/styleguide/index.html";
@@ -95,7 +96,7 @@ module.exports = [
         id: "PAGE-FILE",
         when: (options) => options.type === COMPONENT_TYPES.PAGE,
         template: (options) => getTemplate("hbsPageTemplate", options)(options),
-        path: (options) => `${options.kebabCase}.hbs`,
+        path: (options) => `${PAGES_DIR}/${options.kebabCase}.hbs`,
       },
     ],
     imports: [

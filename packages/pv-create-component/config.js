@@ -135,7 +135,7 @@ module.exports = [
         when: (options) => options.hasScss,
         path: SCSS_MAIN,
         template: (options) =>
-          `@import "../components/${options.componentName}/${options.componentName}";`,
+          `@use "../components/${options.componentName}/${options.componentName}";`,
       },
     ],
   },

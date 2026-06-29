@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 `pv-fe-tools` is a **Lerna monorepo** (independent versioning) of front-end tooling packages published to npm under the `@pro-vision/*` scope. Most packages are zero-config CLIs that consumer projects install as dev dependencies. The toolchain is built around **webpack** (bundling) and **Handlebars** (templating / living styleguides).
 
-Use Node `v22.11.0` (see `.nvmrc`). CI lints against Node 22/24. Note: `pv-scripts` requires Node `>=22.11.0`; other packages may still run on older Node.
+Use Node `v22.11.0` (see `.nvmrc`). CI lints against Node 22/24. Note: `pv-scripts` and `pv-stylemark` require Node `>=22.11.0`; other packages may still run on older Node.
 
 ## Commands
 

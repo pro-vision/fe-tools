@@ -1,6 +1,5 @@
 const resolve = require("resolve");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
-const typescriptFormatter = require("react-dev-utils/typescriptFormatter");
 
 const { appPath, join } = require("../../../helpers/paths");
 
@@ -15,7 +14,7 @@ module.exports = {
         context: appPath,
         configFile: join(appPath, "tsconfig.json"),
       },
-      formatter: typescriptFormatter,
+      formatter: "codeframe",
       logger: {
         infrastructure: "silent",
       },

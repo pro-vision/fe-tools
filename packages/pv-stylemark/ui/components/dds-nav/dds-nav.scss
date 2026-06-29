@@ -1,3 +1,7 @@
+@use "../../styles/variables" as *;
+@use "../../styles/colors" as *;
+@use "../../styles/typography" as *;
+
 .dds-nav {
   z-index: 5;
   position: sticky;

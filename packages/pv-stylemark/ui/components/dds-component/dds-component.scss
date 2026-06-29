@@ -1,3 +1,6 @@
+@use "../../styles/colors" as *;
+@use "../../styles/typography" as *;
+
 .dds-component {
   position: relative;
   background: $dds-color__black-000;

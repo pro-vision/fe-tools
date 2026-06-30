@@ -1,3 +1,6 @@
+@use "./variables" as *;
+@use "./fonts" as *;
+
 %dds-typo__body-reg {
   font-family: $dds-font-family--inter;
   font-size: 16px;

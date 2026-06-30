@@ -1,26 +1,19 @@
-const glob = require("glob");
+const { glob } = require("glob");
 const fs = require("fs-extra");
 const path = require("path");
 
-const asyncGlob = (globPattern) => {
+const asyncGlob = async (globPattern) => {
   if (typeof globPattern !== "string") {
     return [];
   }
 
-  return new Promise((resolve, reject) => {
-    glob(globPattern, {}, (err, files) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-      // make sure to use absolute paths and that platform separator is used
-      resolve(
-        files.map((filePath) =>
-          path.normalize(path.resolve(process.cwd(), filePath))
-        )
-      );
-    });
-  });
+  const files = await glob(globPattern, {});
+
+  // sort to keep partial/page/data registration order deterministic
+  // make sure to use absolute paths and that platform separator is used
+  return files
+    .sort((a, b) => a.localeCompare(b, "en"))
+    .map((filePath) => path.normalize(path.resolve(process.cwd(), filePath)));
 };
 
 const getPaths = async (globPattern) => {

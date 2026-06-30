@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-create-component@0.2.1...@pro-vision/pv-create-component@0.3.0) (2026-06-30)
+
+
+### Bug Fixes
+
+* **pv-create-component:** fix path to assemble pages directory ([c2692ee](https://github.com/pro-vision/fe-tools/commit/c2692ee799440fd670031b7e86ffe1b5edf367fb))
+
+
+### Features
+
+* **pv-create-component:** use `[@use](https://github.com/use)` instead of `[@import](https://github.com/import)` for component stylesheet imports ([c1ee09b](https://github.com/pro-vision/fe-tools/commit/c1ee09be94af4c66c46fa3ffbd6968ae8a884d62))
+
+
+### BREAKING CHANGES
+
+* **pv-create-component:** Users using the default SCSS > SCSS-IMPORT template need to use dart-sass v1.23.0
+or newer
+
+
+
+
+
 ## [0.2.1](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-create-component@0.2.0...@pro-vision/pv-create-component@0.2.1) (2024-11-26)
 
 **Note:** Version bump only for package @pro-vision/pv-create-component

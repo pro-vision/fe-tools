@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-stylemark@4.2.0...@pro-vision/pv-stylemark@5.0.0) (2026-06-30)
+
+
+### Build System
+
+* **pv-stylemark:** update deps & bump Node to >=22.11 ([24fa8ac](https://github.com/pro-vision/fe-tools/commit/24fa8ac95074f0fbbef8b0be6915a74bd5447391))
+
+
+### BREAKING CHANGES
+
+* **pv-stylemark:** minimum supported Node is now >=22.11.0 (was >=18.0.0).
+
+Verified with a full LSG build (349 components) of a real pv-stylemark consumer
+project — identical output vs. the previously published version.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+
+
+
+
 # [4.2.0](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-stylemark@4.1.0...@pro-vision/pv-stylemark@4.2.0) (2024-11-26)
 
 

@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@5.1.0...@pro-vision/pv-scripts@6.0.0) (2026-06-30)
+
+
+### Build System
+
+* **pv-scripts:** update deps & bump Node to >=22.11 ([e5e031b](https://github.com/pro-vision/fe-tools/commit/e5e031b37c683668aef9ee04dd780c23d372a817))
+
+
+### Features
+
+* **pv-scripts:** resolve paths to assets, relative to the scss file with the reference itself ([24c193d](https://github.com/pro-vision/fe-tools/commit/24c193d316145dc5a9771718fe880a59c393f0d2))
+
+
+### BREAKING CHANGES
+
+* **pv-scripts:** minimum supported Node is now >=22.11.0 (was >=18.12.0).
+Consumers running Node 18/20 must upgrade their Node runtime.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+* **pv-scripts:** Any relative paths being used in the scss file (e.g. `background-image:
+url(./path/to/sceleton.svg)`) which was previously relative to the entry file (e.g. index.scss)
+needs to be replaced with the relative path from the scss with the rule referencing the asset.
+
+
+
+
+
 # [5.1.0](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@5.0.1...@pro-vision/pv-scripts@5.1.0) (2024-11-26)
 
 

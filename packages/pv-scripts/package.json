@@ -57,6 +57,7 @@
 		"postcss-preset-env": "11.3.2",
 		"react-dev-utils": "12.0.1",
 		"resolve": "1.22.12",
+		"resolve-url-loader": "5.0.0",
 		"sass": "1.101.0",
 		"sass-loader": "17.0.0",
 		"slash": "3.0.0",

@@ -13,7 +13,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **pv-create-component:** use `[@use](https://github.com/use)` instead of `[@import](https://github.com/import)` for component stylesheet imports ([c1ee09b](https://github.com/pro-vision/fe-tools/commit/c1ee09be94af4c66c46fa3ffbd6968ae8a884d62))
+* **pv-create-component:** use `@use` instead of `@import` for component stylesheet imports ([c1ee09b](https://github.com/pro-vision/fe-tools/commit/c1ee09be94af4c66c46fa3ffbd6968ae8a884d62))
 
 
 ### BREAKING CHANGES

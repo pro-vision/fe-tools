@@ -18,8 +18,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 Verified with a full LSG build (349 components) of a real pv-stylemark consumer
 project — identical output vs. the previously published version.
 
-Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
-
 
 
 

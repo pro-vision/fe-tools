@@ -21,7 +21,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * **pv-scripts:** minimum supported Node is now >=22.11.0 (was >=18.12.0).
 Consumers running Node 18/20 must upgrade their Node runtime.
 
-Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 * **pv-scripts:** Any relative paths being used in the scss file (e.g. `background-image:
 url(./path/to/sceleton.svg)`) which was previously relative to the entry file (e.g. index.scss)
 needs to be replaced with the relative path from the scss with the rule referencing the asset.

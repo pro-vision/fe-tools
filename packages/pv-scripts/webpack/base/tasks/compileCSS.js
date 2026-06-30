@@ -21,6 +21,12 @@ module.exports = {
             },
           },
           {
+            loader: require.resolve("resolve-url-loader"),
+            options: {
+              sourceMap: true,
+            },
+          },
+          {
             loader: require.resolve("postcss-loader"),
             options: {
               implementation: require("postcss"),

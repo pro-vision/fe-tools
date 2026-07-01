@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.1](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-create-component@0.3.0...@pro-vision/pv-create-component@0.3.1) (2026-07-01)
+
+**Note:** Version bump only for package @pro-vision/pv-create-component
+
+
+
+
+
 # [0.3.0](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-create-component@0.2.1...@pro-vision/pv-create-component@0.3.0) (2026-06-30)
 
 

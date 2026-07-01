@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.1](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@6.0.0...@pro-vision/pv-scripts@6.0.1) (2026-07-01)
+
+
+### Bug Fixes
+
+* **pv-scripts:** pin fork-ts-checker to 9.0.3 ([6440ffa](https://github.com/pro-vision/fe-tools/commit/6440ffa7da163963f9170d4ac6b851a493824efa))
+
+
+
+
+
 # [6.0.0](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-scripts@5.1.0...@pro-vision/pv-scripts@6.0.0) (2026-06-30)
 
 

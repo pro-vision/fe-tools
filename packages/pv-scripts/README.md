@@ -55,6 +55,7 @@ Basic Configuration can be done in a `pv.config.js` file in the npm project root
 | jsEntry                   | string  | "src/index.ts"       | defines path of your (JS\|TS\|JSX\|TSX) entry file                                                              |
 | cssEntry                  | string  | "src/index.scss"     | defines path of your SCSS entry file. If `src/index.scss` does not exist, no error is thrown but the css generation is simply skipped|
 | useTS                     | boolean | true                 | defines whether you want to use Typescript                                                                      |
+| enableTypeCheck           | boolean | true                 | defines whether the TypeScript type-check (`fork-ts-checker-webpack-plugin`) runs during the build. Only applies when `useTS` is `true`. Set to `false` to skip type-checking (see [Troubleshooting](#troubleshooting)) |
 | useReact                  | boolean | false                | defines whether you want to use React                                                                           |
 | hbsEntry                  | string  |                      | defines path of your handlebars entry file                                                                      |
 | hbsTarget                 | string  |                      | defines path to your handlebars target file                                                                     |
@@ -119,6 +120,54 @@ Per default the new (dart-)`sass` package will be installed and used. You can al
 #### Browserslist
 
 A default browser query is used for compiling javascript and css. i.e. latest 2 versions of evergreen browsers (chrome, firefox, safari, edge). You can define your own [browserslist](https://github.com/browserslist/browserslist). See default [.browserslistrc](https://github.com/pro-vision/fe-tools/tree/master/packages/pv-scripts/config/.browserslistrc) file for an example.
+
+## Troubleshooting
+
+### `EMFILE: too many open files, watch` in `dev` mode (macOS)
+
+If `pv-scripts dev` crashes on macOS with an error like:
+
+```
+Error: EMFILE: too many open files, watch
+    at FSWatcher._handle.onchange (node:internal/fs/watchers)
+    ...
+    at NodeFsHandler._boundHandleError (node_modules/chokidar/handler.js)
+```
+
+this is caused by the TypeScript type-check watcher opening one file descriptor
+per watched directory. `fork-ts-checker-webpack-plugin@9.1.0` bumped its `chokidar`
+dependency from 3 to 4, and `chokidar@4` dropped `fsevents` support. Without
+`fsevents`, macOS falls back to native `fs.watch` (one descriptor per directory)
+instead of a single `fsevents` stream, so a large watch tree (e.g. a `tsconfig.json`
+without an `include`, which makes TypeScript watch the whole project root incl.
+`node_modules`) can exhaust the per-process descriptor limit.
+
+**pv-scripts pins `fork-ts-checker-webpack-plugin` to `9.0.3`** (which still uses
+`chokidar@3` + `fsevents`), so upgrading pv-scripts fixes this. Additional
+mitigations:
+
+- Give your `tsconfig.json` an explicit `"include": ["src"]` so the type-check
+  watches only your sources instead of the whole project root.
+- If you are stuck on an affected version, force `chokidar@3` in your project's
+  `package.json`:
+
+  ```json
+  "overrides": {
+    "fork-ts-checker-webpack-plugin": { "chokidar": "^3.6.0" }
+  }
+  ```
+
+- As a last resort, disable the type-check watcher in dev via `pv.config.js`:
+
+  ```js
+  // pv.config.js
+  module.exports = {
+    enableTypeCheck: false,
+  };
+  ```
+
+  (This turns off the type-check for both `dev` and `prod`; run `tsc --noEmit`
+  separately if you still want type-checking in CI.)
 
 ## Examples
 

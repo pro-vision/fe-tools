@@ -7,7 +7,9 @@ const asyncGlob = async (globPattern) => {
     return [];
   }
 
-  const files = await glob(globPattern, {});
+  // consumers (e.g. pv-stylemark) build absolute patterns via path.resolve, which uses
+  // backslashes on windows — since glob v9 those count as escape characters and match nothing
+  const files = await glob(globPattern, { windowsPathsNoEscape: true });
 
   // sort to keep partial/page/data registration order deterministic
   // make sure to use absolute paths and that platform separator is used

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.2](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-stylemark@5.0.1...@pro-vision/pv-stylemark@5.0.2) (2026-07-06)
+
+
+### Bug Fixes
+
+* **pv-stylemark:** forward slashes in lsg markup urls ([5220c2c](https://github.com/pro-vision/fe-tools/commit/5220c2c1b83065fefd38a4b14ca43235ff5e7cc9))
+* **pv-stylemark:** resolve lsgIndex for watch list ([81d9268](https://github.com/pro-vision/fe-tools/commit/81d926846c06a4d25b8af1078670043ebe0d60d4))
+
+
+
+
+
 ## [5.0.1](https://github.com/pro-vision/fe-tools/compare/@pro-vision/pv-stylemark@5.0.0...@pro-vision/pv-stylemark@5.0.1) (2026-07-01)
 
 **Note:** Version bump only for package @pro-vision/pv-stylemark

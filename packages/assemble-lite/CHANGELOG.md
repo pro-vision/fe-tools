@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.2](https://github.com/pro-vision/fe-tools/compare/@pro-vision/assemble-lite@2.1.1...@pro-vision/assemble-lite@2.1.2) (2026-07-06)
+
+
+### Bug Fixes
+
+* **assemble-lite:** support windows glob patterns ([a80c1ea](https://github.com/pro-vision/fe-tools/commit/a80c1ea58d7a15e5a4d94e8ca944dc27528176b4))
+
+
+
+
+
 ## [2.1.1](https://github.com/pro-vision/fe-tools/compare/@pro-vision/assemble-lite@2.1.0...@pro-vision/assemble-lite@2.1.1) (2026-06-30)
 
 **Note:** Version bump only for package @pro-vision/assemble-lite

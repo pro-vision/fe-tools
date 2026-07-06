@@ -1,13 +1,14 @@
 const { asyncGlob } = require("@pro-vision/assemble-lite/helper/io-helper");
 
-const { getAppConfig, join } = require("../helper/paths");
+const { getAppConfig, join, resolveApp } = require("../helper/paths");
 
 const { componentsSrc, cdPagesSrc, cdTemplatesSrc, lsgIndex, hbsHelperSrc } = getAppConfig();
 
 const getFilesToWatch = async () => {
   const files = {
     staticStylemarkFiles: [
-      lsgIndex,
+      // absolute native path, comparable to webpack's modifiedFiles / fileDependencies
+      resolveApp(lsgIndex),
       // stylemark .md files
       ...(await asyncGlob(join(componentsSrc, "**/*.md"))),
     ],

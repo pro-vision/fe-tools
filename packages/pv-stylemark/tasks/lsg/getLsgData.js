@@ -3,6 +3,7 @@ const { resolve, parse: pathParse, normalize, relative: relPath, join } = requir
 const { marked } = require("marked");
 const frontmatter = require("front-matter");
 const { glob } = require("glob");
+const slash = require("slash");
 
 const { resolveApp, getAppConfig } = require("../../helper/paths");
 
@@ -113,8 +114,9 @@ const getLsgDataForPath = async (markdownPath) => {
 
   const { name, dir } = pathParse(markdownPath);
   const componentsSrc = resolveApp(getAppConfig().componentsSrc);
-  const componentPath = relPath(componentsSrc, dir);
-  const srcPath = relPath(componentsSrc, markdownPath);
+  // forward slashes even on windows — these end up in urls and rendered markup
+  const componentPath = slash(relPath(componentsSrc, dir));
+  const srcPath = slash(relPath(componentsSrc, markdownPath));
 
   const { attributes: frontmatterData, body: fileContentBody } = frontmatter(fileContent);
 
@@ -241,7 +243,7 @@ function cleanMarkdownFromExecutableCodeBlocks(markdownContent, name, componentP
     if (groups.language === "html") {
       // html file will be generated for html code blocks without a referenced file
       const examplePath = groups.examplePath ? groups.examplePath : `${groups.exampleName}.html`;
-      const markupUrl = join("../components", componentPath, examplePath);
+      const markupUrl = slash(join("../components", componentPath, examplePath));
       replacement += `<dds-example name="${groups.exampleName}" path="${name}-${groups.exampleName}.html${groups.search ?? ""}${groups.hash ?? ""}" ${groups.examplePath && !groups.params.hidden ? `markup-url="${markupUrl}"`: ""}></dds-example>`
     }
     if (groups.content && !groups.params.hidden) {
